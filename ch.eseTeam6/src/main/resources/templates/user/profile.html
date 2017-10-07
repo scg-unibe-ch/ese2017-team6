@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UserProfile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1 th:text= "'Hi ' +${user.name}"></h1>
+    <p th:text="'id: ' + ${user.name}" />
+    <p th:text="'content: ' + ${user.email}" />
+    <a href="/user/all">Go Back to the index</a>
+</body>
+</html>
