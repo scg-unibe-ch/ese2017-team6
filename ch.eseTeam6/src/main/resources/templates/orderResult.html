@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Handling Order Form</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Order details</h1>
+    <p th:text="'Customer: ' + ${order.customerName}" />
+    <p th:text="'Delivery Address: ' + ${order.deliveryAddress}" />
+    <a href="/order">Add order Items</a>
+</body>
+</html>
