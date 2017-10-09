@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class Users {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -13,7 +13,6 @@ public class Users {
 
     private String name;
 
-    private String email;
 
 	public Integer getId() {
 		return id;
@@ -31,13 +30,6 @@ public class Users {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 
 }
