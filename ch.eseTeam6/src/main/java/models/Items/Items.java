@@ -14,8 +14,29 @@ public class Items {
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private Integer id;
 	 	private String name;
-	    private Address address ;
+	    private Address address;
+	    private status stat = status.notdelivered;
+	    
+	    private enum status{notdelivered, onroute, delivered};
+	    
+	    public void switchStatus() {
+	    	
+	    	if(this.stat.equals(status.notdelivered))
+	    		stat = status.onroute;
+	    	
+	    	if(this.stat.equals(status.onroute))
+	    		stat = status.delivered;
+	    }
+	    
+	    
+	    public status getStatus() {
+			return stat;
+		}
 
+		public void setStatus(status status) {
+			this.stat = status;
+		}
+	    
 		public Integer getId() {
 			return id;
 		}
