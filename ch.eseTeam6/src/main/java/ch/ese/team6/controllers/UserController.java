@@ -45,6 +45,12 @@ public class UserController {
 		return new ModelAndView("user/userIndex","User", getAllUsers());
 	}
 	
+	@PostMapping(path = "/profile")
+	public ModelAndView editUser(@ModelAttribute Users editvalue) {
+		
+		return new ModelAndView(); 
+	}
+	
 	public Iterable<Users> getAllUsers(){
 		return userRepository.findAll();
 	}
