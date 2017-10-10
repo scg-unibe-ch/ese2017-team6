@@ -1,14 +1,28 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>UserIndex</title>
+	    <title>Getting Started: Handling Form Submission</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
-	
 	<body>
-		<h1>All Users</h1>
-		<ul>
-			<li>First User</li>
-		</ul>
-		
+		<div th:if="${not #lists.isEmpty(users)}">
+		    <h1>All Users</h1>
+		    <table>
+		    	<tr>
+		    		<th>Id</th>
+		    		<th>Username</th>
+		    		<th>Real Name</th>
+		    		<th>Userrole</th>
+		    		<th></th>
+		    	</tr>
+		    	<tr th:each="user : ${users}">
+		    		<td th:text="${user.getId()}"></td>
+		    		<td th:text="${user.getUsername()}"></td>
+		    		<td th:text="${user.getRealName()}"></td>
+		    		<td th:text="${user.getUserrole()}"></td>
+				</tr>
+		    </table>
+		</div>
+		<a href="/user/add">Create a new User</a>
 	</body>
 </html>

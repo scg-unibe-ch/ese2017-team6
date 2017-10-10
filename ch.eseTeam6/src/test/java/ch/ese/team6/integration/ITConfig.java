@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
-
+/*
 public class ITConfig {
 	@Autowired
 	private Environment env;
@@ -27,3 +27,4 @@ public class ITConfig {
 		return new URL("http://localhost:4445/wd/hub");
 	}
 }
+*/

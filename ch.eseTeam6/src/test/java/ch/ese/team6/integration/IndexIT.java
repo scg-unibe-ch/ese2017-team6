@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-
+/*
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ITConfig.class)
 public class IndexIT {
@@ -34,3 +34,4 @@ public class IndexIT {
 	}
 	
 }
+*/
