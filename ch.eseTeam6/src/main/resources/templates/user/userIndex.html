@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-	    <title>Getting Started: Handling Form Submission</title>
+	    <title>User Index</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
 	<body>
@@ -20,6 +20,7 @@
 		    		<td th:text="${user.getUsername()}"></td>
 		    		<td th:text="${user.getRealName()}"></td>
 		    		<td th:text="${user.getUserrole()}"></td>
+		    		<td><a th:href="@{{id}(id = ${user.id})}">Profile</a></td>
 				</tr>
 		    </table>
 		</div>

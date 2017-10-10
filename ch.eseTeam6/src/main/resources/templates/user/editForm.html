@@ -1,17 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title th:text= "'Edit ' + ${user.username}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Form</h1>
-    <form action="#" th:action="@{/1/edit}" th:object="${users}" method="post">
-      	<p th:text="'Your id: ' + ${user.id}" />
-      	<p th:text="'Your Name: ' + ${user.name}" />
-        <p>Current Name: <input type="text" th:field="{user.name}" /></p>
-        <p>Mail: <input type="text" th:field="{user.email}" /></p>
+	<h1 th:text= "${user.username}"></h1>
+    <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" method="post">
+      	<p th:text="'Your id: ' + *{id}" />
+      	<p th:text="'Your Name: ' + *{username}" />
+        <p>Real name: <input type="text" th:field="*{realName}" /></p>
+        <p>Password: <input type="text" th:field= "*{password}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
 </html>
+ 

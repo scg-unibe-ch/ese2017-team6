@@ -49,7 +49,7 @@ public class UserController {
 	}
 	
 	@GetMapping(path = "/{userId}/edit")
-	public String editUserForm(Model user, @PathVariable Long userId) {
+	public String editUserForm(Model user, @PathVariable long userId) {
 		user.addAttribute("user", userRepository.findOne(userId));
 		return "user/editForm";
 	}
@@ -57,9 +57,9 @@ public class UserController {
 	@PostMapping(path = "/{userId}/edit")
 	public ModelAndView editUser (@ModelAttribute Users uservalue, @PathVariable long userId) {
 		Users user = userRepository.findOne(userId);
-		user = uservalue;
+		user.setRealName(uservalue.getRealName());user.setPassword(uservalue.getPassword());
 		userRepository.save(user);
-		return new ModelAndView("/{userId}", "user", user);
+		return new ModelAndView("/user/profile", "user", user);
 	}
 	
 	
