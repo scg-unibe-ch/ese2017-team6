@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+/*
 @Entity
 public class Address {
 	@Id
@@ -23,6 +23,7 @@ public class Address {
 	 * @param otherAddress
 	 * @return distance in km
 	 */
+/*
 	public int getDistanceTo(Address otherAddress) {
 		//dummy
 		return 1;
@@ -56,3 +57,4 @@ public class Address {
 		return street+", "+houseNumber+"; "+city;
 	}
 }
+*/

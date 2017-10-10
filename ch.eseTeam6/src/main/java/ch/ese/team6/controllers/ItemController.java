@@ -1,5 +1,5 @@
 package ch.ese.team6.controllers;
-
+/*
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,3 +49,4 @@ public class ItemController {
 		return itemRepository.findAll();
 	}
 }
+*/

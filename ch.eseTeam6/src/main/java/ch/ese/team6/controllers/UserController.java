@@ -1,10 +1,5 @@
 package ch.ese.team6.controllers;
 
-
-
-import java.util.List;
-
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

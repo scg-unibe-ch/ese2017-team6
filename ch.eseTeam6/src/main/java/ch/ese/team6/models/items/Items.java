@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import Address.Address;
 
 @Entity
 public class Items {
@@ -53,15 +52,12 @@ public class Items {
 			this.name = name;
 		}
 
-		public Address getAddress() {
+		public String getAddress() {
 			return address;
 		}
 
-		public void setAddress(Address address) {
+		public void setAddress(String address) {
 			this.address = address;
 		}
-
-	
-	
-
 }
+
