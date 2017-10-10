@@ -1,4 +1,4 @@
-package controllers;
+package ch.ese.team6.controllers;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import models.Items.ItemRepository;
-import models.Items.Items;
+import ch.ese.team6.models.items.ItemRepository;
+import ch.ese.team6.models.items.Items;
 
 @Controller
 @RequestMapping("/item")

@@ -1,4 +1,4 @@
-package models.Items;
+package ch.ese.team6.models.items;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ public class Items {
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private Integer id;
 	 	private String name;
-	    private Address address;
+	    private String address;
 	    private status stat = status.notdelivered;
 	    
 	    private enum status{notdelivered, onroute, delivered};

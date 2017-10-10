@@ -1,4 +1,4 @@
-package models;
+package ch.ese.team6.models.clients;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
