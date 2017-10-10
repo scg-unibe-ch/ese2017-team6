@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UserProfile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1 th:text= "'Hi ' +${user.username}"></h1>
+    <p th:text="'Your id: ' + ${user.id}" />
+    <p th:text="'Your RealName is: ' + ${user.realName}" />
+    <a href="/user/">Go Back to the index</a>
+    <a href="/user/${user.id}/edit">Edit this user</a>
+</body>
+</html>
