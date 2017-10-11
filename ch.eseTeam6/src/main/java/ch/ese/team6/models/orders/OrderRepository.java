@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface OrderRepository extends JpaRepository<Orders, Long> {
 	List<Orders>findAll();
 	
-	//Users findByUsername(String username);
+	Orders findByclientName(String clientName);
 
-	//boolean existsByUsername(String username);
+	boolean existsByclientName(String clientName);
 	
 }

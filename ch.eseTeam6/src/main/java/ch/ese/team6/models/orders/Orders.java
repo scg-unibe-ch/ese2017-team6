@@ -4,49 +4,47 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import ch.ese.team6.models.clients.Address;
-import ch.ese.team6.models.clients.Client;
-
-
 @Entity
+@Table(name = "Orders")
 public class Orders {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	@NotNull private Client clientName;
-	@NotNull private Address deliveryAddress;
+	@NotNull private String clientName;
+	@NotNull private String deliveryAddress;
 	@NotNull private String orderStatus;
 	
 	
-	public Orders(Client client, Address address, String status) {
+	public Orders(String client, String address, String status) {
 		this.clientName = client;
 		this.deliveryAddress = address;
 		this.orderStatus = status;
 	}
 	
 	public Orders() {
-		clientName = null;
-		deliveryAddress = null;
+		clientName = "";
+		deliveryAddress = "";
 		orderStatus = "OPEN";
 	}
 	
-	public enum Status {OPEN, SCHEDULED, ONTOUR, DELIVERED};
+	//public enum Status {OPEN, SCHEDULED, ONTOUR, DELIVERED};
 
-    public Client getClientName() {
+    public String getClientName() {
         return clientName;
     }
 
-    public void setClientName(Client name) {
+    public void setClientName(String name) {
         this.clientName = name;
     }
 
-    public Address getDeliveryAddress() {
+    public String getDeliveryAddress() {
         return deliveryAddress;
     }
 
-    public void setDeliveryAddress(Address address) {
+    public void setDeliveryAddress(String address) {
         this.deliveryAddress = address;
     }
     
@@ -54,7 +52,7 @@ public class Orders {
     	return orderStatus;
     }
     
-    public void setStatus(Status newStatus ) {
+    public void setStatus(String newStatus ) {
     	this.orderStatus = newStatus.toString();
     }
 }
