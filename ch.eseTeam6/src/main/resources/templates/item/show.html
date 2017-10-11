@@ -5,8 +5,8 @@
 	</head>
 	
 	<body>
-		<p th:text="'Your RealName is: ' + ${items.name}" />
-		<p th:text="'Your id: ' + ${items.id}" />
+		<p th:text="'You added the Item: ' + ${items.name}" />
+		<p th:text="'Item id: ' + ${items.id}" />
 		
 		<a th:href="@{/item/add}">Add a New Item</a>
 		<a th:href="@{/item/}">Show all Items</a>

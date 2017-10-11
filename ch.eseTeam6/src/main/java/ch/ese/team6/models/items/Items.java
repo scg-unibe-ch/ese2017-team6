@@ -13,7 +13,7 @@ public class Items {
 	
 	 	@Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
-	    private Integer id;
+	    private long id;
 	 	@NotNull private String name;
 	 	
 	 	/**
@@ -32,7 +32,7 @@ public class Items {
 	 		
 	 	}
 	 	
-		public Integer getId() {
+		public long getId() {
 			return id;
 		}
 
