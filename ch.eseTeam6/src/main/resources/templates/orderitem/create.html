@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Create an OrderItem</title>
+	</head>
+	
+	<body>
+	
+	<h1>Create a new OrderItem</h1>
+    <form action="#" th:action="@{/orderitem/add}" th:object="${orderitems}" method="post">
+        
+        <p>ItemId: <input type="text" th:field="*{ItemId}"/></p>
+        <p>OrderId: <input type="text" th:field="*{OrderId}" /></p>
+        
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+		
+	</body>
+</html>

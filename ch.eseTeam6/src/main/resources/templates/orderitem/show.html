@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Item, that you just added</title>
+	</head>
+	
+	<body>
+		<p th:text="'OrderItem id: ' + ${orderitem.id}" />
+		<p th:text="'OrderItem itemid: ' + ${orderitem.ItemId}" />
+		<p th:text="'OrderItem orderid: ' + ${orderitem.OrderId}" />
+		<p th:text="'OrderItem status: ' + ${orderitem.orderItemStatus}" />
+		
+		<a th:href="@{/orderitem/add}">Add a New Item</a>
+	</body>
+</html>
