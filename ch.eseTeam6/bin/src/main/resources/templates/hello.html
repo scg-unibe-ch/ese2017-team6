@@ -9,6 +9,8 @@
 		<p>Welcome to the save zone.</p>
 		
 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+		<h2 th:text="'This might be a new start page'"/>
+		<a th:href="@{/user/}">Checkout the users!</a>
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out"/>
         </form>

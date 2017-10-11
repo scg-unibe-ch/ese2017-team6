@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import javax.validation.constraints.NotNull;
+
 
 @Entity
 public class Items {
@@ -12,36 +14,26 @@ public class Items {
 	 	@Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private Integer id;
-	 	private String name;
-	    private String address;
-	    private status stat = status.notdelivered;
+	 	@NotNull private String name;
+	 	
+	 	/**
+	 	 * Constructor with parameter
+	 	 * @param nameOfObject
+	 	 */
+	 	public Items(String nameOfObject)
+	 	{
+	 		this.name = nameOfObject;
+	 	}
 	    
-	    private enum status{notdelivered, onroute, delivered};
-	    
-	    public void switchStatus() {
-	    	
-	    	if(this.stat.equals(status.notdelivered))
-	    		stat = status.onroute;
-	    	
-	    	if(this.stat.equals(status.onroute))
-	    		stat = status.delivered;
-	    }
-	    
-	    
-	    public status getStatus() {
-			return stat;
-		}
-
-		public void setStatus(status status) {
-			this.stat = status;
-		}
-	    
+	 	/**
+	 	 * Empty Constructor
+	 	 */
+	 	public Items() {
+	 		
+	 	}
+	 	
 		public Integer getId() {
 			return id;
-		}
-
-		public void setId(Integer id) {
-			this.id = id;
 		}
 
 		public String getName() {
@@ -50,14 +42,6 @@ public class Items {
 
 		public void setName(String name) {
 			this.name = name;
-		}
-
-		public String getAddress() {
-			return address;
-		}
-
-		public void setAddress(String address) {
-			this.address = address;
 		}
 }
 
