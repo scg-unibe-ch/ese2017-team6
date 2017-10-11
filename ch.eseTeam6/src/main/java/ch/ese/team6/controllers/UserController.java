@@ -1,8 +1,13 @@
 package ch.ese.team6.controllers;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,13 +48,13 @@ public class UserController {
 	
 	
 	@GetMapping(path = "/{userId}")
-	public String editUser(Model user,@PathVariable Long userId) {
+	public String showUser(Model user,@PathVariable Long userId) {
 		user.addAttribute("user", userRepository.findOne(userId));
 		return "user/profile"; 
 	}
 	
 	@GetMapping(path = "/{userId}/edit")
-	public String editUserForm(Model user, @PathVariable long userId) {
+	public String editUser(Model user, @PathVariable long userId) {
 		user.addAttribute("user", userRepository.findOne(userId));
 		return "user/editForm";
 	}
@@ -62,11 +67,15 @@ public class UserController {
 		return new ModelAndView("/user/profile", "user", user);
 	}
 	
-	
-	@GetMapping(path ="/edit")
-	public String editUserForm(Model user) {
-		
-		return "user/editForm";
+	@DeleteMapping(path = "/{userId}/edit")
+	public void deleteUser(@PathVariable long userId, HttpServletResponse response) {
+		userRepository.delete(userId);
+		try {
+			response.sendRedirect("/user/");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import ch.ese.team6.models.orders.OrderRepository;
+import ch.ese.team6.models.orders.Orders;
 import ch.ese.team6.models.users.UserRepository;
 import ch.ese.team6.models.users.Users;
 
@@ -18,10 +20,14 @@ public class EseTeam6Application {
 	}
 	
 	@Bean
-	CommandLineRunner init(UserRepository userRepository) {
+	CommandLineRunner initUsers(UserRepository userRepository) {
 		return (evt) -> Arrays.asList("alvaro,dominic,mauro,nathalie,logista,brumBrumm".split(","))
 				.forEach(a -> {Users user = userRepository.save(new Users(a,a, "password",0));});
 	}
-	
+	@Bean
+	CommandLineRunner initOrders(OrderRepository orderRepository) {
+		return (evt) -> Arrays.asList("alvaro,dominic,mauro,nathalie,logista,brumBrumm".split(","))
+				.forEach(a -> {Orders order = orderRepository.save(new Orders(a,a+"'s Home"));});
+	}
 						
 }

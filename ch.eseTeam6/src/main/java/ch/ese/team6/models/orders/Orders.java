@@ -24,14 +24,19 @@ public class Orders {
 		this.orderStatus = status;
 	}
 	
-	public Orders() {
-		clientName = "";
-		deliveryAddress = "";
-		orderStatus = "OPEN";
+	public Orders(String client, String address) {
+		this.clientName = client;
+		this.deliveryAddress = address;
+		this.orderStatus = "OPEN";
 	}
+	
+	public Orders() {}
 	
 	//public enum Status {OPEN, SCHEDULED, ONTOUR, DELIVERED};
 
+	public long getId() {
+		return id;
+	}
     public String getClientName() {
         return clientName;
     }
