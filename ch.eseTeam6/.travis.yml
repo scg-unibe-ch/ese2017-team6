@@ -1,4 +1,14 @@
+dist: trusty
 language: java
-
 jdk:
-  - oraclejdk8
+- oraclejdk8
+services:
+- postgresql
+addons:
+  postgresql: '9.6'
+cache:
+  directories:
+  - $HOME/.m2
+before_script:
+- psql -c 'create user "ese2017-full-integration" password '"'"'ese2017-full-integration'"'"' createdb;' -U postgres
+- psql -c 'create database "ese2017-full-integration"' -U ese2017-full-integration postgres
