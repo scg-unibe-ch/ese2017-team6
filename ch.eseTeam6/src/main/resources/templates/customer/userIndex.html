@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Customer Index</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<div th:if="${not #lists.isEmpty(customers)}">
+		    <h1>All Customers</h1>
+		    <table>
+		    	<tr>
+		    		<th>Id</th>
+		    		<th>Name</th>
+		    		<th>Address Id</th>
+		    		<th></th>
+		    	</tr>
+		    	<tr th:each="customer : ${customers}">
+		    		<td th:text="${customer.getId()}"></td>
+		    		<td th:text="${customer.getName()}"></td>
+		    		<td th:text="${customer.getAddressId()}"></td>
+		    		<td><a th:href="@{{id}(id = ${customer.id})}">Profile</a></td>
+				</tr>
+		    </table>
+		</div>
+		<a href="/customer/add">Create a new Customer</a>
+	</body>
+</html>

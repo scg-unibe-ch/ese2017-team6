@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ch.ese.team6.models.clients.Client;
+import ch.ese.team6.models.customer.Customer;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 import ch.ese.team6.models.users.UserRepository;

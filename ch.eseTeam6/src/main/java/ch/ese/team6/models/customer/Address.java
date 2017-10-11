@@ -1,4 +1,4 @@
-package ch.ese.team6.models.clients;
+package ch.ese.team6.models.customer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Address {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private long id;
 	
 	private String street;
 	private int houseNumber;
@@ -55,5 +55,9 @@ public class Address {
 	
 	public String toSring() {
 		return street+", "+houseNumber+"; "+city;
+	}
+	
+	public long getId() {
+		return this.id;
 	}
 }

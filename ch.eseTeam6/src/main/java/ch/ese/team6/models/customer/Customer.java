@@ -1,4 +1,4 @@
-package ch.ese.team6.models.clients;
+package ch.ese.team6.models.customer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,17 +6,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity 
-public class Client {
+public class Customer {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private long id;
 
     private String name;
 
     private int addressId;
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 	
