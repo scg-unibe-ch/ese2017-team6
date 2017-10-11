@@ -48,13 +48,13 @@ public class UserController {
 	
 	
 	@GetMapping(path = "/{userId}")
-	public String editUser(Model user,@PathVariable Long userId) {
+	public String showUser(Model user,@PathVariable Long userId) {
 		user.addAttribute("user", userRepository.findOne(userId));
 		return "user/profile"; 
 	}
 	
 	@GetMapping(path = "/{userId}/edit")
-	public String editUserForm(Model user, @PathVariable long userId) {
+	public String editUser(Model user, @PathVariable long userId) {
 		user.addAttribute("user", userRepository.findOne(userId));
 		return "user/editForm";
 	}
@@ -76,12 +76,6 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	@GetMapping(path ="/edit")
-	public String editUserForm(Model user) {
-		
-		return "user/editForm";
 	}
 	
 }
