@@ -1,8 +1,13 @@
 package ch.ese.team6.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.models.clients.Client;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 
@@ -26,10 +32,20 @@ public class OrderController {
 	@Autowired
 	private OrderRepository orderRepository;
 
+//	@GetMapping(path = "/add")
+//	public String orderForm(Model model) {
+//		model.addAttribute("order", new Orders());
+//		return "/orders/createOrder";
+//	}
+	
 	@GetMapping(path = "/add")
-	public String orderForm(Model model) {
-		model.addAttribute("order", new Orders());
-		return "/orders/createOrder";
+	public String selectCustomer(Model model) {
+	List<Client> customer = new ArrayList<Client>();
+//	customer.add(new Client("post"));
+//	customer.add(new Client("swisscom"));	
+		model.addAttribute("customer", customer);
+		//	model.addAttribute("orders", customerRepository.findAll()); why this doesn't work?
+		return "/orders/initializeOrder";
 	}
 
 	@PostMapping("/add")
@@ -44,6 +60,8 @@ public class OrderController {
 		model.addAttribute("orders", orderRepository.findAll());
 		return "/orders/orderMain";
 	}
+	
+	
 
 	@GetMapping(path = "/{orderId}")
 	public String showOrder(Model order, @PathVariable Long orderId) {

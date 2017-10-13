@@ -1,14 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Order Submission</title>
+<head>
+    <title>Create Order</title>
+    <link rel="stylesheet" href="../../../css/main-static.css" th:href="@{/css/main.css}" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Create Order</h1>
-    <form action="#" th:action="@{/order}" th:object="${order}" method="post">
-    	<p>Choose customer: <input type="text" th:field="*{customerName}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+	<form method="post" action="saveCustomer.html">
+            <!-- Use th:field to set field 'id' here -->
+            <input type="hidden" />
+						
+            <select>
+                <!-- Iterate on ${Customer} -->
+                <option value="">Select Customer</option>
+                <option>sbb</option>
+        	    <option>swisscom</option>
+            </select> <br/> <br/>
+            
+         <a href="/hello">Add Items</a> <br/> <br/>
+         <a href="/hello">Register a new Customer</a> <br/> <br/>
+         <a href="/hello">Home</a> <br/> <br/>
+	 </form>
 </body>
 </html>
+

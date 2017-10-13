@@ -32,7 +32,7 @@ public class Orders {
 	
 	public Orders() {}
 	
-	//public enum Status {OPEN, SCHEDULED, ONTOUR, DELIVERED};
+	public enum Status {OPEN, SCHEDULED, ONTOUR, DELIVERED}; // TODO make toString methods
 
 	public long getId() {
 		return id;

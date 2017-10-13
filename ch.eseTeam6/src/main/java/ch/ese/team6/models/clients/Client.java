@@ -5,7 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity 
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "client")
 public class Client {
 	
 	@Id
@@ -15,6 +18,10 @@ public class Client {
     private String name;
 
     private int addressId;
+    
+    public Client(String name) {
+    	this.name = name;
+    }
 
 	public Integer getId() {
 		return id;
@@ -36,10 +43,6 @@ public class Client {
 	public int getAddressId() {
 		return this.addressId;
 	}
-
-
-
-	
 
 }
 
