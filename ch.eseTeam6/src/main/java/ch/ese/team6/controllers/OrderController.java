@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.models.customers.Customer;
+import ch.ese.team6.models.customers.CustomerRepository;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 
@@ -32,20 +33,22 @@ public class OrderController {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	@Autowired
+	private CustomerRepository customerRepository;
+
+	
+	
 //	@GetMapping(path = "/add")
 //	public String orderForm(Model model) {
 //		model.addAttribute("order", new Orders());
 //		return "/orders/createOrder";
 //	}
 	
-	@GetMapping(path = "/add")
+	@RequestMapping(path = "/add")
 	public String selectCustomer(Model model) {
-	List<Customer> customer = new ArrayList<Customer>();
-//	customer.add(new Client("post"));
-//	customer.add(new Client("swisscom"));	
-		model.addAttribute("customer", customer);
-		//	model.addAttribute("orders", customerRepository.findAll()); why this doesn't work?
-		return "/orders/initializeOrder";
+		model.addAttribute("customers", customerRepository.findAll()); //not yet working...why not?
+		model.addAttribute("orders", orderRepository.findAll());
+		return "/orders/initializeOrder2";
 	}
 
 	@PostMapping("/add")

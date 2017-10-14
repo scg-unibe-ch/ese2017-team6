@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>User Index</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<h1> Order Menu </h1>
+			<h2> Customer </h2>
+				<select class="form-control" name="example" id="example">
+				   <option value="0">Choose Customer</option>
+				     <option th:each="customer : ${customers}"
+				             th:text="${customer.getName()}">
+    				 </option>
+				</select>
+				<h2> Order </h2>
+						<select class="form-control" name="example" id="example">
+				   <option value="0">Choose Customer</option>
+				     <option th:each="order : ${orders}"
+				             th:text="${order.getClientName()}">
+    				 </option>
+				</select>
+  			</body>
+</html>

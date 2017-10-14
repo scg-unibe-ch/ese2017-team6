@@ -35,6 +35,6 @@ public class EseTeam6Application {
 	@Bean
 	CommandLineRunner initCustomers(CustomerRepository customerRepository) {
 		return (evt) -> Arrays.asList("sbb,swisscom,ibm,postfinance,google,brumBrumm".split(","))
-				.forEach(a -> {Customer customer = customerRepository.save(new Customer(a));});
+				.forEach(a -> {customerRepository.save(new Customer(a));});
 	}
 }
