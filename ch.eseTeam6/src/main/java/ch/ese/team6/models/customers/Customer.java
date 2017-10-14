@@ -1,29 +1,29 @@
-package ch.ese.team6.models.clients;
+package ch.ese.team6.models.customers;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "client")
-public class Client {
+@Entity 
+public class Customer {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private long id;
 
     private String name;
 
     private int addressId;
-    
-    public Client(String name) {
-    	this.name = name;
-    }
 
-	public Integer getId() {
+    public Customer(String customername) {
+    	this.name = customername;
+    }
+    public Customer() {
+    	
+    }
+    
+	public long getId() {
 		return id;
 	}
 	
@@ -43,6 +43,10 @@ public class Client {
 	public int getAddressId() {
 		return this.addressId;
 	}
+
+
+
+	
 
 }
 

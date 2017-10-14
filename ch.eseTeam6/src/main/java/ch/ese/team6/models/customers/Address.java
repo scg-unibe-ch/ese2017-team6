@@ -1,4 +1,4 @@
-package ch.ese.team6.models.clients;
+package ch.ese.team6.models.customers;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Address {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private long id;
 	
 	private String street;
 	private int houseNumber;
