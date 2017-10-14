@@ -7,8 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import ch.ese.team6.models.clients.Client;
-import ch.ese.team6.models.clients.CustomerRepository;
+import ch.ese.team6.models.customers.Customer;
+import ch.ese.team6.models.customers.CustomerRepository;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 import ch.ese.team6.models.users.UserRepository;
@@ -35,6 +35,6 @@ public class EseTeam6Application {
 	@Bean
 	CommandLineRunner initCustomers(CustomerRepository customerRepository) {
 		return (evt) -> Arrays.asList("sbb,swisscom,ibm,postfinance,google,brumBrumm".split(","))
-				.forEach(a -> {Client customer = customerRepository.save(new Client(a));});
+				.forEach(a -> {Customer customer = customerRepository.save(new Customer(a));});
 	}
 }

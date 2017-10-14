@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ch.ese.team6.models.clients.Client;
+import ch.ese.team6.models.customers.Customer;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 
@@ -40,7 +40,7 @@ public class OrderController {
 	
 	@GetMapping(path = "/add")
 	public String selectCustomer(Model model) {
-	List<Client> customer = new ArrayList<Client>();
+	List<Customer> customer = new ArrayList<Customer>();
 //	customer.add(new Client("post"));
 //	customer.add(new Client("swisscom"));	
 		model.addAttribute("customer", customer);
