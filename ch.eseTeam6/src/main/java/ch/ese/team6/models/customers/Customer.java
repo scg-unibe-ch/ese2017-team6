@@ -47,9 +47,6 @@ public class Customer {
 	}
 
 
-
-	
-
 }
 
 

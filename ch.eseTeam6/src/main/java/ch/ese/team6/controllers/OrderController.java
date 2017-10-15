@@ -2,6 +2,7 @@ package ch.ese.team6.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.models.customers.Customer;
 import ch.ese.team6.models.customers.CustomerRepository;
+import ch.ese.team6.models.items.ItemRepository;
+import ch.ese.team6.models.items.Items;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 
@@ -32,38 +35,42 @@ public class OrderController {
 
 	@Autowired
 	private OrderRepository orderRepository;
-
 	@Autowired
 	private CustomerRepository customerRepository;
+	@Autowired
+	private ItemRepository itemRepository;
 
 	
-	
-//	@GetMapping(path = "/add")
-//	public String orderForm(Model model) {
-//		model.addAttribute("order", new Orders());
-//		return "/orders/createOrder";
-//	}
-	
-	@RequestMapping(path = "/add")
-	public String selectCustomer(Model model) {
-		model.addAttribute("customers", customerRepository.findAll()); //not yet working...why not?
-		model.addAttribute("orders", orderRepository.findAll());
-		return "/orders/initializeOrder2";
-	}
-
-	@PostMapping("/add")
-	public ModelAndView orderSubmit(@ModelAttribute Orders order, HttpServletResponse response) {
-		Orders newOrder = new Orders(order.getClientName(), order.getDeliveryAddress());
-		orderRepository.save(newOrder);
-		return new ModelAndView("/orders/profile", "order", newOrder);
-	}
-
 	@RequestMapping(path = "/")
 	public String showAllOrders(Model model) {
 		model.addAttribute("orders", orderRepository.findAll());
 		return "/orders/orderMain";
 	}
 	
+	@GetMapping(path = "/add")
+	public String selectCustomer(Model model) {
+		model.addAttribute("customers", customerRepository.findAll());
+		model.addAttribute("items", itemRepository.findAll());
+		return "/orders/initializeOrder";
+	}
+	
+	// under construction - not yet working
+	@PostMapping(path = "/add")
+	public ModelAndView customerSubmit(@ModelAttribute Customer selectedCustomer, @ModelAttribute Items selectedItems, @ModelAttribute Date deliveryDate) {
+		Customer orderCustomer = new Customer(selectedCustomer.getName());
+		orderCustomer = selectedCustomer;
+		customerRepository.save(orderCustomer);
+		return new ModelAndView("/orders/addItems", "orderCustomer", orderCustomer);
+	}
+	
+//	
+//	@PostMapping("/add")
+//	public ModelAndView orderSubmit(@ModelAttribute Orders order, HttpServletResponse response) {
+//		Orders newOrder = new Orders(order.getClientName(), order.getDeliveryAddress(), order.getDeliveryDate());
+//		orderRepository.save(newOrder);
+//		return new ModelAndView("/orders/profile", "order", newOrder);
+//	}
+
 	
 
 	@GetMapping(path = "/{orderId}")

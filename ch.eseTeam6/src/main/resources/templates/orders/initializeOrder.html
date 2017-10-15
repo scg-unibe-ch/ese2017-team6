@@ -4,25 +4,58 @@
     <title>Create Order</title>
     <link rel="stylesheet" href="../../../css/main-static.css" th:href="@{/css/main.css}" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style>
+		table {
+		    border-collapse: collapse;
+		    width: 50%;
+		}
+		
+		th, td {
+		    text-align: left;
+		    padding: 8px;
+		}
+		
+		tr:nth-child(even){background-color: #f2f2f2}
+	</style>
 </head>
 <body>
 	<h1>Create Order</h1>
-	
-	<form method="post" action="saveCustomer.html">
-            <!-- Use th:field to set field 'id' here -->
-            <input type="hidden" />
-						
-            <select>
-                <!-- Iterate on ${Customer} -->
-                <option value="">Select Customer</option>
-                <option>sbb</option>
-        	    <option>swisscom</option>
-            </select> <br/> <br/>
+			<h2> Customer </h2>
+			   <form action="#" th:action="@{/add}" th:object="${customer}" method="post">
+			   <input type="hidden" />
             
-         <a href="/hello">Add Items</a> <br/> <br/>
-         <a href="/hello">Register a new Customer</a> <br/> <br/>
+   				<select class="form-control" name="customer" id="customer">
+					<option value="0">Choose Customer</option>
+					<option th:each="customer : ${customers}"
+				           th:text="${customer.getName()}">
+    				</option>
+				</select>  <br/> <br/>
+				<a href="/hello">Register a new Customer</a> <br/> <br/>
+				
+			<h2> Add Articles </h2>
+		<table>
+			<tr>
+				<th>Choose</th>
+		    	<th>ID</th>
+		    	<th>Name</th>
+		    	<th></th>
+		    </tr>
+		<th:block th:each="item : ${items}">
+			<tr>
+			<td><input type="checkbox" path="${items}" value="hello" /></td>
+   			<td th:text="${item.getId()}"></td>
+   			<td th:text="${item.getName()}"></td>
+   			</tr>
+  		</th:block>
+		</table>
+			<h2> Delivery Date </h2>
+				<label for="deliveryDate"></label>
+           		<input type="date" /><br/> <br/>
+       		  
+				<input type="submit" value="Submit Order" /><br/> <br/> 
+				</form>  <br/> <br/>
+         
          <a href="/hello">Home</a> <br/> <br/>
-	 </form>
 </body>
 </html>
 
