@@ -1,0 +1,1 @@
+This is the next try to fix our folder structure and implement continuous integration to our project.
