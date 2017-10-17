@@ -21,7 +21,7 @@
 <body>
 	<h1>Create Order</h1>
 			<h2> Customer </h2>
-			   <form action="#" th:action="@{/add}" th:object="${customer}" method="post">
+			   <form action="#" th:action="@{/add}" th:object="${OrderHelper}" method="post">
 			   <input type="hidden" />
             
    				<select class="form-control" name="customer" id="customer">
