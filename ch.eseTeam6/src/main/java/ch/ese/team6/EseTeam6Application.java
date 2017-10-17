@@ -19,6 +19,8 @@ import ch.ese.team6.models.items.ItemRepository;
 import ch.ese.team6.models.items.Items;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
+import ch.ese.team6.models.trucks.TruckRepository;
+import ch.ese.team6.models.trucks.Trucks;
 import ch.ese.team6.models.users.UserRepository;
 import ch.ese.team6.models.users.Users;
 
@@ -53,5 +55,11 @@ public class EseTeam6Application {
 	CommandLineRunner initItems(ItemRepository itemRepository) {
 		return (evt) -> Arrays.asList("maschine1,maschine2,werkzeug1,werkzeug2".split(","))
 				.forEach(a -> {itemRepository.save(new Items(a));});
+	}
+	
+	@Bean
+	CommandLineRunner initTrucks(TruckRepository truckRepository) {
+		return (evt) -> Arrays.asList("Iveco1,Iveco2,Iveco3,Iveco4".split(","))
+				.forEach(a -> {truckRepository.save(new Trucks(a));});
 	}
 }
