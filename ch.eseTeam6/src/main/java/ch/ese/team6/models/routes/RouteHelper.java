@@ -1,6 +1,6 @@
 package ch.ese.team6.models.routes;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import ch.ese.team6.models.orderitems.OrderItemRepository;
@@ -23,23 +23,23 @@ public class RouteHelper {
 	private OrderItemRepository orderItemRepository;
 
 	
-	public RouteHelper(Date routeDate) {
-		this.routeDate = routeDate;
+	public RouteHelper(java.util.Date date) {
+		this.routeDate = date;
 		this.aviableTrucks = truckRepository.findAll();
 		this.aviableDrivers = userRepository.findAll();
 		this.dueItems = orderItemRepository.findAll();
-		this.removeOccupiedRessources(routeDate);
+		this.removeOccupiedRessources(date);
 	}
 	
-	private void removeOccupiedRessources(Date routeDate) {
+	private void removeOccupiedRessources(java.util.Date date) {
 		int index = 0;
 		for(Trucks truck : aviableTrucks) {
-			if(truck.getId() == routeRepository.findVehicleIdByRouteDate(routeDate))aviableTrucks.remove(index);
+			if(truck.getId() == routeRepository.findVehicleIdByRouteDate(date))aviableTrucks.remove(index);
 			else index++;
 		}
 		index = 0;
 		for(Users driver: aviableDrivers) {
-			if(driver.getId() ==routeRepository.findDriverByRouteDate(routeDate))aviableDrivers.remove(index);
+			if(driver.getId() ==routeRepository.findDriverByRouteDate(date))aviableDrivers.remove(index);
 			else index++;
 		}
 	}

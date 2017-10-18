@@ -36,8 +36,10 @@ public class RouteController {
 	private UserRepository userRepository;
 	
 	@GetMapping(path="/add")
-	public String createForm(Model model, @RequestParam Date routeDate) {
-		model.addAttribute("route", new RouteHelper(routeDate));
+	public String createForm(Model model, @RequestParam String date) {
+		model.addAttribute("route", new Routes(Calendar.getInstance()));
+		model.addAttribute("trucks", truckRepository.findAll());
+		model.addAttribute("drivers", userRepository.findByUserrole(1));
 	        return "route/createForm";
 	}
 

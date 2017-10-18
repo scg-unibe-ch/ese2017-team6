@@ -53,6 +53,10 @@ public class Routes {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Routes(Calendar instance) {
+		this.routeDate = instance;
+	}
+
 	public String getRouteDate() {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-mm-dd");
 		return date.format(routeDate.getTime());
