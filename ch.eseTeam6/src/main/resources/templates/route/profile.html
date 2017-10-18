@@ -5,12 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1 th:text= "'Truck: ' +${truck.vehicleName}"></h1>
-    <p th:text="'Truck id: ' + ${truck.id}" />
-    <p th:text="'Max space: ' + ${truck.maxCargoSpace} + ' stillages'" />
-    <p th:text="'Max load: ' + ${truck.maxLoadCapacity} + ' tons'" />
-    <a th:href="@{/truck/}">Go Back to the index</a>
-    <a th:href="@{/truck/{id}/edit(id = ${truck.id})}">Edit this truck</a>
+	<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getRouteDate()}"></h1>
+    <p th:text="'Truck Name: ' + ${route.getTruckName()}" />
+    <p th:text="'Driver: ' + ${route.getDriverName()}" />
+    <a th:href="@{/route/}">Go Back to the index</a>
+    <a th:href="@{/route/{id}/edit(id = ${route.id})}">Edit this truck</a>
 </body>
 </html>
 

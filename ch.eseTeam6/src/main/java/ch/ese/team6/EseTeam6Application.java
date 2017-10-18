@@ -64,11 +64,11 @@ public class EseTeam6Application {
 		return (evt) -> Arrays.asList("Iveco1,Iveco2,Iveco3,Iveco4".split(","))
 				.forEach(a -> {truckRepository.save(new Trucks(a));});
 	}
-	
+	/*
 	@Bean
 	CommandLineRunner initRoutes(RouteRepository routeRepository) {
-		return (evt) -> Arrays.asList("1,1,1".split(","))
-				.forEach(a -> {routeRepository.save(new Routes(Integer.parseInt(a), 1,2));});
+		return (evt) -> Arrays.asList("1,2,3".split(","))
+				.forEach(a -> {routeRepository.save(new Routes("a"));});
 	}
-	
+	*/
 }

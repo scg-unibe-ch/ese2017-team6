@@ -1,25 +1,24 @@
 package ch.ese.team6.models.routes;
 
 
-import java.sql.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
+
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import org.apache.tomcat.util.http.FastHttpDateFormat;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import ch.ese.team6.models.trucks.TruckRepository;
 import ch.ese.team6.models.trucks.Trucks;
-import ch.ese.team6.models.users.UserRepository;
 import ch.ese.team6.models.users.Users;
+
 
 @Entity
 public class Routes {
@@ -27,27 +26,29 @@ public class Routes {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	@NotNull private Calendar routeDate;
-	@NotNull private long vehicleId;
-	@NotNull private long driverId;
-	@NotNull private long deliveryId;
+	private Calendar routeDate;
 	
-	@Autowired @Transient UserRepository userRepository; 
-	@Transient @Autowired
-	TruckRepository truckRepository; 
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="TRUCK_ID")
+	private Trucks truck;
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="DRIVER_ID")
+	private Users driver;
+	
+	private long deliveryId;
 	
 	
 	public long getId() {
 		return id;
 	}
 	
-	public Routes(int vehicleId, int driverId, int deliveryId) {
+	public Routes(Trucks truck, Users driver, int deliveryId) {
 		this.routeDate = Calendar.getInstance();
-		this.vehicleId = vehicleId;
-		this.driverId = driverId;
+		this.truck = truck;
+		this.driver = driver;
 		this.deliveryId = deliveryId;
 	}
-		
+	
 	public Routes() {
 		// TODO Auto-generated constructor stub
 	}
@@ -61,42 +62,35 @@ public class Routes {
 		this.routeDate = routeDate;
 	}
 
-	public long getVehicleId() {
-		return vehicleId;
+	public void setTruck(Trucks truck) {
+		this.truck = truck;
+		
 	}
-	
-	public String getVehicleName() {
-		List<Trucks> trucks = truckRepository.findAll();
-		return "Hi";
-	}
-
-	public void setVehicleId(long vehicleId) {
-		this.vehicleId = vehicleId;
+		
+	public String getTruckName() {
+		return this.truck.getVehicleName();
 	}
 
-	public long getDriverId() {
-		return driverId;
-	}
-	
 	public String getDriverName() {
-		Users driver = userRepository.findOne(this.driverId);
-		return driver.getRealName();	
+		return this.driver.getRealName();
 	}
-
-	public void setDriverId(long driverId) {
-		this.driverId = driverId;
+	
+	public void setDriver(Users driver) {
+		this.driver = driver;
 	}
 
 	public long getDeliveryId() {
 		return deliveryId;
 	}
 
-	public void setDeliveryId(int deliveryId) {
-		this.deliveryId = deliveryId;
+	public void setDeliveryId(long i) {
+		this.deliveryId = i;
 	}
 
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	
 	
 }

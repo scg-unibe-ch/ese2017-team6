@@ -2,6 +2,7 @@ package ch.ese.team6.controllers;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.ese.team6.models.routes.RouteHelper;
 import ch.ese.team6.models.routes.RouteRepository;
 import ch.ese.team6.models.routes.Routes;
+import ch.ese.team6.models.trucks.TruckRepository;
+import ch.ese.team6.models.users.UserRepository;
 
 @Controller
 @RequestMapping("/route")
@@ -27,6 +30,10 @@ public class RouteController {
 		
 	@Autowired
 	private RouteRepository routeRepository;
+	@Autowired
+	private TruckRepository truckRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	@GetMapping(path="/add")
 	public String createForm(Model model, @RequestParam Date routeDate) {
@@ -41,6 +48,19 @@ public class RouteController {
 		route=routevalue;
 		routeRepository.save(route);
 		return new ModelAndView("/route/profile", "route", route);
+	}
+	
+	@GetMapping(path="/addtest")
+	public String addSampleRoutes() {
+		for (long i= 1;i<4; i++) {
+			Routes route = new Routes();
+			route.setTruck(truckRepository.findOne(i));
+			route.setDriver(userRepository.findOne(i));
+			route.setDeliveryId(i); 
+			route.setRouteDate(Calendar.getInstance());
+			routeRepository.save(route);
+		}
+		return "/hello";
 	}
 	
 	@RequestMapping(path="/")
@@ -65,7 +85,7 @@ public class RouteController {
 	@PostMapping(path = "/{routeId}/edit")
 	public ModelAndView editRoute (@ModelAttribute Routes routevalue, @PathVariable long routeId) {
 		Routes route = routeRepository.findOne(routeId);
-		route.setVehicleId(routevalue.getVehicleId());route.setDriverId(routevalue.getDriverId());
+		//route.setVehicleId(routevalue.getVehicleId());route.setDriverId(routevalue.getDriverId());
 		routeRepository.save(route);
 		return new ModelAndView("/route/profile", "route", route);
 	}
