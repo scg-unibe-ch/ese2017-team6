@@ -34,7 +34,7 @@ public class DriverController {
 	@GetMapping(path = "/{userId}")
 	public String showUser(Model driver,@PathVariable Long userId) {
 		driver.addAttribute("driver", userRepository.findOne(userId));
-		driver.addAttribute("routes", routeRepository.findByDriver(userId));
+		driver.addAttribute("routes", routeRepository.findByDriver(userRepository.findOne(userId)));
 		return "driverview/profile"; 
 	}
 

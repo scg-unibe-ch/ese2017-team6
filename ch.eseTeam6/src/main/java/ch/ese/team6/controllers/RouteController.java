@@ -65,6 +65,13 @@ public class RouteController {
 		return "/hello";
 	}
 	
+	@GetMapping(path="/test")
+	public String testListFuncions(Model model) {
+		long number = 7;
+		model.addAttribute(routeRepository.findByDriver(userRepository.findOne(number)));
+		return "route/test";
+	}
+	
 	@RequestMapping(path="/")
 	public String showAllRoutes(Model model) {
 		model.addAttribute("routes", routeRepository.findAll());
