@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.ese.team6.models.routes.RouteHelper;
 import ch.ese.team6.models.routes.RouteRepository;
 import ch.ese.team6.models.routes.Routes;
+import ch.ese.team6.models.trucks.TruckRepository;
 
 @Controller
 @RequestMapping("/route")
@@ -27,6 +28,9 @@ public class RouteController {
 		
 	@Autowired
 	private RouteRepository routeRepository;
+	
+	@Autowired
+	private TruckRepository truckRepository;
 	
 	@GetMapping(path="/add")
 	public String createForm(Model model, @RequestParam Date routeDate) {

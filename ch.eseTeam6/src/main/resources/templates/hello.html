@@ -11,8 +11,9 @@
 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 		<h2 th:text="'This might be a new start page'"/>
 		<a th:href="@{/user/}">Checkout the users!</a>
-		<a th:href="@{/item/}">Checkout the Item-Management!</a>
+		<a th:href="@{/item/}">Checkout the Item-Library!</a>
 		<a th:href="@{/order/}">Check the orders!</a>
+		<a th:href="@{/driverview/}">Check the Driverview!</a>
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out"/>
         </form>

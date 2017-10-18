@@ -38,6 +38,12 @@ public class EseTeam6Application {
 		return (evt) -> Arrays.asList("alvaro,dominic,mauro,nathalie,logista,brumBrumm".split(","))
 				.forEach(a -> {Users user = userRepository.save(new Users(a,a, "password",0));});
 	}
+	
+	@Bean
+	CommandLineRunner initDrivers(UserRepository userRepository) {
+		return (evt) -> Arrays.asList("Driver1, Driver2, Driver3".split(","))
+				.forEach(a -> {Users user = userRepository.save(new Users(a,a, "password",1));});
+	}
 
 	
 	@Bean
@@ -68,7 +74,13 @@ public class EseTeam6Application {
 	@Bean
 	CommandLineRunner initRoutes(RouteRepository routeRepository) {
 		return (evt) -> Arrays.asList("1,1,1".split(","))
-				.forEach(a -> {routeRepository.save(new Routes(Integer.parseInt(a), 1,2));});
+				.forEach(a -> {routeRepository.save(new Routes(Integer.parseInt(a), 7,2));});
+	}
+	
+	@Bean
+	CommandLineRunner initRoutes2(RouteRepository routeRepository) {
+		return (evt) -> Arrays.asList("2,3,4".split(","))
+				.forEach(a -> {routeRepository.save(new Routes(Integer.parseInt(a), 8,2));});
 	}
 	
 }

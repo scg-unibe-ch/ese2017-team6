@@ -32,7 +32,8 @@ public class Routes {
 	@NotNull private long driverId;
 	@NotNull private long deliveryId;
 	
-	@Autowired @Transient UserRepository userRepository; 
+	@Autowired @Transient 
+	UserRepository userRepository; 
 	@Transient @Autowired
 	TruckRepository truckRepository; 
 	
@@ -66,8 +67,9 @@ public class Routes {
 	}
 	
 	public String getVehicleName() {
-		List<Trucks> trucks = truckRepository.findAll();
-		return "Hi";
+		// IDEE: Trucks truck = truckRepository.findById(vehicleId);
+		// IDEE: return truck.getVehicleName();
+		return "Name of the Vehicle";
 	}
 
 	public void setVehicleId(long vehicleId) {

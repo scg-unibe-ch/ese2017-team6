@@ -5,12 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1 th:text= "'Truck: ' +${truck.vehicleName}"></h1>
-    <p th:text="'Truck id: ' + ${truck.id}" />
-    <p th:text="'Max space: ' + ${truck.maxCargoSpace} + ' stillages'" />
-    <p th:text="'Max load: ' + ${truck.maxLoadCapacity} + ' tons'" />
-    <a th:href="@{/truck/}">Go Back to the index</a>
-    <a th:href="@{/truck/{id}/edit(id = ${truck.id})}">Edit this truck</a>
+	<p th:text=" 'Route id: ' + ${route.getId()}"></p>
+	<p th:text=" 'Route Date: ' +${route.getRouteDate()}"></p>
+	<p th:text=" 'Vehicle Name: ' +${route.getVehicleName()}"></p>
+	<p th:text=" 'DriverId: ' + ${route.getDriverId()}"></p>
+	<p th:text=" 'DeliveryId: ' + ${route.getDeliveryId()}"></p>
+    <a th:href="@{/route/}">Show all Routes</a>
+    <a th:href="@{/driverview/{id}(id = ${route.driverId})}">Driver-Profile of this Route</a>
+    <a th:href="@{/truck/{id}/edit(id = ${route.vehicleId})}">Edit this truck</a>
 </body>
 </html>
 
