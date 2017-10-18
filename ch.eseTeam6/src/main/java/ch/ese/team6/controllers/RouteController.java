@@ -49,7 +49,9 @@ public class RouteController {
 		routeRepository.save(route);
 		return new ModelAndView("/route/profile", "route", route);
 	}
-	
+	/*
+	 * This function creates testdata
+	 */
 	@GetMapping(path="/addtest")
 	public String addSampleRoutes() {
 		for (long i= 1;i<4; i++) {
