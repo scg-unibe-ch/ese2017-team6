@@ -11,4 +11,6 @@ public interface TruckRepository  extends JpaRepository<Trucks, Long>{
 
 	List<Trucks>findAll();	
 	
+	Trucks findById(long id);
+	
 }

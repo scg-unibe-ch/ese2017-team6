@@ -75,6 +75,10 @@ public class Routes {
 		return this.driver.getRealName();
 	}
 	
+	public long getDriverId() {
+		return this.driver.getId();
+	}
+	
 	public void setDriver(Users driver) {
 		this.driver = driver;
 	}

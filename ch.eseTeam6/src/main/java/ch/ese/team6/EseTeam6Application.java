@@ -1,17 +1,14 @@
 package ch.ese.team6;
 
 import java.util.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
+
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.thymeleaf.util.DateUtils;
 
 import ch.ese.team6.models.customers.Customer;
 import ch.ese.team6.models.customers.CustomerRepository;
@@ -19,8 +16,6 @@ import ch.ese.team6.models.items.ItemRepository;
 import ch.ese.team6.models.items.Items;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
-import ch.ese.team6.models.routes.RouteRepository;
-import ch.ese.team6.models.routes.Routes;
 import ch.ese.team6.models.trucks.TruckRepository;
 import ch.ese.team6.models.trucks.Trucks;
 import ch.ese.team6.models.users.UserRepository;
@@ -37,6 +32,12 @@ public class EseTeam6Application {
 	CommandLineRunner initUsers(UserRepository userRepository) {
 		return (evt) -> Arrays.asList("alvaro,dominic,mauro,nathalie,logista,brumBrumm".split(","))
 				.forEach(a -> {Users user = userRepository.save(new Users(a,a, "password",0));});
+	}
+	
+	@Bean
+	CommandLineRunner initDrivers(UserRepository userRepository) {
+		return (evt) -> Arrays.asList("Driver1, Driver2, Driver3".split(","))
+				.forEach(a -> {Users user = userRepository.save(new Users(a,a, "password",1));});
 	}
 
 	
@@ -64,11 +65,5 @@ public class EseTeam6Application {
 		return (evt) -> Arrays.asList("Iveco1,Iveco2,Iveco3,Iveco4".split(","))
 				.forEach(a -> {truckRepository.save(new Trucks(a));});
 	}
-	/*
-	@Bean
-	CommandLineRunner initRoutes(RouteRepository routeRepository) {
-		return (evt) -> Arrays.asList("1,2,3".split(","))
-				.forEach(a -> {routeRepository.save(new Routes("a"));});
-	}
-	*/
+	
 }

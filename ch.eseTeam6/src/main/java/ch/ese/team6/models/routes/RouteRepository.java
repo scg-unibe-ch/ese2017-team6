@@ -12,6 +12,8 @@ public interface RouteRepository  extends JpaRepository<Routes, Long>{
 
 	List<Routes>findAll();
 	
+	List<Routes>findByDriver(long driverId);
+	
 	long findVehicleIdByRouteDate(Date date);
 	
 	long findDriverByRouteDate(Date date);
