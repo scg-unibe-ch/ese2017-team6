@@ -19,6 +19,8 @@ import ch.ese.team6.models.items.ItemRepository;
 import ch.ese.team6.models.items.Items;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
+import ch.ese.team6.models.routes.RouteRepository;
+import ch.ese.team6.models.routes.Routes;
 import ch.ese.team6.models.trucks.TruckRepository;
 import ch.ese.team6.models.trucks.Trucks;
 import ch.ese.team6.models.users.UserRepository;
@@ -62,4 +64,11 @@ public class EseTeam6Application {
 		return (evt) -> Arrays.asList("Iveco1,Iveco2,Iveco3,Iveco4".split(","))
 				.forEach(a -> {truckRepository.save(new Trucks(a));});
 	}
+	
+	@Bean
+	CommandLineRunner initRoutes(RouteRepository routeRepository) {
+		return (evt) -> Arrays.asList("1,1,1".split(","))
+				.forEach(a -> {routeRepository.save(new Routes(Integer.parseInt(a), 1,2));});
+	}
+	
 }

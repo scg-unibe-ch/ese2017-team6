@@ -64,6 +64,11 @@ public class Trucks {
 	public int getVehicleCondition() {
 		return vehicleCondition;
 	}
+	
+	public String getVehicleConditionAsString() {
+		if (this.getVehicleCondition() == 0) return "active";
+		return "inactive";
+	}
 
 	public void setVehicleCondition(int vehicleCondition) {
 		this.vehicleCondition = vehicleCondition;

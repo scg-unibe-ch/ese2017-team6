@@ -21,7 +21,7 @@
 		    		<td th:text="${truck.getVehicleName()}"></td>
 		    		<td th:text="${truck.getMaxCargoSpace()}"></td>
 		    		<td th:text="${truck.getMaxLoadCapacity()}"></td>
-		    		<td th:text="${truck.getVehicleCondition()}"></td>
+		    		<td th:text="${truck.getVehicleConditionAsString()}"></td>
 		    		<td><a th:href="@{{id}(id = ${truck.id})}">Profile</a></td>
 				</tr>
 		    </table>
