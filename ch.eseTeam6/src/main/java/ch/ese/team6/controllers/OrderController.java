@@ -26,6 +26,9 @@ import ch.ese.team6.models.customers.Customer;
 import ch.ese.team6.models.customers.CustomerRepository;
 import ch.ese.team6.models.items.ItemRepository;
 import ch.ese.team6.models.items.Items;
+import ch.ese.team6.models.orderitems.OrderItemRepository;
+import ch.ese.team6.models.orderitems.OrderItems;
+import ch.ese.team6.models.orders.OrderHelper;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 
@@ -39,6 +42,8 @@ public class OrderController {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private ItemRepository itemRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	
 	@RequestMapping(path = "/")
@@ -56,11 +61,14 @@ public class OrderController {
 	
 	// under construction - not yet working
 	@PostMapping(path = "/add")
-	public ModelAndView customerSubmit(@ModelAttribute Customer selectedCustomer, @ModelAttribute Items selectedItems, @ModelAttribute Date deliveryDate) {
-		Customer orderCustomer = new Customer(selectedCustomer.getName());
-		orderCustomer = selectedCustomer;
-		customerRepository.save(orderCustomer);
-		return new ModelAndView("/orders/addItems", "orderCustomer", orderCustomer);
+	public ModelAndView customerSubmit(@ModelAttribute OrderHelper o) {
+		Orders newOrder = new Orders();
+		newOrder.setClientName(""+o.getCustomerId());
+		for (Items i : o.getItems()) {
+			OrderItems oi = new OrderItems(i.getId(), newOrder.getId());
+			orderItemRepository.save(oi);
+		}
+		return new ModelAndView("/orders/addItems", "newOrder", newOrder);
 	}
 	
 //	

@@ -45,10 +45,11 @@
 		
 <!-- 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1> -->
 		<a th:href="@{/order/}" class="button">orders</a>
-		<a th:href="@{/tours/}" class="button">tours</a>
+		<a th:href="@{/route/}" class="button">tours</a>
 		<a th:href="@{/user/}" class="button">user management</a>
 		<a th:href="@{/item/}" class="button">item-management</a>
-
+		<a th:href="@{/driverview/}" class="button">Driverview</a>
+		<a th:href="@{/route/addtest}">Create some sample routes.</a>
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out"/>
         </form>

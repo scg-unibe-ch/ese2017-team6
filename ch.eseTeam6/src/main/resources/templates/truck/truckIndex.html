@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Truck Index</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<div th:if="${not #lists.isEmpty(trucks)}">
+		    <h1>All trucks</h1>
+		    <table>
+		    	<tr>
+		    		<th>Id</th>
+		    		<th>Vehicle name</th>
+		    		<th>max cargo space</th>
+		    		<th>max load capacity</th>
+		    		<th>vehicle condition</th>
+		    		<th></th>
+		    	</tr>
+		    	<tr th:each="truck : ${trucks}">
+		    		<td th:text="${truck.getId()}"></td>
+		    		<td th:text="${truck.getVehicleName()}"></td>
+		    		<td th:text="${truck.getMaxCargoSpace()}"></td>
+		    		<td th:text="${truck.getMaxLoadCapacity()}"></td>
+		    		<td th:text="${truck.getVehicleConditionAsString()}"></td>
+		    		<td><a th:href="@{{id}(id = ${truck.id})}">Profile</a></td>
+				</tr>
+		    </table>
+		</div>
+		<a href="/truck/add">Create a new truck</a>
+	</body>
+</html>

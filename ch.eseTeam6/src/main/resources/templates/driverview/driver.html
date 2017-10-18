@@ -1,12 +1,14 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
 	<head>
-	    <title>User Index</title>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Hello,World!</title>
 	</head>
+	
 	<body>
-		<div th:if="${not #lists.isEmpty(users)}">
-		    <h1>All Users</h1>
+	<div th:if="${not #lists.isEmpty(drivers)}">
+	<h1> Here are all the Drivers of the Firm </h1>
+	
+	<h1>Select Your Profile</h1>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>
@@ -15,7 +17,7 @@
 		    		<th>Userrole</th>
 		    		<th></th>
 		    	</tr>
-		    	<tr th:each="user : ${users}">
+		    	<tr th:each="user : ${drivers}">
 		    		<td th:text="${user.getId()}"></td>
 		    		<td th:text="${user.getUsername()}"></td>
 		    		<td th:text="${user.getRealName()}"></td>
@@ -23,8 +25,10 @@
 		    		<td><a th:href="@{{id}(id = ${user.id})}">Profile</a></td>
 				</tr>
 		    </table>
-		</div>
-		<a href="/user/add">Create a new User</a>
-		<a href="/hello">Home</a>
+	</div>
+	
+	<a th:href="@{/hello}">Home</a>
+
+		
 	</body>
 </html>
