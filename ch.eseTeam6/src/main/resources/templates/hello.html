@@ -1,18 +1,54 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Hello,World!</title>
+		<title>Home</title>
 	</head>
+	<style>
+	h1 {
+	    color: RoyalBlue ;
+	    font-family: courier new;
+	    font-size: 300%;
+	
+	}
+	h2 {
+	 	color: RoyalBlue ;
+	    font-family: courier new;
+	    font-size: 200%;
+	}
+	p  {
+	    color: SandyBrown;
+	    font-family: courier new;
+	    font-size: 160%;
+	}
+	.button {
+	font-family: courier new;
+    background-color: Silver; /* Green */
+    border: none;
+    color: RoyalBlue;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 4px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+	}
+ 	.button:hover {background-color: SandyBrown}
+	
+</style>
 	
 	<body>
-		<h1>Hi!</h1>
-		<p>Welcome to the save zone.</p>
+		<h1>order - delivery management</h1>
+<!-- 		<p>Welcome to the save zone.</p> -->
 		
-		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-		<h2 th:text="'This might be a new start page'"/>
-		<a th:href="@{/user/}">Checkout the users!</a>
-		<a th:href="@{/item/}">Checkout the Item-Management!</a>
-		<a th:href="@{/order/}">Check the orders!</a>
+<!-- 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1> -->
+		<a th:href="@{/order/}" class="button">orders</a>
+		<a th:href="@{/tours/}" class="button">tours</a>
+		<a th:href="@{/user/}" class="button">user management</a>
+		<a th:href="@{/item/}" class="button">item-management</a>
+
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out"/>
         </form>
