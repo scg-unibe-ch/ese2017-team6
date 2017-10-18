@@ -57,7 +57,7 @@ public class RouteController {
 		for (long i= 1;i<4; i++) {
 			Routes route = new Routes();
 			route.setTruck(truckRepository.findOne(i));
-			route.setDriver(userRepository.findOne(i));
+			route.setDriver(userRepository.findOne(i+6));
 			route.setDeliveryId(i); 
 			route.setRouteDate(Calendar.getInstance());
 			routeRepository.save(route);
