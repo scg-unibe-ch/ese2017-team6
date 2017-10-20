@@ -2,56 +2,24 @@
 <html>
 	<head>
 		<title>Home</title>
+		<link rel="stylesheet" href="design.css" type="text/css" th:href="@{design.css}"/>
 	</head>
-	<style>
-	h1 {
-	    color: RoyalBlue ;
-	    font-family: courier new;
-	    font-size: 300%;
-	
-	}
-	h2 {
-	 	color: RoyalBlue ;
-	    font-family: courier new;
-	    font-size: 200%;
-	}
-	p  {
-	    color: SandyBrown;
-	    font-family: courier new;
-	    font-size: 160%;
-	}
-	.button {
-	font-family: courier new;
-    background-color: Silver; /* Green */
-    border: none;
-    color: RoyalBlue;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    border-radius: 4px;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    cursor: pointer;
-	}
- 	.button:hover {background-color: SandyBrown}
-	
-</style>
 	
 	<body>
+		<a href="/admin" class="button" >ADMIN</a> <br/> <br/>
+<!-- 		<a th:href="@{/user/}" class="button">user management</a> -->
+<!-- 		<a th:href="@{/item/}" class="button">item management</a> -->
+<!-- 		<a th:href="@{/user/}" class="button">user management</a> -->
+<!-- 		<a th:href="@{/truck/}" class="button">truck management</a> -->
 		<h1>order - delivery management</h1>
-<!-- 		<p>Welcome to the save zone.</p> -->
 		
-<!-- 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1> -->
 		<a th:href="@{/order/}" class="button">orders</a>
 		<a th:href="@{/route/}" class="button">tours</a>
-		<a th:href="@{/user/}" class="button">user management</a>
-		<a th:href="@{/item/}" class="button">item-management</a>
+
 		<a th:href="@{/driverview/}" class="button">Driverview</a>
-		<a th:href="@{/route/addtest}">Create some sample routes.</a>
+		<a th:href="@{/route/addtest}" class="button">Create some sample routes.</a>
 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out"/>
+<input type="submit" value="Sign Out"/>
         </form>
 	</body>
 </html>

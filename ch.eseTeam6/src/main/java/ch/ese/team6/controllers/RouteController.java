@@ -56,7 +56,7 @@ public class RouteController {
 	 */
 	@GetMapping(path="/addtest")
 	public String addSampleRoutes() {
-		for (long i= 1;i<4; i++) {
+		for (long i= 1;i<3; i++) {
 			Routes route = new Routes();
 			route.setTruck(truckRepository.findOne(i));
 			route.setDriver(userRepository.findOne(i+6));
