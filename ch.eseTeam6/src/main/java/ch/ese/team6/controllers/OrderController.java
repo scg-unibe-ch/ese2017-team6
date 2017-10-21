@@ -14,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,13 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.ese.team6.models.customers.Customer;
 import ch.ese.team6.models.customers.CustomerRepository;
 import ch.ese.team6.models.items.ItemRepository;
-import ch.ese.team6.models.items.Items;
+
 import ch.ese.team6.models.orderitems.OrderItemRepository;
 import ch.ese.team6.models.orderitems.OrderItems;
 import ch.ese.team6.models.orders.OrderHelper;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
+
 
 @Controller
 @RequestMapping("/order")
@@ -54,22 +56,38 @@ public class OrderController {
 	
 	@GetMapping(path = "/add")
 	public String selectCustomer(Model model) {
-		model.addAttribute("customers", customerRepository.findAll());
-		model.addAttribute("items", itemRepository.findAll());
+		model.addAttribute("Order",new Orders());
+		model.addAttribute("allCustomers", customerRepository.findAll());
+		model.addAttribute("allItems", itemRepository.findAll());
 		return "/orders/initializeOrder";
 	}
 	
-	// under construction - not yet working
-	@PostMapping(path = "/add")
-	public ModelAndView customerSubmit(@ModelAttribute OrderHelper o) {
-		Orders newOrder = new Orders();
-		newOrder.setClientName(""+o.getCustomerId());
-		for (Items i : o.getItems()) {
-			OrderItems oi = new OrderItems(i.getId(), newOrder.getId());
-			orderItemRepository.save(oi);
-		}
-		return new ModelAndView("/orders/addItems", "newOrder", newOrder);
-	}
+	 @RequestMapping(path="/add", params={"addRow"})
+	    public String addRow(final Orders order, final BindingResult bindingResult, Model model) {
+		 	
+	        order.getOrderItems().add(new OrderItems());
+	        System.out.println("Hier");
+	        return "/orders/initializeOrder";
+	    }
+	    
+	    
+	    @RequestMapping(path="/add", params={"removeRow"})
+	    public String removeRow(final Orders order, final BindingResult bindingResult, final HttpServletRequest req) {
+	        final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+	        order.getOrderItems().remove(rowId.intValue());
+	        return "/orders/initializeOrder";
+	    }
+	
+	    @RequestMapping(path="/add", params={"save"})
+	    public String saveSeedstarter(final Orders order, final BindingResult bindingResult, final ModelMap model) {
+	        if (bindingResult.hasErrors()) {
+	        	return "/orders/initializeOrder";
+	        }
+	        this.orderRepository.save(order);
+	       
+	        return "redirect:/orders/initializeOrder";
+	    }
+	    
 	
 //	
 //	@PostMapping("/add")
@@ -93,13 +111,14 @@ public class OrderController {
 		return "orders/edit";
 	}
 
+	/*
 	@PostMapping(path = "/{orderId}/edit")
 	public ModelAndView editorder(@ModelAttribute Orders ordervalue, @PathVariable long orderId) {
 		Orders order = orderRepository.findOne(orderId);
 		order.setDeliveryAddress(ordervalue.getDeliveryAddress());
 		orderRepository.save(order);
 		return new ModelAndView("/orders/profile", "order", order);
-	}
+	}*/
 
 	@DeleteMapping(path = "/{orderId}/edit")
 	public void deleteorder(@PathVariable long orderId, HttpServletResponse response) {

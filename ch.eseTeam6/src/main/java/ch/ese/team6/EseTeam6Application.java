@@ -42,7 +42,7 @@ public class EseTeam6Application {
 				.forEach(a -> {Users user = userRepository.save(new Users(a,a, "password",1));});
 	}
 
-	
+	/**
 	@Bean
 	CommandLineRunner initOrders(OrderRepository orderRepository) throws ParseException {
 		

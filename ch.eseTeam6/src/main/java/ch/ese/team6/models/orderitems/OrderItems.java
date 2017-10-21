@@ -1,11 +1,17 @@
 package ch.ese.team6.models.orderitems;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import ch.ese.team6.models.items.Items;
+import ch.ese.team6.models.orders.Orders;
 
 
 @Entity
@@ -14,19 +20,27 @@ public class OrderItems {
 	 	@Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private long id;
-	 	@NotNull private long ItemId;
-	 	@NotNull private long OrderId;
 	 	@NotNull private String orderItemStatus;
+	 	@NotNull private int amount;
 	 	
+		
+	 	@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="ITEMS_ID")
+	 	@NotNull private Items item;
+	 	
+	 	
+	 	@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="ORDERS_ID")
+	 	@NotNull private Orders order;
 	 	/**
 	 	 * Constructor with parameter
-	 	 * @param itemid, orderid
+	 	 * @param item, amount
 	 	 */
-	 	public OrderItems(long itemid, long orderid)
+	 	public OrderItems(Items item,int amount)
 	 	{
-	 		this.ItemId = itemid;
-	 		this.OrderId = orderid;
+	 		this.item= item;
 	 		this.orderItemStatus = "not delivered";
+	 		this.amount = amount;
 	 	}
 	 	
 	 	/**
@@ -45,21 +59,18 @@ public class OrderItems {
 			this.id = id;
 		}
 
-		public long getItemId() {
-			return ItemId;
+		public Items getItem() {
+			return this.item;
 		}
 
-		public void setItemId(long itemId) {
-			ItemId = itemId;
+		public void setItem(Items itemId) {
+			this.item = itemId;
 		}
 
-		public long getOrderId() {
-			return OrderId;
+		public Orders getOrder() {
+			return this.order;
 		}
 
-		public void setOrderId(long orderId) {
-			OrderId = orderId;
-		}
 
 		public String getOrderItemStatus() {
 			return orderItemStatus;
@@ -67,6 +78,14 @@ public class OrderItems {
 
 		public void setOrderItemStatus(String orderItemStatus) {
 			this.orderItemStatus = orderItemStatus;
+		}
+
+		public int getAmount() {
+			return amount;
+		}
+
+		public void setAmount(int amount) {
+			this.amount = amount;
 		}
 
 }
