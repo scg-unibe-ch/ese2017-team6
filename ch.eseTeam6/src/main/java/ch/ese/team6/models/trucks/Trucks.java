@@ -78,6 +78,10 @@ public class Trucks {
 		return id;
 	}
 	
+	public String toString() {
+		return this.vehicleName;
+	}
+	
 
 	
 }

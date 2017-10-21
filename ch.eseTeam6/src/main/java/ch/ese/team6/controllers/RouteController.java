@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.models.routes.RouteHelper;
 import ch.ese.team6.models.routes.RouteRepository;
+import ch.ese.team6.models.routes.RouteSimple;
 import ch.ese.team6.models.routes.Routes;
 import ch.ese.team6.models.trucks.TruckRepository;
 import ch.ese.team6.models.users.UserRepository;
@@ -36,8 +37,9 @@ public class RouteController {
 	private UserRepository userRepository;
 	
 	@GetMapping(path="/add")
-	public String createForm(Model model, @RequestParam String date) {
-		model.addAttribute("route", new Routes(Calendar.getInstance()));
+	public String createForm(Model model, @RequestParam Date date) {
+		model.addAttribute("routeTemplate", new RouteSimple(date));
+		model.addAttribute("routeDate", date);
 		model.addAttribute("trucks", truckRepository.findAll());
 		model.addAttribute("drivers", userRepository.findByUserrole(1));
 	        return "route/createForm";
@@ -45,11 +47,14 @@ public class RouteController {
 
 	
 	@PostMapping(path="/add")
-	public ModelAndView addNewRoute (@ModelAttribute Routes routevalue) {
-		Routes route = new Routes();
-		route=routevalue;
-		routeRepository.save(route);
-		return new ModelAndView("/route/profile", "route", route);
+	public ModelAndView addNewRoute (@ModelAttribute RouteSimple routeTemplate, @RequestParam int driverId) {
+		Routes newRoute = new Routes();
+		newRoute.setRouteDate(Calendar.getInstance());
+		newRoute.setDeliveryId(routeTemplate.getDriverId()+routeTemplate.getTruckId());
+		newRoute.setDriver(userRepository.findOne((long) driverId));
+		newRoute.setTruck(truckRepository.findOne((long) 3));
+		routeRepository.save(newRoute);
+		return new ModelAndView("/route/profile", "route", newRoute);
 	}
 	/*
 	 * This function creates testdata

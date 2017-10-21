@@ -3,6 +3,8 @@ package ch.ese.team6.models.routes;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ch.ese.team6.models.orderitems.OrderItemRepository;
 import ch.ese.team6.models.orderitems.OrderItems;
 import ch.ese.team6.models.trucks.TruckRepository;
@@ -16,10 +18,13 @@ public class RouteHelper {
 	public List<OrderItems> dueItems;
 	
 	public Date routeDate;
-	
+	@Autowired
 	private RouteRepository routeRepository;
+	@Autowired
 	private UserRepository userRepository;
+	@Autowired
 	private TruckRepository truckRepository;
+	@Autowired
 	private OrderItemRepository orderItemRepository;
 
 	
@@ -29,6 +34,18 @@ public class RouteHelper {
 		this.aviableDrivers = userRepository.findAll();
 		this.dueItems = orderItemRepository.findAll();
 		this.removeOccupiedRessources(date);
+	}
+	
+	public Date getRouteDate() {
+		return this.routeDate;
+	}
+	
+	public List<Trucks> showTrucks(){
+		return this.aviableTrucks;
+	}
+	
+	public List<Users> showDrivers(){
+		return this.aviableDrivers;
 	}
 	
 	private void removeOccupiedRessources(java.util.Date date) {

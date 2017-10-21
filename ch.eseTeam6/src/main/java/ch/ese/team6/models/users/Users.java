@@ -70,4 +70,8 @@ public class Users {
 		return userrole;
 	}
 	
+	public String toString() {
+		return this.realName;
+	}
+	
 }
