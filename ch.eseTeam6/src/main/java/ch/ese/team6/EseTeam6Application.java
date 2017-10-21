@@ -10,6 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import ch.ese.team6.models.customers.Address;
+import ch.ese.team6.models.customers.AddressRepository;
 import ch.ese.team6.models.customers.Customer;
 import ch.ese.team6.models.customers.CustomerRepository;
 import ch.ese.team6.models.items.ItemRepository;
@@ -48,11 +50,23 @@ public class EseTeam6Application {
 				.forEach(a -> {Orders order = orderRepository.save(new Orders(a,a+"'s Home", new Date()));});
 	}
 	
+	/** Auskommentiert, da für das erstellen eines Kunden eine Adresse nötig ist.
 	@Bean
 	CommandLineRunner initCustomers(CustomerRepository customerRepository) {
+	
 		return (evt) -> Arrays.asList("sbb,swisscom,ibm,postfinance,google,brumBrumm".split(","))
-				.forEach(a -> {customerRepository.save(new Customer(a));});
+				.forEach(
+						a -> {customerRepository.save(new Customer(a,null));
+				});
 	}
+	*/
+	
+	@Bean
+	CommandLineRunner initAddress(AddressRepository addressRepository) {
+		return (evt) -> Arrays.asList("1,2,3,4,5,6".split(","))
+				.forEach(a -> {addressRepository.save(new Address("Haupstrasse "+a,"300"+a+" Bern"));});
+	}
+	
 	
 	@Bean
 	CommandLineRunner initItems(ItemRepository itemRepository) {

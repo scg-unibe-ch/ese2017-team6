@@ -12,9 +12,19 @@ public class Address {
     private long id;
 	
 	private String street;
-	private int houseNumber;
-	private String city;
+	//private String houseNumber; //has to be a String. Hauptstrasse 11a
+	private String city; //and Poste Code
 	
+	public Address() {
+		
+	}
+	
+	public Address(String street, String city) {
+	
+		this.street = street;
+		this.city = city;
+	}
+
 	/**
 	 * Returns the distance in km to reach otherAddress starting
 	 * at this Address.
@@ -24,9 +34,14 @@ public class Address {
 	 * @return distance in km
 	 */
 
+
 	public int getDistanceTo(Address otherAddress) {
 		//dummy
 		return 1;
+	}
+	
+	public long getId() {
+		return this.id;
 	}
 
 	public String getCity() {
@@ -37,13 +52,6 @@ public class Address {
 		this.city = city;
 	}
 
-	public int getHouseNumber() {
-		return houseNumber;
-	}
-
-	public void setHouseNumber(int streetNumber) {
-		this.houseNumber = streetNumber;
-	}
 
 	public String getStreet() {
 		return street;
@@ -53,7 +61,9 @@ public class Address {
 		this.street = street;
 	}
 	
-	public String toSring() {
-		return street+", "+houseNumber+"; "+city;
+	public String toString() {
+		return street+", "+city;
 	}
+
+
 }

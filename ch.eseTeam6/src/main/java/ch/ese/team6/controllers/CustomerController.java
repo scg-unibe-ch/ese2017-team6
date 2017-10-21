@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.models.customers.CustomerRepository;
 import ch.ese.team6.models.users.Users;
+import ch.ese.team6.models.customers.AddressRepository;
 import ch.ese.team6.models.customers.Customer;
 
 
@@ -27,9 +28,14 @@ public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
+	@Autowired
+	private AddressRepository addressRepository;
+	
+	
 	@GetMapping(path="/add")
 	public String createForm(Model model) {
 		  model.addAttribute("customer", new Customer());
+		  model.addAttribute("allAddress",addressRepository.findAll());
 	        return "customer/createForm";
 	}
 
@@ -50,16 +56,19 @@ public class CustomerController {
 	@GetMapping(path = "/{customerId}/edit")
 	public String editCustomerForm(Model customer, @PathVariable long customerId) {
 		customer.addAttribute("customer", customerRepository.findOne(customerId));
+		customer.addAttribute("allAddress",addressRepository.findAll());
 		return "customer/editForm";
 	}
+	
 	
 	@PostMapping(path = "/{Id}/edit")
 	public ModelAndView editUser (@ModelAttribute Customer customervalue, @PathVariable long Id) {
 		Customer cus = customerRepository.findOne(Id);
-		cus.setName(customervalue.getName());cus.setAddressId(customervalue.getAddressId());
+		cus.setName(customervalue.getName());cus.setAddress(customervalue.getAddress());
 		customerRepository.save(cus);
 		return new ModelAndView("/customer/profile", "customer", cus);
 	}
+	
 	
 	@DeleteMapping(path = "/{Id}/edit")
 	public void deleteCustomer(@PathVariable long Id, HttpServletResponse response) {
