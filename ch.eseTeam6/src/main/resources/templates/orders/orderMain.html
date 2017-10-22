@@ -8,7 +8,7 @@
 	<body>
 		<h1> Order Menu </h1>
 
-		<a href="/order/add">Create a new Order</a> <br/> <br/>
+		<a href="/orders/add">Create a new Order</a> <br/> <br/>
 		<a href="/hello">Home</a> <br/> <br/>
 		<div th:if="${not #lists.isEmpty(orders)}">
 		    <h1>All Orders</h1>
@@ -18,13 +18,17 @@
 		    		<th>Clientname</th>
 		    		<th>Delivery Adress</th>
 		    		<th>Order Status</th>
+		    		<th>Number of Order items</th>
+		    		<th>Delivery Date</th>
 		    		<th></th>
 		    	</tr>
 		    	<tr th:each="order : ${orders}">
 		    		<td th:text="${order.getId()}"></td>
-		    		<td th:text="${order.getClientName()}"></td>
-		    		<td th:text="${order.getDeliveryAddress()}"></td>
+		    		<td th:text="${order.getCustomer()}"></td>
+		    		<td th:text="${order.getAddress()}"></td>
 		    		<td th:text="${order.getStatus()}"></td>
+		    		<td th:text="${order.getOrderItems().size()}"></td>
+		    		<td th:text="${order.getDeliveryDate()}"></td>
 		    		<td><a th:href="@{{id}(id = ${order.getId()})}">Details</a></td>
 				</tr>
 		    </table>

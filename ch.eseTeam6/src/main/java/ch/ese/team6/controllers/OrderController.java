@@ -2,6 +2,7 @@ package ch.ese.team6.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -34,8 +35,9 @@ import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
 
 
+
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
 	@Autowired
@@ -54,50 +56,98 @@ public class OrderController {
 		return "/orders/orderMain";
 	}
 	
-	@GetMapping(path = "/add")
-	public String selectCustomer(Model model) {
-		model.addAttribute("Order",new Orders());
-		model.addAttribute("allCustomers", customerRepository.findAll());
-		model.addAttribute("allItems", itemRepository.findAll());
-		return "/orders/initializeOrder";
+	/*
+	 * This function creates testdata
+	 */
+	@GetMapping(path="/addtest")
+	public String addSampleOrders() {
+		
+		for (int i= 0;i<10; i++) {
+			
+			int n_cus = customerRepository.findAll().size();
+			Customer cus = customerRepository.findAll().get((int) (Math.random()*n_cus));
+			Date deliveryDate = Calendar.getInstance().getTime();
+			
+			Orders order = new Orders();
+			order.setCustomer(cus);
+			order.setDeliveryDate(deliveryDate);
+			
+			for(int j=0;j<(int)(Math.random()*10+1);j++){
+				OrderItems oi = new OrderItems(order);
+				order.getOrderItems().add(oi);
+				oi.setAmount((int)(Math.random()*10));
+				int n_item = itemRepository.findAll().size();
+				oi.setItem(itemRepository.findAll().get((int) (Math.random()*n_item)));
+		
+			}
+			
+			
+			orderRepository.save(order);
+		}
+		return "redirect:/hello";
 	}
 	
-	 @RequestMapping(path="/add", params={"addRow"})
-	    public String addRow(final Orders order, final BindingResult bindingResult, Model model) {
-		 	
-	        order.getOrderItems().add(new OrderItems());
-	        System.out.println("Hier");
-	        return "/orders/initializeOrder";
-	    }
-	    
+	
+	@GetMapping(path = "/add")
+	public String newOrder(Model model) {
+		Orders o = new Orders();
+		o.getOrderItems().add(new OrderItems(o));
+		o.setDeliveryDate(Calendar.getInstance().getTime());
+		model.addAttribute("order",o);
+		
+		model.addAttribute("allCustomers", customerRepository.findAll());
+		model.addAttribute("allItems", itemRepository.findAll());
+		return "/orders/add";
+	}
+	
+
+	
+    @RequestMapping(value="/add", params={"addRow"})
+    public ModelAndView addRow(final Orders order, final BindingResult bindingResult) {
+    	
+    	order.getOrderItems().add(new OrderItems(order));
+    	
+        ModelAndView ret = new ModelAndView("/orders/add");
+		ret .addObject("order",order);
+    	ret.addObject("allCustomers", customerRepository.findAll());
+		ret.addObject("allItems", itemRepository.findAll());
+
+		
+		
+		return ret;
+       
+    }
+	
+   
 	    
 	    @RequestMapping(path="/add", params={"removeRow"})
-	    public String removeRow(final Orders order, final BindingResult bindingResult, final HttpServletRequest req) {
-	        final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+	    public ModelAndView removeRow(final Orders order, final BindingResult bindingResult, final HttpServletRequest req) {
+	    	
+	    	final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
 	        order.getOrderItems().remove(rowId.intValue());
-	        return "/orders/initializeOrder";
+	   
+	       
+	        ModelAndView ret = new ModelAndView("/orders/add");
+			ret .addObject("order",order);
+	    	ret.addObject("allCustomers", customerRepository.findAll());
+			ret.addObject("allItems", itemRepository.findAll());
+
+			
+			
+			return ret;
+	       
 	    }
 	
 	    @RequestMapping(path="/add", params={"save"})
-	    public String saveSeedstarter(final Orders order, final BindingResult bindingResult, final ModelMap model) {
-	        if (bindingResult.hasErrors()) {
-	        	return "/orders/initializeOrder";
-	        }
+	    public String saveOrder(final Orders order, final BindingResult bindingResult, final ModelMap model) {
 	        this.orderRepository.save(order);
+
 	       
-	        return "redirect:/orders/initializeOrder";
+	        return "redirect:/orders/";
 	    }
 	    
 	
-//	
-//	@PostMapping("/add")
-//	public ModelAndView orderSubmit(@ModelAttribute Orders order, HttpServletResponse response) {
-//		Orders newOrder = new Orders(order.getClientName(), order.getDeliveryAddress(), order.getDeliveryDate());
-//		orderRepository.save(newOrder);
-//		return new ModelAndView("/orders/profile", "order", newOrder);
-//	}
 
-	
 
 	@GetMapping(path = "/{orderId}")
 	public String showOrder(Model order, @PathVariable Long orderId) {
@@ -105,30 +155,8 @@ public class OrderController {
 		return "orders/profile";
 	}
 
-	@GetMapping(path = "/{orderId}/edit")
-	public String editOrder(Model order, @PathVariable long orderId) {
-		order.addAttribute("order", orderRepository.findOne(orderId));
-		return "orders/edit";
-	}
+	
 
-	/*
-	@PostMapping(path = "/{orderId}/edit")
-	public ModelAndView editorder(@ModelAttribute Orders ordervalue, @PathVariable long orderId) {
-		Orders order = orderRepository.findOne(orderId);
-		order.setDeliveryAddress(ordervalue.getDeliveryAddress());
-		orderRepository.save(order);
-		return new ModelAndView("/orders/profile", "order", order);
-	}*/
 
-	@DeleteMapping(path = "/{orderId}/edit")
-	public void deleteorder(@PathVariable long orderId, HttpServletResponse response) {
-		orderRepository.delete(orderId);
-		try {
-			response.sendRedirect("/order/");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 }

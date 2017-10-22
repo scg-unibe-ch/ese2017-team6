@@ -13,11 +13,15 @@
 <!-- 		<a th:href="@{/truck/}" class="button">truck management</a> -->
 		<h1>order - delivery management</h1>
 		
-		<a th:href="@{/order/}" class="button">orders</a>
+		<a th:href="@{/orders/}" class="button">orders</a>
 		<a th:href="@{/route/}" class="button">tours</a>
 
 		<a th:href="@{/driverview/}" class="button">Driverview</a>
+		<a th:href="@{/customer/addtest}" class="button">Create some sample customers.</a>
+		<a th:href="@{/orders/addtest}" class="button">Create some sample orders.</a>
 		<a th:href="@{/route/addtest}" class="button">Create some sample routes.</a>
+		
+		
 		<form th:action="@{/logout}" method="post">
 <input type="submit" value="Sign Out"/>
         </form>

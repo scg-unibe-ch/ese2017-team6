@@ -1,6 +1,7 @@
 package ch.ese.team6.controllers;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.models.customers.CustomerRepository;
+import ch.ese.team6.models.routes.Routes;
 import ch.ese.team6.models.users.Users;
 import ch.ese.team6.models.customers.AddressRepository;
 import ch.ese.team6.models.customers.Customer;
@@ -30,6 +32,24 @@ public class CustomerController {
 	
 	@Autowired
 	private AddressRepository addressRepository;
+	
+	/*
+	 * This function creates testdata
+	 */
+	@GetMapping(path="/addtest")
+	public String addSampleCustomers() {
+		String[] names = {"sbb","swisscom","ibm","postfinance","google","brumBrumm"};
+		for (int i= 0;i<names.length; i++) {
+			Customer cus = new Customer();
+			cus.setName(names[i]);
+			int n = addressRepository.findAll().size();
+			cus.setAddress(addressRepository.findAll().get(i%n));
+			
+			customerRepository.save(cus);
+		}
+		return "redirect:/hello";
+	}
+	
 	
 	
 	@GetMapping(path="/add")

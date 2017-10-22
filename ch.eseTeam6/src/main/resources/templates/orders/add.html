@@ -25,7 +25,7 @@
     
       <h2>Add new Order</h2>
 
-      <form action="#" th:action="@{/order/add}" th:object="${Order}" method="post">
+      <form action="#" th:action="@{/orders/add}" th:object="${order}" method="post">
     
         <fieldset>
           
@@ -42,7 +42,8 @@
             <input type="text" th:field="*{deliveryDate}" />
           </div>
           
-      
+      	    
+          
           
           <div>
             <label for="customer">Customer</label>
@@ -53,7 +54,7 @@
           
       
     
-          <div>
+           <div>
             <label>Rows</label>
             <table>
               <thead>
@@ -68,14 +69,14 @@
               </thead>
               <tbody>
                 <tr th:each="row,rowStat : *{orderItems}">
-                  <td>1</td>
+                  <td th:text="${rowStat.count}"></td>
                   <td>
                     <select th:field="*{orderItems[__${rowStat.index}__].item}">
-                      <option th:each="var : ${allItems}" th:value="${var.id}" th:text="${var.name}"></option>
+                      <option th:each="var : ${allItems}" th:value="${var.id}" th:text="${var.name}">Test</option>
                     </select>
                   </td>
                   <td>
-                    <input type="text" th:field="*{oderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
+                    <input type="text" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
                   </td>
                   <td>
                     <button type="submit" name="removeRow" th:value="${rowStat.index}">Remove row</button>

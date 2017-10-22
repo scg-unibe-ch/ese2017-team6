@@ -31,7 +31,8 @@ public class OrderItems {
 	 	
 	 	@ManyToOne(fetch=FetchType.LAZY)
 		@JoinColumn(name="ORDERS_ID")
-	 	@NotNull private Orders order;
+	 	private Orders orders;
+	 	
 	 	/**
 	 	 * Constructor with parameter
 	 	 * @param item, amount
@@ -51,7 +52,19 @@ public class OrderItems {
 	 		this.orderItemStatus = "not delivered";
 	 	}
 	    
-	 	public long getId() {
+	 	public OrderItems(Orders order) {
+	 		this.orderItemStatus = "not delivered";
+	 		this.orders = order;
+		}
+
+		public OrderItems(Orders o, Items items, int i) {
+			this.orderItemStatus = "not delivered";
+	 		this.orders = o;
+	 		this.item = items;
+	 		this.amount = i;
+		}
+
+		public long getId() {
 			return id;
 		}
 
@@ -68,7 +81,11 @@ public class OrderItems {
 		}
 
 		public Orders getOrder() {
-			return this.order;
+			return this.orders;
+		}
+		
+		public void setOrder(Orders o) {
+			this.orders = o;
 		}
 
 
@@ -86,6 +103,11 @@ public class OrderItems {
 
 		public void setAmount(int amount) {
 			this.amount = amount;
+		}
+		
+		public String toString() {
+			return this.amount+" x "+this.item;
+			
 		}
 
 }
