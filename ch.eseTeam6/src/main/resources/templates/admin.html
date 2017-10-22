@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<link rel="stylesheet" href="design.css" type="text/css" th:href="@{design.css}"/>
+	</head>
+	
+	<body>
+		<a href="/hello" class="button" >home</a> <br/> <br/>
+		
+		<h1> administration </h1>
+
+		<a th:href="@{/user/}" class="button" >user</a>
+ 		<a th:href="@{/item/}" class="button" >items</a>
+		<a th:href="@{/customer/}" class="button">customer</a>
+		<a th:href="@{/truck/}" class="button">trucks</a>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out"/>
+        </form>
+
+	</body>
+</html>

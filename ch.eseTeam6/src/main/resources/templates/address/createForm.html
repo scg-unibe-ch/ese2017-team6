@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Address</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>New Address</h1>
+    <form action="#" th:action="@{/address/add}" th:object="${address}" method="post">
+        <p>Street and Number: <input type="text" th:field="*{street}" /></p>
+        <p>Post Code and City: <input type="text" th:field="*{city}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

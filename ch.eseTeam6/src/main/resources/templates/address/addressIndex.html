@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Address</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<div th:if="${not #lists.isEmpty(address)}">
+		    <h1>All Addresses</h1>
+		    <table>
+		    	<tr>
+		    		<th>Id</th>
+		    		<th>Street</th>
+		    		<th>City</th>
+		    		
+		    	</tr>
+		    	<tr th:each="ad : ${address}">
+		    		<td th:text="${ad.getId()}"></td>
+		    		<td th:text="${ad.getStreet()}"></td>
+		    		<td th:text="${ad.getCity()}"></td>
+
+				</tr>
+		    </table>
+		</div>
+		<a href="/address/add">Create a new Address</a>
+	</body>
+</html>

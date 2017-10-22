@@ -17,7 +17,7 @@
 		    	<tr th:each="cus : ${customer}">
 		    		<td th:text="${cus.getId()}"></td>
 		    		<td th:text="${cus.getName()}"></td>
-		    		<td th:text="${cus.getAddressId()}"></td>
+		    		<td th:text="${cus.getAddress()}"></td>
 		    		<td><a th:href="@{{id}(id = ${cus.id})}">Profile</a></td>
 				</tr>
 		    </table>
