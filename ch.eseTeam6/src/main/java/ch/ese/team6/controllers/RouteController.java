@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.models.routes.RouteHelper;
 import ch.ese.team6.models.routes.RouteRepository;
+import ch.ese.team6.models.routes.RouteSimple;
 import ch.ese.team6.models.routes.Routes;
 import ch.ese.team6.models.trucks.TruckRepository;
 import ch.ese.team6.models.users.UserRepository;
@@ -36,8 +37,9 @@ public class RouteController {
 	private UserRepository userRepository;
 	
 	@GetMapping(path="/add")
-	public String createForm(Model model, @RequestParam String date) {
-		model.addAttribute("route", new Routes(Calendar.getInstance()));
+	public String createForm(Model model, @RequestParam Date date) {
+		model.addAttribute("routeTemplate", new RouteSimple(date));
+		model.addAttribute("routeDate", date);
 		model.addAttribute("trucks", truckRepository.findAll());
 		model.addAttribute("drivers", userRepository.findByUserrole(1));
 	        return "route/createForm";
@@ -45,23 +47,26 @@ public class RouteController {
 
 	
 	@PostMapping(path="/add")
-	public ModelAndView addNewRoute (@ModelAttribute Routes routevalue) {
-		Routes route = new Routes();
-		route=routevalue;
-		routeRepository.save(route);
-		return new ModelAndView("/route/profile", "route", route);
+	public ModelAndView addNewRoute (@RequestParam Date routeDate, 
+			@RequestParam int driverId, @RequestParam int truckId) {
+		Routes newRoute = new Routes(Calendar.getInstance());
+		newRoute.setRouteDate(routeDate);
+		newRoute.setDeliveryId(10);
+		newRoute.setDriver(userRepository.findOne((long) driverId));
+		newRoute.setTruck(truckRepository.findOne((long) truckId));
+		routeRepository.save(newRoute);
+		return new ModelAndView("/route/profile", "route", newRoute);
 	}
 	/*
 	 * This function creates testdata
 	 */
 	@GetMapping(path="/addtest")
 	public String addSampleRoutes() {
-		for (long i= 1;i<3; i++) {
-			Routes route = new Routes();
+		for (long i= 1;i<4; i++) {
+			Routes route = new Routes(Calendar.getInstance());
 			route.setTruck(truckRepository.findOne(i));
 			route.setDriver(userRepository.findOne(i+6));
 			route.setDeliveryId(i); 
-			route.setRouteDate(Calendar.getInstance());
 			routeRepository.save(route);
 		}
 		return "/hello";
