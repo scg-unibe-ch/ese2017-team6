@@ -4,7 +4,7 @@ package ch.ese.team6.models.routes;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -58,12 +58,12 @@ public class Routes {
 	}
 
 	public String getRouteDate() {
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		return date.format(routeDate.getTime());
 	}
 
-	public void setRouteDate(Calendar routeDate) {
-		this.routeDate = routeDate;
+	public void setRouteDate(Date routeDate) {
+		this.routeDate.setTime(routeDate);
 	}
 
 	public void setTruck(Trucks truck) {

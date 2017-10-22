@@ -47,12 +47,13 @@ public class RouteController {
 
 	
 	@PostMapping(path="/add")
-	public ModelAndView addNewRoute (@ModelAttribute RouteSimple routeTemplate, @RequestParam int driverId) {
-		Routes newRoute = new Routes();
-		newRoute.setRouteDate(Calendar.getInstance());
-		newRoute.setDeliveryId(routeTemplate.getDriverId()+routeTemplate.getTruckId());
+	public ModelAndView addNewRoute (@RequestParam Date routeDate, 
+			@RequestParam int driverId, @RequestParam int truckId) {
+		Routes newRoute = new Routes(Calendar.getInstance());
+		newRoute.setRouteDate(routeDate);
+		newRoute.setDeliveryId(10);
 		newRoute.setDriver(userRepository.findOne((long) driverId));
-		newRoute.setTruck(truckRepository.findOne((long) 3));
+		newRoute.setTruck(truckRepository.findOne((long) truckId));
 		routeRepository.save(newRoute);
 		return new ModelAndView("/route/profile", "route", newRoute);
 	}
@@ -62,11 +63,10 @@ public class RouteController {
 	@GetMapping(path="/addtest")
 	public String addSampleRoutes() {
 		for (long i= 1;i<4; i++) {
-			Routes route = new Routes();
+			Routes route = new Routes(Calendar.getInstance());
 			route.setTruck(truckRepository.findOne(i));
 			route.setDriver(userRepository.findOne(i+6));
 			route.setDeliveryId(i); 
-			route.setRouteDate(Calendar.getInstance());
 			routeRepository.save(route);
 		}
 		return "/hello";
