@@ -6,7 +6,7 @@ import ch.ese.team6.session.UserSession;
 
 @Service
 public class UserSecurityService {
-	
+/*	
 	public boolean isAllowed(int neededUserRole, UserSession session ) {
 		if (neededUserRole == session.getUserrole() && !session.timeOut()) {
 			session.getNewTimestamp();
@@ -15,5 +15,5 @@ public class UserSecurityService {
 		return false;
 	}
 	
-	
+	*/
 }

@@ -13,11 +13,6 @@ public class UserSession {
 		this.userId = userId;
 		this.getNewTimestamp();
 	}
-	
-	public int getUserrole() {
-		Users user = userRepository.findOne((long)userId);
-		return user.getUserrole();
-	}
 	public boolean timeOut() {
 		if(this.timestamp + 1000000 < System.currentTimeMillis()) return true;
 		return false;
