@@ -1,5 +1,5 @@
 package ch.ese.team6.Security;
-
+/*
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,3 +40,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 }
+*/
