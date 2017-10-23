@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.models.Deliveries.Delivery;
 import ch.ese.team6.models.customers.Customer;
 import ch.ese.team6.models.customers.CustomerRepository;
 import ch.ese.team6.models.items.ItemRepository;
@@ -79,7 +80,6 @@ public class OrderController {
 				int n_item = itemRepository.findAll().size();
 				oi.setItem(itemRepository.findAll().get((int) (Math.random()*n_item)));
 				
-				orderItemRepository.save(oi);
 		
 			}
 			
@@ -148,7 +148,25 @@ public class OrderController {
 	        return "redirect:/orders/";
 	    }
 	    
-	
+	    @GetMapping(path="/{orderId}/createDelivery")
+		public String createDelivery(Model model, @PathVariable Long orderId) {
+			Delivery delivery = new Delivery();
+			model.addAttribute("delivery", delivery);
+			model.addAttribute("order", orderRepository.findOne(orderId));
+			model.addAttribute("orderItems", orderRepository.findOne(orderId).getOrderItems());
+		    return "orders/createDelivery";
+		}
+	    
+	    /*
+	    @GetMapping(path="/{orderId}/createDelivery")
+		public ModelAndView (Model model, @PathVariable Long orderId) {
+			Delivery delivery = new Delivery();
+			model.addAttribute("delivery", delivery);
+			model.addAttribute("order", orderRepository.findOne(orderId));
+			model.addAttribute("orderItems", orderRepository.findOne(orderId).getOrderItems());
+		    return "orders/createDelivery";
+		}
+		*/
 
 
 	@GetMapping(path = "/{orderId}")

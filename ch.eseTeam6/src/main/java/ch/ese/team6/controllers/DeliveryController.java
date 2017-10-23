@@ -1,5 +1,7 @@
 package ch.ese.team6.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import ch.ese.team6.models.orderitems.OrderItemRepository;
 import ch.ese.team6.models.orderitems.OrderItems;
 import ch.ese.team6.models.orders.OrderRepository;
 import ch.ese.team6.models.orders.Orders;
+import ch.ese.team6.models.trucks.Trucks;
 
 @Controller
 @RequestMapping("/delivery")
@@ -45,47 +48,16 @@ public class DeliveryController {
 	}
 	
 	
-	@GetMapping(path="/add")
-	public String createForm(Model model) {
+	@GetMapping(path="/{orderId}/createDelivery")
+	public String addItems(Model model, @PathVariable Long orderId) {
 		Delivery delivery = new Delivery();
-		
 		model.addAttribute("delivery", delivery);
-		model.addAttribute("allOrders", orderRepository.findAll());
-	    return "delivery/add";
+		model.addAttribute("order", orderRepository.findOne(orderId));
+		model.addAttribute("orderItems", orderRepository.findOne(orderId).getOrderItems());
+	    return "delivery/"+orderId+"/createDelivery";
 	}
 	
-	
-	
-	@RequestMapping(path="/add", params={"select"})
-    public String saveDelivery(final Delivery delivery, final BindingResult bindingResult, final ModelMap model) {
-        this.deliveryRepository.save(delivery);
-        
-        return "redirect:/delivery/{deliveryId}/addOrderItems";
-    }
-	
-	@GetMapping(path = "/{deliveryId}")
-	public String showOrder(Model order, @PathVariable Long deliveryId) {
-		order.addAttribute("delivery", deliveryRepository.findOne(deliveryId));
-		return "delivery/profile";
-	}
-	
-	
-	@GetMapping(path="/{deliveryId}/addOrderItems")
-	public String addItems(Model model, @PathVariable Long deliveryId) {
-		
-		model.addAttribute("delivery", deliveryRepository.findOne(deliveryId));
-		model.addAttribute("allOrderItems", deliveryRepository.findOne(deliveryId).getOrder().getOrderItems());
-	      return "delivery/{deliveryId}/addOrderItems";
-	}
-	
-	@RequestMapping(path="/{deliveryId}/addOrderItems", params= {"save"})
-	public String saveOrderItems(Model model, @PathVariable Long deliveryId) {
-		
-		model.addAttribute("delivery", deliveryRepository.findOne(deliveryId));
-		model.addAttribute("allOrderItems", deliveryRepository.findOne(deliveryId).getOrder().getOrderItems());
-	      return "delivery/{deliveryId}/addOrderItems";
-	}
-	
+
 
 	
 	

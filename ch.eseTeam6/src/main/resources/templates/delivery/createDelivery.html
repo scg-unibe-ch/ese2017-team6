@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title th:text= "'Edit ' + ${delivery.id}"></title>
+   		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="design.css" type="text/css" th:href="@{design.css}"/>
+		<style>
+		table {
+		    border-collapse: collapse;
+		    width: 50%;
+		}
+		
+		th, td {
+		    text-align: left;
+		    padding: 8px;
+		}
+		
+		tr:nth-child(even){background-color: #f2f2f2}
+	</style>
+	</head>
+	
+	<body>
+		<h1>New Delivery</h1>
+		
+		<form action="#" th:action="@{/orders
+		/{id}/createDelivery(id = ${orderId})}" th:object="${delivery}" method="post">
+		<fieldset>
+		
+			<div th:if="${not #lists.isEmpty(orderItems)}">
+			<h1> Here are all Orderitems of the Orders </h1>
+	
+			<table>
+		    	<tr>
+		    		<th>Id</th>
+		    		<th>Name</th>
+		    	</tr>
+		    	<tr th:each="orderitem : ${orderItems}">
+		    		<td th:text="${orderitem.getId()}"></td>
+		    		<td th:text="${orderitem.toString()}"></td>
+				</tr>
+				
+		    </table>
+			</div>
+          
+          
+          </fieldset>
+          </form>
+          
+          
+		<a href="/hello" class="button" >home</a> <br/> <br/>
+		
+
+	</body>
+</html>
