@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UserProfile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1 th:text= "'Customer ' +${customer.id}"></h1>
+    <p th:text="'Name: ' + ${customer.Name}" />
+    <p th:text="'Address Id' +${customer.AddressId}" />
+    <a th:href="@{/customer/}">Go Back to the index</a>
+    <a th:href="@{/customer/{id}/edit(id = ${customer.id})}">Edit this customer</a>
+</body>
+</html>
+

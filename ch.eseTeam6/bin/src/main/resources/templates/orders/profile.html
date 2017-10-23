@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UserProfile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1 th:text= "'Order for ' +${order.clientName}"></h1>
+    <p th:text="'Delivery Address:  ' + ${order.deliveryAddress}" />
+    <a th:href="@{/order/}">Go Back to the index</a>
+    <a th:href="@{/order/{id}/edit(id = ${order.getId()})}">Edit this order</a>
+</body>
+</html>
+

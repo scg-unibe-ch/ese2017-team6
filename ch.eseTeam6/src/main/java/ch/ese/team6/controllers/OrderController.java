@@ -78,6 +78,8 @@ public class OrderController {
 				oi.setAmount((int)(Math.random()*10));
 				int n_item = itemRepository.findAll().size();
 				oi.setItem(itemRepository.findAll().get((int) (Math.random()*n_item)));
+				
+				orderItemRepository.save(oi);
 		
 			}
 			

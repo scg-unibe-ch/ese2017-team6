@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Hello,World!</title>
+		<title>Home</title>
+		<link rel="stylesheet" href="design.css" type="text/css" th:href="@{design.css}"/>
 	</head>
 	
 	<body>
-		<h1>Hi!</h1>
-		<p>Welcome to the save zone.</p>
+		<a href="/admin" class="button" >ADMIN</a> <br/> <br/>
+<!-- 		<a th:href="@{/user/}" class="button">user management</a> -->
+<!-- 		<a th:href="@{/item/}" class="button">item management</a> -->
+<!-- 		<a th:href="@{/user/}" class="button">user management</a> -->
+<!-- 		<a th:href="@{/truck/}" class="button">truck management</a> -->
+		<h1>order - delivery management</h1>
 		
-		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-		<h2 th:text="'This might be a new start page'"/>
-		<a th:href="@{/user/}">Checkout the users!</a>
+		<a th:href="@{/order/}" class="button">orders</a>
+		<a th:href="@{/route/}" class="button">tours</a>
+
+		<a th:href="@{/driverview/}" class="button">Driverview</a>
+		<a th:href="@{/route/addtest}" class="button">Create some sample routes.</a>
 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out"/>
+<input type="submit" value="Sign Out"/>
         </form>
 	</body>
 </html>

@@ -5,16 +5,12 @@
 	</head>
 	
 	<body>
-		<h1>Hi!</h1>
-		<p>I would like to generate Order items.</p>
-
-	<h1>Form</h1>
-    <form action="#" th:action="@{/orderitem/add}" th:object="${item}" method="post">
-        <p>Id: <input type="text" th:field="*{id}" /></p>
-        <p>Name: <input type="text" th:field="*{name}" /></p>
-        <input type="radio" name="Item" value="Machine 1" checked="checked" /> Machine 1
-  		<input type="radio" name="Item" value="Machine 2" /> Machine 2 
-  		<input type="radio" name="Item" value="Machine 3" /> Machine 3 
+	
+	<h1>Create a new OrderItem</h1>
+    <form action="#" th:action="@{/orderitem/add}" th:object="${orderitems}" method="post">
+        
+        <p>ItemId: <input type="text" th:field="*{ItemId}"/></p>
+        <p>OrderId: <input type="text" th:field="*{OrderId}" /></p>
         
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
