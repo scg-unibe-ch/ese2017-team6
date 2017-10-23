@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{label.read.title}">title</title>
+</head>
+<body th:object="${user}">
+	<h1 th:text="${username}">username</h1>
+	<h2 th:text="${password}">password</h2>
+</body>
+</html>

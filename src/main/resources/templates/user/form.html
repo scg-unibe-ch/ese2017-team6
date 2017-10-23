@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{label.form.title}">title</title>
+</head>
+<body>
+	<h1 th:text="#{label.form.title}">form</h1>
+	<form th:action="@{/user}" th:object="${user}" method="post">
+		<div>
+			<label th:text="#{label.user.username}">username</label> <input
+				th:field="*{username}" />
+			<p th:each="error: ${#fields.errors('username')}" th:text="${error}">Validation
+				error</p>
+		</div>
+		<div>
+			<label th:text="#{label.user.password}">password</label> <input
+				type="password" th:field="*{password}" />
+			<p th:each="error : ${#fields.errors('password')}" th:text="${error}">Validation
+				error</p>
+		</div>
+		<button type="submit" th:text="#{label.form.submit}">submit</button>
+	</form>
+</body>
+</html>
