@@ -3,8 +3,10 @@
 <head>
     <title>New Route</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 </head>
 <body>
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
 	<h1 th:text= "${routeDate.toString()}"></h1>
     <ul th:each= "truck : ${trucks}">
     	<li th:text="${truck.toString()}"></li>
@@ -12,7 +14,7 @@
     <ul th:each= "driver : ${drivers}">
     	<li th:text="${driver.toString()}"></li>
     </ul>
-    <h1 th:text= "'Create new Route on ' + ${routeTemplate.getDate()}"></h1>
+    <h1 th:text= "'create new route on ' + ${routeTemplate.getDate()}"></h1>
     <form th:action="@{/route/add}" th:object="${routeTemplate}" method="post">
     	<input type="hidden" name="routeDate" th:value="${routeDate.toString()}"/>
 	    <select class="form-control" name="*{truckId}" id="*{truckId}" th:field = "*{truckId}">
@@ -20,8 +22,8 @@
 		</select>
 		<select class="form-control" name="driverId" id="driver">
 	    	<option th:each= "driverId : ${drivers}" th:value="${driverId.getId()}" th:text="${driverId.toString()}"></option>
-		</select>
-		<input th:type="submit" value="Submit"/><input type="reset" value="Reset" />
+		</select><br/><br/>
+		<input th:type="submit" value="submit" class="button"/><input type="reset" value="reset" class="button" />
 	</form>
 </body>
 </html>

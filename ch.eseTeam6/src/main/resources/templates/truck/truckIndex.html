@@ -3,10 +3,12 @@
 	<head>
 	    <title>Truck Index</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 	</head>
 	<body>
 		<div th:if="${not #lists.isEmpty(trucks)}">
-		    <h1>All trucks</h1>
+			<a href="/hello" class="button" >HOME</a> <br/><br/>
+		    <h1>all trucks</h1>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>
@@ -26,6 +28,6 @@
 				</tr>
 		    </table>
 		</div>
-		<a href="/truck/add">Create a new truck</a>
+		<a href="/truck/add" class="button">create a new truck</a>
 	</body>
 </html>

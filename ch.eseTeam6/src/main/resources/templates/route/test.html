@@ -3,10 +3,12 @@
 	<head>
 	    <title>User Index</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../../design.css}"/>
 	</head>
 	<body>
+		<a href="/hello" class="button" >HOME</a> <br/><br/>
 		<div th:if="${not #lists.isEmpty(routes)}">
-		    <h1>All routes by userId</h1>
+		    <h1>all routes by userId</h1>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>
@@ -29,7 +31,7 @@
 		<form action="#" th:action="@{/add}" method="get">
 			<label for="routeDate"></label>
            	<input type="date" /><br/> <br/>
-			<input type="submit" value="Create new route" /><br/> <br/> 
+			<input type="submit" value="create new route" class="button"/><br/> <br/> 
 		</form> 
 	</body>
 </html>

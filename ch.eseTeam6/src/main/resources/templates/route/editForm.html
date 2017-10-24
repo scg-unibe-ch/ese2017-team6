@@ -1,20 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text= "'Edit ' + ${truck.vehicleName}"></title>
+    <title th:text= "'edit ' + ${truck.vehicleName}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 </head>
 <body>
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
 	<h1 th:text= "${truck.vehicleName}"></h1>
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="post">
-      	<p th:text="'Truck id: ' + *{id}" />
-      	<p th:text="'Vehicle name: ' + *{vehicleName}" />
+      	<p th:text="'truck id: ' + *{id}" />
+      	<p th:text="'vehicle name: ' + *{vehicleName}" />
         <p>Vehicle name<input type="text" th:field="*{vehicleName}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input type="submit" value="submit" class="button"/> <input type="reset" value="reset" class="button"/></p>
     </form>
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="delete">
     	
-    	<p><input type="submit" value="Delete truck?" /></p>
+    	<p><input type="submit" value="delete truck?" class="button"/></p>
     </form>
 </body>
 </html>

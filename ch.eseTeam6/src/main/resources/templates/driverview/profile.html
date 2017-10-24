@@ -3,14 +3,16 @@
 <head>
     <title>DriverProfile</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 </head>
 <body>
-	<h1 th:text= "'Hi ' +${driver.username}"></h1>
-    <p th:text="'Your id: ' + ${driver.id}" />
-    <p th:text="'Your RealName is: ' + ${driver.realName}" />
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
+	<h1 th:text= "'hi ' +${driver.username}"></h1>
+    <p th:text="'your id: ' + ${driver.id}" />
+    <p th:text="'your RealName is: ' + ${driver.realName}" />
     
     <div th:if="${not #lists.isEmpty(routes)}">
-	<h1> Here are all your Routes</h1>
+	<h1> here are all your routes</h1>
 		   <table>
 		    	<tr>
 		    		<th>Id</th>
@@ -31,8 +33,8 @@
 		    </table>
 	</div>
 	<div th:if="${#lists.isEmpty(routes)}">
-	<h1> You don't have any Routes at the Time. Enjoy your free day! </h1>
-	</div>
-    <a th:href="@{/driverview/}">Back to Drivers!</a>
+	<h1> you don't have any routes at the time. enjoy your free day! </h1>
+	</div><br/><br/>
+    <a th:href="@{/driverview/}" class="button">back to drivers!</a>
 </body>
 </html>

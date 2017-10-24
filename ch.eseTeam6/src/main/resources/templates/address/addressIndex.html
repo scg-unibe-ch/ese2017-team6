@@ -3,10 +3,12 @@
 	<head>
 	    <title>Address</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 	</head>
 	<body>
 		<div th:if="${not #lists.isEmpty(address)}">
-		    <h1>All Addresses</h1>
+			<a href="/hello" class="button" >HOME</a> <br/><br/>
+		    <h1>all addresses</h1>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>
@@ -21,7 +23,7 @@
 
 				</tr>
 		    </table>
-		</div>
-		<a href="/address/add">Create a new Address</a>
+		</div><br/><br/>
+		<a href="/address/add" class="button" >create a new address</a>
 	</body>
 </html>

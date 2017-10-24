@@ -2,13 +2,15 @@
 <html>
 	<head>
 		<title>The Item, that you just added</title>
+		<link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 	</head>
 	
 	<body>
+		<a href="/hello" class="button" >HOME</a> <br/><br/>
 		<p th:text="'You added the Item: ' + ${items.name}" />
-		<p th:text="'Item id: ' + ${items.id}" />
+		<p th:text="'Item id: ' + ${items.id}" /><br/><br/>
 		
-		<a th:href="@{/item/add}">Add a New Item</a>
-		<a th:href="@{/item/}">Show all Items</a>
+		<a th:href="@{/item/add}" class="button">add a new item</a>
+		<a th:href="@{/item/}" class="button">show all items</a>
 	</body>
 </html>

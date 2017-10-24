@@ -3,14 +3,16 @@
 <head>
     <title>UserProfile</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 </head>
 <body>
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
 	<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getRouteDate()}"></h1>
     <p th:text="'Truck Name: ' + ${route.getTruckName()}" />
     <p th:text="'Driver: ' + ${route.getDriverName()}" />
     <p th:text="'DeliveryId: '+${route.getDeliveryId()}" />
-    <a th:href="@{/route/}">Show all routes</a>
-    <a th:href="@{/driverview/{id}(id = ${route.getDriverId()})}">Driver-Profile of this Route</a>
-    <a th:href="@{/route/{id}/edit(id = ${route.id})}">Edit this route(Placeholder)</a>
+    <a th:href="@{/route/}" class="button">show all routes</a>
+    <a th:href="@{/driverview/{id}(id = ${route.getDriverId()})}" class="button">driver-profile of this route</a>
+    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="button">edit this route(Placeholder)</a>
 </body>
 </html>

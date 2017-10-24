@@ -3,9 +3,11 @@
 <head>
     <title>New Truck</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 </head>
 <body>
-	<h1>New User</h1>
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
+	<h1>new truck</h1>
     <form action="#" th:action="@{/truck/add}" th:object="${trucks}" method="post">
         <p>Truck name: <input type="text" th:field="*{vehicleName}" /></p>
         <p>Max cargo space: <input type="number" th:field="*{maxCargoSpace}" /></p>
@@ -15,7 +17,7 @@
 					<option th:value= "0" th:text="active"/>
 					<option th:value= "1" th:text="inactive"/>
     	</select>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input type="submit" value="submit" class="button"/> <input type="reset" value="reset" class="button"/></p>
     </form>
 </body>
 </html>

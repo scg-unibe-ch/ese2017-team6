@@ -3,9 +3,11 @@
 	<head>
 		<title>Show all OrderItems</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 	</head>
 	
 	<body>
-		<a th:href="@{/orderitem/add}">Add a New OrderItem</a>
+		<a href="/hello" class="button" >HOME</a> <br/><br/>
+		<a th:href="@{/orderitem/add}" class="button">add a new OrderItem</a>
 	</body>
 </html>

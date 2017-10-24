@@ -3,10 +3,12 @@
 	<head>
 	    <title>User Index</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 	</head>
 	<body>
+		<a href="/hello" class="button" >HOME</a> <br/><br/>
 		<div th:if="${not #lists.isEmpty(users)}">
-		    <h1>All Users</h1>
+		    <h1>all users</h1>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>
@@ -23,8 +25,7 @@
 		    		<td><a th:href="@{{id}(id = ${user.id})}">Profile</a></td>
 				</tr>
 		    </table>
-		</div>
-		<a href="/user/add">Create a new User</a>
-		<a href="/hello">Home</a>
+		</div><br/><br/>
+		<a href="/user/add" class="button">create a new user</a>
 	</body>
 </html>

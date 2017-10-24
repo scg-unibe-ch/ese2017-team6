@@ -3,13 +3,15 @@
 <head>
     <title>UserProfile</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../../design.css}"/>
 </head>
 <body>
-	<h1 th:text= "'Hi ' +${user.username}"></h1>
-    <p th:text="'Your id: ' + ${user.id}" />
-    <p th:text="'Your RealName is: ' + ${user.realName}" />
-    <a th:href="@{/user/}">Go Back to the index</a>
-    <a th:href="@{/user/{id}/edit(id = ${user.id})}">Edit this user</a>
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
+	<h1 th:text= "'hi ' +${user.username}"></h1>
+    <p th:text="'your id: ' + ${user.id}" />
+    <p th:text="'your RealName is: ' + ${user.realName}" />
+    <a th:href="@{/user/}" class="button">go back to the index</a>
+    <a th:href="@{/user/{id}/edit(id = ${user.id})}" class="button">edit this user</a>
 </body>
 </html>
 

@@ -31,31 +31,22 @@
     
         <fieldset>
           
-          <legend>Order Data</legend>
-
-         
-
-          
+          <legend>Order Data</legend>          
           <div>
             <label for="Delivery Date">
               <span>Delivery Date</span>
               (<span>YYYY/MM/DD</span>)
             </label>
             <input type="text" th:field="*{deliveryDate}" />
-          </div>
-          
-      	    
-          
+          </div> 
           
           <div>
-            <label for="customer">Customer</label>
+            <label for="customer">customer</label>
                     <select th:field="*{customer}">
                       <option th:each="var : ${allCustomers}" th:value="${var.id}" th:text="${var.getName()}"></option>
                     </select>
           </div>
           
-      
-    
            <div>
             <label>Rows</label>
             <table>

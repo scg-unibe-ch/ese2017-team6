@@ -2,9 +2,11 @@
 <html>
 	<head>
 		<title>The Item, that you just added</title>
+		<link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 	</head>
 	
 	<body>
+		<a href="/hello" class="button" >HOME</a> <br/><br/>
 		<p th:text="'OrderItem id: ' + ${orderitem.id}" />
 		<p th:text="'OrderItem itemid: ' + ${orderitem.ItemId}" />
 		<p th:text="'OrderItem orderid: ' + ${orderitem.OrderId}" />

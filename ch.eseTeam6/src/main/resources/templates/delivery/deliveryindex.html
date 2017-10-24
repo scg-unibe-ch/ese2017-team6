@@ -19,7 +19,8 @@
 	</head>
 	
 	<body>
-		<h1>New Delivery</h1>
+		<a href="/hello" class="button" >HOME</a> <br/><br/>
+		<h1>new delivery</h1>
 		
 		<form action="#" th:action="@{/delivery/add}" th:object="${delivery}" method="post">
 		<fieldset>
@@ -32,15 +33,11 @@
           </div>
           
           <div class="submit">
-            <button type="submit" name="select">Select Customer from Orders</button>    
+            <button type="submit" name="select" class="button">select customer from orders</button>    
           </div>
           
           </fieldset>
-          </form>
-          
-          
-		<a href="/hello" class="button" >home</a> <br/> <br/>
-		
+          </form>		
 
 	</body>
 </html>

@@ -3,19 +3,21 @@
 <head>
     <title th:text= "'Edit ' + ${user.username}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../../design.css}"/>
 </head>
 <body>
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
 	<h1 th:text= "${user.username}"></h1>
     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="post">
-      	<p th:text="'Your id: ' + *{id}" />
-      	<p th:text="'Your Name: ' + *{username}" />
+      	<p th:text="'your id: ' + *{id}" />
+      	<p th:text="'your name: ' + *{username}" />
         <p>Real name: <input type="text" th:field="*{realName}" /></p>
         <p>Password: <input type="text" th:field= "*{password}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input type="submit" value="submit" class="button"/> <input type="reset" value="reset" class="button"/></p>
     </form>
     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="delete">
     	
-    	<p><input type="submit" value="Delete user?" /></p>
+    	<p><input type="submit" value="delete user?" class="button"/></p>
     </form>
 </body>
 </html>

@@ -3,8 +3,10 @@
 <head>
     <title>UserProfile</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 </head>
 <body>
+	<a href="/hello" class="button" >HOME</a> <br/><br/>
 	<h1 th:text= "'Order for ' +${order.customer}"></h1>
     <p th:text="'Delivery Address:  ' + ${order.getAddress()}" />
      <p th:text="'Delivery Date:  ' + ${order.getDeliveryDate()}" />
@@ -24,9 +26,9 @@
 				</tr>
               </tbody>
             </table>
-          </div>
+          </div><br/><br/>
           
-    <a th:href="@{/orders/}">Go Back to the index</a>
+    <a th:href="@{/orders/}" class="button">Go Back to the index</a>
 </body>
 </html>
 
