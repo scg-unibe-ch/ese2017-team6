@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Address {
@@ -11,8 +12,11 @@ public class Address {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 	
+	
+	@NotNull
 	private String street;
 	//private String houseNumber; //has to be a String. Hauptstrasse 11a
+	@NotNull
 	private String city; //and Poste Code
 	
 	public Address() {
@@ -64,6 +68,13 @@ public class Address {
 	public String toString() {
 		return street+", "+city;
 	}
+	
+	private boolean invariant() {
+		return (this.street!=null && this.city != null && this.street.length()!=0 && this.city.length()!=0);
+	}
 
+	public boolean isOK() {
+		return this.invariant();
+	}
 
 }

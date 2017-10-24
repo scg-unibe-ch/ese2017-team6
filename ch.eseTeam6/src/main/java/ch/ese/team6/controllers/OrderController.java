@@ -79,7 +79,7 @@ public class OrderController {
 				int n_item = itemRepository.findAll().size();
 				oi.setItem(itemRepository.findAll().get((int) (Math.random()*n_item)));
 				
-				orderItemRepository.save(oi);
+				//orderItemRepository.save(oi);
 		
 			}
 			
@@ -110,7 +110,7 @@ public class OrderController {
     	order.getOrderItems().add(new OrderItems(order));
     	
         ModelAndView ret = new ModelAndView("/orders/add");
-		ret .addObject("order",order);
+		ret.addObject("order",order);
     	ret.addObject("allCustomers", customerRepository.findAll());
 		ret.addObject("allItems", itemRepository.findAll());
 
@@ -142,7 +142,12 @@ public class OrderController {
 	
 	    @RequestMapping(path="/add", params={"save"})
 	    public String saveOrder(final Orders order, final BindingResult bindingResult, final ModelMap model) {
-	        this.orderRepository.save(order);
+	        
+	    	if(!order.isOK()) {
+	    		return "orders/error";
+	    	}
+	    	
+	    	this.orderRepository.save(order);
 
 	       
 	        return "redirect:/orders/";

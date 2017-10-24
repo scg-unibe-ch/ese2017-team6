@@ -45,6 +45,9 @@ public class AddressController {
 	
 	@PostMapping(path="/add")
 	public String addNewAddress (@ModelAttribute Address addressValue) {
+		if(!addressValue.isOK()) {
+			return "address/error";
+		}
 		addressRepository.save(addressValue);
 		return "address/addressIndex";
 	}

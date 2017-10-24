@@ -19,6 +19,7 @@ public class Customer {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
+	@NotNull
     private String name;
 
   
@@ -59,6 +60,12 @@ public class Customer {
 	
 	public String toString() {
 		return name;
+	}
+	public boolean isOK() {
+		return this.invariant();
+	}
+	private boolean invariant() {
+		return name!=null && address!=null &&name.length()!=0;
 	}
 
 

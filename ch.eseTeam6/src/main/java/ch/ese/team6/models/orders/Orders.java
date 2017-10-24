@@ -42,7 +42,7 @@ public class Orders {
 	@NotNull
 	private OrderStatus orderStatus;
 	
-	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.ALL})
+	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
 	@JoinColumn(name="ORDERS_ID")
 	private List<OrderItems> orderItems = new ArrayList<OrderItems>();
  	
@@ -92,6 +92,30 @@ public class Orders {
     public Date getDeliveryDate() {
     	return deliveryDate;
     }
+
+
+    public boolean invariant() {
+    	if((deliveryDate!=null)&&(customer!=null)&&(this.orderStatus!=null)&&(this.orderItems!=null)) {
+  
+    		if(this.orderItems.size()==0) {
+    			return false;
+    		}else {
+    			for(OrderItems oi: this.orderItems) {
+    				if(oi==null) {
+    					
+    					return false;
+    				}
+    			}
+    			
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+	public boolean isOK() {
+		return this.invariant();
+	}
     
 
 

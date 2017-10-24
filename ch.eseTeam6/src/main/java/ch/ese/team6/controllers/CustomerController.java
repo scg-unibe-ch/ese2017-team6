@@ -47,7 +47,7 @@ public class CustomerController {
 			
 			customerRepository.save(cus);
 		}
-		return "redirect:/hello";
+		return "redirect:/orders/addtest";
 	}
 	
 	
@@ -62,8 +62,12 @@ public class CustomerController {
 	
 	@PostMapping(path="/add")
 	public String addNewCustomer (@ModelAttribute Customer customervalue) {
+		if(!customervalue.isOK()) {
+    		return "customer/error";
+    	}
+    	
 		customerRepository.save(customervalue);
-		return "customer/customerIndex";
+		return "redirect:/customer/";
 	}
 	
 	@RequestMapping(path="/")
@@ -85,6 +89,10 @@ public class CustomerController {
 	public ModelAndView editUser (@ModelAttribute Customer customervalue, @PathVariable long Id) {
 		Customer cus = customerRepository.findOne(Id);
 		cus.setName(customervalue.getName());cus.setAddress(customervalue.getAddress());
+		if(!customervalue.isOK()) {
+    		return new ModelAndView("customer/error");
+    	}
+		
 		customerRepository.save(cus);
 		return new ModelAndView("/customer/profile", "customer", cus);
 	}
