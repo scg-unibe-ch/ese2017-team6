@@ -5,9 +5,9 @@
 	</head>
 	<body>
 		<header>
-			<a href="#">Contact</a>
-			<a href="user/login">Login</a>
+			<a href="/user">Users</a>
 			<div sec:authorize="isAnonymous()">
+				<a href="user/login">Login</a>
 				<a href="registration">Register</a>
 			</div>
 			

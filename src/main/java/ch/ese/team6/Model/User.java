@@ -10,6 +10,9 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
+    
+    private String firstname;
+    private String surname;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +31,7 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     public String getPassword() {
         return password;
     }
@@ -54,5 +57,31 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    
+    public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getRealname() {
+    	return this.firstname+" "+this.surname;
+    }
+    
+    public void setRealname(String name) {
+    	String[] names = name.split(" ");
+    	this.firstname = names[0];
+    	this.surname = names[1];
     }
 }
