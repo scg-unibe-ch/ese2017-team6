@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UserProfile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1 th:text= "'Truck: ' +${truck.truckname}"></h1>
+    <p th:text="'Truck id: ' + ${truck.id}" />
+    <p th:text="'Max space: ' + ${truck.maxCargoSpace} + ' stillages'" />
+    <p th:text="'Max load: ' + ${truck.maxLoadCapacity} + ' tons'" />
+    <a th:href="@{/truck/}">Go Back to the index</a>
+    <a th:href="@{/truck/{id}/edit(id = ${truck.id})}">Edit this truck</a>
+</body>
+</html>
+
