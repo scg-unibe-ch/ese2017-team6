@@ -20,6 +20,12 @@ public class Truck {
 	
 	public Truck() {}
 	
+	public Truck(String name) {
+		this.truckname = name;
+		this.maxCargoSpace = this.maxLoadCapacity = 40;
+		this.vehicleCondition = 0;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -13,8 +13,18 @@ public class User {
     
     private String firstname;
     private String surname;
+    
+    public User(String name) {
+    	this.username = this.password = this.surname = name;
+    	this.password = password;
+    	this.passwordConfirm = password;
+    }
 
-    @Id
+    public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
