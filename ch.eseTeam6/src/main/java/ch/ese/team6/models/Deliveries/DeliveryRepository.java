@@ -10,7 +10,4 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long>{
 
 	List<Delivery>findAll();
 	
-	Delivery findByAddress(String address);
-
-	boolean existsByAddress(String address);
 }

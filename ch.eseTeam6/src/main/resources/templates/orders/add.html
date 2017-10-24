@@ -3,6 +3,7 @@
 <head>
     <title>Create Order</title>
     <link rel="stylesheet" href="../../../css/main-static.css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<style>
 		table {
@@ -22,8 +23,9 @@
   <body>
 
     <div>
+      <a href="/hello" class="button" >HOME</a> <br/> <br/>
     
-      <h2>Add new Order</h2>
+      <h1>add new order</h1>
 
       <form action="#" th:action="@{/orders/add}" th:object="${order}" method="post">
     

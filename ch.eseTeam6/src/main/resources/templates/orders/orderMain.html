@@ -3,15 +3,16 @@
 	<head>
 	    <title>User Index</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{design.css}"/>
+	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
 	</head>
 	<body>
+		<a href="/hello" class="button">HOME</a> <br/> <br/>
 		<h1> Order Menu </h1>
 
-		<a href="/orders/add">Create a new Order</a> <br/> <br/>
-		<a href="/hello">Home</a> <br/> <br/>
+		<a href="/orders/add" class="button">Create a new Order</a> <br/> <br/>
+		
 		<div th:if="${not #lists.isEmpty(orders)}">
-		    <h1>All Orders</h1>
+		    <h2>All Orders</h2>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>
