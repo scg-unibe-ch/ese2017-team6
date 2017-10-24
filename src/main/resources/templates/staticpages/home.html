@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Home, Team6</title>
+	</head>
+	<body>
+		<header>
+			<a href="#">Contact</a>
+			<a href="user/login">Login</a>
+			<div sec:authorize="isAnonymous()">
+				<a href="registration">Register</a>
+			</div>
+			
+		</header>
+		<h1>Welcome to our sample app</h1>
+		
+		<div sec:authorize="isAuthenticated()">
+			<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+			<form th:action="@{/logout}" th:method="post">
+				<input type="submit" value="Sign out"/>
+			</form>
+		</div>
+			
+		<div sec:authorize="isAnonymous()">
+			<h2>Not logged in!</h2>
+		</div>
+	</body>
+</html>
