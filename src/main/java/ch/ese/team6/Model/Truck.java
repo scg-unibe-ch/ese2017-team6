@@ -63,4 +63,9 @@ public class Truck {
 		this.vehicleCondition = vehicleCondition;
 	}
 	
+	@Override
+	public String toString() {
+		return this.getTruckname();
+	}
+	
 }

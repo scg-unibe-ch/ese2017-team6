@@ -18,7 +18,7 @@ public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-
+/*
 	@Bean
 	CommandLineRunner initUsers(UserRepository userRepository) {
 		return (evt) -> Arrays.asList("alvaro,dominic,mauro,nathalie,logista,brumBrumm".split(","))
@@ -62,10 +62,11 @@ public class Application {
 		return (evt) -> Arrays.asList("maschine1,maschine2,werkzeug1,werkzeug2".split(","))
 				.forEach(a -> {itemRepository.save(new Items(a));});
 	}
-	*/
+	
 	@Bean
 	CommandLineRunner initTrucks(TruckRepository truckRepository) {
 		return (evt) -> Arrays.asList("Iveco1,Iveco2,Iveco3,Iveco4".split(","))
 				.forEach(a -> {truckRepository.save(new Truck(a));});
 	}
+	*/
 }

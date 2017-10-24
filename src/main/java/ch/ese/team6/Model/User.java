@@ -15,7 +15,7 @@ public class User {
     private String surname;
     
     public User(String name) {
-    	this.username = this.password = this.surname = name;
+    	this.username = this.firstname = this.surname = name;
     	this.password = password;
     	this.passwordConfirm = password;
     }
@@ -93,5 +93,9 @@ public class User {
     	String[] names = name.split(" ");
     	this.firstname = names[0];
     	this.surname = names[1];
+    }
+    @Override
+    public String toString() {
+    	return this.getRealname();
     }
 }

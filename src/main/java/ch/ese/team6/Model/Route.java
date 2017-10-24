@@ -3,12 +3,14 @@ package ch.ese.team6.Model;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +25,9 @@ public class Route {
 	public Truck truck;
 	@ManyToOne
 	public User driver;
-	public long deliveries;
+	@OneToMany
+	public Set<Delivery> deliveries;
+	public long delivery;
 	public String addresses;
 	
 	public Route() {}
@@ -74,7 +78,7 @@ public class Route {
 	}
 
 	public void setDeliveryId(long delivery) {
-		this.deliveries = delivery;
+		this.delivery = delivery;
 		
 	}
 	public Truck getTruck() {
@@ -94,15 +98,20 @@ public class Route {
 	}
 
 	public long getDeliveries() {
-		return deliveries;
+		return delivery;
 	}
 
 	public void setDeliveries(long deliveries) {
-		this.deliveries = deliveries;
+		this.delivery = deliveries;
 	}
 
 	public void setRouteDate(Calendar routeDate) {
 		this.routeDate = routeDate;
+	}
+
+	public void addDelivery(Delivery delivery) {
+		deliveries.add(delivery);
+		
 	}
 
 

@@ -18,10 +18,10 @@
 		    	</tr>
 		    	<tr th:each="route : ${routes}">
 		    		<td th:text="${route.getId()}"></td>
-		    		<td th:text="${route.getRouteDate()}"></td>
-		    		<td th:text="${route.getTruckName()}"></td>
-		    		<td th:text="${route.getDriverName()}"></td>
-		    		<td th:text="${route.getDeliveryId()}"></td>
+		    		<td th:text="${route.getDate()}"></td>
+		    		<td th:text="${route.getTruck()}"></td>
+		    		<td th:text="${route.getDriver()}"></td>
+		    		<td th:text="${route.getDeliveries()}"></td>
 		    		<td><a th:href="@{{id}(id = ${route.id})}">Profile</a></td>
 				</tr>
 		    </table>

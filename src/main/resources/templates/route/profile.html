@@ -5,7 +5,7 @@
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
 	<body>
-		<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getRouteDate()}"></h1>
+		<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getDate()}"></h1>
 	    <p th:text="'Truck Name: ' + ${route.getTruck()}" />
 	    <p th:text="'Driver: ' + ${route.getDriver()}" />
 	    <p th:text="'DeliveryId: '+${route.getDeliveries()}" />
