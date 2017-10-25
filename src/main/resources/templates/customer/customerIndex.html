@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Customer</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
+	</head>
+	<body>
+		<div th:if="${not #lists.isEmpty(customer)}">
+			<a href="/hello" class="button" >HOME</a> <br/><br/>
+		    <h1>all customers</h1>
+		    <table>
+		    	<tr>
+		    		<th>Id</th>
+		    		<th>Name</th>
+		    		<th>Address ID</th>
+		    		<th></th>
+		    	</tr>
+		    	<tr th:each="cus : ${customer}">
+		    		<td th:text="${cus.getId()}"></td>
+		    		<td th:text="${cus.getName()}"></td>
+		    		<td th:text="${cus.getAddress()}"></td>
+		    		<td><a th:href="@{{id}(id = ${cus.id})}">Profile</a></td>
+				</tr>
+		    </table>
+		</div><br/><br/>
+		<a href="/customer/add" class="button">create a new customer</a>
+	</body>
+</html>

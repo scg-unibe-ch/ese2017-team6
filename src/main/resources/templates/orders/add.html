@@ -1,0 +1,93 @@
+ <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Order</title>
+    <link rel="stylesheet" href="../../../css/main-static.css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style>
+		table {
+		    border-collapse: collapse;
+		    width: 50%;
+		}
+		
+		th, td {
+		    text-align: left;
+		    padding: 8px;
+		}
+		
+		tr:nth-child(even){background-color: #f2f2f2}
+	</style>
+</head>
+
+  <body>
+
+    <div>
+      <a href="/hello" class="button" >HOME</a> <br/> <br/>
+    
+      <h1>add new order</h1>
+
+      <form action="#" th:action="@{/orders/add}" th:object="${order}" method="post">
+    
+        <fieldset>
+          
+          <legend>Order Data</legend>          
+          <div>
+            <label for="Delivery Date">
+              <span>Delivery Date</span>
+              (<span>YYYY/MM/DD</span>)
+            </label>
+            <input type="text" th:field="*{deliveryDate}" />
+          </div> 
+          
+          <div>
+            <label for="customer">customer</label>
+                    <select th:field="*{customer}">
+                      <option th:each="var : ${allCustomers}" th:value="${var.id}" th:text="${var.getName()}"></option>
+                    </select>
+          </div>
+          
+           <div>
+            <label>Rows</label>
+            <table>
+              <thead>
+                <tr>
+                  <th>Row</th>
+                  <th>Item</th>
+                  <th>Amount</th>
+                  <th>
+                    <button type="submit" name="addRow">Add row</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="row,rowStat : *{orderItems}">
+                  <td th:text="${rowStat.count}"></td>
+                  <td>
+                    <select th:field="*{orderItems[__${rowStat.index}__].item}">
+                      <option th:each="var : ${allItems}" th:value="${var.id}" th:text="${var.name}">Test</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
+                  </td>
+                  <td>
+                    <button type="submit" name="removeRow" th:value="${rowStat.index}">Remove row</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    
+          <div class="submit">
+            <button type="submit" name="save">Add Order</button>    
+          </div>
+        
+        </fieldset>
+          
+      </form>
+        
+    </div>
+
+  </body>
+</html>
