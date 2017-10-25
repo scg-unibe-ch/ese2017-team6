@@ -21,7 +21,7 @@
 		    		<td th:text="${route.getDate()}"></td>
 		    		<td th:text="${route.getTruck()}"></td>
 		    		<td th:text="${route.getDriver()}"></td>
-		    		<td th:text="${route.getDeliveries()}"></td>
+		    		<td th:text="${route.getDeliveries().size()}"></td>
 		    		<td><a th:href="@{{id}(id = ${route.id})}">Profile</a></td>
 				</tr>
 		    </table>

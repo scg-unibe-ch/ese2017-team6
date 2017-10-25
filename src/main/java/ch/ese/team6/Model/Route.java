@@ -1,8 +1,10 @@
 package ch.ese.team6.Model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -97,11 +99,11 @@ public class Route {
 		this.driver = driver;
 	}
 
-	public long getDeliveries() {
+	public long getDelivery() {
 		return delivery;
 	}
 
-	public void setDeliveries(long deliveries) {
+	public void setDelivery(long deliveries) {
 		this.delivery = deliveries;
 	}
 
@@ -112,6 +114,11 @@ public class Route {
 	public void addDelivery(Delivery delivery) {
 		deliveries.add(delivery);
 		
+	}
+	
+	public List<Delivery> getDeliveries(){
+		List<Delivery> deliveries = new ArrayList<Delivery>(this.deliveries);
+		return deliveries;
 	}
 
 

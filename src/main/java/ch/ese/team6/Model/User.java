@@ -13,13 +13,8 @@ public class User {
     
     private String firstname;
     private String surname;
+    private String email;
     
-    public User(String name) {
-    	this.username = this.firstname = this.surname = name;
-    	this.password = password;
-    	this.passwordConfirm = password;
-    }
-
     public User() {
 		// TODO Auto-generated constructor stub
 	}
@@ -98,4 +93,12 @@ public class User {
     public String toString() {
     	return this.getRealname();
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

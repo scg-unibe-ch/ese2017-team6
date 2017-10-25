@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.ese.team6.Model.Delivery;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Repository.DeliveryRepository;
+import ch.ese.team6.Repository.ItemRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
@@ -37,6 +38,8 @@ public class RouteController {
 	private UserRepository userRepository;
 	@Autowired
 	private DeliveryRepository deliveryRepository;
+	@Autowired
+	private ItemRepository itemRepository;
 	
 	@GetMapping(path="/add")
 	public String createForm(Model model, @RequestParam Date date) {
@@ -112,9 +115,25 @@ public class RouteController {
 		Route route = routeRepository.findOne(routeId);
 		deliveryRepository.save(delivery);
 		route.addDelivery(delivery);
+		routeRepository.save(route);
 		return new ModelAndView("route/profile", "route", route);
 	}
 	
+	@GetMapping(path = "/delivery/{deliveryId}")
+	public String editDelivery(Model model, @PathVariable long deliveryId) {
+		model.addAttribute("delivery", deliveryRepository.findOne(deliveryId));
+		model.addAttribute("items", itemRepository.findAll());
+		return "/route/item";
+	}
+	
+	@PostMapping(path= "/delivery/{deliveryId}")
+	public String addItem(Model model, @PathVariable long deliveryId, @RequestParam long itemId) {
+		Delivery delivery = deliveryRepository.findOne(deliveryId);
+		delivery.addItem(itemRepository.findOne(itemId));
+		deliveryRepository.save(delivery);
+		model.addAttribute("delivery", deliveryRepository.findOne(deliveryId));
+		return "redirect:/route/";
+	}
 	@PostMapping(path = "/{routeId}/edit")
 	public ModelAndView editRoute (@ModelAttribute Route routevalue, @PathVariable long routeId) {
 		Route route = routeRepository.findOne(routeId);

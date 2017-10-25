@@ -1,9 +1,14 @@
 package ch.ese.team6.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +20,8 @@ public class Delivery {
 	private long id;
 	private String address;
 	private String item;
+	@OneToMany
+	private Set<Item> items;
 	
 	
 	public Delivery() {}
@@ -47,6 +54,16 @@ public class Delivery {
 
 	public void setItem(String item) {
 		this.item = item;
+	}
+
+
+	public void addItem(Item item) {
+		this.items.add(item);
+	}
+	
+	public List<Item> getItems(){
+		List<Item> deliveryItems = new ArrayList<Item>(this.items);
+		return deliveryItems;
 	}
 	
 }
