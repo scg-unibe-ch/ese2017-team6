@@ -8,13 +8,17 @@
 		<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getDate()}"></h1>
 	    <p th:text="'Truck Name: ' + ${route.getTruck()}" />
 	    <p th:text="'Driver: ' + ${route.getDriver()}" />
-	    <p th:text="'DeliveryId: '+${route.getDelivery()}" />
-	     <ul th:each= "delivery : ${route.getDeliveries()}">
-	    	<li th:text="${delivery.getAddress()}"></li>
-	    	<ul th:each= "item : ${delivery.getItems()}">
-	    		<li th:text = "${item.toString()}"></li>
-	    	</ul>
-	    </ul>
+	    <p th:text="'DeliveryId: '+${route.getDelivery()}" /> 
+		     <ul th:each= "delivery : ${route.getDeliveries()}">
+		    	<li> <a th:href="@{/route/delivery/{id}(id = ${delivery.getId()})}">(Placeholder)</a></li>
+		    	<div th:if="${delivery.hasItems()}">
+			    	<ul th:each= "item : ${delivery.getItems()}">
+			    		<li th:text = "${item.toString()}"></li>
+			    	</ul>
+		    	</div>
+		    </ul>
+	    
+	    <a th:href="@{/route/{id}/add(id = ${route.id})}">Add delivery</a>
 	    <a th:href="@{/route/}">Show all routes</a>
 	    <a th:href="@{/driverview/{id}(id = ${route.getDriver()})}">Driver-Profile of this Route</a>
 	    <a th:href="@{/route/{id}/edit(id = ${route.id})}">Edit this route(Placeholder)</a>

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -61,7 +62,12 @@ public class Delivery {
 		this.items.add(item);
 	}
 	
+	public boolean hasItems(){
+		return !this.items.isEmpty();
+	}
+	
 	public List<Item> getItems(){
+		if (!this.hasItems()) return null;
 		List<Item> deliveryItems = new ArrayList<Item>(this.items);
 		return deliveryItems;
 	}
