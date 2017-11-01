@@ -28,7 +28,7 @@ public class StaticPagesController {
 	
 	@RequestMapping(path ="/sampleData")
 	public String generateTestData(@RequestParam String admin) {
-		String userCsv = "ivanm,Ivan,Mann,mann@example.com,0798199110,password, password;username,firstname,surname,email,password, password;";
+		String userCsv = "ivanm,Ivan,Mann,mann@example.com,0798199110,password, password;ivanm2,Ivan,Mann,mann@example.com,0798199110,password, password";
 		String[] users = userCsv.split(";");
 		for(int i = 0; i < users.length; i++) {
 			String[] userdata = users[i].split(",");

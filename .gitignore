@@ -25,3 +25,8 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+*.properties
+src/main/resources/application.properties
+src/main/resources/LOCALapplication.properties
+src/main/resources/application.properties
+*.properties
