@@ -28,16 +28,20 @@ public class StaticPagesController {
 	
 	@RequestMapping(path ="/sampleData")
 	public String generateTestData(@RequestParam String admin) {
-		//if(admin== "generate") {}
-		User user = new User();
-		user.setUsername("ivanm");
-		user.setFirstname("Ivan");
-		user.setSurname("Mann");
-		user.setEmail("mann@example.com");
-		user.setPassword("password");
-		user.setPasswordConfirm("password");
-		userService.save(user);	
-		
+		String userCsv = "ivanm,Ivan,Mann,mann@example.com,0798199110,password, password;username,firstname,surname,email,password, password;";
+		String[] users = userCsv.split(";");
+		for(int i = 0; i < users.length; i++) {
+			String[] userdata = users[i].split(",");
+			User user = new User();
+			user.setUsername(userdata[0]);
+			user.setFirstname(userdata[1]);
+			user.setSurname(userdata[2]);
+			user.setEmail(userdata[3]);
+			user.setPhone(userdata[4]);
+			user.setPassword(userdata[5]);
+			user.setPasswordConfirm(userdata[6]);
+			userService.save(user);	
+		}
 		Truck truck = new Truck();
 		truck.setTruckname("VW 1");
 		truck.setMaxCargoSpace(1);

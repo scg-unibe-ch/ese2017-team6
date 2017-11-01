@@ -14,6 +14,7 @@ public class User {
     private String firstname;
     private String surname;
     private String email;
+    private String phoneNumber;
     
     public User() {
 		// TODO Auto-generated constructor stub
@@ -100,5 +101,10 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void setPhone(String phone) {
+		this.phoneNumber = phone;
+		
 	}
 }
