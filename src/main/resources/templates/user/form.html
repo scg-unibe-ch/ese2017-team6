@@ -2,9 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title th:text="#{label.form.title}">title</title>
+	<title th:text="#{label.form.title}">title</title>
+	<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
 </head>
 <body>
+	<a href="/" class="button" >HOME</a> <br/> <br/>
 	<h1 th:text="#{label.form.title}">form</h1>
 	<form th:action="@{/user}" th:object="${user}" method="post">
 		<div>

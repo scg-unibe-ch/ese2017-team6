@@ -3,22 +3,12 @@
 	<head>
 		<title>Show all Items</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<style>
-		table, th, td {
-    					border: 1px solid black;
-    					border-collapse: collapse;
-						}
-		th, td {
-    					padding: 5px;
-				}
-		th {
-    					text-align: left;
-			}
-		</style>
+		<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
 	</head>
 	
 	<body>
 	<div th:if="${not #lists.isEmpty(items)}">
+	<a href="/" class="button" >HOME</a> <br/> <br/>
 	<h1> Here are all the Items from the Library </h1>
 	
 	<table>
@@ -34,7 +24,7 @@
 		    </table>
 	</div>
 	
-	<a th:href="@{/item/add}">Add a new item</a>
+	<a th:href="@{/item/add}" class="button">Add a new item</a>
 
 		
 	</body>

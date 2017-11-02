@@ -3,8 +3,10 @@
 <head>
     <title>New User</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
 </head>
 <body>
+	<a href="/" class="button" >HOME</a> <br/> <br/>
 	<h1>New Truck</h1>
     <form action="#" th:action="@{/truck/add}" th:object="${truck}" method="post">
         <p>Truck name: <input type="text" th:field="*{truckname}" /></p>
@@ -15,7 +17,7 @@
 					<option th:value= "0" th:text="active"/>
 					<option th:value= "1" th:text="inactive"/>
     	</select>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input type="submit" value="Submit" class="button" /> <input type="reset" value="Reset" class="button"/></p>
     </form>
 </body>
 </html>

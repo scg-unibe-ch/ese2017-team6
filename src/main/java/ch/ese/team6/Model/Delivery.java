@@ -63,7 +63,12 @@ public class Delivery {
 	}
 	
 	public boolean hasItems(){
+		try {
 		return !this.items.isEmpty();
+		}
+		catch(NullPointerException exception) {
+			return false;
+		}
 	}
 	
 	public List<Item> getItems(){

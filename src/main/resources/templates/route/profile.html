@@ -3,6 +3,7 @@
 	<head>
 	    <title>UserProfile</title>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
 	</head>
 	<body>
 		<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getDate()}"></h1>
@@ -10,7 +11,7 @@
 	    <p th:text="'Driver: ' + ${route.getDriver()}" />
 	    <p th:text="'DeliveryId: '+${route.getDelivery()}" /> 
 		     <ul th:each= "delivery : ${route.getDeliveries()}">
-		    	<li> <a th:href="@{/route/delivery/{id}(id = ${delivery.getId()})}">(Placeholder)</a></li>
+		    	<li> <a th:href="@{/route/delivery/{id}(id = ${delivery.getId()})}" th:text="${delivery.getAddress()}"></a></li>
 		    	<div th:if="${delivery.hasItems()}">
 			    	<ul th:each= "item : ${delivery.getItems()}">
 			    		<li th:text = "${item.toString()}"></li>

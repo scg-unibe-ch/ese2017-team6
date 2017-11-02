@@ -3,10 +3,10 @@
 <head>
     <title th:text= "'Edit ' + ${customer.name}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../../design.css}"/>
+    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../../main.css}"/>
 </head>
 <body>
-	<a href="/hello" class="button" >HOME</a> <br/><br/>
+	<a href="/" class="button" >HOME</a> <br/> <br/>
 	<h1 th:text= "${customer.name}"></h1>
     <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="post">
       	<p th:text="'Id: ' + *{id}" />
