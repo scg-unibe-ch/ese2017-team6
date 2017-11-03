@@ -3,6 +3,7 @@ target/
 
 ###Project###
 src/main/resources/application.properties
+src/main/resources/*.properties
 
 ### STS ###
 .apt_generated
@@ -30,6 +31,7 @@ src/main/resources/application.properties
 src/main/resources/LOCALapplication.properties
 src/main/resources/application.properties
 *.properties
+src/main/resources/application.properties
 src/main/resources/application.properties
 src/main/resources/application.properties
 src/main/resources/application.properties
