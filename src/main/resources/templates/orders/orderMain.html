@@ -1,18 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <title>User Index</title>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
-	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
-		<a href="/hello" class="button">HOME</a> <br/> <br/>
-		<h1> order menu </h1>
-
+		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<h1> orders </h1>
+<!-- 		TODO: condition for next line (just show if the list is empty) -->
+		<h2>no orders found</h2>
 		<a href="/orders/add" class="button">create a new order</a> <br/> <br/>
-		
 		<div th:if="${not #lists.isEmpty(orders)}">
-		    <h2>All Orders</h2>
+		    <h2>all orders</h2>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>

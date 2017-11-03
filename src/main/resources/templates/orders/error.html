@@ -1,38 +1,11 @@
 
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Create Order</title>
-<link rel="stylesheet" href="../../../css/main-static.css"
-	th:href="@{/css/main.css}" />
-<link rel="stylesheet" href="design.css" type="text/css"
-	th:href="@{../design.css}" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<style>
-table {
-	border-collapse: collapse;
-	width: 50%;
-}
-
-th, td {
-	text-align: left;
-	padding: 8px;
-}
-
-tr:nth-child(even) {
-	background-color: #f2f2f2
-}
-</style>
-</head>
-
+<head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
-
-	<div>
-		<a href="/hello" class="button">HOME</a> <br /> <br />
-			
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div>			
 		<h1>We didn't create your order: Make sure you have a correct date, selected a customer and your order contains at least one item. </h1>
-		
-		
 	</div>
 </body>
 </html>

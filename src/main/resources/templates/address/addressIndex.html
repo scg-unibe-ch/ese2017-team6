@@ -1,13 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <title>Address</title>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
-	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
+		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div th:if="${not #lists.isEmpty(address)}">
-			<a href="/hello" class="button" >HOME</a> <br/><br/>
+			<a href="/" class="button" >HOME</a> <br/> <br/>
 		    <h1>all addresses</h1>
 		    <table>
 		    	<tr>

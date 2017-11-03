@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<title>Home, Team6</title>
+		<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
 	</head>
 	<body>
 		<header>
-			<a href="/user">Users</a>
+			<a href="/user" class="button">Users</a>
 			<div sec:authorize="isAnonymous()">
 				<a href="user/login">Login</a>
 				<a href="registration">Register</a>

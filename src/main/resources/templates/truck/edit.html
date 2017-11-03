@@ -3,18 +3,20 @@
 <head>
     <title th:text= "'Edit ' + ${truck.truckname}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../../main.css}"/>
 </head>
 <body>
+<a href="/" class="button" >HOME</a> <br/> <br/>
 <h1 th:text= "${truck.truckname}"></h1>
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="post">
       	<p th:text="'Truck id: ' + *{id}" />
       	<p th:text="'Vehicle name: ' + *{truckname}" />
         <p>Vehicle name<input type="text" th:field="*{truckname}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input type="submit" value="Submit" class="button"/> <input type="reset" value="Reset" class="button"/></p>
     </form>
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="delete">
     	
-    	<p><input type="submit" value="Delete truck?" /></p>
+    	<p><input type="submit" value="Delete truck?" class="button" /></p>
     </form>
 </body>
 </html>

@@ -78,9 +78,7 @@ public class OrderController {
 				
 				//orderItemRepository.save(oi);
 		
-			}
-			
-			
+			}	
 			orderRepository.save(order);
 		}
 		return "redirect:/hello";
@@ -99,8 +97,6 @@ public class OrderController {
 		return "/orders/add";
 	}
 	
-
-	
     @RequestMapping(value="/add", params={"addRow"})
     public ModelAndView addRow(final Order order, final BindingResult bindingResult) {
     	
@@ -111,14 +107,10 @@ public class OrderController {
     	ret.addObject("allCustomers", customerRepository.findAll());
 		ret.addObject("allItems", itemRepository.findAll());
 
-		
-		
 		return ret;
        
     }
 	
-   
-	    
 	    @RequestMapping(path="/add", params={"removeRow"})
 	    public ModelAndView removeRow(final Order order, final BindingResult bindingResult, final HttpServletRequest req) {
 	    	
@@ -131,8 +123,6 @@ public class OrderController {
 	    	ret.addObject("allCustomers", customerRepository.findAll());
 			ret.addObject("allItems", itemRepository.findAll());
 
-			
-			
 			return ret;
 	       
 	    }
@@ -146,21 +136,14 @@ public class OrderController {
 	    	
 	    	this.orderRepository.save(order);
 
-	       
 	        return "redirect:/orders/";
 	    }
 	    
-	
-
 
 	@GetMapping(path = "/{orderId}")
 	public String showOrder(Model order, @PathVariable Long orderId) {
 		order.addAttribute("order", orderRepository.findOne(orderId));
 		return "orders/profile";
 	}
-
-	
-
-
 
 }

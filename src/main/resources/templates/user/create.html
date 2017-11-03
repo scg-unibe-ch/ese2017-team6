@@ -1,16 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>New User</title>
+    <title>new user</title>
+    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>New User</h1>
+	<a href="/" class="button" >HOME</a> <br/> <br/>
+	<h1>new user</h1>
     <form action="#" th:action="@{/user/add}" th:object="${users}" method="post">
-        <p>User: <input type="text" th:field="*{username}" /></p>
-        <p>Real Name: <input type="text" th:field="*{surname}" /></p>
-        <p>Password: <input type="text" th:field= "*{password}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p>user name: <input type="text" th:field="*{username}" /></p>
+        <p>real name: <input type="text" th:field="*{surname}" /></p>
+        <p>password: <input type="text" th:field= "*{password}" /></p>
+        <p><input type="submit" value="submit" class="button"/> <input type="reset" value="reset" class="button"/></p>
     </form>
 </body>
 </html>

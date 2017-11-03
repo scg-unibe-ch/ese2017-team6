@@ -1,10 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <title>User Index</title>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div th:if="${not #lists.isEmpty(trucks)}">
 		    <h1>All trucks</h1>
 		    <table>
@@ -26,6 +24,6 @@
 				</tr>
 		    </table>
 		</div>
-		<a href="/truck/add">Create a new truck</a>
+		<a href="/truck/add" class="button">Create a new truck</a>
 	</body>
 </html>

@@ -1,26 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>Show all Items</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<style>
-		table, th, td {
-    					border: 1px solid black;
-    					border-collapse: collapse;
-						}
-		th, td {
-    					padding: 5px;
-				}
-		th {
-    					text-align: left;
-			}
-		</style>
-	</head>
-	
+<head lang="en" th:replace="fragments/head :: head"> </head>	
 	<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div th:if="${not #lists.isEmpty(items)}">
-	<h1> Here are all the Items from the Library </h1>
-	
+		<a href="/" class="button" >HOME</a> <br/> <br/>
+		<h1> Here are all the Items from the Library </h1>
 	<table>
 		    	<tr>
 		    		<th>Id</th>
@@ -34,9 +19,20 @@
 				</tr>
 				
 		    </table>
+		<table>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Name</th>
+			    	</tr>
+			    	<tr th:each="item : ${items}">
+			    		<td th:text="${item.getId()}"></td>
+			    		<td th:text="${item.getName()}"></td>
+					</tr>
+					
+		</table>
 	</div>
-	
-	<a th:href="@{/item/add}">Add a new item</a>
+		
+	<a th:href="@{/item/add}" class="button">Add a new item</a>
 
 		
 	</body>

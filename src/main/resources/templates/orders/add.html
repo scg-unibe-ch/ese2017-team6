@@ -1,10 +1,7 @@
  <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Order</title>
-    <link rel="stylesheet" href="../../../css/main-static.css" th:href="@{/css/main.css}" />
-    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<style>
 		table {
 		    border-collapse: collapse;
@@ -21,20 +18,18 @@
 </head>
 
   <body>
-
-    <div>
-      <a href="/hello" class="button" >HOME</a> <br/> <br/>
-    
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+    <div>    
       <h1>add new order</h1>
 
       <form action="#" th:action="@{/orders/add}" th:object="${order}" method="post">
     
         <fieldset>
           
-          <legend>Order Data</legend>          
+          <legend>order data</legend>          
           <div>
-            <label for="Delivery Date">
-              <span>Delivery Date</span>
+            <label for="delivery date">
+              <span>delivery date</span>
               (<span>YYYY/MM/DD</span>)
             </label>
             <input type="text" th:field="*{deliveryDate}" />
@@ -48,13 +43,13 @@
           </div>
           
            <div>
-            <label>Rows</label>
+            <label>rows</label>
             <table>
               <thead>
                 <tr>
-                  <th>Row</th>
-                  <th>Item</th>
-                  <th>Amount</th>
+                  <th>row</th>
+                  <th>item</th>
+                  <th>amount</th>
                   <th>
                     <button type="submit" name="addRow">Add row</button>
                   </th>

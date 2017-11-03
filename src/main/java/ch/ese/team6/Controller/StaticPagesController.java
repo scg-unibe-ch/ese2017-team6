@@ -1,7 +1,10 @@
 package ch.ese.team6.Controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,9 +23,15 @@ public class StaticPagesController {
 	@Autowired
 	private SampleDataService sampleData;
 	
+	   
 	@RequestMapping(path ="/")
 	public String showHome() {
-		return "staticpage/home";
+		return "staticpage/index";
+	}
+	
+	@RequestMapping(path ="/admin")
+	public String showAdmin() {
+		return "staticpage/admin";
 	}
 	
 	@RequestMapping(path ="/sampleData")
