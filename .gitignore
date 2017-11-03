@@ -3,7 +3,7 @@ target/
 
 ###Project###
 src/main/resources/application.properties
-src/main/resources/*.properties
+
 
 ### STS ###
 .apt_generated
@@ -26,12 +26,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-*.properties
-src/main/resources/application.properties
-src/main/resources/LOCALapplication.properties
-src/main/resources/application.properties
-*.properties
-src/main/resources/application.properties
-src/main/resources/application.properties
-src/main/resources/application.properties
-src/main/resources/application.properties
+
