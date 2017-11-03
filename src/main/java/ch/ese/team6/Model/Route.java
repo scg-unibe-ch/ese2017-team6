@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class Route {
 	public String addresses;
 	public long estimatedTime;
 	public long measuredTime;
-	
+
 	public Route() {}
 	
 	public Route(boolean test) {
@@ -114,17 +115,64 @@ public class Route {
 	}
 
 	public void addDelivery(Delivery delivery) {
-		deliveries.add(delivery);
+		System.out.println(delivery.getAddress());
+		try {
+			deliveries.add(delivery);
+		}
+		catch(NullPointerException exception) {
+			this.deliveries = new HashSet<Delivery>();
+			deliveries.add(delivery);
+		}
 		
 	}
 	
+	public boolean hasDeliveries() {
+		try {
+			return !this.deliveries.isEmpty();
+		}
+		catch(NullPointerException exception){
+			return false;
+		}
+	}
+	
 	public List<Delivery> getDeliveries(){
+		if (this.hasDeliveries()){
 		List<Delivery> deliveries = new ArrayList<Delivery>(this.deliveries);
 		return deliveries;
+		}
+		return null;
+	}
+	
+	public int countDeliveries() {
+		if (this.hasDeliveries()){
+			List<Delivery> deliveries = new ArrayList<Delivery>(this.deliveries);
+			return deliveries.size();
+			}
+			return 0;
 	}
 	
 	public String calculateCapacity() {
-		return "100/100";
+		int cargoSpace = this.getTruck().getMaxCargoSpace();
+		 return this.calculateUsedSpace()+ "/ " +cargoSpace; 
+	}
+	
+	public boolean isFull() {
+		return this.getTruck().getMaxCargoSpace()<this.calculateUsedSpace();
+	}
+	
+	private int calculateUsedSpace() {
+		if (this.hasDeliveries()) {
+			int usedSpace = 0;
+			List<Delivery> deliveries = this.getDeliveries();
+			for (Delivery delivery : deliveries) {
+				List<OrderItem> items = delivery.getItems();
+				for (OrderItem item: items) {
+					usedSpace += item.getItem().getRequiredAmountOfPalettes();
+				}
+			}
+			return usedSpace;
+		}
+		return 0;
 	}
 
 	public long getEstimatedTime() {

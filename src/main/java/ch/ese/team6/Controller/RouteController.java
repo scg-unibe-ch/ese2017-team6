@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Model.Delivery;
+import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Repository.DeliveryRepository;
 import ch.ese.team6.Repository.ItemRepository;
+import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
+import ch.ese.team6.Service.RouteService;
 
 @Controller
 @RequestMapping("/route")
-public class RouteController {
+public class RouteController{
 		
 	@Autowired
 	private RouteRepository routeRepository;
@@ -40,6 +43,10 @@ public class RouteController {
 	private DeliveryRepository deliveryRepository;
 	@Autowired
 	private ItemRepository itemRepository;
+	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired
+	private RouteService routeService;
 	
 	@GetMapping(path="/add")
 	public String createForm(Model model, @RequestParam Date date) {
@@ -153,4 +160,32 @@ public class RouteController {
 		}
 	}
 	
+	@GetMapping(path="/add/o/{orderId}")
+	public String createRouteFromOrder(Model model, @PathVariable long orderId, 
+			@RequestParam Date date) {
+		model.addAttribute("routeTemplate", new Route(date));
+		model.addAttribute("routeDate", date);
+		model.addAttribute("trucks", truckRepository.findAll());
+		model.addAttribute("drivers", userRepository.findAll());
+		model.addAttribute("order", orderRepository.findOne(orderId));
+	        return "route/createWithOrder";
+		
+	}
+		
+	@PostMapping(path="/add/o/{orderId}")
+	public ModelAndView addNewRouteFromOrder (@RequestParam Date routeDate, 
+			@RequestParam int driverId, @RequestParam int truck, @PathVariable long orderId) {
+		Route route = new Route(Calendar.getInstance());
+		route.setRouteDate(routeDate);
+		route.setDeliveryId((long)10);
+		route.setDriver(userRepository.findOne((long)driverId));
+		route.setTruck(truckRepository.findOne((long)truck));
+		Order order = orderRepository.findOne(orderId);
+		route.addDelivery(new Delivery(order));
+		order.scheduleOrder();
+		deliveryRepository.save(route.getDeliveries());
+		routeRepository.save(route);
+		orderRepository.save(order);
+		return new ModelAndView("/route/profile", "route", route);
+	}
 }
