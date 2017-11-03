@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+	<body>
+		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div th:if="${not #lists.isEmpty(address)}">
+			<a href="/" class="button" >HOME</a> <br/> <br/>
+		    <h1>all addresses</h1>
+		    <table>
+		    	<tr>
+		    		<th>Id</th>
+		    		<th>Street</th>
+		    		<th>City</th>
+		    		
+		    	</tr>
+		    	<tr th:each="ad : ${address}">
+		    		<td th:text="${ad.getId()}"></td>
+		    		<td th:text="${ad.getStreet()}"></td>
+		    		<td th:text="${ad.getCity()}"></td>
+
+				</tr>
+		    </table>
+		</div><br/><br/>
+		<a href="/address/add" class="button" >create a new address</a>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text= "'Edit ' + ${customer.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../../main.css}"/>
+</head>
+<body>
+	<a href="/" class="button" >HOME</a> <br/> <br/>
+	<h1 th:text= "${customer.name}"></h1>
+    <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="post">
+      	<p th:text="'Id: ' + *{id}" />
+      	<p th:text="'Name: ' + *{name}" />
+      	<p th:text="'Address: ' + *{address}" />
+        <p>Real name: <input type="text" th:field="*{name}" /></p>
+        <p>Address <select th:field="*{address}">
+                      <option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
+                    </select></p>
+        <p><input type="submit" value="submit" class="button"/> <input type="reset" value="reset" class="button" /></p>
+    </form>
+    <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="delete">
+    	
+    	<p><input type="submit" value="delete customer?" class="button"/></p>
+    </form>
+</body>
+</html>
+ 

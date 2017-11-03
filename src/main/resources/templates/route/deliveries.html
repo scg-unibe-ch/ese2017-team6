@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>New User</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
+
+	</head>
+	<body>
+		<h1 th:text="'Add delivery'"></h1>
+	    <form th:action="@{/route/{id}/add(id = ${route.getId()})}"  th:object="${delivery}" method="post">
+	    	 <p>Address: <input type="text" th:field="*{address}" /></p>
+	    	 <p>Item: <input type="text" th:field="*{item}" /></p>
+	    	<input th:type="submit" value="Submit"/><input type="reset" value="Reset" />
+		</form>
+	</body>
+</html>

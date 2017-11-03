@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>New User</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<<<<<<< HEAD
+	    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
+=======
+	    <link rel="stylesheet" href="design.css" type="text/css" th:href="@{../design.css}"/>
+>>>>>>> branch 'NewTravisIntegration' of https://github.com/scg-unibe-ch/ese2017-team6.git
+	</head>
+	<body>
+		<h1 th:text= "'Edit Delivery nr: ' + ${delivery.getId()}"></h1>
+	    <ul th:each= "deliveryItem : ${delivery.getItems()}">
+	    	<li th:text="${deliveryItem.toString()}"></li>
+	    </ul>
+	    <h2>Aviable Items</h2>
+	    <ul th:each= "item : ${items}">
+	    	<li th:text="${item.toString()}"></li>
+	    </ul>
+	    <form th:action = "@{/route/delivery/{deliveryId}(deliveryId = ${delivery.id})}" th:method = "post">
+		    <select class="form-control" name="itemId" id="item">
+			    	<option th:each= "item : ${items}" th:value="${item.getId()}" th:text="${item.toString()}"></option>
+			</select>
+			<input type = "submit" value= "Add item"/>
+		</form>
+	</body>
+</html>

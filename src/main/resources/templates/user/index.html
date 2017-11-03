@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+	<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div th:if="${not #lists.isEmpty(users)}">
+		    <h1>all users</h1>
+		    <table>
+		    	<tr>
+		    		<th>id</th>
+		    		<th>username</th>
+		    		<th>real name</th>
+		    		<th>userrole</th>
+		    		<th></th>
+		    	</tr>
+		    	<tr th:each="user : ${users}">
+		    		<td th:text="${user.getId()}"></td>
+		    		<td th:text="${user.getUsername()}"></td>
+		    		<td th:text="${user.getRealname()}"></td>
+		    		<td><a th:href="@{{id}(id = ${user.id})}">profile</a></td>
+				</tr>
+		    </table>
+		</div><br/><br/>
+		<a href="/user/add" class="button">create a new user</a>
+	</body>
+</html>

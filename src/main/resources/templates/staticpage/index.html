@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+	<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+		<h1>order &#38; delivery management</h1>
+		
+		<a th:href="@{/orders/}" class="button">orders</a>
+<!-- 		<a th:href="@{/route/}" class="button">tours</a>  -->	
+
+	    <a th:href="@{/driverview/}" class="button">driver view</a>
+		<a th:href="@{/customer/addtest}" class="button">create some sample data</a>
+<!-- 		<a th:href="@{/orders/addtest}" class="button">create some sample orders</a> -->
+<!-- 		<a th:href="@{/route/addtest}" class="button">create some sample routes</a> -->
+	</body>
+</html>
