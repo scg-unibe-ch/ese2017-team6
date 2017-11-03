@@ -47,7 +47,7 @@ public class StaticPagesController {
 		Item item = new Item();
 		item.setName("Schraubenzieher");
 		itemRepository.save(item);
-		return "redirect:staticpage/index";
+		return "redirect:/";
 	}
 	
 	

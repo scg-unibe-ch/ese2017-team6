@@ -3,8 +3,10 @@ package ch.ese.team6.Model;
 public enum OrderStatus {
 
     
-    OPEN("OPEN"), 
+    OPEN("OPEN"),
+    SCHEDULED("SCHEDULED"),
     FINISHED("FINISHED");
+	
     
     
     public static final OrderStatus[] ALL = { OPEN, FINISHED };

@@ -52,6 +52,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 		if (itemRepository.count() == 0)this.loadItems();
 		if (truckRepository.count() == 0)this.loadTrucks();
 		if (orderRepository.count() == 0)this.loadOrders();
+		if (routeRepository.count() == 0)this.loadRoutes();
 	}
 	public void loadUsers() {
 		String[] users = userCsv.split(";");

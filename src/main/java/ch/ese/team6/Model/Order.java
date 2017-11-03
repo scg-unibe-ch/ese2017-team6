@@ -80,6 +80,10 @@ public class Order {
     	this.orderStatus = s;
     }
     
+    public void scheduleOrder() {
+    	this.orderStatus = OrderStatus.SCHEDULED;
+    }
+    
     public void setDeliveryDate(Date date) {
     	this.deliveryDate = date;
     }

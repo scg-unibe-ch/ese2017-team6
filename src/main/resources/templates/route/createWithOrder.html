@@ -11,7 +11,7 @@
 	    	<li th:text="${driver.toString()}"></li>
 	    </ul>
 	    <h1 th:text= "'Create new Route on ' + ${routeTemplate.getDate()}"></h1>
-	    <form th:action="@{/route/add}" th:object="${routeTemplate}" method="post">
+	    <form th:action="@{/route/add/o/{id}(id = ${order.getId()})}" th:object="${routeTemplate}" method="post">
 	    	<input type="hidden" name="routeDate" th:value="${routeDate.toString()}"/>
 		    <select class="form-control" name="*{truckId}" id="*{truck}" th:field = "*{truck}">
 		    	<option th:each= "truck : ${trucks}"  th:value="${truck.getId()}" th:text="${truck.toString()}"></option>

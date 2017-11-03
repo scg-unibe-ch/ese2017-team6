@@ -1,5 +1,7 @@
 package ch.ese.team6.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import ch.ese.team6.Model.Route;
 import ch.ese.team6.Repository.DeliveryRepository;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
+import ch.ese.team6.Service.RouteService;
 
 @Controller
 @RequestMapping(path = "/schedule")
@@ -26,11 +29,13 @@ public class SchedulingController {
 	private RouteRepository routeRepository;
 	@Autowired
 	private DeliveryRepository deliveryRepository;
+	@Autowired
+	private RouteService routeService;
 	
 	@RequestMapping
 	public String overview(Model model) {
 		model.addAttribute("orders", orderRepository.findAll());
-		model.addAttribute("routes", routeRepository.findAll());
+		model.addAttribute("routes", routeService.selectWithLeftCapacity());
 		return "schedule/overview";
 	}
 	
@@ -46,8 +51,11 @@ public class SchedulingController {
 		Route route = routeRepository.findOne(routeId);
 		Order order = orderRepository.findOne(orderId);
 		route.addDelivery(new Delivery(order));
+		if (route.isFull()) return"redirect:/schedule/"+orderId;
+		order.scheduleOrder();
 		deliveryRepository.save(route.getDeliveries());
 		routeRepository.save(route);
+		orderRepository.save(order);
 		model.addAttribute("orders", orderRepository.findAll());
 		model.addAttribute("routes", routeRepository.findAll());
 		return "schedule/overview";
