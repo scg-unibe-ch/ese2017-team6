@@ -18,6 +18,8 @@ public class Address {
 	//private String houseNumber; //has to be a String. Hauptstrasse 11a
 	@NotNull
 	private String city; //and Poste Code
+	@NotNull
+	private String country;
 	
 	public Address() {
 		
@@ -65,6 +67,18 @@ public class Address {
 		this.street = street;
 	}
 	
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String toString() {
 		return street+", "+city;
 	}

@@ -25,10 +25,12 @@
 		    	<tr>
 		    		<th>Id</th>
 		    		<th>Name</th>
+		    		<th>Needed Space in palettes</th>
 		    	</tr>
 		    	<tr th:each="item : ${items}">
 		    		<td th:text="${item.getId()}"></td>
 		    		<td th:text="${item.getName()}"></td>
+		    		<td th:text="${item.getRequiredAmountOfPalettes()}"></td>
 				</tr>
 				
 		    </table>

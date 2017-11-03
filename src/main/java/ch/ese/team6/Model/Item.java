@@ -15,6 +15,7 @@ public class Item {
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private long id;
 	 	@NotNull private String name;
+	 	private int requiredAmountOfPalettes;
 	 	
 	 	/**
 	 	 * Constructor with parameter
@@ -43,6 +44,18 @@ public class Item {
 		public void setName(String name) {
 			this.name = name;
 		}
+		public int getRequiredAmountOfPalettes() {
+			return requiredAmountOfPalettes;
+		}
+
+		public void setRequiredAmountOfPalettes(int requiredAmountOfPalettes) {
+			this.requiredAmountOfPalettes = requiredAmountOfPalettes;
+		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
 		public String toString() {
 			return name;
 		}

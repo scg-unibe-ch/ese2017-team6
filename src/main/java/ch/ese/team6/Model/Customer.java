@@ -21,7 +21,12 @@ public class Customer {
 
 	@NotNull
     private String name;
-
+	
+	@NotNull
+	private String phone;
+	
+	@NotNull
+	private String email;
   
     
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -51,6 +56,21 @@ public class Customer {
 	}
 	
 	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public Address getAddress() {
 		return address;
 	}

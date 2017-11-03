@@ -10,6 +10,8 @@
 	<h1 th:text= "'Customer ' +${customer.id}"></h1>
     <p th:text="'Name: ' + ${customer.Name}" />
     <p th:text="'Address: ' +${customer.getAddress().toString()}" />
+    <p th:text="'Phone: ' +${customer.getPhone().toString()}" />
+    <p th:text="'Email: ' +${customer.getEmail().toString()}" />
     <a th:href="@{/customer/}" class="button">go back to the index</a>
     <a th:href="@{/customer/{id}/edit(id = ${customer.id})}" class="button">edit this customer</a>
 </body>
