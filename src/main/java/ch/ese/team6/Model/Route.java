@@ -31,6 +31,8 @@ public class Route {
 	public Set<Delivery> deliveries;
 	public long delivery;
 	public String addresses;
+	public long estimatedTime;
+	public long measuredTime;
 	
 	public Route() {}
 	
@@ -119,6 +121,26 @@ public class Route {
 	public List<Delivery> getDeliveries(){
 		List<Delivery> deliveries = new ArrayList<Delivery>(this.deliveries);
 		return deliveries;
+	}
+	
+	public String calculateCapacity() {
+		return "100/100";
+	}
+
+	public long getEstimatedTime() {
+		return estimatedTime;
+	}
+
+	public void setEstimatedTime(long estimatedTime) {
+		this.estimatedTime = estimatedTime;
+	}
+
+	public long getMeasuredTime() {
+		return measuredTime;
+	}
+
+	public void setMeasuredTime(long measuredTime) {
+		this.measuredTime = measuredTime;
 	}
 
 

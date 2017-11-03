@@ -23,9 +23,17 @@ public class Delivery {
 	private String item;
 	@OneToMany
 	private Set<Item> items;
+	@OneToOne
+	private Order order;
 	
 	
 	public Delivery() {}
+
+
+	public Delivery(Order order) {
+		this.order = order;
+		this.address = order.getAddress().toString();
+	}
 
 
 	public long getId() {
@@ -64,17 +72,26 @@ public class Delivery {
 	
 	public boolean hasItems(){
 		try {
-		return !this.items.isEmpty();
+			return !this.items.isEmpty();
 		}
-		catch(NullPointerException exception) {
+		catch(NullPointerException exception){
 			return false;
 		}
 	}
 	
-	public List<Item> getItems(){
-		if (!this.hasItems()) return null;
+	public List<OrderItem> getItems(){
+		return this.order.getOrderItems();
+		/*if (!this.hasItems()) return null;
 		List<Item> deliveryItems = new ArrayList<Item>(this.items);
-		return deliveryItems;
+		return deliveryItems;*/
+	}
+	
+	public Order getOrder() {
+		return this.order;
+	}
+	
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	
 }

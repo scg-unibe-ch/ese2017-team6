@@ -12,11 +12,9 @@
 	    <p th:text="'DeliveryId: '+${route.getDelivery()}" /> 
 		     <ul th:each= "delivery : ${route.getDeliveries()}">
 		    	<li> <a th:href="@{/route/delivery/{id}(id = ${delivery.getId()})}" th:text="${delivery.getAddress()}"></a></li>
-		    	<div th:if="${delivery.hasItems()}">
-			    	<ul th:each= "item : ${delivery.getItems()}">
-			    		<li th:text = "${item.toString()}"></li>
+			    	<ul th:each= "orderItem : ${delivery.getOrder().getOrderItems()}">
+			    		<li th:text = "${orderItem.toString()}"></li>
 			    	</ul>
-		    	</div>
 		    </ul>
 	    
 	    <a th:href="@{/route/{id}/add(id = ${route.id})}">Add delivery</a>
