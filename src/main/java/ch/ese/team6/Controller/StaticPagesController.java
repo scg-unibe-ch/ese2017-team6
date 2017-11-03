@@ -35,7 +35,7 @@ public class StaticPagesController {
 	}
 	
 	@RequestMapping(path ="/sampleData")
-	public String generateTestData(@RequestParam String admin) {
+	public String generateTestData() {
 		sampleData.loadData();
 		Truck truck = new Truck();
 		truck.setTruckname("VW 1");
@@ -47,7 +47,7 @@ public class StaticPagesController {
 		Item item = new Item();
 		item.setName("Schraubenzieher");
 		itemRepository.save(item);
-		return "redirect:route/addtest";
+		return "redirect:staticpage/index";
 	}
 	
 	
