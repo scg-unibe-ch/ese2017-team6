@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>Show all Items</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
-	</head>
-	
+<head lang="en" th:replace="fragments/head :: head"> </head>	
 	<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div th:if="${not #lists.isEmpty(items)}">
-	<a href="/" class="button" >HOME</a> <br/> <br/>
-	<h1> Here are all the Items from the Library </h1>
+		<a href="/" class="button" >HOME</a> <br/> <br/>
+		<h1> Here are all the Items from the Library </h1>
 	
-	<table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Name</th>
-		    	</tr>
-		    	<tr th:each="item : ${items}">
-		    		<td th:text="${item.getId()}"></td>
-		    		<td th:text="${item.getName()}"></td>
-				</tr>
-				
-		    </table>
+		<table>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Name</th>
+			    	</tr>
+			    	<tr th:each="item : ${items}">
+			    		<td th:text="${item.getId()}"></td>
+			    		<td th:text="${item.getName()}"></td>
+					</tr>
+					
+		</table>
 	</div>
-	
+		
 	<a th:href="@{/item/add}" class="button">Add a new item</a>
 
 		

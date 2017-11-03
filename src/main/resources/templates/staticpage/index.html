@@ -3,7 +3,6 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
-		<a href="/admin" class="button" >ADMIN</a> <br/> <br/>
 		<h1>order &#38; delivery management</h1>
 		
 		<a th:href="@{/orders/}" class="button">orders</a>
@@ -13,10 +12,5 @@
 		<a th:href="@{/customer/addtest}" class="button">create some sample data</a>
 <!-- 		<a th:href="@{/orders/addtest}" class="button">create some sample orders</a> -->
 <!-- 		<a th:href="@{/route/addtest}" class="button">create some sample routes</a> -->
-		
-		
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="sign out"/>
-        </form>
 	</body>
 </html>

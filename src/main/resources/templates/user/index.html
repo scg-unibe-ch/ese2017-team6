@@ -1,13 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<a href="/" class="button" >HOME</a> <br/> <br/>
-	    <title>User Index</title>
-	    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
-		<div th:if="${not #lists.isEmpty(users)}">
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div th:if="${not #lists.isEmpty(users)}">
 		    <h1>all users</h1>
 		    <table>
 		    	<tr>
