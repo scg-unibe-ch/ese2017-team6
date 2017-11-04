@@ -1,12 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>New Customer</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
-</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
-	<a href="/" class="button" >HOME</a> <br/> <br/>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<h1>new customer</h1>
     <form action="#" th:action="@{/customer/add}" th:object="${customer}" method="post">
         <p>Name: <input type="text" th:field="*{name}" /></p>

@@ -1,11 +1,8 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Registration, Team6</title>
-		<link rel="stylesheet" href="main.css" type="text/css" th:href="@{main.css}"/>
-		
-	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
+		<div lang="en" th:replace="fragments/header :: header-loggedOut"> </div>
 	     <form method="POST" th:object="${userForm}" class="form-signin">
 	        <h2 class="form-signin-heading">Create your account</h2>
 	        <p>User: <input type="text" th:field="*{username}" /></p>

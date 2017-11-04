@@ -1,12 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:text= "'Edit ' + ${user.username}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../../main.css}"/>
-</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
-	<a href="/" class="button" >HOME</a> <br/> <br/>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<h1 th:text= "${user.username}"></h1>
     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="post">
       	<p th:text="'Your id: ' + *{id}" />
@@ -14,11 +10,11 @@
         <p>Firstname:<input type="text" th:field= "*{firstname}"/></p>
         <p>Surname:<input type="text" th:field= "*{surname}"/></p>
         <p>Password: <input type="text" th:field= "*{password}" /></p>
-        <p><input type="submit" value="Submit" class="button"/> <input type="reset" value="Reset" class="button"/></p>
+        <p><input type="submit" value="Submit" class="button"/> <input type="reset" value="reset" class="button"/></p>
     </form>
     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="delete">
     	
-    	<p><input type="submit" value="Delete user?" class="button" /></p>
+    	<p><input type="submit" value="delete user?" class="button" /></p>
     </form>
 </body>
 </html>

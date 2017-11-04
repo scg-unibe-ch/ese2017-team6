@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Create an Item</title>
-		<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../../main.css}"/>
-	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 	
 	<body>
-	<a href="/" class="button" >HOME</a> <br/> <br/>
-	<h1>Add a new Item to the Library</h1>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<h1>add a new item to the library</h1>
     <form action="#" th:action="@{/item/add}" th:object="${item}" method="post">
         <p>Name: <input type="text" th:field="*{name}" /></p>
         

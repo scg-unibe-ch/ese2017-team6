@@ -1,12 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>UserProfile</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-   	<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
-</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
-	<a href="/hello" class="button" >HOME</a> <br/><br/>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<h1 th:text= "'Order for ' +${order.customer}"></h1>
     <p th:text="'Delivery Address:  ' + ${order.getAddress()}" />
      <p th:text="'Delivery Date:  ' + ${order.getDeliveryDate()}" />
@@ -28,7 +24,7 @@
             </table>
           </div><br/><br/>
           
-    <a th:href="@{/orders/}" class="button">Go Back to the index</a>
+    <a th:href="@{/orders/}" class="button">go back to the overview</a>
 </body>
 </html>
 

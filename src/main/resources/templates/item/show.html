@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>The Item, that you just added</title>
-		<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../../main.css}"/>
-	</head>
-	
+<head lang="en" th:replace="fragments/head :: head"> </head>	
 	<body>
-		<a href="/" class="button" >HOME</a> <br/> <br/>
+		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<p th:text="'You added the Item: ' + ${item.name}" />
 		<p th:text="'Item id: ' + ${item.id}" />
 		
-		<a th:href="@{/item/add}" class="button">Add a New Item</a>
-		<a th:href="@{/item/}" class="button">Show all Items</a>
+		<a th:href="@{/item/add}" class="button">add a new item</a>
+		<a th:href="@{/item/}" class="button">show all items</a>
 	</body>
 </html>

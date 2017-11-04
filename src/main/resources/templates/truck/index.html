@@ -3,8 +3,10 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+<!-- 	TODO: condition for next line: just show when list is empty -->
+	<p> no trucks found </p>
 		<div th:if="${not #lists.isEmpty(trucks)}">
-		    <h1>All trucks</h1>
+		    <h1>all trucks</h1>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>
@@ -24,6 +26,6 @@
 				</tr>
 		    </table>
 		</div>
-		<a href="/truck/add" class="button">Create a new truck</a>
+		<a href="/truck/add" class="button">create a new truck</a>
 	</body>
 </html>

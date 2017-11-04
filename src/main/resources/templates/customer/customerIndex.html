@@ -3,9 +3,10 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+<!-- 	TODO: condition for next line: just show when list is empty -->
+	<p> no customer found </p>
 	<div th:if="${not #lists.isEmpty(customer)}">
-			<a href="/hello" class="button" >HOME</a> <br/><br/>
-		    <h1>all customers</h1>
+			<h1>all customers</h1>
 		    <table>
 		    	<tr>
 		    		<th>Id</th>

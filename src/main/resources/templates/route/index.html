@@ -3,6 +3,8 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+<!-- 		TODO: condition for next line: just show when list is empty -->
+		<p> no routes found </p>
 		<div th:if="${not #lists.isEmpty(routes)}">
 		    <h1>All routes</h1>
 		    <table>

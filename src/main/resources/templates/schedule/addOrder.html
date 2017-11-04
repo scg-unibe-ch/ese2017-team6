@@ -5,7 +5,7 @@
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<h1> Add an order to a route </h1>
 			<form th:action = "@{/schedule/{id}(id = ${order.getId()})}" th:method = "post">
-			    <h2>Selected Order</h2>
+			    <h2>selected order</h2>
 			    <table>
 			    	<tr>
 			    		<th>Id</th>
@@ -56,7 +56,7 @@
 				<label for="routeDate"></label>
 	           	<input type="date" th:name="date" /><br/> <br/>
 	           	  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-				<input type="submit" value="Create new route" /><br/> <br/> 
+				<input type="submit" value="create new route" /><br/> <br/> 
 				</form>
 	</body>
 </html>

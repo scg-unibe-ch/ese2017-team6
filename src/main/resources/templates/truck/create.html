@@ -1,13 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>New User</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
-</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
-	<a href="/" class="button" >HOME</a> <br/> <br/>
-	<h1>New Truck</h1>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<h1>new truck</h1>
     <form action="#" th:action="@{/truck/add}" th:object="${truck}" method="post">
         <p>Truck name: <input type="text" th:field="*{truckname}" /></p>
         <p>Max cargo space: <input type="number" th:field="*{maxCargoSpace}" /></p>

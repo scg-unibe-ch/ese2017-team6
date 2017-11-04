@@ -7,7 +7,7 @@
 	    <ul th:each= "deliveryItem : ${delivery.getItems()}">
 	    	<li th:text="${deliveryItem.toString()}"></li>
 	    </ul>
-	    <h2>Aviable Items</h2>
+	    <h2>available items</h2>
 	    <ul th:each= "item : ${items}">
 	    	<li th:text="${item.toString()}"></li>
 	    </ul>
@@ -15,7 +15,7 @@
 		    <select class="form-control" name="itemId" id="item">
 			    	<option th:each= "item : ${items}" th:value="${item.getId()}" th:text="${item.toString()}"></option>
 			</select>
-			<input type = "submit" value= "Add item"/>
+			<input type = "submit" value= "add item"/>
 		</form>
 	</body>
 </html>

@@ -1,10 +1,8 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>This is a title!</title>
-		<link rel="stylesheet" href="main.css" type="text/css" th:href="@{../../main.css}"/>
-	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
+		<div lang="en" th:replace="fragments/header :: header-loggedOut"> </div>
 		<h1>It works!</h1>
 		<div class="container">
 

@@ -1,12 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>New Address</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="main.css" type="text/css" th:href="@{../main.css}"/>
-</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
-	<a href="/hello" class="button" >HOME</a> <br/><br/>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<h1>new address</h1>
     <form action="#" th:action="@{/address/add}" th:object="${address}" method="post">
         <p>Street and Number: <input type="text" th:field="*{street}" /></p>
