@@ -3,11 +3,14 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 	<h1 th:text= "'Hi ' +${user.username}"></h1>
-    <p th:text="'Your id: ' + ${user.id}" />
-    <p th:text="'Your RealName is: ' + ${user.getRealname()}" />
-    <a th:href="@{/user/}" class="button">go back to the overview</a>
-    <a th:href="@{/user/{id}/edit(id = ${user.id})}" class="button">edit this user</a>
+    <p th:text="'your id: ' + ${user.id}" />
+    <p th:text="'your RealName is: ' + ${user.getRealname()}" />
+    <a th:href="@{/user/{id}/edit(id = ${user.id})}" class="btn btn-primary">edit this user</a>
+    <a href ="/user/" class="btn btn-primary" role="button">go back to overview</a>
+    
+    </div>
 </body>
 </html>
 

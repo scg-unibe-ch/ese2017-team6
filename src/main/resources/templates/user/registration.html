@@ -3,17 +3,20 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header-loggedOut"> </div>
+		<div class="container">
 	     <form method="POST" th:object="${userForm}" class="form-signin">
 	        <h2 class="form-signin-heading">Create your account</h2>
-	        <p>User: <input type="text" th:field="*{username}" /></p>
-	        <p>Firstname: <input type="text" th:field="*{firstname}" /></p>
-	        <p>Surname: <input type="text" th:field="*{surname}" /></p>
-	    	<p>Email: <input type="text" th:field="*{email}" /></p>
-	        <p>Password: <input type="text" th:field="*{password}" /></p>
-	        <p>Password-Confirm: <input type="text" th:field= "*{passwordConfirm}" /></p>
+	        <p>user: <input type="text" th:field="*{username}" /></p>
+	        <p>firstname: <input type="text" th:field="*{firstname}" /></p>
+	        <p>surname: <input type="text" th:field="*{surname}" /></p>
+	    	<p>email: <input type="text" th:field="*{email}" /></p>
+	        <p>password: <input type="text" th:field="*{password}" /></p>
+	        <p>password-confirm: <input type="text" th:field= "*{passwordConfirm}" /></p>
 	        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-	        <p><input type="submit" value="Submit" class="button"/> <input type="reset" value="Reset" class="button"/></p>
+	      	<input type="submit" class="btn btn-primary" value="submit"/>
+        	<input type="reset" class="btn btn-primary" value="reset"/>
 	    </form>
+	    </div>
 	</body>
 	
 </html>
