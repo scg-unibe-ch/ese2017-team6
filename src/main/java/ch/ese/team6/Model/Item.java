@@ -16,7 +16,7 @@ public class Item {
 	    private long id;
 	 	@NotNull private String name;
 	 	private int requiredAmountOfPalettes;
-	 	
+	 	private int weight;
 	 	/**
 	 	 * Constructor with parameter
 	 	 * @param nameOfObject
@@ -58,6 +58,14 @@ public class Item {
 
 		public String toString() {
 			return name;
+		}
+
+		public int getWeight() {
+			return weight;
+		}
+
+		public void setWeight(int weight) {
+			this.weight = weight;
 		}
 }
 
