@@ -3,11 +3,14 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 	<h1>new address</h1>
     <form action="#" th:action="@{/address/add}" th:object="${address}" method="post">
-        <p>Street and Number: <input type="text" th:field="*{street}" /></p>
-        <p>Post Code and City: <input type="text" th:field="*{city}" /></p>
-        <p><input type="submit" value="Submit" class="button" /> <input type="reset" value="Reset" class="button"/></p>
+        <p>street and number: <input type="text" th:field="*{street}" /></p>
+        <p>postal code and city: <input type="text" th:field="*{city}" /></p>
+        <input type="submit" class="btn btn-primary" value="submit"/>
+        <input type="reset" class="btn btn-primary" value="reset" />
     </form>
+    </div>
 </body>
 </html>

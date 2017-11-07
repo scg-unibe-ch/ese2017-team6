@@ -3,7 +3,6 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header-loggedOut"> </div>
-		<h1>It works!</h1>
 		<div class="container">
 
 	   		<form th:method="POST" th:action="@{/login}" class="form-signin">
@@ -17,7 +16,7 @@
 
 	            	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 		            <button class="btn btn-lg btn-primary btn-block" type="submit">log in</button>
-	    	        <h4 class="text-center"><a href="/registration" class="button">Create an account</a></h4>
+	    	        <h4 class="text-center"><a href="/registration" class="button">create an account</a></h4>
 	        	</div>
 	    	</form>
 		</div>

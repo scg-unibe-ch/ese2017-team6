@@ -2,22 +2,22 @@
 /* 		background-color: silver; */
 /* 	} */
 	
-	h1 {
-	    color: RoyalBlue ;
-	    font-family: courier new;
-	    font-size: 300%;
+/* 	h1 { */
+/* 	    color: RoyalBlue ; */
+/* 	    font-family: courier new; */
+/* 	    font-size: 300%; */
 	
-	}
-	h2 {
-	 	color: RoyalBlue ;
-	    font-family: courier new;
-	    font-size: 200%;
-	}
-	p  {
-	    color: RoyalBlue;
-	    font-family: courier new;
-	    font-size: 160%;
-	}
+/* 	} */
+/* 	h2 { */
+/* 	 	color: RoyalBlue ; */
+/* 	    font-family: courier new; */
+/* 	    font-size: 200%; */
+/* 	} */
+/* 	p  { */
+/* 	    color: RoyalBlue; */
+/* 	    font-family: courier new; */
+/* 	    font-size: 160%; */
+/* 	} */
 	.button {
 	font-family: courier new;
     background-color: silver;

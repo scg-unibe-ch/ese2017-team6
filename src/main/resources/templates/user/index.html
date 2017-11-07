@@ -3,8 +3,10 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
+	
 <!-- 	TODO: condition for next line: just show when list is empty -->
-	<p> no users </p>
+	<p> no users found </p>
 	<div th:if="${not #lists.isEmpty(users)}">
 		    <h1>all users</h1>
 		    <table>
@@ -23,6 +25,7 @@
 				</tr>
 		    </table>
 		</div><br/><br/>
-		<a href="/user/add" class="button">create a new user</a>
+		<a href ="/user/add" class="btn btn-primary" role="button">create new user</a>
+		</div>
 	</body>
 </html>
