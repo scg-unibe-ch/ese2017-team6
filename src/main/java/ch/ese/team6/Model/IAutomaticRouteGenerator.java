@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  */
 public interface IAutomaticRouteGenerator {
-	public void initialize(ArrayList<Truck> trucks, ArrayList<OrderItem> orderItems,
+	public void initialize(ArrayList<Truck> trucks, ArrayList<IDelivarable> items,
 			AddressDistanceManager addressDistances);
 
 	/*
@@ -19,5 +19,5 @@ public interface IAutomaticRouteGenerator {
 	 * solution is found, getRoutes will return null
 	 * 
 	 */
-	public ArrayList<Route> getRoutes();
+	public ArrayList<RouteTruckIDelivarable> getRoutes();
 }
