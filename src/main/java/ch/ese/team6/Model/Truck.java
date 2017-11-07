@@ -1,9 +1,13 @@
 package ch.ese.team6.Model;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +21,8 @@ public class Truck {
 	private int maxCargoSpace;
 	private int maxLoadCapacity;
 	private int vehicleCondition;
+	@OneToMany(mappedBy="truck")
+	private List<Route> routes;
 	
 	public Truck() {}
 	
@@ -63,9 +69,25 @@ public class Truck {
 		this.vehicleCondition = vehicleCondition;
 	}
 	
+	public List<Route> getRoutes(){
+		try {
+			return this.routes;
+		}
+		catch(Exception exception) {
+			return null;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return this.getTruckname();
+	}
+
+	public boolean isOccupied(Date date) {
+		for(Route route: this.routes) {
+			if (route.getRouteDate()== date) return true;
+		}
+		return false;
 	}
 	
 }

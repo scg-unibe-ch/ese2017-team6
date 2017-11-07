@@ -2,7 +2,6 @@ package ch.ese.team6.Controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Calendar;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +27,7 @@ import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
 import ch.ese.team6.Service.RouteService;
+import ch.ese.team6.Service.TruckService;
 
 @Controller
 @RequestMapping("/route")
@@ -47,12 +47,13 @@ public class RouteController{
 	private OrderRepository orderRepository;
 	@Autowired
 	private RouteService routeService;
-	
+	@Autowired
+	private TruckService truckService;
 	@GetMapping(path="/add")
 	public String createForm(Model model, @RequestParam Date date) {
 		model.addAttribute("routeTemplate", new Route(date));
 		model.addAttribute("routeDate", date);
-		model.addAttribute("trucks", truckRepository.findAll());
+		model.addAttribute("trucks", truckService.findFreeTrucks(date));
 		model.addAttribute("drivers", userRepository.findAll());
 	        return "route/create";
 	}
@@ -61,7 +62,7 @@ public class RouteController{
 	@PostMapping(path="/add")
 	public ModelAndView addNewRoute (@RequestParam Date routeDate, 
 			@RequestParam int driverId, @RequestParam int truck) {
-		Route newRoute = new Route(Calendar.getInstance());
+		Route newRoute = new Route();
 		newRoute.setRouteDate(routeDate);
 		newRoute.setDeliveryId((long)10);
 		newRoute.setDriver(userRepository.findOne((long)driverId));
@@ -69,28 +70,7 @@ public class RouteController{
 		routeRepository.save(newRoute);
 		return new ModelAndView("/route/profile", "route", newRoute);
 	}
-	/*
-	 * This function creates testdata
-	 */
-	@GetMapping(path="/addtest")
-	public String addSampleRoutes() {
-		for (long i= 1;i<4; i++) {
-			Route route = new Route(Calendar.getInstance());
-			route.setDriver(userRepository.findOne((long)i));
-			route.setTruck(truckRepository.findOne((long)i));
-			route.setDeliveryId(i); 
-			routeRepository.save(route);
-		}
-		return "redirect:/";
-	}
-	/*
-	@GetMapping(path="/test")
-	public String testListFuncions(Model model) {
-		long number = 7;
-		model.addAttribute(routeRepository.findByDriver(userRepository.findOne(number)));
-		return "route/test";
-	}
-	*/
+
 	@RequestMapping(path="/")
 	public String showAllRoutes(Model model) {
 		model.addAttribute("routes", routeRepository.findAll());
@@ -175,7 +155,7 @@ public class RouteController{
 	@PostMapping(path="/add/o/{orderId}")
 	public ModelAndView addNewRouteFromOrder (@RequestParam Date routeDate, 
 			@RequestParam int driverId, @RequestParam int truck, @PathVariable long orderId) {
-		Route route = new Route(Calendar.getInstance());
+		Route route = new Route();
 		route.setRouteDate(routeDate);
 		route.setDeliveryId((long)10);
 		route.setDriver(userRepository.findOne((long)driverId));

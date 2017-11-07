@@ -15,6 +15,8 @@ public class User {
     private String surname;
     private String email;
     private String phoneNumber;
+    @OneToMany(mappedBy="driver")
+    private Route route;
     
     public User() {
 		// TODO Auto-generated constructor stub

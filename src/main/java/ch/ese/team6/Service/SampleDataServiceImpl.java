@@ -56,7 +56,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	}
 	public void loadUsers() {
 		String[] users = userCsv.split(";");
-		for(int i = 0; i < users.length; i++) {
+		for(int i = 0; i <  10 /*users.length*/; i++) {
 			String[] userdata = users[i].split(",");
 			User user = new User();
 			user.setUsername(userdata[0].toLowerCase()+ userdata[1].substring(0, 1).toLowerCase());
@@ -72,7 +72,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadCustomers() {
 		String[] customers = customerCsv.split(";");
-		for (int i = 0; i < customers.length; i++) {
+		for (int i = 0; i < 10/*customers.length*/; i++) {
 			String[] customerData = customers[i].split(",");
 			Customer customer = new Customer();
 			Address address = new Address();
@@ -92,7 +92,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadItems() {
 		String[] items = itemCsv.split(";");
-		for (int i = 0; i < items.length; i++) {
+		for (int i = 0; i < 10/*items.length*/; i++) {
 			String[] itemData = items[i].split(",");
 			Item item = new Item();
 			item.setName(itemData[0]);
@@ -103,7 +103,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadTrucks() {
 		String[] trucks = truckCsv.split(";");
-		for (int i = 0; i < trucks.length; i++) {
+		for (int i = 0; i < 10 /*trucks.length*/; i++) { 
 			String[] truckData = trucks[i].split(",");
 			Truck truck = new Truck();
 			truck.setTruckname(truckData[0]);
@@ -136,7 +136,9 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadRoutes() {
 		for (long i= 1;i<4; i++) {
-			Route route = new Route(Calendar.getInstance());
+			Date date = new Date();
+			date.setTime(System.currentTimeMillis());
+			Route route = new Route(date);
 			route.setDriver(userRepository.findOne((long)i));
 			route.setTruck(truckRepository.findOne((long)i));
 			route.setDeliveryId(i); 

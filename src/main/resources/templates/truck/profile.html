@@ -7,6 +7,27 @@
     <p th:text="'Truck id: ' + ${truck.id}" />
     <p th:text="'Max space: ' + ${truck.maxCargoSpace} + ' stillages'" />
     <p th:text="'Max load: ' + ${truck.maxLoadCapacity} + ' tons'" />
+    <h3>Trucks routes</h3>
+    <div th:if="${not #lists.isEmpty(truck.getRoutes())}">
+	    <table>
+	    	<tr>
+	    		<th>Id</th>
+	    		<th>Routedate</th>
+	    		<th>Number of deliveries</th>
+	    		<th></th>
+	    		<th></th>
+	    		<th></th>
+	    	</tr>
+	    	<tr th:each="route : ${truck.getRoutes()}">
+	    		<td th:text="${route.getId()}"></td>
+	    		<td th:text="${route.getDate()}"></td>
+	    		<td th:text="${route.countDeliveries()}"></td>
+	    		<td></td>
+	    		<td></td>
+	    		<td><a th:href="@{/route/{id}(id = ${route.id})}">Route</a></td>
+			</tr>
+	    </table>
+	</div>	
     <a th:href="@{/truck/}" class="button">Go Back to the index</a>
     <a th:href="@{/truck/{id}/edit(id = ${truck.id})}" class="button">Edit this truck</a>
 </body>

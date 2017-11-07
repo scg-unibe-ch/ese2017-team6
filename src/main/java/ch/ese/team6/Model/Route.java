@@ -2,19 +2,23 @@ package ch.ese.team6.Model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "route")
@@ -23,8 +27,10 @@ public class Route {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long id;
-	public Calendar routeDate;
-	@ManyToOne
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull private Date routeDate;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="truck")
 	public Truck truck;
 	@ManyToOne
 	public User driver;
@@ -36,21 +42,9 @@ public class Route {
 	public long measuredTime;
 
 	public Route() {}
-	
-	public Route(boolean test) {
-		if(test) {
-			this.routeDate = Calendar.getInstance();
-			addresses = ("Heinrich Heine Dorfbach 555, 3000 Bern");
-		}
-	}
-	
+		
 	public Route(Date date) {
-		this.routeDate = Calendar.getInstance();
-		this.routeDate.setTime(date);
-	}
-
-	public Route(Calendar instance) {
-		this.routeDate = Calendar.getInstance();
+		this.routeDate = date;
 	}
 
 	public long getId() {
@@ -61,12 +55,12 @@ public class Route {
 		this.id = id;
 	}
 
-	public Calendar getRouteDate() {
+	public Date getRouteDate() {
 		return routeDate;
 	}
 
 	public void setRouteDate(Date routeDate) {
-		this.routeDate.setTime(routeDate);
+		this.routeDate = routeDate;
 	}
 
 	public String getDate() {
@@ -108,10 +102,6 @@ public class Route {
 
 	public void setDelivery(long deliveries) {
 		this.delivery = deliveries;
-	}
-
-	public void setRouteDate(Calendar routeDate) {
-		this.routeDate = routeDate;
 	}
 
 	public void addDelivery(Delivery delivery) {

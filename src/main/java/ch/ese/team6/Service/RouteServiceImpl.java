@@ -7,21 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Model.Delivery;
-import ch.ese.team6.Model.Item;
 import ch.ese.team6.Model.OrderItem;
 import ch.ese.team6.Model.Route;
-import ch.ese.team6.Repository.DeliveryRepository;
 import ch.ese.team6.Repository.RouteRepository;
-import ch.ese.team6.Repository.TruckRepository;
+
 
 @Service
 public class RouteServiceImpl implements RouteService {
 	@Autowired
-	private TruckRepository truckRepository;
-	@Autowired
 	private RouteRepository routeRepository;
-	@Autowired
-	private DeliveryRepository deliveryRepository;
 	@Override
 	public int calculateLeftCapacity(Route route) {
 		int openSpace = route.getTruck().getMaxLoadCapacity();
