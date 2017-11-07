@@ -39,8 +39,8 @@ public class StaticPagesController {
 		sampleData.loadData();
 		Truck truck = new Truck();
 		truck.setTruckname("VW 1");
-		truck.setMaxCargoSpace(1);
-		truck.setMaxLoadCapacity(1);
+		truck.setMaxSize(1);
+		truck.setMaxWeight(1);
 		truck.setVehicleCondition(0);
 		truckRepository.save(truck);
 		

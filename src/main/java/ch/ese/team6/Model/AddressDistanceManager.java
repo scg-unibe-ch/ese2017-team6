@@ -15,16 +15,17 @@ public abstract class AddressDistanceManager {
 	
 	/**
 	 * Computes the nearest address in the set addresses to address1
-	 * if the list addresses contains address1 then the method will not take into account
+	 * if the list addresses contains address1 and ignoreSelf is true, then the method will not take into account
 	 * address1 and will give the nearest Address different from address1
-	 * Precondition addresses has at least one element different from address1
+	 * Precondition addresses has at least one element.
+	 * If ignoreSelf is true then addresses must contain one element different from address1
 	 * @return
 	 */
-	public Address getNeigherstAddress(Address address1, Set<Address> addresses) {
+	public Address getNeigherstAddress(Address address1, Set<Address> addresses, boolean ignoreSelf) {
 		assert address1 != null;
 		assert addresses != null;
 		
-		assert(addresses.size()>1 && (!addresses.contains(address1) || addresses.size()>2));//We require
+		assert(addresses.size()>1 && (!ignoreSelf || !addresses.contains(address1) || addresses.size()>2));//We require
 		int min = Integer.MAX_VALUE;
 		Address ret = address1;
 		
@@ -57,7 +58,7 @@ public abstract class AddressDistanceManager {
 		if (addresses.contains(address1)){
 			return 0;
 		}
-		return getDistance(this.getNeigherstAddress(address1, addresses),address1);
+		return getDistance(this.getNeigherstAddress(address1, addresses,false),address1);
 	}
 	
 	/**

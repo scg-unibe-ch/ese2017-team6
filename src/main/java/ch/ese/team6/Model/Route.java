@@ -152,12 +152,12 @@ public class Route {
 	}
 	
 	public String calculateCapacity() {
-		int cargoSpace = this.getTruck().getMaxCargoSpace();
+		int cargoSpace = this.getTruck().getMaxSize();
 		 return this.calculateUsedSpace()+ "/ " +cargoSpace; 
 	}
 	
 	public boolean isFull() {
-		return this.getTruck().getMaxCargoSpace()<this.calculateUsedSpace();
+		return this.getTruck().getMaxSize()<this.calculateUsedSpace();
 	}
 	
 	private int calculateUsedSpace() {

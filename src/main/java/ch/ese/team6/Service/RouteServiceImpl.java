@@ -24,7 +24,7 @@ public class RouteServiceImpl implements RouteService {
 	private DeliveryRepository deliveryRepository;
 	@Override
 	public int calculateLeftCapacity(Route route) {
-		int openSpace = route.getTruck().getMaxLoadCapacity();
+		int openSpace = route.getTruck().getMaxWeight();
 		List<Delivery> deliveries = route.getDeliveries();
 		for (Delivery delivery : deliveries){
 			List<OrderItem> items = delivery.getItems();

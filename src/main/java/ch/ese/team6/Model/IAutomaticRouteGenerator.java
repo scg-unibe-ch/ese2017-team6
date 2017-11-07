@@ -12,12 +12,12 @@ import java.util.ArrayList;
  */
 public interface IAutomaticRouteGenerator {
 	public void initialize(ArrayList<Truck> trucks, ArrayList<IDelivarable> items,
-			AddressDistanceManager addressDistances);
+			AddressDistanceManager addressDistances, Address depositAddress);
 
 	/*
 	 * getRoutes will return an ArrayList of Routes if a solution was found. If no
 	 * solution is found, getRoutes will return null
 	 * 
 	 */
-	public ArrayList<RouteTruckIDelivarable> getRoutes();
+	public RouteCollection getRoutes();
 }
