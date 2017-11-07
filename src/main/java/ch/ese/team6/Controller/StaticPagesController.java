@@ -23,9 +23,11 @@ public class StaticPagesController {
 	@Autowired
 	private SampleDataService sampleData;
 	
+	private boolean testing = true;
 	   
 	@RequestMapping(path ="/")
 	public String showHome() {
+		if(testing) return "redirect:/sampleData";
 		return "staticpage/index";
 	}
 	
@@ -37,16 +39,6 @@ public class StaticPagesController {
 	@RequestMapping(path ="/sampleData")
 	public String generateTestData() {
 		sampleData.loadData();
-		Truck truck = new Truck();
-		truck.setTruckname("VW 1");
-		truck.setMaxCargoSpace(1);
-		truck.setMaxLoadCapacity(1);
-		truck.setVehicleCondition(0);
-		truckRepository.save(truck);
-		
-		Item item = new Item();
-		item.setName("Schraubenzieher");
-		itemRepository.save(item);
 		return "redirect:/";
 	}
 	

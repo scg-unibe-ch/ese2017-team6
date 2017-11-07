@@ -11,6 +11,7 @@ import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.Item;
 import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.OrderItem;
+import ch.ese.team6.Model.Role;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Model.User;
@@ -19,6 +20,7 @@ import ch.ese.team6.Repository.CustomerRepository;
 import ch.ese.team6.Repository.DeliveryRepository;
 import ch.ese.team6.Repository.ItemRepository;
 import ch.ese.team6.Repository.OrderRepository;
+import ch.ese.team6.Repository.RoleRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
@@ -44,9 +46,11 @@ public class SampleDataServiceImpl implements SampleDataService{
 	private RouteRepository routeRepository;
 	@Autowired
 	private DeliveryRepository deliveryRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	public void loadData() {
-		
+		if (roleRepository.count() == 0) this.loadRoles();
 		if (userRepository.count() == 0) this.loadUsers();
 		if (customerRepository.count() == 0)this.loadCustomers();
 		if (itemRepository.count() == 0)this.loadItems();
@@ -54,18 +58,29 @@ public class SampleDataServiceImpl implements SampleDataService{
 		if (orderRepository.count() == 0)this.loadOrders();
 		if (routeRepository.count() == 0)this.loadRoutes();
 	}
+	
+	public void loadRoles() {
+		Role logistician = new Role();
+		logistician.setName("LOGISTICS");
+		Role driver = new Role();
+		driver.setName("DRIVER");
+		roleRepository.save(logistician);
+		roleRepository.save(driver);
+	}
+	
 	public void loadUsers() {
 		String[] users = userCsv.split(";");
 		for(int i = 0; i <  10 /*users.length*/; i++) {
 			String[] userdata = users[i].split(",");
 			User user = new User();
-			user.setUsername(userdata[0].toLowerCase()+ userdata[1].substring(0, 1).toLowerCase());
+			user.setUsername((userdata[0].toLowerCase()+ userdata[1].substring(0, 1).toLowerCase()).trim());
 			user.setFirstname(userdata[0]);
 			user.setSurname(userdata[1]);
 			user.setEmail(userdata[3]);
 			user.setPhoneNumber(userdata[2]);
 			user.setPassword("password");
 			user.setPasswordConfirm("password");
+			user.setRoles(roleRepository.findByName(i < 5 ? "LOGISTICS": "DRIVER"));
 			userService.save(user);	
 		}
 	}
