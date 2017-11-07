@@ -25,7 +25,11 @@ public class Delivery {
 	private Set<Item> items;
 	@OneToOne
 	private Order order;
-	
+	/*
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="route")
+	private Route route;
+	*/
 	
 	public Delivery() {}
 
@@ -93,5 +97,13 @@ public class Delivery {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
+	/*
+	public Route getRoute() {
+		return this.route;
+	}
 	
+	public void setRoute(Route route) {
+		this.route = route;
+	}
+	*/
 }

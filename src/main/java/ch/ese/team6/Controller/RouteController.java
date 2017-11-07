@@ -28,43 +28,38 @@ import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
 import ch.ese.team6.Service.RouteService;
 import ch.ese.team6.Service.TruckService;
+import ch.ese.team6.Service.UserService;
 
 @Controller
 @RequestMapping("/route")
 public class RouteController{
 		
-	@Autowired
-	private RouteRepository routeRepository;
-	@Autowired
-	private TruckRepository truckRepository;
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private DeliveryRepository deliveryRepository;
-	@Autowired
-	private ItemRepository itemRepository;
-	@Autowired
-	private OrderRepository orderRepository;
-	@Autowired
-	private RouteService routeService;
-	@Autowired
-	private TruckService truckService;
+	@Autowired private RouteRepository routeRepository;
+	@Autowired private TruckRepository truckRepository;
+	@Autowired private UserRepository userRepository;
+	@Autowired private DeliveryRepository deliveryRepository;
+	@Autowired private ItemRepository itemRepository;
+	@Autowired private OrderRepository orderRepository;
+	
+	@Autowired private RouteService routeService;
+	@Autowired private TruckService truckService;
+	@Autowired private UserService userService;
+	
 	@GetMapping(path="/add")
-	public String createForm(Model model, @RequestParam Date date) {
+	public String createForm(Model model, @RequestParam String date) {
 		model.addAttribute("routeTemplate", new Route(date));
 		model.addAttribute("routeDate", date);
 		model.addAttribute("trucks", truckService.findFreeTrucks(date));
-		model.addAttribute("drivers", userRepository.findAll());
+		model.addAttribute("drivers", userService.findFreeUsers(date));
 	        return "route/create";
 	}
 
 	
 	@PostMapping(path="/add")
-	public ModelAndView addNewRoute (@RequestParam Date routeDate, 
+	public ModelAndView addNewRoute (@RequestParam String routeDate, 
 			@RequestParam int driverId, @RequestParam int truck) {
 		Route newRoute = new Route();
 		newRoute.setRouteDate(routeDate);
-		newRoute.setDeliveryId((long)10);
 		newRoute.setDriver(userRepository.findOne((long)driverId));
 		newRoute.setTruck(truckRepository.findOne((long)truck));
 		routeRepository.save(newRoute);
@@ -142,22 +137,21 @@ public class RouteController{
 	
 	@GetMapping(path="/add/o/{orderId}")
 	public String createRouteFromOrder(Model model, @PathVariable long orderId, 
-			@RequestParam Date date) {
+			@RequestParam String date) {
 		model.addAttribute("routeTemplate", new Route(date));
 		model.addAttribute("routeDate", date);
-		model.addAttribute("trucks", truckRepository.findAll());
-		model.addAttribute("drivers", userRepository.findAll());
+		model.addAttribute("trucks", truckService.findFreeTrucks(date));
+		model.addAttribute("drivers", userService.findFreeUsers(date));
 		model.addAttribute("order", orderRepository.findOne(orderId));
 	        return "route/createWithOrder";
 		
 	}
 		
 	@PostMapping(path="/add/o/{orderId}")
-	public ModelAndView addNewRouteFromOrder (@RequestParam Date routeDate, 
+	public ModelAndView addNewRouteFromOrder (@RequestParam String routeDate, 
 			@RequestParam int driverId, @RequestParam int truck, @PathVariable long orderId) {
 		Route route = new Route();
 		route.setRouteDate(routeDate);
-		route.setDeliveryId((long)10);
 		route.setDriver(userRepository.findOne((long)driverId));
 		route.setTruck(truckRepository.findOne((long)truck));
 		Order order = orderRepository.findOne(orderId);

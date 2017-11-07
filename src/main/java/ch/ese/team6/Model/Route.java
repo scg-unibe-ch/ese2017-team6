@@ -1,8 +1,6 @@
 package ch.ese.team6.Model;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,9 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "route")
@@ -27,23 +22,28 @@ public class Route {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long id;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotNull private Date routeDate;
+	private String routeDate;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="truck")
 	public Truck truck;
-	@ManyToOne
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="driver")
 	public User driver;
+	/*
+	@OneToMany(mappedBy="route")
+	public List<Delivery> deliveries;
+	*/
+	
 	@OneToMany
-	public Set<Delivery> deliveries;
-	public long delivery;
-	public String addresses;
+	private Set<Delivery> deliveries;
 	public long estimatedTime;
 	public long measuredTime;
 
 	public Route() {}
 		
-	public Route(Date date) {
+	public Route(String date) {
 		this.routeDate = date;
 	}
 
@@ -55,31 +55,20 @@ public class Route {
 		this.id = id;
 	}
 
-	public Date getRouteDate() {
+	public String getRouteDate() {
 		return routeDate;
 	}
 
-	public void setRouteDate(Date routeDate) {
+	public void setRouteDate(String routeDate) {
 		this.routeDate = routeDate;
 	}
 
 	public String getDate() {
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		return date.format(routeDate.getTime());
+		/*SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		return date.format(routeDate.getTime());*/
+		return this.routeDate;
 	}
-	
-	public String getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(String addresses) {
-		this.addresses = addresses;
-	}
-
-	public void setDeliveryId(long delivery) {
-		this.delivery = delivery;
 		
-	}
 	public Truck getTruck() {
 		return truck;
 	}
@@ -94,14 +83,6 @@ public class Route {
 
 	public void setDriver(User driver) {
 		this.driver = driver;
-	}
-
-	public long getDelivery() {
-		return delivery;
-	}
-
-	public void setDelivery(long deliveries) {
-		this.delivery = deliveries;
 	}
 
 	public void addDelivery(Delivery delivery) {

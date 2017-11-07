@@ -105,8 +105,11 @@ public class User {
 		this.email = email;
 	}
 
-	public void setPhone(String phone) {
-		this.phoneNumber = phone;
-		
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }

@@ -1,8 +1,6 @@
 package ch.ese.team6.Service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +19,14 @@ public class TruckServiceImpl implements TruckService{
 	@Autowired
 	private RouteRepository routeRepository;
 	
-	public List<Truck> findFreeTrucks(Date date){
+	public List<Truck> findFreeTrucks(String date){
 		List<Route> routes = routeRepository.findByRouteDate(date);
 		List<Truck> occupiedTrucks = new ArrayList<Truck>();
 		for(Route route: routes) {
 			occupiedTrucks.add(route.getTruck());
 		}
-		List<Truck>freeTrucks = occupiedTrucks;
-		/*
-		List<Truck> trucks = truckRepository.findAll();
-		List<Truck> freeTrucks = new ArrayList<Truck>();
- 		for (Truck truck: trucks) {
-			if (!truck.isOccupied(date)) freeTrucks.add(truck);
-		}*/
+		List<Truck>freeTrucks = truckRepository.findAll();
+		freeTrucks.removeAll(occupiedTrucks);
 		return freeTrucks;
 	}
 

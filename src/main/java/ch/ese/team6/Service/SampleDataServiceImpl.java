@@ -63,7 +63,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			user.setFirstname(userdata[0]);
 			user.setSurname(userdata[1]);
 			user.setEmail(userdata[3]);
-			user.setPhone(userdata[2]);
+			user.setPhoneNumber(userdata[2]);
 			user.setPassword("password");
 			user.setPasswordConfirm("password");
 			userService.save(user);	
@@ -136,12 +136,10 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadRoutes() {
 		for (long i= 1;i<4; i++) {
-			Date date = new Date();
-			date.setTime(System.currentTimeMillis());
+			String date = "2017-11-01";
 			Route route = new Route(date);
 			route.setDriver(userRepository.findOne((long)i));
 			route.setTruck(truckRepository.findOne((long)i));
-			route.setDeliveryId(i); 
 			routeRepository.save(route);
 		}
 	}

@@ -83,7 +83,7 @@ public class Truck {
 		return this.getTruckname();
 	}
 
-	public boolean isOccupied(Date date) {
+	public boolean isOccupied(String date) {
 		for(Route route: this.routes) {
 			if (route.getRouteDate()== date) return true;
 		}

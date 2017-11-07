@@ -5,8 +5,7 @@
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getDate()}"></h1>
 	    <p th:text="'Truck Name: ' + ${route.getTruck()}" />
-	    <p th:text="'Driver: ' + ${route.getDriver()}" />
-	    <p th:text="'DeliveryId: '+${route.getDelivery()}" /> 
+	    <p th:text="'Driver: ' + ${route.getDriver()}" /> 
 		     <ul th:each= "delivery : ${route.getDeliveries()}">
 		    	<li> <a th:href="@{/route/delivery/{id}(id = ${delivery.getId()})}" th:text="${delivery.getAddress()}"></a></li>
 			    	<ul th:each= "orderItem : ${delivery.getOrder().getOrderItems()}">
