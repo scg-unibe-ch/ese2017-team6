@@ -3,24 +3,29 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
+	<!-- 	TODO: condition for next line: just show when list is empty -->
+		<p> no address found </p>
 		<div th:if="${not #lists.isEmpty(address)}">
-			<a href="/" class="button" >HOME</a> <br/> <br/>
 		    <h1>all addresses</h1>
-		    <table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Street</th>
-		    		<th>City</th>
-		    		
-		    	</tr>
-		    	<tr th:each="ad : ${address}">
-		    		<td th:text="${ad.getId()}"></td>
-		    		<td th:text="${ad.getStreet()}"></td>
-		    		<td th:text="${ad.getCity()}"></td>
-
-				</tr>
+		    <table class="table table-hover">
+		    	<thead>
+		    		<tr>
+			    		<th>id</th>
+			    		<th>street</th>
+			    		<th>city</th>
+		    		</tr>
+		    	</thead>
+		    	<tbody>
+			    	<tr th:each="ad : ${address}">
+			    		<td th:text="${ad.getId()}"></td>
+			    		<td th:text="${ad.getStreet()}"></td>
+			    		<td th:text="${ad.getCity()}"></td>
+					</tr>
+				</tbody>
 		    </table>
-		</div><br/><br/>
-		<a href="/address/add" class="button" >create a new address</a>
+		</div>
+		<a href ="/address/add" class="btn btn-primary" role="button">create new address</a>
+		</div>
 	</body>
 </html>

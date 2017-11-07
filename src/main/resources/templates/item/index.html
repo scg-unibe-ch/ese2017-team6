@@ -3,38 +3,39 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>	
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 <!-- 	TODO: condition for next line: just show when list is empty -->
-	<p> no items found </p>
+	<p> no articles found </p>
 	<div th:if="${not #lists.isEmpty(items)}">
-		<h1> all items </h1>
-	<table>
+		<h1> all articles </h1>
+	<table class="table table-hover">
+		<thead>
 		    	<tr>
-		    		<th>Id</th>
-		    		<th>Name</th>
-		    		<th>Needed Space in palettes</th>
+		    		<th>id</th>
+		    		<th>name</th>
+		    		<th>needed space in palettes</th>
 		    	</tr>
+		</thead>
+		<tbody>
 		    	<tr th:each="item : ${items}">
 		    		<td th:text="${item.getId()}"></td>
 		    		<td th:text="${item.getName()}"></td>
 		    		<td th:text="${item.getRequiredAmountOfPalettes()}"></td>
 				</tr>
-				
-		    </table>
-		<table>
-			    	<tr>
-			    		<th>Id</th>
-			    		<th>Name</th>
-			    	</tr>
-			    	<tr th:each="item : ${items}">
-			    		<td th:text="${item.getId()}"></td>
-			    		<td th:text="${item.getName()}"></td>
-					</tr>
-					
-		</table>
-	</div>
-		
-	<a th:href="@{/item/add}" class="button">Add a new item</a>
-
-		
+		</tbody>
+    </table>
+<!-- 		<table> -->
+<!-- 			    	<tr> -->
+<!-- 			    		<th>Id</th> -->
+<!-- 			    		<th>Name</th> -->
+<!-- 			    	</tr> -->
+<!-- 			    	<tr th:each="item : ${items}"> -->
+<!-- 			    		<td th:text="${item.getId()}"></td> -->
+<!-- 			    		<td th:text="${item.getName()}"></td> -->
+<!-- 					</tr>		 -->
+<!-- 		</table> -->
+	</div><br/><br/>
+	<a href ="/item/add" class="btn btn-primary" role="button">add new article</a>
+	</div>		
 	</body>
 </html>
