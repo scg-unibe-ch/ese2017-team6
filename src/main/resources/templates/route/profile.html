@@ -18,6 +18,7 @@
 	    <a th:href="@{/route/}">Show all routes</a>
 	    <a th:href="@{/driverview/{id}(id = ${route.getDriver()})}">Driver-Profile of this Route</a>
 	    <a th:href="@{/route/{id}/edit(id = ${route.id})}">Edit this route(Placeholder)</a>
+	    <a th:href="@{/route/onmap/{id}(id = ${route.id})}">Show Route on Map</a>
 	</body>
 </html>
 

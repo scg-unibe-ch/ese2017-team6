@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+<body>
+
+<h1>The Delivery on the map</h1>
+
+<div id="map"></div>
+
+	<script text="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	var addresses = [[${addresses}]];
+	
+	var addresshere = [[${address.toString()}]];
+	
+	// Sets up the map
+	function myMap() {
+		
+	var mapOptions = {
+	    center: new google.maps.LatLng(46.94809, 7.44744),
+	    zoom: 8,
+	    mapTypeId: google.maps.MapTypeId.HYBRID
+	}
+	var geocoder = new google.maps.Geocoder();
+	
+	var bern = {lat: 46.94809, lng: 7.44744};
+	
+	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	
+	addMarker(bern, map, 'Firm');
+	
+	for(i = 0; i< addresses.length;i++)
+		{codeAddress(geocoder, map, addresses[i]);}
+	
+	
+	}
+	/*]]>*/
+	// Codes the DeliveryAddress
+	function codeAddress(geocoder, thismap, deliveryaddress) {
+    var address2 = deliveryaddress;
+    geocoder.geocode( { 'address': address2}, function(results, status) {
+      if (status == 'OK') {
+        addMarker(results[0].geometry.location, thismap, address2);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status + address2);
+      }
+    });
+  }
+	// Adds a Marker to the map
+	function addMarker(position, displayedmap, address){
+        var marker = new google.maps.Marker({
+            map: displayedmap,
+            position: position,
+            title: address
+        });
+	}
+  </script>
+<script 
+async = "async"
+defer = "defer"
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb-SCpWFMSIO0OeVAES-xWjRfLAIwzv7g&amp;callback=myMap"></script>
+
+</body>
+</html>

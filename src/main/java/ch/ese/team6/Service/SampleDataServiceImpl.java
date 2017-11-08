@@ -47,7 +47,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadData() {
 		
-		if (userRepository.count() == 0) this.loadUsers();
+		if (userRepository.count() == 0) {this.loadUsers();}
 		if (customerRepository.count() == 0)this.loadCustomers();
 		if (itemRepository.count() == 0)this.loadItems();
 		if (truckRepository.count() == 0)this.loadTrucks();
@@ -67,6 +67,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			user.setPassword("password");
 			user.setPasswordConfirm("password");
 			userService.save(user);	
+			userRepository.save(user);
 		}
 	}
 	
