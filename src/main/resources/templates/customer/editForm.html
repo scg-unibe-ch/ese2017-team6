@@ -3,21 +3,24 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 	<h1 th:text= "${customer.name}"></h1>
     <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="post">
-      	<p th:text="'Id: ' + *{id}" />
-      	<p th:text="'Name: ' + *{name}" />
-      	<p th:text="'Address: ' + *{address}" />
-        <p>Real name: <input type="text" th:field="*{name}" /></p>
-        <p>Address <select th:field="*{address}">
+      	<p th:text="'id: ' + *{id}" />
+      	<p th:text="'name: ' + *{name}" />
+      	<p th:text="'address: ' + *{address}" />
+        <p>real name: <input type="text" th:field="*{name}" /></p>
+        <p>address <select th:field="*{address}">
                       <option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
                     </select></p>
-        <p><input type="submit" value="submit" class="button"/> <input type="reset" value="reset" class="button" /></p>
+        <input type="submit" class="btn btn-primary" value="submit"/>
+        <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
+    <br/>
     <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="delete">
-    	
-    	<p><input type="submit" value="delete customer?" class="button"/></p>
+    	<input type="submit" class="btn btn-primary" value="delete customer?" />
     </form>
+    </div>
 </body>
 </html>
  

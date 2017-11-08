@@ -3,60 +3,70 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
-		<h1> Add an order to a route </h1>
+		<div class="container">
+		<h1> add order to a route </h1>
 			<form th:action = "@{/schedule/{id}(id = ${order.getId()})}" th:method = "post">
 			    <h2>selected order</h2>
-			    <table>
-			    	<tr>
-			    		<th>Id</th>
-			    		<th>Clientname</th>
-			    		<th>Delivery Adress</th>
-			    		<th>Order Status</th>
-			    		<th>Number of Order items</th>
-			    		<th>Delivery Date</th>
-			    		<th></th>
-			    		<th></th>
-			    	</tr>
-			    	<tr>
-			    		<td th:text="${order.getId()}"></td>
-			    		<td th:text="${order.getCustomer()}"></td>
-			    		<td th:text="${order.getAddress()}"></td>
-			    		<td th:text="${order.getStatus()}"></td>
-			    		<td th:text="${order.getOrderItems().size()}"></td>
-			    		<td th:text="${order.getDeliveryDate()}"></td>
-					</tr>
+			    <table class="table table-hover">
+			    	<thead>
+			    		<tr>
+				    		<th>Id</th>
+				    		<th>Clientname</th>
+				    		<th>Delivery Adress</th>
+				    		<th>Order Status</th>
+				    		<th>Number of Order items</th>
+				    		<th>Delivery Date</th>
+				    		<th></th>
+				    		<th></th>
+				    	</tr>
+				    </thead>
+				    <tbody>
+				    	<tr>
+				    		<td th:text="${order.getId()}"></td>
+				    		<td th:text="${order.getCustomer()}"></td>
+				    		<td th:text="${order.getAddress()}"></td>
+				    		<td th:text="${order.getStatus()}"></td>
+				    		<td th:text="${order.getOrderItems().size()}"></td>
+				    		<td th:text="${order.getDeliveryDate()}"></td>
+						</tr>
+					</tbody>
 			    </table>
 				<div th:if="${not #lists.isEmpty(routes)}">
-			    <h2>Available Routes</h2>
-				<table>
-			    	<tr>
-			    		<th>Id</th>
-			    		<th>Truck</th>
-			    		<th>Driver</th>
-			    		<th>Capacity</th>
-			    		<th>Number of deliveries</th>
-			    		<th>Delivery Date</th>
-			    		<th></th>
-			    		<th></th>
-			    	</tr>
-			    	<tr th:each="route : ${routes}">
-			    		<td th:text="${route.getId()}"></td>
-			    		<td th:text="${route.getTruck()}"></td>
-			    		<td th:text="${route.getDriver()}"></td>
-			    		<td th:text="${route.calculateCapacity()}"></td>
-			    		<td th:text="${route.countDeliveries()}"></td>
-			    		<td th:text="${route.getDate()}"></td>
-			    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
-			    		<td><input th:type="submit" th:name="routeId" th:value="${route.getId()}"></input></td>
-					</tr>
+			    <h2>available routes</h2>
+				<table class="table table-hover">
+					<thead>
+				    	<tr>
+				    		<th>Id</th>
+				    		<th>Truck</th>
+				    		<th>Driver</th>
+				    		<th>Capacity</th>
+				    		<th>Number of deliveries</th>
+				    		<th>Delivery Date</th>
+				    		<th></th>
+				    		<th></th>
+				    	</tr>
+				    </thead>
+				    <tbody>
+				    	<tr th:each="route : ${routes}">
+				    		<td th:text="${route.getId()}"></td>
+				    		<td th:text="${route.getTruck()}"></td>
+				    		<td th:text="${route.getDriver()}"></td>
+				    		<td th:text="${route.calculateCapacity()}"></td>
+				    		<td th:text="${route.countDeliveries()}"></td>
+				    		<td th:text="${route.getDate()}"></td>
+				    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
+				    		<td><input th:type="submit" th:name="routeId" th:value="${route.getId()}"></input></td>
+						</tr>
+					</tbody>
 			    </table>
 			</div>
 		</form>
 		<form  th:action="@{/route/add/o/{id}(id = ${order.getId()})}" method="get">
 				<label for="routeDate"></label>
-	           	<input type="date" th:name="date" /><br/> <br/>
+	           	<input type="date" th:name="date" placeholder="set route date"/><br/> <br/>
 	           	  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-				<input type="submit" value="create new route" /><br/> <br/> 
+				<input type="submit" class="btn btn-primary" value="create new route" />
 				</form>
+		</div>
 	</body>
 </html>

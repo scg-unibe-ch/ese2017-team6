@@ -3,17 +3,21 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 	<h1>new truck</h1>
     <form action="#" th:action="@{/truck/add}" th:object="${truck}" method="post">
-        <p>Truck name: <input type="text" th:field="*{truckname}" /></p>
-        <p>Max cargo space: <input type="number" th:field="*{maxCargoSpace}" /></p>
-        <p>Max load capacity: <input type="number" th:field= "*{maxLoadCapacity}" /></p>
+        <p>truck name: <input type="text" th:field="*{truckname}" /></p>
+        <p>max cargo space: <input type="number" th:field="*{maxCargoSpace}" /></p>
+        <p>max load capacity: <input type="number" th:field= "*{maxLoadCapacity}" /></p>
        <select class="form-control" name="vehicleCondition" id="vehicleCondition">
-					<option value="0">Choose vehicle condition</option>
+					<option value="0">choose vehicle condition</option>
 					<option th:value= "0" th:text="active"/>
 					<option th:value= "1" th:text="inactive"/>
     	</select>
-        <p><input type="submit" value="Submit" class="button" /> <input type="reset" value="Reset" class="button"/></p>
+    	<br/>
+        <input type="submit" class="btn btn-primary" value="submit"/>
+        <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
+    </div>
 </body>
 </html>

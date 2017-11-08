@@ -3,61 +3,72 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
 		<h1> order and route overview </h1>
 
-		<a href="/orders/add" class="button">create a new order</a> <br/> <br/>
+		<a href="/orders/add" class="btn btn-primary" role="button">create new order</a><br/><br/>
+		<br/>
 		<form action="#" th:action="@{/route/add}" method="get">
 			<label for="routeDate"></label>
-           	<input type="date" th:name="date" /><br/> <br/>
-			<input type="submit" value="Create new route" /><br/> <br/> 
+           	<input type="date" th:name="date" placeholder="set route date" /><br/> <br/>
+           	<input type="submit" class="btn btn-primary" value="create new route"/>
 		</form>
 		<div th:if="${not #lists.isEmpty(orders)}">
 		    <h2>all orders</h2>
-		    <table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Clientname</th>
-		    		<th>Delivery Adress</th>
-		    		<th>Order Status</th>
-		    		<th>Number of Order items</th>
-		    		<th>Delivery Date</th>
-		    		<th></th>
-		    		<th></th>
-		    	</tr>
-		    	<tr th:each="order : ${orders}">
-		    		<td th:text="${order.getId()}"></td>
-		    		<td th:text="${order.getCustomer()}"></td>
-		    		<td th:text="${order.getAddress()}"></td>
-		    		<td th:text="${order.getStatus()}"></td>
-		    		<td th:text="${order.getOrderItems().size()}"></td>
-		    		<td th:text="${order.getDeliveryDate()}"></td>
-		    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">Details</a></td>
-		    		<td><a th:href="@{/schedule/{id}(id = ${order.getId()})}">Add to Route</a></td>
-				</tr>
+		    <table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Clientname</th>
+			    		<th>Delivery Adress</th>
+			    		<th>Order Status</th>
+			    		<th>Number of Order items</th>
+			    		<th>Delivery Date</th>
+			    		<th></th>
+			    		<th></th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr th:each="order : ${orders}">
+			    		<td th:text="${order.getId()}"></td>
+			    		<td th:text="${order.getCustomer()}"></td>
+			    		<td th:text="${order.getAddress()}"></td>
+			    		<td th:text="${order.getStatus()}"></td>
+			    		<td th:text="${order.getOrderItems().size()}"></td>
+			    		<td th:text="${order.getDeliveryDate()}"></td>
+			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">Details</a></td>
+			    		<td><a th:href="@{/schedule/{id}(id = ${order.getId()})}">Add to Route</a></td>
+					</tr>
+				</tbody>
 		    </table>
 		</div>
 		<div th:if="${not #lists.isEmpty(orders)}">
 		    <h2>all routes</h2>
-		    <table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Truck</th>
-		    		<th>Driver</th>
-		    		<th>Capacity</th>
-		    		<th>Number of deliveries</th>
-		    		<th>Delivery Date</th>
-		    		<th></th>
-		    	</tr>
-		    	<tr th:each="route : ${routes}">
-		    		<td th:text="${route.getId()}"></td>
-		    		<td th:text="${route.getTruck()}"></td>
-		    		<td th:text="${route.getDriver()}"></td>
-		    		<td th:text="${route.calculateCapacity()}"></td>
-		    		<td th:text="${route.countDeliveries()}"></td>
-		    		<td th:text="${route.getDate()}"></td>
-		    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
-				</tr>
+		    <table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Truck</th>
+			    		<th>Driver</th>
+			    		<th>Capacity</th>
+			    		<th>Number of deliveries</th>
+			    		<th>Delivery Date</th>
+			    		<th></th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr th:each="route : ${routes}">
+			    		<td th:text="${route.getId()}"></td>
+			    		<td th:text="${route.getTruck()}"></td>
+			    		<td th:text="${route.getDriver()}"></td>
+			    		<td th:text="${route.calculateCapacity()}"></td>
+			    		<td th:text="${route.countDeliveries()}"></td>
+			    		<td th:text="${route.getDate()}"></td>
+			    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
+					</tr>
+				 </tbody>
 		    </table>
+		</div>
 		</div>
 	</body>
 </html>

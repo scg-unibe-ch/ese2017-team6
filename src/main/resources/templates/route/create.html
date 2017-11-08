@@ -3,6 +3,7 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
 		<h1 th:text= "${routeDate.toString()}"></h1>
 	    <ul th:each= "truck : ${trucks}">
 	    	<li th:text="${truck.toString()}"></li>
@@ -10,7 +11,7 @@
 	    <ul th:each= "driver : ${drivers}">
 	    	<li th:text="${driver.toString()}"></li>
 	    </ul>
-	    <h1 th:text= "'Create new Route on ' + ${routeTemplate.getDate()}"></h1>
+	    <h1 th:text= "'create new route on ' + ${routeTemplate.getDate()}"></h1>
 	    <form th:action="@{/route/add}" th:object="${routeTemplate}" method="post">
 	    	<input type="hidden" name="routeDate" th:value="${routeDate.toString()}"/>
 		    <select class="form-control" name="*{truckId}" id="*{truck}" th:field = "*{truck}">
@@ -19,7 +20,10 @@
 			<select class="form-control" name="driverId" id="driver">
 		    	<option th:each= "driverId : ${drivers}" th:value="${driverId.getId()}" th:text="${driverId.toString()}"></option>
 			</select>
-			<input th:type="submit" value="Submit"/><input type="reset" value="Reset" />
+			<br/>
+			<input type="submit" class="btn btn-primary" value="submit"/>
+        	<input type="reset" class="btn btn-primary" value="reset"/>
 		</form>
+		</div>
 	</body>
 </html>

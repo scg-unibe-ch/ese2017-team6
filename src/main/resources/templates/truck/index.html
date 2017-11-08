@@ -8,25 +8,29 @@
 	<p> no trucks found </p>
 		<div th:if="${not #lists.isEmpty(trucks)}">
 		    <h1>all trucks</h1>
-		    <table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Vehicle name</th>
-		    		<th>max cargo space</th>
-		    		<th>max load capacity</th>
-		    		<th>vehicle condition</th>
-		    		<th></th>
-		    	</tr>
-		    	<tr th:each="truck : ${trucks}">
-		    		<td th:text="${truck.getId()}"></td>
-		    		<td th:text="${truck.getTruckname()}"></td>
-		    		<td th:text="${truck.getMaxCargoSpace()}"></td>
-		    		<td th:text="${truck.getMaxLoadCapacity()}"></td>
-		    		<td th:text="${truck.getVehicleConditionAsString()}"></td>
-		    		<td><a th:href="@{{id}(id = ${truck.id})}">Profile</a></td>
-				</tr>
+		    <table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Vehicle name</th>
+			    		<th>max cargo space</th>
+			    		<th>max load capacity</th>
+			    		<th>vehicle condition</th>
+			    		<th></th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr th:each="truck : ${trucks}">
+			    		<td th:text="${truck.getId()}"></td>
+			    		<td th:text="${truck.getTruckname()}"></td>
+			    		<td th:text="${truck.getMaxCargoSpace()}"></td>
+			    		<td th:text="${truck.getMaxLoadCapacity()}"></td>
+			    		<td th:text="${truck.getVehicleConditionAsString()}"></td>
+			    		<td><a th:href="@{{id}(id = ${truck.id})}">Profile</a></td>
+					</tr>
+				</tbody>
 		    </table>
-		</div><br/><br/>
+		</div>
 		<a href ="/truck/add" class="btn btn-primary" role="button">create new truck</a>
 		</div>
 	</body>

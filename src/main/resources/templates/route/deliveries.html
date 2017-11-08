@@ -3,11 +3,14 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
-		<h1 th:text="'Add delivery'"></h1>
+		<div class="container">
+		<h1 th:text="'add delivery'"></h1>
 	    <form th:action="@{/route/{id}/add(id = ${route.getId()})}"  th:object="${delivery}" method="post">
-	    	 <p>Address: <input type="text" th:field="*{address}" /></p>
-	    	 <p>Item: <input type="text" th:field="*{item}" /></p>
-	    	<input th:type="submit" value="Submit"/><input type="reset" value="Reset" />
+	    	 <p>address: <input type="text" th:field="*{address}" /></p>
+	    	 <p>item: <input type="text" th:field="*{item}" /></p>
+	         <input type="submit" class="btn btn-primary" value="submit"/>
+        	 <input type="reset" class="btn btn-primary" value="reset"/>
 		</form>
+	</div>
 	</body>
 </html>

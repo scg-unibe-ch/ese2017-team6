@@ -3,6 +3,7 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
 		<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getDate()}"></h1>
 	    <p th:text="'Truck Name: ' + ${route.getTruck()}" />
 	    <p th:text="'Driver: ' + ${route.getDriver()}" /> 
@@ -12,11 +13,12 @@
 			    		<li th:text = "${orderItem.toString()}"></li>
 			    	</ul>
 		    </ul>
-	    <a th:href="@{/schedule/}" th:text="'Go to scheduling'"/>
-	    <a th:href="@{/route/{id}/add(id = ${route.id})}">Add delivery</a>
-	    <a th:href="@{/route/}">Show all routes</a>
-	    <a th:href="@{/driverview/{id}(id = ${route.getDriver()})}">Driver-Profile of this Route</a>
-	    <a th:href="@{/route/{id}/edit(id = ${route.id})}">Edit this route(Placeholder)</a>
+	    <a href ="/schedule/" class="btn btn-primary" role="button">go to scheduling</a>
+	    <a th:href="@{/route/{id}/add(id = ${route.id})}" class="btn btn-primary" >Add delivery</a>
+	    <a href="/route/" class="btn btn-primary" role="button">show all routes</a>
+	    <a th:href="@{/driverview/{id}(id = ${route.getDriver()})}" class="btn btn-primary">driver-profile of this route</a>
+	    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a>
+	    </div>
 	</body>
 </html>
 

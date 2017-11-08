@@ -3,32 +3,38 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
 		<h1> orders </h1>
 <!-- 		TODO: condition for next line (just show if the list is empty) -->
 		<p>no orders found</p>
-		<a href="/orders/add" class="button">create a new order</a> <br/> <br/>
+		<a href="/orders/add" class="btn btn-primary" role="button">create new order</a>
 		<div th:if="${not #lists.isEmpty(orders)}">
 		    <h2>all orders</h2>
-		    <table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Clientname</th>
-		    		<th>Delivery Adress</th>
-		    		<th>Order Status</th>
-		    		<th>Number of Order items</th>
-		    		<th>Delivery Date</th>
-		    		<th></th>
-		    	</tr>
-		    	<tr th:each="order : ${orders}">
-		    		<td th:text="${order.getId()}"></td>
-		    		<td th:text="${order.getCustomer()}"></td>
-		    		<td th:text="${order.getAddress()}"></td>
-		    		<td th:text="${order.getStatus()}"></td>
-		    		<td th:text="${order.getOrderItems().size()}"></td>
-		    		<td th:text="${order.getDeliveryDate()}"></td>
-		    		<td><a th:href="@{{id}(id = ${order.getId()})}">Details</a></td>
-				</tr>
+		    <table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Clientname</th>
+			    		<th>Delivery Adress</th>
+			    		<th>Order Status</th>
+			    		<th>Number of Order items</th>
+			    		<th>Delivery Date</th>
+			    		<th></th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr th:each="order : ${orders}">
+			    		<td th:text="${order.getId()}"></td>
+			    		<td th:text="${order.getCustomer()}"></td>
+			    		<td th:text="${order.getAddress()}"></td>
+			    		<td th:text="${order.getStatus()}"></td>
+			    		<td th:text="${order.getOrderItems().size()}"></td>
+			    		<td th:text="${order.getDeliveryDate()}"></td>
+			    		<td><a th:href="@{{id}(id = ${order.getId()})}">Details</a></td>
+					</tr>
+				</tbody>
 		    </table>
+		</div>
 		</div>
 	</body>
 </html>

@@ -3,13 +3,15 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 	<h1 th:text= "'Customer ' +${customer.id}"></h1>
     <p th:text="'Name: ' + ${customer.Name}" />
     <p th:text="'Address: ' +${customer.getAddress().toString()}" />
     <p th:text="'Phone: ' +${customer.getPhone().toString()}" />
     <p th:text="'Email: ' +${customer.getEmail().toString()}" />
-    <a th:href="@{/customer/}" class="button">go back to the index</a>
-    <a th:href="@{/customer/{id}/edit(id = ${customer.id})}" class="button">edit this customer</a>
+    <a href ="/customer/" class="btn btn-primary" role="button">go back to overview</a>
+    <a th:href="@{/customer/{id}/edit(id = ${customer.id})}" class="btn btn-primary">edit this customer</a>
+    </div>
 </body>
 </html>
 

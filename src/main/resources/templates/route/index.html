@@ -3,33 +3,39 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
 <!-- 		TODO: condition for next line: just show when list is empty -->
 		<p> no routes found </p>
 		<div th:if="${not #lists.isEmpty(routes)}">
-		    <h1>All routes</h1>
-		    <table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Route Date</th>
-		    		<th>Vehicle name</th>
-		    		<th>Driver name</th>
-		    		<th>Number of Deliveries</th>
-		    		<th></th>
-		    	</tr>
-		    	<tr th:each="route : ${routes}">
-		    		<td th:text="${route.getId()}"></td>
-		    		<td th:text="${route.getDate()}"></td>
-		    		<td th:text="${route.getTruck()}"></td>
-		    		<td th:text="${route.getDriver()}"></td>
-		    		<td th:text="${route.countDeliveries()}"></td>
-		    		<td><a th:href="@{{id}(id = ${route.id})}">Profile</a></td>
-				</tr>
+		    <h1>all routes</h1>
+		    <table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Route Date</th>
+			    		<th>Vehicle name</th>
+			    		<th>Driver name</th>
+			    		<th>Number of Deliveries</th>
+			    		<th></th>
+			    	</tr>
+		    	</thead>
+		    	<tbody>
+			    	<tr th:each="route : ${routes}">
+			    		<td th:text="${route.getId()}"></td>
+			    		<td th:text="${route.getDate()}"></td>
+			    		<td th:text="${route.getTruck()}"></td>
+			    		<td th:text="${route.getDriver()}"></td>
+			    		<td th:text="${route.countDeliveries()}"></td>
+			    		<td><a th:href="@{{id}(id = ${route.id})}">Profile</a></td>
+					</tr>
+				</tbody>
 		    </table>
 		</div>
 		<form action="#" th:action="@{/route/add}" method="get">
 			<label for="routeDate"></label>
-           	<input type="date" th:name="date" /><br/> <br/>
-			<input type="submit" value="Create new route" /><br/> <br/> 
+           	<input type="date" th:name="date" placeholder="set route date"/><br/> <br/>
+			<input type="submit" class="btn btn-primary" value="create new route"/>
 		</form> 
+		</div>
 	</body>
 </html>

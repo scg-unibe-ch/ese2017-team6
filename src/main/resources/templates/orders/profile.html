@@ -3,12 +3,13 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 	<h1 th:text= "'Order for ' +${order.customer}"></h1>
     <p th:text="'Delivery Address:  ' + ${order.getAddress()}" />
      <p th:text="'Delivery Date:  ' + ${order.getDeliveryDate()}" />
      <div>
             <label>Rows</label>
-            <table>
+            <table class="table table-hover">
               <thead>
                 <tr>
                   <th>Item</th>
@@ -22,9 +23,9 @@
 				</tr>
               </tbody>
             </table>
-          </div><br/><br/>
-          
-    <a th:href="@{/orders/}" class="button">go back to the overview</a>
+          </div>
+    	<a href ="/orders/" class="btn btn-primary" role="button">go back to overview</a>
+    </div>
 </body>
 </html>
 

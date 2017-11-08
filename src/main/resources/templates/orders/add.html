@@ -2,23 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<head lang="en" th:replace="fragments/head :: head"> </head>
-	<style>
-		table {
-		    border-collapse: collapse;
-		    width: 50%;
-		}
-		
-		th, td {
-		    text-align: left;
-		    padding: 8px;
-		}
-		
-		tr:nth-child(even){background-color: #f2f2f2}
-	</style>
 </head>
 
   <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
     <div>    
       <h1>add new order</h1>
 
@@ -44,14 +32,14 @@
           
            <div>
             <label>rows</label>
-            <table>
+            <table class="table table-hover">
               <thead>
                 <tr>
                   <th>row</th>
                   <th>item</th>
                   <th>amount</th>
                   <th>
-                    <button type="submit" name="addRow">Add row</button>
+                    <button type="submit" class="btn btn-primary" name="addRow">Add row</button>
                   </th>
                 </tr>
               </thead>
@@ -67,7 +55,7 @@
                     <input type="text" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
                   </td>
                   <td>
-                    <button type="submit" name="removeRow" th:value="${rowStat.index}">Remove row</button>
+                    <button type="submit" class="btn btn-primary" name="removeRow" th:value="${rowStat.index}">Remove row</button>
                   </td>
                 </tr>
               </tbody>
@@ -75,13 +63,13 @@
           </div>
     
           <div class="submit">
-            <button type="submit" name="save">Add Order</button>    
+            <button type="submit" class="btn btn-primary" name="save">Add Order</button>    
           </div>
         
         </fieldset>
           
       </form>
-        
+    </div>
     </div>
 
   </body>
