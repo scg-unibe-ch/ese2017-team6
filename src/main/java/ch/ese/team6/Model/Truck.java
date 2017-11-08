@@ -15,14 +15,14 @@ public class Truck {
 	private long id;
 	private String truckname;
 	private int maxSize;
-	private int maxWeight;
+	private int maxLoadCapacity;
 	private int vehicleCondition;
 	
 	public Truck() {}
 	
 	public Truck(String name) {
 		this.truckname = name;
-		this.maxSize = this.maxWeight = 40;
+		this.maxSize = this.maxLoadCapacity = 40;
 		this.vehicleCondition = 0;
 	}
 
@@ -38,17 +38,17 @@ public class Truck {
 	public void setTruckname(String truckname) {
 		this.truckname = truckname;
 	}
-	public int getMaxSize() {
+	public int getMaxCargoSpace() {
 		return maxSize;
 	}
-	public void setMaxSize(int maxCargoSpace) {
+	public void setMaxCargoSpace(int maxCargoSpace) {
 		this.maxSize = maxCargoSpace;
 	}
-	public int getMaxWeight() {
-		return maxWeight;
+	public int getMaxLoadCapacity() {
+		return maxLoadCapacity;
 	}
-	public void setMaxWeight(int maxLoadCapacity) {
-		this.maxWeight = maxLoadCapacity;
+	public void setMaxLoadCapacity(int maxLoadCapacity) {
+		this.maxLoadCapacity = maxLoadCapacity;
 	}
 	public int getVehicleCondition() {
 		return vehicleCondition;

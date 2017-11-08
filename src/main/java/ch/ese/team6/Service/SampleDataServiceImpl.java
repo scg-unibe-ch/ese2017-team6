@@ -107,7 +107,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			String[] truckData = trucks[i].split(",");
 			Truck truck = new Truck();
 			truck.setTruckname(truckData[0]);
-			truck.setMaxSize(Integer.parseInt(truckData[1].trim()));
+			truck.setMaxCargoSpace(Integer.parseInt(truckData[1].trim()));
 			truckRepository.save(truck);
 		}
 	}

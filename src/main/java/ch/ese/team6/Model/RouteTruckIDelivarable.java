@@ -44,8 +44,8 @@ public class RouteTruckIDelivarable {
 		if (truck == null) {
 			return false;
 		}
-		if (d.getSize() <= (truck.getMaxSize() - this.getSize())) {
-			if (d.getWeight() <= (truck.getMaxWeight() - this.getWeight())) {
+		if (d.getSize() <= (truck.getMaxCargoSpace() - this.getSize())) {
+			if (d.getWeight() <= (truck.getMaxLoadCapacity() - this.getWeight())) {
 				return true;
 			}
 		}
@@ -57,7 +57,7 @@ public class RouteTruckIDelivarable {
 		if(truck == null) {
 			return false;
 		}
-		return (getSize()<=truck.getMaxSize()) &&(getWeight()<= truck.getMaxWeight());
+		return (getSize()<=truck.getMaxCargoSpace()) &&(getWeight()<= truck.getMaxLoadCapacity());
 	}
 	
 

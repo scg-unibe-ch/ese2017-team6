@@ -119,9 +119,9 @@ private RouteCollection routes;
 		for(RouteTruckIDelivarable route:candidate) {
 			
 			Truck truckCandidate = trucks_copy.get(0);
-			int bestCandidateD = getDistance(truckCandidate.getMaxSize()-route.getSize(),truckCandidate.getMaxWeight()-route.getWeight());
+			int bestCandidateD = getDistance(truckCandidate.getMaxCargoSpace()-route.getSize(),truckCandidate.getMaxLoadCapacity()-route.getWeight());
 			for(Truck t:trucks_copy) {
-				int temp =getDistance(t.getMaxSize()-route.getSize(), t.getMaxWeight()-route.getWeight());
+				int temp =getDistance(t.getMaxCargoSpace()-route.getSize(), t.getMaxLoadCapacity()-route.getWeight());
 				if(temp<bestCandidateD) {
 					bestCandidateD = temp;
 					truckCandidate = t;
