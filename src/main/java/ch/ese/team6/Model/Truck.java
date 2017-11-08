@@ -14,7 +14,7 @@ public class Truck {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String truckname;
-	private int maxSize;
+	private int maxCargoSpace;
 	private int maxLoadCapacity;
 	private int vehicleCondition;
 	
@@ -22,7 +22,7 @@ public class Truck {
 	
 	public Truck(String name) {
 		this.truckname = name;
-		this.maxSize = this.maxLoadCapacity = 40;
+		this.maxCargoSpace = this.maxLoadCapacity = 40;
 		this.vehicleCondition = 0;
 	}
 
@@ -39,10 +39,10 @@ public class Truck {
 		this.truckname = truckname;
 	}
 	public int getMaxCargoSpace() {
-		return maxSize;
+		return maxCargoSpace;
 	}
 	public void setMaxCargoSpace(int maxCargoSpace) {
-		this.maxSize = maxCargoSpace;
+		this.maxCargoSpace = maxCargoSpace;
 	}
 	public int getMaxLoadCapacity() {
 		return maxLoadCapacity;
