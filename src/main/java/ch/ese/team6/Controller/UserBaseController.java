@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.UserRepository;
 

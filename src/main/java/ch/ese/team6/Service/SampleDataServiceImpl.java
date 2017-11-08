@@ -50,8 +50,13 @@ public class SampleDataServiceImpl implements SampleDataService{
 	private RoleRepository roleRepository;
 	
 	public void loadData() {
+
 		if (roleRepository.count() == 0) this.loadRoles();
 		if (userRepository.count() == 0) this.loadUsers();
+	
+
+		if (userRepository.count() == 0) {this.loadUsers();}
+	
 		if (customerRepository.count() == 0)this.loadCustomers();
 		if (itemRepository.count() == 0)this.loadItems();
 		if (truckRepository.count() == 0)this.loadTrucks();
