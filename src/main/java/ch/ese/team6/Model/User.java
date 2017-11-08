@@ -1,5 +1,7 @@
 package ch.ese.team6.Model;
 import javax.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,8 +17,9 @@ public class User {
     private String surname;
     private String email;
     private String phoneNumber;
-    @OneToMany(mappedBy="driver")
-    private Route route;
+    
+    private List<Route> routes;
+    
     
     public User() {
 		// TODO Auto-generated constructor stub
@@ -111,5 +114,25 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	@OneToMany(mappedBy="driver")
+	public List<Route> getRoutes(){
+		try {
+			return this.routes;
+		}
+		catch(Exception exception) {
+			return null;
+		}
+	}
+
+	public void setRoutes(List<Route> routes) {
+		this.routes = routes;
+	}
+
+	public boolean isOccupied(String date) {
+		for(Route route: this.routes) {
+			if (route.getRouteDate()== date) return true;
+		}
+		return false;
 	}
 }

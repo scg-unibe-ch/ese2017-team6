@@ -9,7 +9,31 @@
     <p th:text="'your RealName is: ' + ${user.getRealname()}" />
     <a th:href="@{/user/{id}/edit(id = ${user.id})}" class="btn btn-primary">edit this user</a>
     <a href ="/user/" class="btn btn-primary" role="button">go back to overview</a>
-    
+    <h3>Users routes</h3>
+    <div th:if="${not #lists.isEmpty(user.getRoutes())}">
+	    <table class="table table-hover">
+	    	<thead>
+	    		<tr>
+		    		<th>Id</th>
+		    		<th>Routedate</th>
+		    		<th>Number of deliveries</th>
+		    		<th></th>
+		    		<th></th>
+		    		<th></th>
+		    	</tr>
+		    </thead>
+		    <tbody>
+		    	<tr th:each="route : ${user.getRoutes()}">
+		    		<td th:text="${route.getId()}"></td>
+		    		<td th:text="${route.getDate()}"></td>
+		    		<td th:text="${route.countDeliveries()}"></td>
+		    		<td></td>
+		    		<td></td>
+		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">Route</a></td>
+				</tr>
+			</tbody>
+	    </table>
+	</div>
     </div>
 </body>
 </html>

@@ -24,6 +24,9 @@
 			    		<td th:text="${user.getId()}"></td>
 			    		<td th:text="${user.getUsername()}"></td>
 			    		<td th:text="${user.getRealname()}"></td>
+			    		<td th:each= "role: ${user.getRoles()}">
+			    			<ul th:text="${role.getName()}"></ul>
+			    			</td>
 			    		<td><a th:href="@{{id}(id = ${user.id})}">profile</a></td>
 					</tr>
 				</tbody>

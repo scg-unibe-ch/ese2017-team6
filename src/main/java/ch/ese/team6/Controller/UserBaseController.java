@@ -26,7 +26,7 @@ public class UserBaseController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@RequestMapping
+	@RequestMapping(path = "/")
 	public String showAllUsers(Model model) {
 		model.addAttribute("users", userRepository.findAll());
 		return "user/index";
