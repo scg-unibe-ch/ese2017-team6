@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class OrderItem {
+public class OrderItem implements IDelivarable {
 	
 	 	@Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
@@ -105,5 +105,21 @@ public class OrderItem {
 			return this.amount+" x "+this.item;
 			
 		}
+
+		@Override
+		public int getWeight() {
+			return amount*item.getWeight();
+		}
+
+		@Override
+		public int getSize() {
+			return amount*item.getRequiredAmountOfPalettes();
+		}
+
+		@Override
+		public Address getAddress() {
+			return this.orders.getAddress();
+		}
+		
 
 }

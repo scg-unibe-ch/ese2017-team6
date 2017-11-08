@@ -21,7 +21,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Orders")
-public class Order {
+public class Order  implements IDelivarable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -114,6 +114,29 @@ public class Order {
     }
 	public boolean isOK() {
 		return this.invariant();
+	}
+
+
+
+	@Override
+	public int getWeight() {
+		int w = 0;
+		for(OrderItem oi: this.orderItems) {
+			w += oi.getWeight();
+		}
+		return w;
+	}
+	
+
+
+
+	@Override
+	public int getSize() {
+		int s = 0;
+		for(OrderItem oi: this.orderItems) {
+			s += oi.getSize();
+		}
+		return s;
 	}
     
 

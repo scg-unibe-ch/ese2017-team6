@@ -18,7 +18,7 @@ public class Truck {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String truckname;
-	private int maxCargoSpace;
+	private int maxSize;
 	private int maxLoadCapacity;
 	private int vehicleCondition;
 	@OneToMany(mappedBy="truck")
@@ -28,7 +28,7 @@ public class Truck {
 	
 	public Truck(String name) {
 		this.truckname = name;
-		this.maxCargoSpace = this.maxLoadCapacity = 40;
+		this.maxSize = this.maxLoadCapacity = 40;
 		this.vehicleCondition = 0;
 	}
 
@@ -45,10 +45,10 @@ public class Truck {
 		this.truckname = truckname;
 	}
 	public int getMaxCargoSpace() {
-		return maxCargoSpace;
+		return maxSize;
 	}
 	public void setMaxCargoSpace(int maxCargoSpace) {
-		this.maxCargoSpace = maxCargoSpace;
+		this.maxSize = maxCargoSpace;
 	}
 	public int getMaxLoadCapacity() {
 		return maxLoadCapacity;

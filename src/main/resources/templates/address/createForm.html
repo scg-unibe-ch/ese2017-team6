@@ -6,10 +6,10 @@
 	<div class="container">
 	<h1>new address</h1>
     <form action="#" th:action="@{/address/add}" th:object="${address}" method="post">
-        <p>street and number: <input type="text" th:field="*{street}" /></p>
-        <p>postal code and city: <input type="text" th:field="*{city}" /></p>
-        <input type="submit" class="btn btn-primary" value="submit"/>
-        <input type="reset" class="btn btn-primary" value="reset" />
+        <p>Street and Number: <input type="text" th:field="*{street}" /></p>
+        <p>Post Code and City: <input type="text" th:field="*{city}" /></p>
+        <p>Country: <input type="text" th:field="*{country}" /></p>
+        <p><input type="submit" value="Submit" class="button" /> <input type="reset" value="Reset" class="button"/></p>
     </form>
     </div>
 </body>

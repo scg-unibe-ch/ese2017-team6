@@ -31,20 +31,7 @@ public class Address {
 		this.city = city;
 	}
 
-	/**
-	 * Returns the distance in km to reach otherAddress starting
-	 * at this Address.
-	 * The function does not have to be symmetric (i. e. A.getDistanceTo(B) does not have to 
-	 * be the same as B.getDistanceTo(A) 
-	 * @param otherAddress
-	 * @return distance in km
-	 */
 
-
-	public int getDistanceTo(Address otherAddress) {
-		//dummy
-		return 1;
-	}
 	
 	public long getId() {
 		return this.id;
@@ -84,7 +71,7 @@ public class Address {
 	}
 	
 	private boolean invariant() {
-		return (this.street!=null && this.city != null && this.street.length()!=0 && this.city.length()!=0);
+		return (this.street!=null && this.city != null && this.street.length()!=0 && this.city.length()!=0 && this.country!= null && this.country.length()!=0);
 	}
 
 	public boolean isOK() {
