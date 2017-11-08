@@ -8,21 +8,25 @@
 		<p> no address found </p>
 		<div th:if="${not #lists.isEmpty(address)}">
 		    <h1>all addresses</h1>
-		    <table>
-		    	<tr>
-		    		<th>Id</th>
-		    		<th>Street</th>
-		    		<th>City</th>
-		    		<th>Country</th>
-		    		
-		    	</tr>
-		    	<tr th:each="ad : ${address}">
-		    		<td th:text="${ad.getId()}"></td>
-		    		<td th:text="${ad.getStreet()}"></td>
-		    		<td th:text="${ad.getCity()}"></td>
-		    		<td th:text="${ad.getCountry()}"></td>
-
-				</tr>
+		    <table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>Id</th>
+			    		<th>Street</th>
+			    		<th>City</th>
+			    		<th>Country</th>
+			    		
+			    	</tr>
+		    	</thead>
+		    	<tbody>
+			    	<tr th:each="ad : ${address}">
+			    		<td th:text="${ad.getId()}"></td>
+			    		<td th:text="${ad.getStreet()}"></td>
+			    		<td th:text="${ad.getCity()}"></td>
+			    		<td th:text="${ad.getCountry()}"></td>
+	
+					</tr>
+				</tbody>
 		    </table>
 		</div>
 		<a href ="/address/add" class="btn btn-primary" role="button">create new address</a>

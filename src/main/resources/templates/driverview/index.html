@@ -1,15 +1,16 @@
 <!DOCTYPE html>
  <html>
- 	<head>
- 		<title>All the drivers</title>
- 	</head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
  	
  	<body>
+ 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
  	<div th:if="${not #lists.isEmpty(drivers)}">
  	<h1> Here are all the Drivers of the Firm </h1>
  	
  	<h1>Select Your Profile</h1>
- 		    <table>
+ 		    <table class="table table-hover">
+ 		    <thead>
  		    	<tr>
  		    		<th>Id</th>
  		    		<th>Username</th>
@@ -17,6 +18,8 @@
  		    		<th>Surname</th>
  		    		<th></th>
  		    	</tr>
+ 		    	</thead>
+ 		    	<tbody>
  		    	<tr th:each="user : ${drivers}">
  		    		<td th:text="${user.getId()}"></td>
  		    		<td th:text="${user.getUsername()}"></td>
@@ -24,11 +27,11 @@
  		    		<td th:text="${user.getSurname()}"></td>
  		    		<td><a th:href="@{{id}(id = ${user.id})}">Profile</a></td>
  				</tr>
+ 				</tbody>
  		    </table>
  	</div>
  	
- 	<a th:href="@{/hello}">Home</a>
  
- 		
+ 	</div>
  	</body>
  </html> 
