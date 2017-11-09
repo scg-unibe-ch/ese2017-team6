@@ -26,10 +26,11 @@ private RouteCollection routes;
 		// We do 10 random cluster initalizations 
 		int bestDistance = Integer.MAX_VALUE;
 		RouteCollection bestSolution = null;
-		for(int i = 0; i< 10;i++) {
+		for(int i = 0; i< 30;i++) {
 			RouteCollection candidate= this.initializeRandom();
 			if(candidate!= null && candidate.getDrivenDistance(addressDistances)<bestDistance) {
 				bestSolution = candidate;
+				bestDistance = candidate.getDrivenDistance(addressDistances);
 			}
 		}
 		
@@ -171,7 +172,7 @@ private RouteCollection routes;
 	 * Will be null if no legal solution was found
 	 */
 	public RouteCollection getRoutes() {
-
+		routes.removeEmptyRoutes();
 		return routes;
 	}
 	

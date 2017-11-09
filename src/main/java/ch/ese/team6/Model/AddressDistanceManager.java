@@ -30,9 +30,9 @@ public abstract class AddressDistanceManager {
 		Address ret = address1;
 		
 		for(Address t: addresses) {
-			if(!t.equals(address1)) {
+			if(!ignoreSelf || (ignoreSelf&&!t.equals(address1))) {
 				if(this.getDistance(address1, t)<min) {
-					ret = address1;
+					ret = t;
 				}
 			}
 			
@@ -52,7 +52,7 @@ public abstract class AddressDistanceManager {
 	public int getDistanceToNeighrestAddress(Address address1, Set<Address> addresses) {
 		assert address1 != null;
 		assert addresses != null;
-		assert(addresses.size()>1);//We require
+		assert(addresses.size()>0);//We require
 		
 		
 		if (addresses.contains(address1)){
