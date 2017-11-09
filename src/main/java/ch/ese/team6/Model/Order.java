@@ -74,7 +74,12 @@ public class Order  implements IDelivarable{
     public OrderStatus getStatus() {
     	return orderStatus;
     }
-    
+    @Override
+    public void setRoute(Route r) {
+    	for(OrderItem i: this.orderItems) {
+    		i.setRoute(r);
+    	}
+    }
 
     public void setStatus(OrderStatus s ) {
     	this.orderStatus = s;

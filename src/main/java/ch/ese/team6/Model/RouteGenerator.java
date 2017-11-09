@@ -2,6 +2,7 @@ package ch.ese.team6.Model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class RouteGenerator implements IAutomaticRouteGenerator {
@@ -48,7 +49,7 @@ private RouteCollection routes;
 		
 		
 		for(int i = 0; i< trucks.size();i++) {
-			RouteTruckIDelivarable route = new RouteTruckIDelivarable(deposit);
+			Route route = new Route(deposit);
 			// Each route will start at a different address.
 			if(!addresses.isEmpty()) {
 				int randomNumber = (int) Math.floor(Math.random()*addresses.size());
@@ -66,7 +67,7 @@ private RouteCollection routes;
 		while(!addresses.isEmpty()) {
 			Address a = addresses.get(0);
 			addresses.remove(0);
-			RouteTruckIDelivarable route = getNeighrestRoute(a,candidate,false,null);
+			Route route = getNeighrestRoute(a,candidate,false,null);
 			route.addDelivarables(getAllAtAddress(a, delivarables));
 		}
 		
@@ -77,7 +78,7 @@ private RouteCollection routes;
 		//Now all delivarables are assigned to a route and all routes have a truck.
 		// We now want to make sure that the capacity constraints are satisfied.
 		//For each route where the capacity is not satisfied, we try to remove Objects.
-		for(RouteTruckIDelivarable route: candidate) {
+		for(Route route: candidate) {
 			if(!route.isCapacitySatified()) {
 				boolean success = fix(route,candidate);
 				if(!success) {
@@ -90,13 +91,13 @@ private RouteCollection routes;
 	}
 
 	//Tries to fix a Route which does not satisfy capcacity by moving the Elements away to other routes
-	private boolean fix(RouteTruckIDelivarable route, RouteCollection candidate) {
-		int n = route.getDelivarables().size();
+	private boolean fix(Route route, RouteCollection candidate) {
+		int n = route.getOrderItems().size();
 		for(int i = n-1; i >= 0; i--) {
-			IDelivarable delivarableToMove = route.getDelivarables().get(i);
-			RouteTruckIDelivarable routeWhereDeliveryCanBeAdded = getNeighrestRoute(delivarableToMove.getAddress(), candidate, true, delivarableToMove);
+			IDelivarable delivarableToMove = route.getOrderItems().get(i);
+			Route routeWhereDeliveryCanBeAdded = getNeighrestRoute(delivarableToMove.getAddress(), candidate, true, delivarableToMove);
 			if(routeWhereDeliveryCanBeAdded!=null) {
-				routeWhereDeliveryCanBeAdded.addIDelivarable((delivarableToMove));
+				routeWhereDeliveryCanBeAdded.addDelivarable((delivarableToMove));
 				route.remove(delivarableToMove);
 				if(route.isCapacitySatified()) {
 					return true;
@@ -117,7 +118,7 @@ private RouteCollection routes;
 	private void assignTrucks(RouteCollection candidate) {
 		ArrayList<Truck> trucks_copy = (ArrayList<Truck>) trucks.clone();
 		assert candidate.size() == trucks_copy .size();
-		for(RouteTruckIDelivarable route:candidate) {
+		for(Route route:candidate) {
 			
 			Truck truckCandidate = trucks_copy.get(0);
 			int bestCandidateD = getDistance(truckCandidate.getMaxCargoSpace()-route.getSize(),truckCandidate.getMaxLoadCapacity()-route.getWeight());
@@ -149,12 +150,12 @@ private RouteCollection routes;
 	 * @param routes
 	 * @return
 	 */
-	private RouteTruckIDelivarable getNeighrestRoute(Address a,RouteCollection routes, boolean checkCapacity,IDelivarable delivarableToPass) {
+	private Route getNeighrestRoute(Address a,RouteCollection routes, boolean checkCapacity,IDelivarable delivarableToPass) {
 		
-		RouteTruckIDelivarable nearestRoute = null;
+		Route nearestRoute = null;
 		int distance = Integer.MAX_VALUE;
-		for(RouteTruckIDelivarable route: routes) {
-			int distanceToNearestAddressInRoute = addressDistances.getDistanceToNeighrestAddress(a, route.getAllAddress(true));
+		for(Route route: routes) {
+			int distanceToNearestAddressInRoute = addressDistances.getDistanceToNeighrestAddress(a, route.getAllAddresses(true));
 			if(distanceToNearestAddressInRoute<distance) {
 				if(!checkCapacity || (checkCapacity && route.doesIDelivarableFit(delivarableToPass))) {
 					nearestRoute = route;
@@ -179,7 +180,7 @@ private RouteCollection routes;
 	/**
 	 * Returns a set with all the addresses where something must be delivered
 	 */
-	public static Set<Address> getAllAddresses(Iterable<IDelivarable> delivarables) {
+	public static Set<Address> getAllAddresses(List<IDelivarable> delivarables) {
 		Set<Address> addresses = new HashSet<Address>();
 		for (IDelivarable d : delivarables) {
 			addresses.add(d.getAddress());
@@ -188,10 +189,13 @@ private RouteCollection routes;
 	}
 	
 	/**
+	 * Why is it static?
+	 * We want to use it also for Route Generation purposes. In the route generation problem we have
+	 * a set of delivarables and we want to get all with the same address even if they do not yet belong to a route.
 	 * Returns an ArrayList of all the Delivarables with the address a.
 	 * 
 	 */
-	public static ArrayList<IDelivarable> getAllAtAddress(Address a, ArrayList<IDelivarable> delivarables) {
+	public static ArrayList<IDelivarable> getAllAtAddress(Address a, List<IDelivarable> delivarables) {
 		ArrayList<IDelivarable> ret = new ArrayList<IDelivarable>();
 		for (IDelivarable d : delivarables) {
 			if (d.getAddress().equals(a)) {

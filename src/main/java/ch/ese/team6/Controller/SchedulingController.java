@@ -50,7 +50,7 @@ public class SchedulingController {
 	public String createDelivery(Model model, @PathVariable long orderId, @RequestParam long routeId) {
 		Route route = routeRepository.findOne(routeId);
 		Order order = orderRepository.findOne(orderId);
-		route.addDelivery(new Delivery(order));
+		route.addDelivarable(order);
 		if (route.isFull()) return"redirect:/schedule/"+orderId;
 		order.scheduleOrder();
 		deliveryRepository.save(route.getDeliveries());

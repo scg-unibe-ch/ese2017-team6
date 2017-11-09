@@ -1,30 +1,17 @@
 package ch.ese.team6.Model;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="delivery")
 public class Delivery {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	private String address;
-	private String item;
-	@OneToMany
-	private Set<Item> items;
-	@OneToOne
-	private Order order;
+	
+	private Address address;
+	private Route route;
+	
+	private ArrayList<OrderItem> items;
+	
 	/*
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="route")
@@ -34,76 +21,50 @@ public class Delivery {
 	public Delivery() {}
 
 
-	public Delivery(Order order) {
-		this.order = order;
-		this.address = order.getAddress().toString();
+	public Delivery(Route route) {
+		this.setRoute(route);
+		this.items = new ArrayList<OrderItem>();
 	}
 
 
-	public long getId() {
-		return id;
-	}
 
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
 
-	public String getItem() {
-		return item;
+	public ArrayList<OrderItem> getItems() {
+		return items;
 	}
 
 
-	public void setItem(String item) {
-		this.item = item;
-	}
 
-
-	public void addItem(Item item) {
+	public void addItem(OrderItem item) {
 		this.items.add(item);
+	}
+	public void addItems(Collection<? extends OrderItem> c) {
+		this.items.addAll(c);
 	}
 	
 	public boolean hasItems(){
-		try {
-			return !this.items.isEmpty();
-		}
-		catch(NullPointerException exception){
-			return false;
-		}
+		return !this.items.isEmpty();
+		
 	}
-	
-	public List<OrderItem> getItems(){
-		return this.order.getOrderItems();
-		/*if (!this.hasItems()) return null;
-		List<Item> deliveryItems = new ArrayList<Item>(this.items);
-		return deliveryItems;*/
-	}
-	
-	public Order getOrder() {
-		return this.order;
-	}
-	
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-	/*
+
+
 	public Route getRoute() {
-		return this.route;
+		return route;
 	}
-	
+
+
 	public void setRoute(Route route) {
 		this.route = route;
 	}
-	*/
+	
+	
 }

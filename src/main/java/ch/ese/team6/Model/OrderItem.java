@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 public class OrderItem implements IDelivarable {
 	
@@ -29,6 +31,10 @@ public class OrderItem implements IDelivarable {
 		@JoinColumn(name="ORDERS_ID")
 	 	private Order orders;
 	 	
+
+	 	@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="ROUTE_ID")
+	 	private Route route;
 	 	/**
 	 	 * Constructor with parameter
 	 	 * @param item, amount
@@ -84,6 +90,12 @@ public class OrderItem implements IDelivarable {
 			this.orders = o;
 		}
 
+		public void setRoute(Route r) {
+			this.route = r;
+		}
+		public Route getRoute() {
+			return this.route;
+		}
 
 		public String getOrderItemStatus() {
 			return orderItemStatus;
