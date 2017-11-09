@@ -109,6 +109,9 @@ public class Order  implements IDelivarable{
     					
     					return false;
     				}
+    				if(!oi.invariant()) {
+    					return false;
+    				}
     			}
     			
     			return true;

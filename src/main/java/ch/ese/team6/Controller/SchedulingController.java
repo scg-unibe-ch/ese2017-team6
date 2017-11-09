@@ -38,8 +38,19 @@ public class SchedulingController {
 	
 	@GetMapping(path ="/{orderId}")
 	public String addOrderToRoute (Model model, @PathVariable long orderId) {
-		model.addAttribute("order", orderRepository.findOne(orderId));
-		model.addAttribute("routes", routeRepository.findAll());
+		Order order = orderRepository.findOne(orderId);
+		model.addAttribute("order", order);
+		
+		List<Route> routes = routeRepository.findAll();
+		// Elimate routes where the order does not fit
+		for(int i = routes.size()-1;i>=0;i--) {
+			Route r = routes.get(i);
+			if(!r.doesIDelivarableFit(order)) {
+				routes.remove(r);
+			}
+		}
+		
+		model.addAttribute("routes", routes);
 		return "schedule/addOrder";
 	}
 	

@@ -36,6 +36,10 @@
 						</tr>
 					</tbody>
 			    </table>
+			    <div th:if="${#lists.isEmpty(routes)}">
+			    There are no routes where this order could fit in. Make sure you have created a route with a truck
+			    big enough to transport this order.
+			    </div>
 				<div th:if="${not #lists.isEmpty(routes)}">
 			    <h2>available routes</h2>
 				<table class="table table-hover">

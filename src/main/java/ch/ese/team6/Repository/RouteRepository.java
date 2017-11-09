@@ -13,5 +13,5 @@ public interface RouteRepository extends JpaRepository<Route, Long>{
 	List<Route> findByRouteDate(String routeDate);
 	
 	User findByDriverId(long driver_id);
-
+	
 }

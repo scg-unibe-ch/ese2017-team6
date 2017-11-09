@@ -5,8 +5,9 @@
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
 		<h1> orders </h1>
-<!-- 		TODO: condition for next line (just show if the list is empty) -->
+		<div th:if="${#lists.isEmpty(orders)}">
 		<p>no orders found</p>
+		</div>
 		<a href="/orders/add" class="btn btn-primary" role="button">create new order</a>
 		<div th:if="${not #lists.isEmpty(orders)}">
 		    <h2>all orders</h2>
