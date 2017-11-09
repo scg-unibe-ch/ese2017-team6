@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "route")
@@ -36,6 +37,8 @@ public class Route {
 	public long estimatedTime;
 	public long measuredTime;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ADDRESS_ID")
 	private Address deposit;//The starting address of the Route
 	
 	
