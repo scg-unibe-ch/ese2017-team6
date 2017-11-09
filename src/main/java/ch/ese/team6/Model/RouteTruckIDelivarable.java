@@ -11,7 +11,7 @@ import java.util.Set;
  *
  */
 public class RouteTruckIDelivarable {
-	private Address deposit;
+	private Address deposit;//The starting address of the Route
 	private ArrayList<IDelivarable> delivarables;
 	private Truck truck;
 	private boolean isSorted;
@@ -139,6 +139,7 @@ public class RouteTruckIDelivarable {
 	public void remove(IDelivarable delivarableToMove) {
 		assert this.delivarables.contains(delivarableToMove);
 		this.delivarables.remove(delivarableToMove);
+		isSorted = false;
 	}
 	
 	public String toString() {
