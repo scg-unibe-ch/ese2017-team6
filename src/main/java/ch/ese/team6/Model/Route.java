@@ -276,12 +276,15 @@ public class Route {
 	}
 	
 	
-	public String calculateCapacity() {
+	public String calculateCapacitySize() {
 		int cargoSpace = this.getTruck().getMaxCargoSpace();
 		 return this.getSize()+ "/ " +cargoSpace; 
 	}
 	
-	
+	public String calculateCapacityWeight() {
+		int cargoSpace = this.getTruck().getMaxLoadCapacity();
+		 return this.getWeight()+ "/ " +cargoSpace; 
+	}
 	
 	
 

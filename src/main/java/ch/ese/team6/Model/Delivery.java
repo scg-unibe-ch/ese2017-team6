@@ -41,7 +41,7 @@ public class Delivery {
 	public ArrayList<OrderItem> getItems() {
 		return items;
 	}
-
+	
 
 
 	public void addItem(OrderItem item) {

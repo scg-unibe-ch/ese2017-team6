@@ -8,8 +8,8 @@
 	    <p th:text="'Truck Name: ' + ${route.getTruck()}" />
 	    <p th:text="'Driver: ' + ${route.getDriver()}" /> 
 		     <ul th:each= "delivery : ${route.getDeliveries()}">
-		    	<li> <ath:text="${delivery.getAddress().toString()}"></a></li>
-			    	<ul th:each= "orderItem : ${delivery.getOrderItems()}">
+		    	<li th:text="${delivery.getAddress().toString()}"></li>
+			    	<ul th:each= "orderItem : ${delivery.getItems()}">
 			    		<li th:text = "${orderItem.toString()}"></li>
 			    	</ul>
 		    </ul>
