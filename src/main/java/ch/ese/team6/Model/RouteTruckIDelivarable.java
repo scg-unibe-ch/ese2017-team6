@@ -19,6 +19,7 @@ public class RouteTruckIDelivarable {
 
 	public RouteTruckIDelivarable(Address deposit) {
 		this.deposit = deposit;
+		this.delivarables = new ArrayList<IDelivarable>();
 	}
 
 	public void addIDelivarable(IDelivarable d) {
@@ -139,7 +140,15 @@ public class RouteTruckIDelivarable {
 		assert this.delivarables.contains(delivarableToMove);
 		this.delivarables.remove(delivarableToMove);
 	}
-
+	
+	public String toString() {
+		String s = "Route using truck: "+this.truck+"\n";
+		for(IDelivarable i: delivarables) {
+			s = s+"  "+i.getAddress()+"\n";
+		}
+		s = s+"Size: "+getSize()+"/"+truck.getMaxCargoSpace()+", Weight: "+getWeight()+"/"+truck.getMaxLoadCapacity();
+		return s;
+	}
 	
 	
 

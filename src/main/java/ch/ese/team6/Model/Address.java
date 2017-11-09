@@ -67,7 +67,7 @@ public class Address {
 	}
 
 	public String toString() {
-		return street+", "+city;
+		return street+", "+city+", "+country;
 	}
 	
 	private boolean invariant() {

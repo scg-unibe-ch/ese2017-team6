@@ -28,5 +28,16 @@ public int getDrivenDistance(AddressDistanceManager addressDistances) {
 	return d;
 }
 
-
+public String toString() {
+	System.out.println("_____________");
+	
+	String s = ("Route Collection consists of "+this.size()+" routes\n");
+	
+	for(RouteTruckIDelivarable r:this) {
+		s = s+("---\n");
+		s = s+r.toString()+"\n";
+		s=s+("---\n");
+	}
+	return s;
+}
 }
