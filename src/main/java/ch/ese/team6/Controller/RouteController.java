@@ -22,8 +22,6 @@ import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Delivery;
 import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.Route;
-import ch.ese.team6.Repository.DeliveryRepository;
-import ch.ese.team6.Repository.ItemRepository;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
@@ -39,8 +37,6 @@ public class RouteController{
 	@Autowired private RouteRepository routeRepository;
 	@Autowired private TruckRepository truckRepository;
 	@Autowired private UserRepository userRepository;
-	@Autowired private DeliveryRepository deliveryRepository;
-	@Autowired private ItemRepository itemRepository;
 	@Autowired private OrderRepository orderRepository;
 	
 	@Autowired private RouteService routeService;
@@ -90,34 +86,19 @@ public class RouteController{
 	@GetMapping(path = "/{routeId}/add")
 	public String addDelivery(Model model, @PathVariable long routeId) {
 		model.addAttribute("route", routeRepository.findOne(routeId));
-		model.addAttribute("delivery", new Delivery());
+		
 		return "route/deliveries";
 	}
 	
 	@PostMapping( path = "/{routeId}/add")
-	public ModelAndView saveAddedDelivery(@ModelAttribute Delivery delivery, @PathVariable long routeId) {
+	public ModelAndView saveAddedDelivery(@ModelAttribute Order order, @PathVariable long routeId) {
 		Route route = routeRepository.findOne(routeId);
-		deliveryRepository.save(delivery);
-		route.addDelivery(delivery);
+		route.addDelivarable(order);
+		orderRepository.save(order);
 		routeRepository.save(route);
 		return new ModelAndView("route/profile", "route", route);
 	}
 	
-	@GetMapping(path = "/delivery/{deliveryId}")
-	public String editDelivery(Model model, @PathVariable long deliveryId) {
-		model.addAttribute("delivery", deliveryRepository.findOne(deliveryId));
-		model.addAttribute("items", itemRepository.findAll());
-		return "/route/item";
-	}
-	
-	@PostMapping(path= "/delivery/{deliveryId}")
-	public String addItem(Model model, @PathVariable long deliveryId, @RequestParam long itemId) {
-		Delivery delivery = deliveryRepository.findOne(deliveryId);
-		delivery.addItem(itemRepository.findOne(itemId));
-		deliveryRepository.save(delivery);
-		model.addAttribute("delivery", deliveryRepository.findOne(deliveryId));
-		return "redirect:/route/";
-	}
 	@PostMapping(path = "/{routeId}/edit")
 	public ModelAndView editRoute (@ModelAttribute Route routevalue, @PathVariable long routeId) {
 		Route route = routeRepository.findOne(routeId);
@@ -157,9 +138,8 @@ public class RouteController{
 		route.setDriver(userRepository.findOne((long)driverId));
 		route.setTruck(truckRepository.findOne((long)truck));
 		Order order = orderRepository.findOne(orderId);
-		route.addDelivery(new Delivery(order));
+		route.addDelivarable(order);
 		order.scheduleOrder();
-		deliveryRepository.save(route.getDeliveries());
 		routeRepository.save(route);
 		orderRepository.save(order);
 		return new ModelAndView("/route/profile", "route", route);

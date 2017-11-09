@@ -16,6 +16,8 @@
 				    		<th>Order Status</th>
 				    		<th>Number of Order items</th>
 				    		<th>Delivery Date</th>
+				    		<th>Size</th>
+				    		<th>Weight</th>
 				    		<th></th>
 				    		<th></th>
 				    	</tr>
@@ -28,6 +30,9 @@
 				    		<td th:text="${order.getStatus()}"></td>
 				    		<td th:text="${order.getOrderItems().size()}"></td>
 				    		<td th:text="${order.getDeliveryDate()}"></td>
+				    		<td th:text="${order.getSize()}"></td>
+				    		<td th:text="${order.getWeight()}"></td>
+				    		
 						</tr>
 					</tbody>
 			    </table>

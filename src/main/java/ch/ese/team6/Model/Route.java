@@ -47,7 +47,9 @@ public class Route {
 	private boolean isSorted;
 	private int drivenDistance;
 
-	
+	public Route() {
+		
+	}
 	public Route(Address deposit) {
 		this.deposit = deposit;
 	}

@@ -17,7 +17,6 @@ import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.CustomerRepository;
-import ch.ese.team6.Repository.DeliveryRepository;
 import ch.ese.team6.Repository.ItemRepository;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RoleRepository;
@@ -44,8 +43,6 @@ public class SampleDataServiceImpl implements SampleDataService{
 	private OrderRepository orderRepository;
 	@Autowired 
 	private RouteRepository routeRepository;
-	@Autowired
-	private DeliveryRepository deliveryRepository;
 	@Autowired
 	private RoleRepository roleRepository;
 	

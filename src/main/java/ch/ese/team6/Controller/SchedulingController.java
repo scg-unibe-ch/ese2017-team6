@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ch.ese.team6.Model.Delivery;
 import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.Route;
-import ch.ese.team6.Repository.DeliveryRepository;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Service.RouteService;
@@ -27,8 +25,7 @@ public class SchedulingController {
 	private OrderRepository orderRepository;
 	@Autowired
 	private RouteRepository routeRepository;
-	@Autowired
-	private DeliveryRepository deliveryRepository;
+	
 	@Autowired
 	private RouteService routeService;
 	
@@ -53,7 +50,6 @@ public class SchedulingController {
 		route.addDelivarable(order);
 		if (route.isFull()) return"redirect:/schedule/"+orderId;
 		order.scheduleOrder();
-		deliveryRepository.save(route.getDeliveries());
 		routeRepository.save(route);
 		orderRepository.save(order);
 		model.addAttribute("orders", orderRepository.findAll());
