@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.Item;
@@ -27,27 +28,18 @@ import ch.ese.team6.Repository.UserRepository;
 @Service
 public class SampleDataServiceImpl implements SampleDataService{
 	
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private AddressRepository addressRepository;
-	@Autowired
-	private CustomerRepository customerRepository;
-	@Autowired
-	private ItemRepository itemRepository;
-	@Autowired
-	private TruckRepository truckRepository;
-	@Autowired
-	private OrderRepository orderRepository;
-	@Autowired 
-	private RouteRepository routeRepository;
-	@Autowired
-	private RoleRepository roleRepository;
+	@Autowired	private UserService userService;
+	@Autowired	private UserRepository userRepository;
+	@Autowired	private AddressRepository addressRepository;
+	@Autowired	private CustomerRepository customerRepository;
+	@Autowired	private ItemRepository itemRepository;
+	@Autowired	private TruckRepository truckRepository;
+	@Autowired	private OrderRepository orderRepository;
+	@Autowired	private RouteRepository routeRepository;
+	@Autowired	private RoleRepository roleRepository;
 	
-	public void loadData() {
-
+	public void loadData() throws BadSizeException {
+		try {
 		if (roleRepository.count() == 0) this.loadRoles();
 		if (userRepository.count() == 0) this.loadUsers();
 	
@@ -58,7 +50,17 @@ public class SampleDataServiceImpl implements SampleDataService{
 		if (itemRepository.count() == 0)this.loadItems();
 		if (truckRepository.count() == 0)this.loadTrucks();
 		if (orderRepository.count() == 0)this.loadOrders();
-		if (routeRepository.count() == 0)this.loadRoutes();
+		if (routeRepository.count() == 0)this.loadRoutes();}
+		catch (BadSizeException e){
+			e.printStackTrace();
+			throw new BadSizeException("Data coudn't load because of a data mismatch.\n"
+					+ e.getMessage());
+			
+		}
+		catch (NumberFormatException n) {
+			n.printStackTrace();
+			throw new BadSizeException("Data couldn't load. You have wrong numbers.");
+		}
 	}
 	
 	public void loadRoles() {
@@ -70,12 +72,15 @@ public class SampleDataServiceImpl implements SampleDataService{
 		roleRepository.save(driver);
 	}
 	
-	public void loadUsers() {
+	public void loadUsers() throws BadSizeException {
 		String[] users = userCsv.split(";");
 		for(int i = 0; i <  10 /*users.length*/; i++) {
 			String[] userdata = users[i].split(",");
 			User user = new User();
-			user.setUsername((userdata[0].toLowerCase()+ userdata[1].substring(0, 1).toLowerCase()).trim());
+			String username =(userdata[0].toLowerCase()+ userdata[1].substring(0, 1).toLowerCase()).trim();
+			if (username.length() < 6) username= 
+					userdata[0].toLowerCase()+ userdata[1].substring(0, 6-username.length()).toLowerCase().trim();
+			user.setUsername(username);
 			user.setFirstname(userdata[0]);
 			user.setSurname(userdata[1]);
 			user.setEmail(userdata[3]);
@@ -85,6 +90,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			user.setRoles(roleRepository.findByName(i < 5 ? "LOGISTICS": "DRIVER"));
 			userService.save(user);	
 		}
+			
 	}
 	
 	public void loadCustomers() {
@@ -107,18 +113,18 @@ public class SampleDataServiceImpl implements SampleDataService{
 		
 	}
 	
-	public void loadItems() {
+	public void loadItems() throws NumberFormatException, BadSizeException {
 		String[] items = itemCsv.split(";");
 		for (int i = 0; i < 10/*items.length*/; i++) {
 			String[] itemData = items[i].split(",");
 			Item item = new Item();
 			item.setName(itemData[0]);
-			item.setRequiredAmountOfPalettes(Integer.parseInt(itemData[1]));
+			item.setRequiredSpace(Integer.parseInt(itemData[1]));
 			itemRepository.save(item);
 		}
 	}
 	
-	public void loadTrucks() {
+	public void loadTrucks() throws BadSizeException{
 		String[] trucks = truckCsv.split(";");
 		for (int i = 0; i < 10 /*trucks.length*/; i++) { 
 			String[] truckData = trucks[i].split(",");

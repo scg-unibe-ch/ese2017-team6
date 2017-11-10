@@ -62,9 +62,12 @@ public class UserBaseController {
 	@PostMapping(path = "/{userId}/edit")
 	public ModelAndView editUser (@ModelAttribute User uservalue, @PathVariable long userId) {
 		User user = userRepository.findOne(userId);
+		try {
 		user.setFirstname(uservalue.getFirstname());user.setSurname(uservalue.getSurname());
 		user.setPassword(uservalue.getPassword());
 		userRepository.save(user);
+		}
+		catch(Exception e) {}
 		return new ModelAndView("/user/profile", "user", user);
 	}
 	

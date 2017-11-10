@@ -1,0 +1,10 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+	<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+		<h1>order &#38; delivery management</h1>
+		<h2 th:if="${error}" th:text= "${error}"></h2>
+		<h2 th:if="${message}" th:text= "${message}"></h2>
+	</body>
+</html>

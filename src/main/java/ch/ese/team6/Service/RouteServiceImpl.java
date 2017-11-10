@@ -23,7 +23,7 @@ public class RouteServiceImpl implements RouteService {
 		for (Delivery delivery : deliveries){
 			List<OrderItem> items = delivery.getItems();
 			for (OrderItem item:items) {
-				openSpace -= item.getAmount()*item.getItem().getRequiredAmountOfPalettes();
+				openSpace -= item.getAmount()*item.getItem().getRequiredSpace();
 			}
 		}
 		return openSpace;

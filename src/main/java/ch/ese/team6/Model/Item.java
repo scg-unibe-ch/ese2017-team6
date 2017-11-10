@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import ch.ese.team6.Exception.BadSizeException;
 
 
 @Entity
@@ -15,7 +17,9 @@ public class Item {
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private long id;
 	 	@NotNull private String name;
+	 	@Min(value = 0)
 	 	private int requiredAmountOfPalettes;
+	 	@Min(value = 0)
 	 	private int weight;
 	 	/**
 	 	 * Constructor with parameter
@@ -41,15 +45,17 @@ public class Item {
 			return name;
 		}
 
-		public void setName(String name) {
+		public void setName(String name) throws BadSizeException{
+			if (name.trim().isEmpty()) throw new BadSizeException("Itemname can't be empty");
 			this.name = name;
 		}
-		public int getRequiredAmountOfPalettes() {
+		public int getRequiredSpace() {
 			return requiredAmountOfPalettes;
 		}
 
-		public void setRequiredAmountOfPalettes(int requiredAmountOfPalettes) {
-			this.requiredAmountOfPalettes = requiredAmountOfPalettes;
+		public void setRequiredSpace(int requiredSpace) throws BadSizeException{
+			if (requiredSpace < 0) throw new BadSizeException("required space can't be negative.");
+			this.requiredAmountOfPalettes = requiredSpace;
 		}
 
 		public void setId(long id) {
@@ -64,7 +70,8 @@ public class Item {
 			return weight;
 		}
 
-		public void setWeight(int weight) {
+		public void setWeight(int weight) throws BadSizeException {
+			if (weight < 0) throw new BadSizeException ("weight can't be negative.");
 			this.weight = weight;
 		}
 }

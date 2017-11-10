@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.RoleRepository;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
     private RouteRepository routeRepository;
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws BadSizeException {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

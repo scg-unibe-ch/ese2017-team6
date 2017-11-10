@@ -4,10 +4,12 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Item;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.ItemRepository;
@@ -37,11 +39,15 @@ public class StaticPagesController {
 	}
 	
 	@RequestMapping(path ="/sampleData")
-	public String generateTestData() {
-		sampleData.loadData();
-		return "redirect:/";
+	public String generateTestData(Model model, String error, String message) {
+		try {
+			sampleData.loadData();
+		} catch (BadSizeException e) {
+			model.addAttribute("error", "Data coudn't load!\n"
+					+ "" + e.getMessage());
+			return "staticpage/loaded";
+		}
+		model.addAttribute("message", "Loaded data!");
+		return "staticpage/loaded";
 	}
-	
-	
-
 }

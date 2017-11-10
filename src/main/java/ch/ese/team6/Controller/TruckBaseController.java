@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.TruckRepository;
 
@@ -61,11 +62,18 @@ public class TruckBaseController {
 	}
 	
 	@PostMapping(path = "/{truckId}/edit")
-	public ModelAndView editTruck (@ModelAttribute Truck truckvalue, @PathVariable long truckId) {
+	public String editTruck (Model model, @ModelAttribute Truck truckvalue, @PathVariable long truckId) {
 		Truck truck = truckRepository.findOne(truckId);
-		truck.setTruckname(truckvalue.getTruckname());truck.setVehicleCondition(truckvalue.getVehicleCondition());
+		try {
+			truck.setTruckname(truckvalue.getTruckname());
+			truck.setVehicleCondition(truckvalue.getVehicleCondition());
+		} catch (BadSizeException e) {
+			// TODO Auto-generated catch block
+			return "staticpage/loaded";
+		}
 		truckRepository.save(truck);
-		return new ModelAndView("/truck/profile", "truck", truck);
+		model.addAttribute("truck", truck);
+		return ("truck/profile");
 	}
 	
 	@DeleteMapping(path = "/{truckId}/edit")
