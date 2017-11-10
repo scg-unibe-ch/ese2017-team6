@@ -42,10 +42,6 @@ public class SampleDataServiceImpl implements SampleDataService{
 		try {
 		if (roleRepository.count() == 0) this.loadRoles();
 		if (userRepository.count() == 0) this.loadUsers();
-	
-
-		if (userRepository.count() == 0) {this.loadUsers();}
-	
 		if (customerRepository.count() == 0)this.loadCustomers();
 		if (itemRepository.count() == 0)this.loadItems();
 		if (truckRepository.count() == 0)this.loadTrucks();
@@ -63,6 +59,22 @@ public class SampleDataServiceImpl implements SampleDataService{
 		}
 	}
 	
+	public String[][] parseCsv(String csv){
+		int i = 0;
+		String[] lines = csv.split(";");
+		String[][] data = new String[lines.length][lines[0].length()];
+		for (String line : lines) {
+			data[i] = line.split(",");
+			i++;
+		}
+		for(int j = 0; j < data.length ; j++) {
+			for(int k = 0; k < data[j].length; k++) {
+				data[j][k] = data[j][k].trim();
+			}
+		}
+		return data;
+	}
+	
 	public void loadRoles() {
 		Role logistician = new Role();
 		logistician.setName("LOGISTICS");
@@ -73,22 +85,34 @@ public class SampleDataServiceImpl implements SampleDataService{
 	}
 	
 	public void loadUsers() throws BadSizeException {
-		String[] users = userCsv.split(";");
-		for(int i = 0; i <  10 /*users.length*/; i++) {
+		/*String[] users = userCsv.split(";");
+		for(int i = 0; i <  10 /*users.length*//*; i++) {
 			String[] userdata = users[i].split(",");
-			User user = new User();
-			String username =(userdata[0].toLowerCase()+ userdata[1].substring(0, 1).toLowerCase()).trim();
-			if (username.length() < 6) username= 
-					userdata[0].toLowerCase()+ userdata[1].substring(0, 6-username.length()).toLowerCase().trim();
-			user.setUsername(username);
+			User user = new User();			
+			user.setUsername(userService.generateUsername(userdata));
 			user.setFirstname(userdata[0]);
 			user.setSurname(userdata[1]);
-			user.setEmail(userdata[3]);
 			user.setPhoneNumber(userdata[2]);
+			user.setEmail(userdata[3]);
 			user.setPassword("password");
 			user.setPasswordConfirm("password");
 			user.setRoles(roleRepository.findByName(i < 5 ? "LOGISTICS": "DRIVER"));
 			userService.save(user);	
+		} */
+		int i = 0;
+		String[][]users = this.parseCsv(userCsv);
+		for (String[] line: users) {
+			User user = new User();			
+			user.setUsername(userService.generateUsername(line));
+			user.setFirstname(line[0]);
+			user.setSurname(line[1]);
+			user.setPhoneNumber(line[2]);
+			user.setEmail(line[3]);
+			user.setPassword("password");
+			user.setPasswordConfirm("password");
+			user.setRoles(roleRepository.findByName(i < 5 ? "LOGISTICS": "DRIVER"));
+			i ++;
+			if(user.isValid()) userService.save(user);
 		}
 			
 	}

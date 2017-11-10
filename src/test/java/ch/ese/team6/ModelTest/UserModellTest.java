@@ -1,9 +1,14 @@
 package ch.ese.team6.ModelTest;
 
 import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Model.Role;
 import ch.ese.team6.Model.User;
 
 public class UserModellTest {
@@ -37,7 +42,29 @@ public class UserModellTest {
 	@Test
 	public void usernameIsCorrect() {
 		User user = new User();
-		String username = "0123456";
+		String username = "ivanma";
+		try {
+			user.setUsername(username);
+		}
+		catch(BadSizeException e){
+			fail("Correct username should not throw exception." + e.getMessage());
+		}
+	}
+	@Test
+	public void usernameIsLongEnought() {
+		User user = new User();
+		String username = "012345";
+		try {
+			user.setUsername(username);
+		}
+		catch(BadSizeException e){
+			fail("Correct username should not throw exception." + e.getMessage());
+		}
+	}
+	@Test
+	public void usernameSmallEnough() {
+		User user = new User();
+		String username = "01234567890123456789012345678901";
 		try {
 			user.setUsername(username);
 		}
@@ -129,6 +156,63 @@ public class UserModellTest {
 		}
 		catch(BadSizeException e) {
 			fail("Correct email shoudl not throw exception.");
+		}
+	}
+	@Test
+	public void inValidUserMissingEntries() {
+		try {
+			User user = new User();
+			user.setUsername("example");
+			user.setPassword("password");
+			user.setPasswordConfirm("password");
+			user.setEmail("info@example.com");
+			assertFalse(user.isValid());
+		}
+		catch(BadSizeException e) {
+			e.printStackTrace();
+			fail("Assigning values should not throw exception");
+		}
+		
+	}
+	
+	@Test
+	public void inValidUserUnmatchingPasswords() {
+		try {
+			User user = new User();
+			user.setUsername("userqed");
+			user.setPassword("password");
+			user.setPasswordConfirm("foobarbaz");
+			user.setFirstname("Alexander");
+			user.setSurname("Seeerq");
+			user.setEmail("info@example.com");
+			user.setPhoneNumber("079 888 44 22");
+			assertFalse(user.isValid());
+			}
+		catch(BadSizeException e){
+			e.printStackTrace();
+			fail("Assigning values should not throw exception");
+		}
+	}
+	
+	@Test
+	public void ValidUser() {
+		try {
+			User user = new User();
+			user.setUsername("userqed");
+			user.setPassword("password");
+			user.setPasswordConfirm("password");
+			user.setFirstname("Alexander");
+			user.setSurname("Seeerq");
+			user.setEmail("info@example.com");
+			user.setPhoneNumber("079 888 44 22");
+			Role role = new Role();
+			role.setName("TESTER");
+			user.setRole(role);
+			assertTrue(user.isValid());
+			}
+		catch(BadSizeException e){
+			e.printStackTrace();
+			fail("Assigning values should not throw exception");
 		}
 	}
 }

@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Email;
 
 import ch.ese.team6.Exception.BadSizeException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,7 +61,7 @@ public class User {
 
     public void setUsername(String username) throws BadSizeException{
     	username = username.trim();
-    	if ((username.length() > 6 && username.length() < 32)) {this.username = username;}
+    	if ((username.length() >= 6 && username.length() <= 32)) {this.username = username;}
     	else {throw new BadSizeException("username should be between 6 and 32 chars long!");}
     }
     
@@ -161,5 +162,30 @@ public class User {
 			if (route.getRouteDate()== date) return true;
 		}
 		return false;
+	}
+	
+	public boolean isValid() {
+		try{
+			if(
+			this.username.isEmpty() ||
+			!(this.password == this.passwordConfirm) ||
+			this.firstname.isEmpty() ||
+			this.surname.isEmpty() ||
+			this.email.isEmpty() ||
+			this.phoneNumber.isEmpty() ||
+			this.roles.isEmpty()
+			) return false;
+			}
+		catch(NullPointerException n) {
+			return false;
+		}
+		return true;
+	}
+
+
+	public void setRole(Role role) throws BadSizeException {
+		Set<Role> roles = new HashSet<Role>();
+		roles.add(role);
+		this.setRoles(roles);
 	}
 }

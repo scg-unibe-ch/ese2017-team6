@@ -29,8 +29,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) throws BadSizeException {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+    	if (user.isValid()) {
+    		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    		userRepository.save(user);
+    	}
+    	else throw new BadSizeException("These values are not correct, user won't be saved!");
     }
 
     @Override
@@ -48,4 +51,23 @@ public class UserServiceImpl implements UserService {
 		freeUsers.removeAll(occupiedUsers);
 		return freeUsers;
 	}
+    
+    public String generateUsername(String[] userData) {
+		String username = userData[0].trim().toLowerCase() + 
+				userData[1].substring(0, 1).trim().toLowerCase();
+		if(username.length() < 6 ) {
+			if(userData[1].length() + username.length() > 6) {
+				username = username.concat(userData[1].substring(1, 7-username.length()));
+			}
+			else {
+				username = userData[0].trim().toLowerCase() + userData[1].trim().toLowerCase();
+				while (username.length() < 6) {
+					int i = 1;
+					username = username +i;
+				}
+			}
+		}
+		return username;
+	}
+
 }

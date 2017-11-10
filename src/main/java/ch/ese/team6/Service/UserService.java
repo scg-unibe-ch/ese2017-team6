@@ -12,5 +12,7 @@ public interface UserService {
 	User findByUsername(String username);
 	
 	List<User>findFreeUsers(String date);
+	
+	String generateUsername(String[] userData);
 
 }
