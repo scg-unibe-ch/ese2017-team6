@@ -6,7 +6,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.Item;
@@ -28,51 +27,38 @@ import ch.ese.team6.Repository.UserRepository;
 @Service
 public class SampleDataServiceImpl implements SampleDataService{
 	
-	@Autowired	private UserService userService;
-	@Autowired	private UserRepository userRepository;
-	@Autowired	private AddressRepository addressRepository;
-	@Autowired	private CustomerRepository customerRepository;
-	@Autowired	private ItemRepository itemRepository;
-	@Autowired	private TruckRepository truckRepository;
-	@Autowired	private OrderRepository orderRepository;
-	@Autowired	private RouteRepository routeRepository;
-	@Autowired	private RoleRepository roleRepository;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private ItemRepository itemRepository;
+	@Autowired
+	private TruckRepository truckRepository;
+	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired 
+	private RouteRepository routeRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 	
-	public void loadData() throws BadSizeException {
-		try {
+	public void loadData() {
+
 		if (roleRepository.count() == 0) this.loadRoles();
 		if (userRepository.count() == 0) this.loadUsers();
+	
+
+		if (userRepository.count() == 0) {this.loadUsers();}
+	
 		if (customerRepository.count() == 0)this.loadCustomers();
 		if (itemRepository.count() == 0)this.loadItems();
 		if (truckRepository.count() == 0)this.loadTrucks();
 		if (orderRepository.count() == 0)this.loadOrders();
-		if (routeRepository.count() == 0)this.loadRoutes();}
-		catch (BadSizeException e){
-			e.printStackTrace();
-			throw new BadSizeException("Data coudn't load because of a data mismatch.\n"
-					+ e.getMessage());
-			
-		}
-		catch (NumberFormatException n) {
-			n.printStackTrace();
-			throw new BadSizeException("Data couldn't load. You have wrong numbers.");
-		}
-	}
-	
-	public String[][] parseCsv(String csv){
-		int i = 0;
-		String[] lines = csv.split(";");
-		String[][] data = new String[lines.length][lines[0].length()];
-		for (String line : lines) {
-			data[i] = line.split(",");
-			i++;
-		}
-		for(int j = 0; j < data.length ; j++) {
-			for(int k = 0; k < data[j].length; k++) {
-				data[j][k] = data[j][k].trim();
-			}
-		}
-		return data;
+		if (routeRepository.count() == 0)this.loadRoutes();
 	}
 	
 	public void loadRoles() {
@@ -84,37 +70,21 @@ public class SampleDataServiceImpl implements SampleDataService{
 		roleRepository.save(driver);
 	}
 	
-	public void loadUsers() throws BadSizeException {
-		/*String[] users = userCsv.split(";");
-		for(int i = 0; i <  10 /*users.length*//*; i++) {
+	public void loadUsers() {
+		String[] users = userCsv.split(";");
+		for(int i = 0; i <  10 /*users.length*/; i++) {
 			String[] userdata = users[i].split(",");
-			User user = new User();			
-			user.setUsername(userService.generateUsername(userdata));
+			User user = new User();
+			user.setUsername((userdata[0].toLowerCase()+ userdata[1].substring(0, 1).toLowerCase()).trim());
 			user.setFirstname(userdata[0]);
 			user.setSurname(userdata[1]);
-			user.setPhoneNumber(userdata[2]);
 			user.setEmail(userdata[3]);
+			user.setPhoneNumber(userdata[2]);
 			user.setPassword("password");
 			user.setPasswordConfirm("password");
 			user.setRoles(roleRepository.findByName(i < 5 ? "LOGISTICS": "DRIVER"));
 			userService.save(user);	
-		} */
-		int i = 0;
-		String[][]users = this.parseCsv(userCsv);
-		for (String[] line: users) {
-			User user = new User();			
-			user.setUsername(userService.generateUsername(line));
-			user.setFirstname(line[0]);
-			user.setSurname(line[1]);
-			user.setPhoneNumber(line[2]);
-			user.setEmail(line[3]);
-			user.setPassword("password");
-			user.setPasswordConfirm("password");
-			user.setRoles(roleRepository.findByName(i < 5 ? "LOGISTICS": "DRIVER"));
-			i ++;
-			if(user.isValid()) userService.save(user);
 		}
-			
 	}
 	
 	public void loadCustomers() {
@@ -137,18 +107,18 @@ public class SampleDataServiceImpl implements SampleDataService{
 		
 	}
 	
-	public void loadItems() throws NumberFormatException, BadSizeException {
+	public void loadItems() {
 		String[] items = itemCsv.split(";");
 		for (int i = 0; i < 10/*items.length*/; i++) {
 			String[] itemData = items[i].split(",");
 			Item item = new Item();
 			item.setName(itemData[0]);
-			item.setRequiredSpace(Integer.parseInt(itemData[1]));
+			item.setRequiredAmountOfPalettes(Integer.parseInt(itemData[1]));
 			itemRepository.save(item);
 		}
 	}
 	
-	public void loadTrucks() throws BadSizeException{
+	public void loadTrucks() {
 		String[] trucks = truckCsv.split(";");
 		for (int i = 0; i < 10 /*trucks.length*/; i++) { 
 			String[] truckData = trucks[i].split(",");

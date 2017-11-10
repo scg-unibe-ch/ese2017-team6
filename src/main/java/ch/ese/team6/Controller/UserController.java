@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Service.SecurityService;
 import ch.ese.team6.Service.UserService;
@@ -39,13 +38,8 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "user/registration";
         }
-        
-        try {
-			userService.save(userForm);
-		} catch (BadSizeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+        userService.save(userForm);
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 

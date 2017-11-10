@@ -1,52 +1,32 @@
 package ch.ese.team6.Model;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
-
-import ch.ese.team6.Exception.BadSizeException;
-
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
 public class User {
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)	
-	private Long id;
-	@NotNull @Size(min = 6, max = 20, 
-			message = "username must be between 6 and 20 signs long.")
-	@Column(name = "username", unique = true)
-	private String username;
-	@NotNull
+    private Long id;
+    private String username;
     private String password;
-	@Transient @NotNull
     private String passwordConfirm;
-	@ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
-    		inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles;
-    @NotNull
+    private Set<Role> roles;
+    
     private String firstname;
-    @NotNull
     private String surname;
-    @NotNull @Email
     private String email;
     private String phoneNumber;
-    @OneToMany(mappedBy="driver")
-    private List<Route> routes;
     
-    @Transient
-    public static final String EMAIL_VERIFICATION = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$";
+    private List<Route> routes;
     
     
     public User() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -59,40 +39,34 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) throws BadSizeException{
-    	username = username.trim();
-    	if ((username.length() >= 6 && username.length() <= 32)) {this.username = username;}
-    	else {throw new BadSizeException("username should be between 6 and 32 chars long!");}
+    public void setUsername(String username) {
+        this.username = username;
     }
     
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) throws BadSizeException {
-    	password.trim();
-        if (password.trim().isEmpty()) throw new BadSizeException("password can't be empty");
-    	this.password = password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    
+    @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
-    public void setPasswordConfirm(String passwordConfirm) throws BadSizeException {
-    	passwordConfirm.trim();
-    	if (passwordConfirm.trim().isEmpty()) throw new BadSizeException("password can't be empty");
-    	this.passwordConfirm = passwordConfirm;
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
-    
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) throws BadSizeException{
-    	if (roles.isEmpty()) throw new BadSizeException("user needs a role");
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
     
@@ -100,9 +74,7 @@ public class User {
 		return firstname;
 	}
 
-	public void setFirstname(String firstname) throws BadSizeException {
-		firstname = firstname.trim();
-		if (firstname.isEmpty()) throw new BadSizeException("firstname can't be empty");
+	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
@@ -110,9 +82,7 @@ public class User {
 		return surname;
 	}
 
-	public void setSurname(String surname) throws BadSizeException{
-		surname = surname.trim();
-		if (surname.isEmpty()) throw new BadSizeException("surname can't be empty");
+	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 
@@ -120,6 +90,11 @@ public class User {
     	return this.firstname+" "+this.surname;
     }
     
+    public void setRealname(String name) {
+    	String[] names = name.split(" ");
+    	this.firstname = names[0];
+    	this.surname = names[1];
+    }
     @Override
     public String toString() {
     	return this.getRealname();
@@ -129,9 +104,7 @@ public class User {
 		return email;
 	}
 
-	public void setEmail(String email) throws BadSizeException{
-		email.trim();
-		if (!email.matches(EMAIL_VERIFICATION)) throw new BadSizeException("Email has not the correct format.");
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -139,11 +112,10 @@ public class User {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) throws BadSizeException{
-		phoneNumber.trim();
-		if (phoneNumber.isEmpty()) throw new BadSizeException("phoneNumber can't be empty!.");
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	@OneToMany(mappedBy="driver")
 	public List<Route> getRoutes(){
 		try {
 			return this.routes;
@@ -162,30 +134,5 @@ public class User {
 			if (route.getRouteDate()== date) return true;
 		}
 		return false;
-	}
-	
-	public boolean isValid() {
-		try{
-			if(
-			this.username.isEmpty() ||
-			!(this.password == this.passwordConfirm) ||
-			this.firstname.isEmpty() ||
-			this.surname.isEmpty() ||
-			this.email.isEmpty() ||
-			this.phoneNumber.isEmpty() ||
-			this.roles.isEmpty()
-			) return false;
-			}
-		catch(NullPointerException n) {
-			return false;
-		}
-		return true;
-	}
-
-
-	public void setRole(Role role) throws BadSizeException {
-		Set<Role> roles = new HashSet<Role>();
-		roles.add(role);
-		this.setRoles(roles);
 	}
 }

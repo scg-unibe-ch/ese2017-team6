@@ -125,7 +125,7 @@ public class OrderItem implements IDelivarable {
 
 		@Override
 		public int getSize() {
-			return amount*item.getRequiredSpace();
+			return amount*item.getRequiredAmountOfPalettes();
 		}
 
 		@Override
