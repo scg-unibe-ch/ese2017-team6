@@ -85,6 +85,15 @@ public class Truck {
 		this.vehicleCondition = vehicleCondition;
 	}
 	
+	public boolean isValid() {
+		if(
+			this.truckname.isEmpty() ||
+			(this.vehicleCondition != 0 || this.vehicleCondition!= 1) ||
+			this.maxCargoSpace < 0 ||
+			this.maxLoadCapacity < 0) return false;
+		return true;
+	}
+	
 	public List<Route> getRoutes(){
 		try {
 			return this.routes;

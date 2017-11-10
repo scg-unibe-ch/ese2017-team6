@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.RoleRepository;
@@ -28,19 +29,26 @@ public class UserServiceImpl implements UserService {
     private RouteRepository routeRepository;
 
     @Override
-    public void save(User user) throws BadSizeException {
+    public void save(User user) throws BadSizeException, DupplicateEntryException {
     	if (user.isValid()) {
     		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-    		userRepository.save(user);
     	}
     	else throw new BadSizeException("These values are not correct, user won't be saved!");
+    	if ((user.hasId()) || this.existByUsername(user.getUsername())) {
+    		throw new DupplicateEntryException("username already exists.");
+    	}
+    	userRepository.save(user);
     }
+    
+    public boolean existByUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
 
-    @Override
+	@Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-    
+	    
     public List<User> findFreeUsers(String date){
 		List<Route> routes = routeRepository.findByRouteDate(date);
 		List<User> occupiedUsers = new ArrayList<User>();
@@ -68,6 +76,5 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return username;
-	}
-
+    }
 }

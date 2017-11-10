@@ -22,7 +22,7 @@ public class User {
 	private String username;
 	@NotNull
     private String password;
-	@Transient @NotNull
+	@Transient
     private String passwordConfirm;
 	@ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
@@ -48,7 +48,13 @@ public class User {
 
 	
     public Long getId() {
+    	try {
         return id;
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    		return (long) 0;
+    	}
     }
 
     public void setId(Long id) {
@@ -187,5 +193,16 @@ public class User {
 		Set<Role> roles = new HashSet<Role>();
 		roles.add(role);
 		this.setRoles(roles);
+	}
+
+
+	public boolean hasId() {
+		try {
+			long i = this.id;
+		}
+		catch(NullPointerException e) {
+			return false;
+		}
+		return true;
 	}
 }

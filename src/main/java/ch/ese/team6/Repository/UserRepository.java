@@ -10,7 +10,9 @@ import ch.ese.team6.Model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByUsername(String username);
-
+	boolean existsByUsername(String username);
+	
 	List<User> findByRoles(Set<Role> roles);
+	
 
 }

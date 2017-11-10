@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Item;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.ItemRepository;
@@ -42,7 +43,7 @@ public class StaticPagesController {
 	public String generateTestData(Model model, String error, String message) {
 		try {
 			sampleData.loadData();
-		} catch (BadSizeException e) {
+		} catch (BadSizeException | DupplicateEntryException e) {
 			model.addAttribute("error", "Data coudn't load!\n"
 					+ "" + e.getMessage());
 			return "staticpage/loaded";

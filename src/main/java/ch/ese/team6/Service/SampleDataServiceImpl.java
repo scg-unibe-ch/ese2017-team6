@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.Item;
@@ -38,7 +39,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	@Autowired	private RouteRepository routeRepository;
 	@Autowired	private RoleRepository roleRepository;
 	
-	public void loadData() throws BadSizeException {
+	public void loadData() throws BadSizeException, DupplicateEntryException {
 		try {
 		if (roleRepository.count() == 0) this.loadRoles();
 		if (userRepository.count() == 0) this.loadUsers();
@@ -84,7 +85,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 		roleRepository.save(driver);
 	}
 	
-	public void loadUsers() throws BadSizeException {
+	public void loadUsers() throws BadSizeException, DupplicateEntryException {
 		/*String[] users = userCsv.split(";");
 		for(int i = 0; i <  10 /*users.length*//*; i++) {
 			String[] userdata = users[i].split(",");
