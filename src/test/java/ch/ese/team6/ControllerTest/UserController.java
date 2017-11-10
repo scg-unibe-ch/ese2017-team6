@@ -8,7 +8,6 @@ public class UserController {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }

@@ -2,6 +2,7 @@ package ch.ese.team6.Model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Truck {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@NotNull
+	@NotNull @Column(name = "truckname", unique = true)
 	private String truckname;
 	@NotNull @Min(value = 0)
 	private int maxCargoSpace;
@@ -88,9 +89,9 @@ public class Truck {
 	public boolean isValid() {
 		if(
 			this.truckname.isEmpty() ||
-			(this.vehicleCondition != 0 || this.vehicleCondition!= 1) ||
-			this.maxCargoSpace < 0 ||
-			this.maxLoadCapacity < 0) return false;
+			!((this.vehicleCondition )== 0 || (this.vehicleCondition == 1)) ||
+			!(this.maxCargoSpace > 0) ||
+			!(this.maxLoadCapacity > 0)) {return false;}
 		return true;
 	}
 	
