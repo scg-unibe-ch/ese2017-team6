@@ -4,18 +4,26 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "'Truck: ' +${truck.truckname}"></h1>
-    <p th:text="'Truck id: ' + ${truck.id}" />
-    <p th:text="'Max space: ' + ${truck.maxCargoSpace} + ' stillages'" />
-    <p th:text="'Max load: ' + ${truck.maxLoadCapacity} + ' tons'" />
-    <h3>Trucks routes</h3>
-    <div th:if="${not #lists.isEmpty(truck.getRoutes())}">
+	<h1 th:text= "'truck: ' +${truck.truckname}"></h1>
+	<div class="panel panel-default">
+	<div class="panel-body">
+	    <p th:text="'truck id: ' + ${truck.id}" />
+	    <p th:text="'max space: ' + ${truck.maxCargoSpace} + ' stillages'" />
+	    <p th:text="'max load: ' + ${truck.maxLoadCapacity} + ' tons'" />
+	    <p th:text="'condition: ' + ${truck.getVehicleConditionAsString()}" />
+    </div>
+    </div>
+    
+    <h3>routes of this truck</h3>
+    	<div class="panel panel-default">
+		<div class="panel-body">
+    	<div th:if="${not #lists.isEmpty(truck.getRoutes())}">
 	    <table class="table table-hover">
 	    	<thead>
 	    		<tr>
-		    		<th>Id</th>
-		    		<th>Routedate</th>
-		    		<th>Number of deliveries</th>
+		    		<th>id</th>
+		    		<th>routing date</th>
+		    		<th>number of deliveries</th>
 		    		<th></th>
 		    		<th></th>
 		    		<th></th>
@@ -28,10 +36,12 @@
 		    		<td th:text="${route.countDeliveries()}"></td>
 		    		<td></td>
 		    		<td></td>
-		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">Route</a></td>
+		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">route</a></td>
 				</tr>
 			</tbody>
 	    </table>
+	</div>
+	</div>
 	</div>
     <a href ="/truck/" class="btn btn-primary" role="button">go back to overview</a>
     <a th:href="@{/truck/{id}/edit(id = ${truck.id})}" class="btn btn-primary">edit this truck</a>

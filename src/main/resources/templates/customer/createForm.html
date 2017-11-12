@@ -9,9 +9,9 @@
         <p>name: <input type="text" th:field="*{name}" /></p>
         <p>address <select th:field="*{address}">
                       <option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
-                    </select> <a href ="/address/add" class="btn btn-primary" role="button">create new address</a> </p>
-        
-        
+                    </select>
+                    <a href ="/address/add" class="btn btn-primary" role="button">create new address</a>
+        </p>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset" />
     </form>

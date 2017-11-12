@@ -6,15 +6,24 @@
 	<div class="container">
 	<h1 th:text= "${truck.truckname}"></h1>
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="post">
-      	<p th:text="'Truck id: ' + *{id}" />
-      	<p th:text="'Vehicle name: ' + *{truckname}" />
-        <p>Vehicle name<input type="text" th:field="*{truckname}" /></p>
+      	<p th:text="'truck id: ' + *{id}" />
+      	<p th:text="'vehicle name: ' + *{truckname}" />
+        <p>vehicle name<input type="text" th:field="*{truckname}" /></p>
+         <div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">vehicle condition
+			<span class="caret"></span></button>
+			<ul class="dropdown-menu">
+			  <li><a href="#">active</a></li>
+			  <li><a href="#">inactive</a></li>
+			</ul>
+		</div>
+		<br/>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
     <br/>
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="delete">
-       	<input type="submit" class="btn btn-primary" value="delete truck?" />
+<!--        	<input type="submit" class="btn btn-danger" value="delete truck?" /> -->
     </form>
     </div>
 </body>

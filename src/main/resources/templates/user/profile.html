@@ -4,19 +4,28 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "'Hi ' +${user.username}"></h1>
-    <p th:text="'your id: ' + ${user.id}" />
-    <p th:text="'your RealName is: ' + ${user.getRealname()}" />
+	<h1 th:text= "'hi ' +${user.username}"></h1>
+	<div class="panel panel-default">
+	<div class="panel-body">
+	    <p th:text="'your id: ' + ${user.id}" />
+	    <p th:text="'your name: ' + ${user.getRealname()}" />
+	    <p th:text="'your role: ' + ${user.getRoles()}" />
+	   	<p th:text="'your condition: ' + ${user.getUserConditionAsString()}" />
+	</div>
+	</div>
+
     <a th:href="@{/user/{id}/edit(id = ${user.id})}" class="btn btn-primary">edit this user</a>
     <a href ="/user/" class="btn btn-primary" role="button">go back to overview</a>
-    <h3>Users routes</h3>
+    <h3>users routes</h3>
     <div th:if="${not #lists.isEmpty(user.getRoutes())}">
+    <div class="panel panel-default">
+	<div class="panel-body">
 	    <table class="table table-hover">
 	    	<thead>
 	    		<tr>
-		    		<th>Id</th>
-		    		<th>Routedate</th>
-		    		<th>Number of deliveries</th>
+		    		<th>id</th>
+		    		<th>routing date</th>
+		    		<th>number of deliveries</th>
 		    		<th></th>
 		    		<th></th>
 		    		<th></th>
@@ -29,10 +38,12 @@
 		    		<td th:text="${route.countDeliveries()}"></td>
 		    		<td></td>
 		    		<td></td>
-		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">Route</a></td>
+		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">route</a></td>
 				</tr>
 			</tbody>
 	    </table>
+	</div>
+	</div>
 	</div>
     </div>
 </body>

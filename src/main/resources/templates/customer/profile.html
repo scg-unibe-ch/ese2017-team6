@@ -4,13 +4,18 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "'Customer ' +${customer.id}"></h1>
-    <p th:text="'Name: ' + ${customer.Name}" />
-    <p th:text="'Address: ' +${customer.getAddress().toString()}" />
-    <p th:text="'Phone: ' +${customer.getPhone().toString()}" />
-    <p th:text="'Email: ' +${customer.getEmail().toString()}" />
-    <a href ="/customer/" class="btn btn-primary" role="button">go back to overview</a>
-    <a th:href="@{/customer/{id}/edit(id = ${customer.id})}" class="btn btn-primary">edit this customer</a>
+	<h1 th:text= "'customer ' +${customer.id}"></h1>
+		<div class="panel panel-default">
+		<div class="panel-body">
+		    <p th:text="'name: ' + ${customer.Name}" />
+		    <p th:text="'address: ' +${customer.getAddress().toString()}" />
+		    <p th:text="'phone: ' +${customer.getPhone().toString()}" />
+		    <p th:text="'email: ' +${customer.getEmail().toString()}" />
+		    <p th:text="'status: ' +${customer.getCustomerStatusAsString()}" />
+		</div>
+		</div>
+		<a th:href="@{/customer/{id}/edit(id = ${customer.id})}" class="btn btn-primary">edit this customer</a>
+		<a href ="/customer/" class="btn btn-primary" role="button">go back to overview</a>
     </div>
 </body>
 </html>

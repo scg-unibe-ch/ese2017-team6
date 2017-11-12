@@ -3,17 +3,20 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
 		<h1 th:text= "${truck.truckame}"></h1>
 	    <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="post">
-	      	<p th:text="'Truck id: ' + *{id}" />
-	      	<p th:text="'Vehicle name: ' + *{vehicleName}" />
-	        <p>Vehicle name<input type="text" th:field="*{vehicleName}" /></p>
-	        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+	      	<p th:text="'truck id: ' + *{id}" />
+	      	<p th:text="'vehicle name: ' + *{vehicleName}" />
+	        <p>vehicle name<input type="text" th:field="*{vehicleName}" /></p>
+	        <input type="submit" class="btn btn-primary" value="submit"/>
+        	<input type="reset" class="btn btn-primary" value="reset"/>
 	    </form>
 	    <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="delete">
 	    	
-	    	<p><input type="submit" value="Delete truck?" /></p>
+<!-- 	    	<input type="submit" class="btn btn-primar" value="delete truck?" /> -->
 	    </form>
+	    </div>
 	</body>
 </html>
  
