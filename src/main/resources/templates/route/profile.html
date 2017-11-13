@@ -4,20 +4,25 @@
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-		<h1 th:text= "'Route Nr: ' +${route.getId()} + 'on the ' +${route.getDate()}"></h1>
-	    <p th:text="'Truck Name: ' + ${route.getTruck()}" />
-	    <p th:text="'Driver: ' + ${route.getDriver()}" /> 
-		     <ul th:each= "delivery : ${route.getDeliveries()}">
-		    	<li th:text="${delivery.getAddress().toString()}"></li>
-			    	<ul th:each= "orderItem : ${delivery.getItems()}">
-			    		<li th:text = "${orderItem.toString()}"></li>
-			    	</ul>
-		    </ul>
-	    <a th:href="@{/schedule/}" th:text="'Go to scheduling'"/>
-	    <a th:href="@{/route/}">Show all routes</a>
-	    <a th:href="@{/driverview/{id}(id = ${route.getDriver()})}">Driver-Profile of this Route</a>
-	    <a th:href="@{/route/{id}/edit(id = ${route.id})}">Edit this route(Placeholder)</a>
-	    <a th:href="@{/route/onmap/{id}(id = ${route.id})}">Show Route on Map</a>
+		<h1 th:text="'date: ' +${route.getDate()}"></h1>
+		<h2 th:text= "'route no: ' +${route.getId()}"></h2>
+			<div class="panel panel-default">
+			<div class="panel-body">
+			    <p th:text="'truck name: ' + ${route.getTruck()}" />
+			    <p th:text="'driver: ' + ${route.getDriver()}" /> 
+				     <ul th:each= "delivery : ${route.getDeliveries()}">
+				    	<li th:text="${delivery.getAddress().toString()}"></li>
+					    	<ul th:each= "orderItem : ${delivery.getItems()}">
+					    		<li th:text = "${orderItem.toString()}"></li>
+					    	</ul>
+				    </ul>
+			</div>
+			</div>
+	    <a href="/schedule/" class="btn btn-primary" role="button">go to scheduling</a>
+	    <a href="/route/" class="btn btn-primary" role="button">show all routes</a>
+	    <a th:href="@{/driverview/{id}(id = ${route.getDriver()})}" class="btn btn-primary">driver-profile of this route</a>
+	    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a>
+	    <a th:href="@{/route/onmap/{id}(id = ${route.id})}" class="btn btn-success">show route on map</a>
 		</div>
 	</body>
 </html>

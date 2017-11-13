@@ -4,16 +4,18 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "'Order for ' +${order.customer}"></h1>
-    <p th:text="'Delivery Address:  ' + ${order.getAddress()}" />
-     <p th:text="'Delivery Date:  ' + ${order.getDeliveryDate()}" />
-     <div>
-            <label>Rows</label>
+	<h1 th:text= "'order for ' +${order.customer}"></h1>
+		<div class="panel panel-default">
+		<div class="panel-body">
+    		<p th:text="'delivery address:  ' + ${order.getAddress()}" />
+     		<p th:text="'delivery date:  ' + ${order.getDeliveryDate()}" />
+     	<div>
+<!--             <label>Rows</label> -->
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Item</th>
-                  <th>Amount</th>
+                  <th>item</th>
+                  <th>amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -23,6 +25,8 @@
 				</tr>
               </tbody>
             </table>
+          </div>
+          </div>
           </div>
     	<a href ="/orders/" class="btn btn-primary" role="button">go back to overview</a>
     </div>

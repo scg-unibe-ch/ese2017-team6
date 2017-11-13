@@ -7,17 +7,35 @@
 	<h1 th:text= "${user.username}"></h1>
     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="post">
       	<p th:text="'your id: ' + *{id}" />
-      	<p th:text="'your Name: ' + *{username}" />
-        <p>Firstname:<input type="text" th:field= "*{firstname}"/></p>
-        <p>Surname:<input type="text" th:field= "*{surname}"/></p>
-        <p>Password: <input type="text" th:field= "*{password}" /></p>
+      	<p th:text="'your name: ' + *{username}" />
+        <p>first name:<input type="text" th:field= "*{firstname}"/></p>
+        <p>surname:<input type="text" th:field= "*{surname}"/></p>
+        <p>password: <input type="text" th:field= "*{password}" /></p>
+        <div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">role
+			<span class="caret"></span></button>
+			
+			<ul class="dropdown-menu">
+			  <li><a href="#">LOGISTICS</a></li>
+			  <li><a href="#">DRIVER</a></li>
+			</ul>
+		</div>
+		<div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">employee condition
+			<span class="caret"></span></button>
+			<ul class="dropdown-menu">
+			  <li><a href="#">active</a></li>
+			  <li><a href="#">inactive</a></li>
+			</ul>
+		</div>
+		<br/>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
-    <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="delete">
-    	<br/>
-    	<input type="submit" class="btn btn-primary" value="delete user?"/>
-    </form>
+<!--     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="delete"> -->
+<!--     	<br/> -->
+<!--     	<input type="submit" class="btn btn-primary" value="delete user?"/> -->
+<!--     </form> -->
     </div>
 </body>
 </html>

@@ -85,12 +85,15 @@ public class CustomerController {
 	@PostMapping(path = "/{Id}/edit")
 	public ModelAndView editUser (@ModelAttribute Customer customervalue, @PathVariable long Id) {
 		Customer cus = customerRepository.findOne(Id);
-		cus.setName(customervalue.getName());cus.setAddress(customervalue.getAddress());
+		try {
+		cus.setName(customervalue.getName());
+		cus.setAddress(customervalue.getAddress());
+		cus.setCustomerStatus(customervalue.getCustomerStatus());
 		if(!customervalue.isOK()) {
     		return new ModelAndView("customer/error");
-    	}
-		
+    	}		
 		customerRepository.save(cus);
+		} catch(Exception e) {}
 		return new ModelAndView("/customer/profile", "customer", cus);
 	}
 	

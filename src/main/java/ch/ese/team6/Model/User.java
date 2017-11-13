@@ -1,5 +1,7 @@
 package ch.ese.team6.Model;
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,6 +37,8 @@ public class User {
     @NotNull @Email
     private String email;
     private String phoneNumber;
+	@NotNull @Min(value = 0) @Max( value = 1)
+	private int userCondition;
     @OneToMany(mappedBy="driver")
     private List<Route> routes;
     
@@ -43,6 +47,7 @@ public class User {
     
     
     public User() {
+		this.userCondition = 0;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -150,6 +155,21 @@ public class User {
 		if (phoneNumber.isEmpty()) throw new BadSizeException("phoneNumber can't be empty!.");
 		this.phoneNumber = phoneNumber;
 	}
+	
+	public int getUserCondition() {
+		return this.userCondition;
+	}
+	
+	public String getUserConditionAsString() {
+		if (this.getUserCondition() == 0) return "active";
+		return "inactive";
+	}
+	
+	public void setUserCondition(int userCondition) throws BadSizeException{
+		if(!(userCondition == 0 || userCondition == 1)) throw new BadSizeException("user conditions has to be one or null");
+		this.userCondition = userCondition;
+	}
+	
 	public List<Route> getRoutes(){
 		try {
 			return this.routes;
@@ -179,6 +199,7 @@ public class User {
 			this.surname.isEmpty() ||
 			this.email.isEmpty() ||
 			this.phoneNumber.isEmpty() ||
+			!((this.userCondition )== 0 || (this.userCondition == 1)) ||
 			this.roles.isEmpty()
 			) return false;
 			}

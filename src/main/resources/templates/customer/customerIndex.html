@@ -5,7 +5,7 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 <!-- 	TODO: condition for next line: just show when list is empty -->
-	<p> no customer found </p>
+<!-- 	<p> no customer found </p> -->
 	<div th:if="${not #lists.isEmpty(customer)}">
 			<h1>all customers</h1>
 		    <table class="table table-hover">
@@ -14,6 +14,7 @@
 			    		<th>id</th>
 			    		<th>name</th>
 			    		<th>address id</th>
+			    		<th>status</th>
 			    		<th></th>
 		    		</tr>
 		    	</thead>
@@ -22,7 +23,8 @@
 		    		<td th:text="${cus.getId()}"></td>
 		    		<td th:text="${cus.getName()}"></td>
 		    		<td th:text="${cus.getAddress()}"></td>
-		    		<td><a th:href="@{{id}(id = ${cus.id})}">Profile</a></td>
+		    		<td th:text="${cus.getCustomerStatusAsString()}"></td>
+		    		<td><a th:href="@{{id}(id = ${cus.id})}">profile</a></td>
 				</tr>
 				</tbody>
 		    </table>

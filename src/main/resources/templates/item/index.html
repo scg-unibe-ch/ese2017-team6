@@ -5,7 +5,7 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 <!-- 	TODO: condition for next line: just show when list is empty -->
-	<p> no articles found </p>
+<!-- 	<p> no articles found </p> -->
 	<div th:if="${not #lists.isEmpty(items)}">
 		<h1> all articles </h1>
 	<table class="table table-hover">
@@ -13,14 +13,16 @@
 		    	<tr>
 		    		<th>id</th>
 		    		<th>name</th>
-		    		<th>needed space in palettes</th>
+		    		<th>space (palette)</th>
+		    		<th>status</th>
 		    	</tr>
 		</thead>
 		<tbody>
 		    	<tr th:each="item : ${items}">
 		    		<td th:text="${item.getId()}"></td>
 		    		<td th:text="${item.getName()}"></td>
-		    		<td th:text="${item.getRequiredAmountOfPalettes()}"></td>
+		    		<td th:text="${item.getRequiredSpace()}"></td>
+		    		<td th:text="${item.getAvailabilityAsString()}"></td>
 				</tr>
 		</tbody>
     </table>

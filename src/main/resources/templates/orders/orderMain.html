@@ -14,12 +14,12 @@
 		    <table class="table table-hover">
 		    	<thead>
 			    	<tr>
-			    		<th>Id</th>
-			    		<th>Clientname</th>
-			    		<th>Delivery Adress</th>
-			    		<th>Order Status</th>
-			    		<th>Number of Order items</th>
-			    		<th>Delivery Date</th>
+			    		<th>id</th>
+			    		<th>client name</th>
+			    		<th>delivery address</th>
+			    		<th>order status</th>
+			    		<th>number of ordered articles</th>
+			    		<th>delivery date</th>
 			    		<th></th>
 			    	</tr>
 			    </thead>
@@ -31,7 +31,8 @@
 			    		<td th:text="${order.getStatus()}"></td>
 			    		<td th:text="${order.getOrderItems().size()}"></td>
 			    		<td th:text="${order.getDeliveryDate()}"></td>
-			    		<td><a th:href="@{{id}(id = ${order.getId()})}">Details</a></td>
+			    		<td><a th:href="@{{id}(id = ${order.getId()})}">details</a></td>
+			    		<td><a th:href="@{/schedule/{id}(id = ${order.getId()})}">add to route</a></td>
 					</tr>
 				</tbody>
 		    </table>

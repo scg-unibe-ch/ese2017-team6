@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -21,6 +22,8 @@ public class Item {
 	 	private int requiredAmountOfPalettes;
 	 	@Min(value = 0)
 	 	private int weight;
+		@NotNull @Min(value = 0) @Max( value = 1)
+		private int availability;
 	 	/**
 	 	 * Constructor with parameter
 	 	 * @param nameOfObject
@@ -34,6 +37,7 @@ public class Item {
 	 	 * Empty Constructor
 	 	 */
 	 	public Item() {
+	 		this.availability = 0;
 	 		
 	 	}
 	 	
@@ -73,6 +77,21 @@ public class Item {
 		public void setWeight(int weight) throws BadSizeException {
 			if (weight < 0) throw new BadSizeException ("weight can't be negative.");
 			this.weight = weight;
+		}
+		
+		public int getAvailability() {
+			return this.availability;			
+		}
+		
+		public String getAvailabilityAsString() {
+			if (this.getAvailability() == 0)
+				return "available";
+			return "not available";
+		}
+				
+		public void setAvailability(int availability) throws BadSizeException{
+			if(!(availability == 0 || availability == 1)) throw new BadSizeException("availability has to be 1 or 0");
+			this.availability = availability;
 		}
 }
 

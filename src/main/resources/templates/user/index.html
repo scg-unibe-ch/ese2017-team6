@@ -6,7 +6,7 @@
 	<div class="container">
 	
 <!-- 	TODO: condition for next line: just show when list is empty -->
-	<p> no users found </p>
+<!-- 	<p> no users found </p> -->
 	<div th:if="${not #lists.isEmpty(users)}">
 		    <h1>all users</h1>
 		    <table class="table">
@@ -15,7 +15,8 @@
 			    		<th>id</th>
 			    		<th>username</th>
 			    		<th>real name</th>
-			    		<th>userrole</th>
+			    		<th>role</th>
+			    		<th>status</th>
 			    		<th></th>
 			    	</tr>
 			    </thead>
@@ -27,6 +28,7 @@
 			    		<td th:each= "role: ${user.getRoles()}">
 			    			<ul th:text="${role.getName()}"></ul>
 			    			</td>
+			    		<td th:text="${user.getUserConditionAsString()}"></td>
 			    		<td><a th:href="@{{id}(id = ${user.id})}">profile</a></td>
 					</tr>
 				</tbody>

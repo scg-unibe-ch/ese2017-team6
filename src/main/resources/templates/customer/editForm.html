@@ -11,15 +11,24 @@
       	<p th:text="'address: ' + *{address}" />
         <p>real name: <input type="text" th:field="*{name}" /></p>
         <p>address <select th:field="*{address}">
-                      <option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
+        	<option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
                     </select></p>
+        <div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">customer status
+			<span class="caret"></span></button>
+			<ul class="dropdown-menu">
+			  <li><a href="#">active</a></li>
+			  <li><a href="#">inactive</a></li>
+			</ul>
+		</div>
+		<br/>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
     <br/>
-    <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="delete">
-    	<input type="submit" class="btn btn-primary" value="delete customer?" />
-    </form>
+<!--     <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="delete"> -->
+<!--     	<input type="submit" class="btn btn-primary" value="delete customer?" /> -->
+<!--     </form> -->
     </div>
 </body>
 </html>

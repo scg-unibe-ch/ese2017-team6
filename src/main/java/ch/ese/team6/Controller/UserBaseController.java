@@ -63,8 +63,10 @@ public class UserBaseController {
 	public ModelAndView editUser (@ModelAttribute User uservalue, @PathVariable long userId) {
 		User user = userRepository.findOne(userId);
 		try {
-		user.setFirstname(uservalue.getFirstname());user.setSurname(uservalue.getSurname());
+		user.setFirstname(uservalue.getFirstname());
+		user.setSurname(uservalue.getSurname());
 		user.setPassword(uservalue.getPassword());
+		user.setUserCondition(uservalue.getUserCondition());;
 		userRepository.save(user);
 		}
 		catch(Exception e) {}
