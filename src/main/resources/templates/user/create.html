@@ -5,10 +5,50 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1>new user</h1>
-    <form action="#" th:action="@{/user/add}" th:object="${users}" method="post">
-        <p>user name: <input type="text" th:field="*{username}" /></p>
-        <p>real name: <input type="text" th:field="*{surname}" /></p>
-        <p>password: <input type="text" th:field= "*{password}" /></p>
+    <form action="#" th:action="@{/user/add}" th:object="${user}" method="post">
+    	<div th:if="${message}">
+    		<h2 th:text= "${message}"></h2>
+    	</div>
+    	<table>
+    		<tr>
+    			<td> username: </td>
+    			<td> <input  type = "text" th:field="*{username}" required = "required"/></td>
+    			<td th:="${#fields.hasErrors('username')}" th:errors="*{username}">username error</td>
+    		</tr>
+    		<tr>
+    			<td> firstname: </td>
+    			<td> <input  type = "text" th:field="*{firstname}" required = "required"/></td>
+    			<td th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">firstname error</td>
+    		</tr>
+    		<tr>
+    			<td> surname: </td>
+    			<td> <input  type = "text" th:field="*{surname}" required = "required"/></td>
+    			<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">surname error</td>
+    		</tr>
+    		<tr>
+    			<td> password: </td>
+    			<td> <input  type = "password" th:field="*{password}" required = "required"/></td>
+    			<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</td>
+    		</tr>
+    		<tr>
+    			<td> password confirm: </td>
+    			<td> <input  type = "password" th:field="*{passwordConfirm}" required = "required"/></td>
+    			<td th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">password confirm error</td>
+    		</tr>
+    		<tr>
+    			<td> email: </td>
+    			<td> <input  type = "text" th:field="*{email}" required = "required"/></td>
+    			<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</td>
+    		</tr>
+    		<tr>
+    			<td> phonenumber: </td>
+    			<td> <input  type = "text" th:field="*{phoneNumber}" required = "required"/></td>
+    			<td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">phonenumber error</td>
+    		</tr>
+    	</table>
+    	<select class="form-control" th:field = "*{roles}">
+			<option th:each= "role : ${roles}" th:value="${role.getId()}" th:text="${role.toString()}"></option>
+		</select>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>

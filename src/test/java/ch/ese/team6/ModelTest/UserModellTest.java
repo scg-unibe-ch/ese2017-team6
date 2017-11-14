@@ -209,10 +209,72 @@ public class UserModellTest {
 			role.setName("TESTER");
 			user.setRole(role);
 			assertTrue(user.isValid());
+			user.checkValidity();
 			}
 		catch(BadSizeException e){
 			e.printStackTrace();
 			fail("Assigning values should not throw exception");
+		}
+	}
+	
+	@Test
+	public void checkValidityInvalidUser() {
+		try {
+			User user = new User();
+			user.checkValidity();
+			fail("checkValidity should throw exception.");
+		}
+		catch(BadSizeException e) {
+			
+		}
+	}
+	
+	@Test
+	public void checkValidityValidUser() {
+		try {
+			User user = new User();
+			user.setUsername("userqed");
+			user.setPassword("password");
+			user.setPasswordConfirm("password");
+			user.setFirstname("Alexander");
+			user.setSurname("Seeerq");
+			user.setEmail("info@example.com");
+			user.setPhoneNumber("079 888 44 22");
+			Role role = new Role();
+			role.setName("TESTER");
+			user.setRole(role);
+			assertTrue(user.isValid());
+			user.checkValidity();
+		}
+		catch(BadSizeException e) {
+			fail("checkValidity shouln'd throw exception.");
+		}
+	}
+	
+	@Test
+	public void checkPasswordsValid() {
+		try {
+			User user = new User();
+			user.setPassword("password");
+			user.setPasswordConfirm("password");
+			user.checkPasswords();
+		}
+		catch(BadSizeException e) {
+			fail("Matching passwords shouldn't throw exception.");
+		}
+	}
+	
+	@Test
+	public void checkPasswordsInvalid() {
+		try {
+			User user = new User();
+			user.setPassword("password");
+			user.setPasswordConfirm("passwordpassword");
+			user.checkPasswords();
+			fail("Unmatching passwords shouldt throw exception.");
+		}
+		catch(BadSizeException e) {
+			
 		}
 	}
 }

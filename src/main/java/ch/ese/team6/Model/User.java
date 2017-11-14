@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Email;
 
 import ch.ese.team6.Exception.BadSizeException;
 
+import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -190,20 +191,38 @@ public class User {
 		return false;
 	}
 	
-	public boolean isValid() {
+	public void checkValidity() throws BadSizeException {
+		String message = "";
 		try{
-			if(
-			this.username.isEmpty() ||
-			!(this.password == this.passwordConfirm) ||
-			this.firstname.isEmpty() ||
-			this.surname.isEmpty() ||
-			this.email.isEmpty() ||
-			this.phoneNumber.isEmpty() ||
-			!((this.userCondition )== 0 || (this.userCondition == 1)) ||
-			this.roles.isEmpty()
-			) return false;
+			if (this.username.isEmpty()) message.concat(" username ");
+			if (this.firstname.isEmpty()) message.concat(" firstname ");
+			if (this.surname.isEmpty()) message.concat(" surname ");
+			if (this.email.isEmpty()) message.concat(" email ");
+			if (this.phoneNumber.isEmpty()) message.concat(" phonenumber ");
+			if (this.surname.isEmpty()) message.concat(" surname ");
+			if (this.roles.isEmpty()) message.concat(" roles ");
 			}
 		catch(NullPointerException n) {
+			throw new BadSizeException("no role set.");
+		}
+		if (!(message.trim().isEmpty())) {
+			if (message.contains("  ")) {
+				throw new BadSizeException("These values are missing: " + message);
+			}
+			else {
+				throw new BadSizeException(message + " is missing");
+			}
+		}
+		return;
+	}
+	
+	public boolean isValid() {
+		try{
+			this.checkValidity();
+			this.checkPasswords();
+		}
+			
+		catch(NullPointerException | BadSizeException n) {
 			return false;
 		}
 		return true;
@@ -225,5 +244,11 @@ public class User {
 			return false;
 		}
 		return true;
+	}
+	
+	public void checkPasswords() throws BadSizeException {
+		if (!(this.password.equals(this.passwordConfirm))) {
+			throw new BadSizeException("Passwords don't match.");
+		}
 	}
 }

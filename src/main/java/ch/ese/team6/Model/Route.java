@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import ch.ese.team6.Exception.RouteTimeException;
+
 @Entity
 @Table(name = "route")
 public class Route {
@@ -36,6 +38,8 @@ public class Route {
 	
 	public long estimatedTime;
 	public long measuredTime;
+	private long routeStart = 0;
+	private long routeStop = 0;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ADDRESS_ID")
@@ -332,6 +336,26 @@ public class Route {
 			}
 		}
 		return ret;
+	}
+	
+	public void startRoute() throws RouteTimeException {
+		if(this.isRouteStarted()) throw new RouteTimeException ("Route has already started.");
+		if(this.isRouteFinished()) throw new RouteTimeException ("Route has already finished."); 
+		this.routeStart = System.currentTimeMillis();
+	}
+	
+	public boolean isRouteStarted() {
+		return (this.routeStart != 0  && this.routeStop == 0);
+	}
+	
+	public boolean isRouteFinished() {
+		return (this.routeStop != 0);
+	}
+
+	public void stopRoute() throws RouteTimeException {
+		if(this.isRouteStarted()) this.routeStop = System.currentTimeMillis();
+		else throw new RouteTimeException("Can't finish a unstarted route.");
+		
 	}
 
 		
