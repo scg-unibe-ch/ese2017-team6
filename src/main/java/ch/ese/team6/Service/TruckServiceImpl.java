@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.RouteRepository;
@@ -29,5 +31,16 @@ public class TruckServiceImpl implements TruckService{
 		freeTrucks.removeAll(occupiedTrucks);
 		return freeTrucks;
 	}
+	
+	public void save(Truck truck) throws DupplicateEntryException, BadSizeException {
+		if (!truck.isValid()) throw new BadSizeException("Truck is invalid.");
+		if ((truck.hasId()) || this.existByTruckname(truck.getTruckname())) {
+    		throw new DupplicateEntryException("truckname already exists.");
+		}
+		truckRepository.save(truck);
+	}
 
+	private boolean existByTruckname(String truckname) {
+		return truckRepository.existsByTruckname(truckname);
+	}
 }

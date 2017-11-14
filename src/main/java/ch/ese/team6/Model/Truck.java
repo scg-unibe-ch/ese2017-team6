@@ -34,12 +34,6 @@ public class Truck {
 	private List<Route> routes;
 	
 	public Truck() {}
-	
-	public Truck(String name) {
-		this.truckname = name;
-		this.maxCargoSpace = this.maxLoadCapacity = 40;
-		this.vehicleCondition = 0;
-	}
 
 	public long getId() {
 		return id;
@@ -68,8 +62,8 @@ public class Truck {
 		return maxLoadCapacity;
 	}
 	public void setMaxLoadCapacity(int maxLoadCapacity) throws BadSizeException {
-		if(maxCargoSpace == 0) throw new BadSizeException ("Max load capacity can't be null.");
-		if(maxCargoSpace < 0) throw new BadSizeException("Max load capacity can't be negative.");
+		if(maxLoadCapacity == 0) throw new BadSizeException ("Max load capacity can't be null.");
+		if(maxLoadCapacity < 0) throw new BadSizeException("Max load capacity can't be negative.");
 		this.maxLoadCapacity = maxLoadCapacity;
 	}
 	public int getVehicleCondition() {
@@ -113,6 +107,11 @@ public class Truck {
 		for(Route route: this.routes) {
 			if (route.getRouteDate()== date) return true;
 		}
+		return false;
+	}
+
+	public boolean hasId() {
+		if (this.id != 0) return true;
 		return false;
 	}
 	
