@@ -19,7 +19,7 @@ public class Item {
 	    private long id;
 	 	@NotNull private String name;
 	 	@Min(value = 0)
-	 	private int requiredAmountOfPalettes;
+	 	private int requiredSpace;
 	 	@Min(value = 0)
 	 	private int weight;
 		@NotNull @Min(value = 0) @Max( value = 1)
@@ -54,12 +54,12 @@ public class Item {
 			this.name = name;
 		}
 		public int getRequiredSpace() {
-			return requiredAmountOfPalettes;
+			return requiredSpace;
 		}
 
 		public void setRequiredSpace(int requiredSpace) throws BadSizeException{
 			if (requiredSpace < 0) throw new BadSizeException("required space can't be negative.");
-			this.requiredAmountOfPalettes = requiredSpace;
+			this.requiredSpace = requiredSpace;
 		}
 
 		public void setId(long id) {

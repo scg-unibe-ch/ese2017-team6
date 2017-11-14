@@ -19,7 +19,7 @@
     		</tr>
     		<tr>
     			<td> email: </td>
-    			<td> <input  type = "text" th:field="*{email}" required = "required" /></td>
+    			<td> <input  type = "email" th:field="*{email}" required = "required" /></td>
     			<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="'email can't be negative.'"></td>
     		</tr>
        	</table>

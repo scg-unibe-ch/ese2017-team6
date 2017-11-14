@@ -21,8 +21,23 @@
 <!--       </form> -->
         
     <form action="#" th:action="@{/item/add}" th:object="${item}" method="post">
-        <p>Name: <input type="text" th:field="*{name}" /></p>
-        
+        <table>
+    		<tr>
+    			<td>Name:</td>
+    			<td> <input  type = "text" th:field="*{name}" required = "required"/></td>
+    			<td th:="${#fields.hasErrors('name')}" th:errors="*{name}" th:text="'name can't be empty.'"></td>
+    		</tr>
+    		<tr>
+    			<td>Displacement in palettes:</td>
+    			<td> <input  type ="number" th:field="*{requiredSpace}" required ="required" min="0" /></td>
+    			<td th:if="${#fields.hasErrors('requiredSpace')}" th:errors="*{requiredSpace}" th:text="'displacement can't be negative.'"></td>
+    		</tr>
+    		<tr>
+    			<td>Weight:  </td>
+    			<td> <input  type = "number" th:field="*{weight}" required = "required" min="0" /></td>
+    			<td th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" th:text="'weight can't be negative.'"></td>
+    		</tr>
+       	</table>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
