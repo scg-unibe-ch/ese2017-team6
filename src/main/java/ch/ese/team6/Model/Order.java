@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import ch.ese.team6.Service.CalendarService;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,7 +92,9 @@ public class Order  implements IDelivarable{
     }
     
     public void setDeliveryDate(Date date) {
-    	this.deliveryDate = date;
+
+    	this.deliveryDate = CalendarService.setMidnight(date);
+   
     }
     
     public Date getDeliveryDate() {

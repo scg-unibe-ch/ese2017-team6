@@ -157,6 +157,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			Truck truck = new Truck();
 			truck.setTruckname(truckData[0]);
 			truck.setMaxCargoSpace(Integer.parseInt(truckData[1].trim()));
+			truck.setMaxLoadCapacity(Integer.parseInt(truckData[2].trim()));
 			truckRepository.save(truck);
 		}
 	}
@@ -165,7 +166,9 @@ public class SampleDataServiceImpl implements SampleDataService{
 		for (int i= 0;i<10; i++) {
 		int n_cus = customerRepository.findAll().size();
 		Customer cus = customerRepository.findAll().get((int) (Math.random()*n_cus));
-		Date deliveryDate = Calendar.getInstance().getTime();
+		Calendar deliveryDateC = Calendar.getInstance();
+		deliveryDateC.add(Calendar.DAY_OF_YEAR, (int) (Math.random()*5));
+		Date deliveryDate = deliveryDateC.getTime();
 		
 		Order order = new Order();
 		order.setCustomer(cus);
@@ -402,22 +405,23 @@ public class SampleDataServiceImpl implements SampleDataService{
 	"ABE-X-272,5,1671;" + 
 	"ABE-ZZ-441,3,1408;";
 	
-	private String truckCsv = "VW Transporter 1, 1;"
-			+ "VW Transporter 2, 1;"
-			+ "VW Transporter 3, 1;"
-			+ "VW Transporter 4, 1;"
-			+ "VW Transporter 5, 1;"
-			+ "VW Transporter 6, 1;"
-			+ "VW Transporter 7, 1;"
-			+ "VW Transporter 8, 1;"
-			+ "Scania S 450 B6x4NA 1, 32;"
-			+ "Scania S 450 B6x4NA 2, 32;"
-			+ "Scania S 450 B6x4NA 3, 32;"
-			+ "Scania S 450 B6x4NA 4, 32;"
-			+ "Scania S 450 B6x4NA 5, 32;"
-			+ "Scania S 450 B6x4NA 6, 32;"
-			+ "Mercedes-Benz Actros 1,36;"
-			+ "Mercedes-Benz Actros 2,36;";
+	private String truckCsv = "VW Transporter 1, 10,50;"
+			+ "VW Transporter 2, 100,50000;"
+			+ "VW Transporter 3, 100,40000;"
+			+ "VW Transporter 4, 200,10000;"
+			+ "VW Transporter 5, 100,40000;"
+			+ "VW Transporter 6, 200,10000;"
+			+ "VW Transporter 7, 100,40000;"
+			+ "VW Transporter 8, 200,10000;"
+			+ "Scania S 450 B6x4NA 1, 320,40000;"
+			+ "Scania S 450 B6x4NA 2, 320,40000;"
+			+ "Scania S 450 B6x4NA 3, 100,40000;"
+			+ "Scania S 450 B6x4NA 4, 500,50000;"
+			+ "Scania S 450 B6x4NA 5, 700,50000;"
+			+ "Scania S 450 B6x4NA 6, 800,60000;"
+			+ "Mercedes-Benz Actros 1,900,70000;"
+			+ "Mercedes-Benz Actros 2,1000,80000;";
+
 	
 }
 

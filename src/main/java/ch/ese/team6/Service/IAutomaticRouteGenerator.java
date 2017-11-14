@@ -1,6 +1,12 @@
-package ch.ese.team6.Model;
+package ch.ese.team6.Service;
 
 import java.util.ArrayList;
+
+import ch.ese.team6.Model.Address;
+import ch.ese.team6.Model.AddressDistanceManager;
+import ch.ese.team6.Model.IDelivarable;
+import ch.ese.team6.Model.RouteCollection;
+import ch.ese.team6.Model.Truck;
 
 /**
  * 
@@ -11,8 +17,7 @@ import java.util.ArrayList;
  *
  */
 public interface IAutomaticRouteGenerator {
-	public void initialize(ArrayList<Truck> trucks, ArrayList<IDelivarable> items,
-			AddressDistanceManager addressDistances, Address depositAddress);
+	public void initialize(RouteGenerationProblem routeProblem);
 
 	/*
 	 * getRoutes will return an ArrayList of Routes if a solution was found. If no
