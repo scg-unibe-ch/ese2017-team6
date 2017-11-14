@@ -6,9 +6,23 @@
 	<div class="container">
 	<h1>new address</h1>
     <form action="#" th:action="@{/address/add}" th:object="${address}" method="post">
-        <p>Street and Number: <input type="text" th:field="*{street}" /></p>
-        <p>Post Code and City: <input type="text" th:field="*{city}" /></p>
-        <p>Country: <input type="text" th:field="*{country}" /></p>
+        <table>
+    		<tr>
+    			<td>Street and Number:</td>
+    			<td> <input  type = "text" th:field="*{street}" required = "required"/></td>
+    			<td th:="${#fields.hasErrors('street')}" th:errors="*{street}" th:text="'street can't be empty.'"></td>
+    		</tr>
+    		<tr>
+    			<td>Post Code and City:</td>
+    			<td> <input  type = "text" th:field="*{city}" required = "required" /></td>
+    			<td th:if="${#fields.hasErrors('city')}" th:errors="*{citye}" th:text="'city can't be negative.'"></td>
+    		</tr>
+    		<tr>
+    			<td>Country </td>
+    			<td> <input  type = "text" th:field="*{country}" required = "required" /></td>
+    			<td th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="'country can't be negative.'"></td>
+    		</tr>
+       	</table>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>

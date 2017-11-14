@@ -6,7 +6,23 @@
 	<div class="container">
 	<h1>new customer</h1>
     <form action="#" th:action="@{/customer/add}" th:object="${customer}" method="post">
-        <p>name: <input type="text" th:field="*{name}" /></p>
+       <table>
+    		<tr>
+    			<td>customer name: </td>
+    			<td> <input  type = "text" th:field="*{name}" required = "required"/></td>
+    			<td th:="${#fields.hasErrors('name')}" th:errors="*{name}" th:text="'name can't be empty.'"></td>
+    		</tr>
+    		<tr>
+    			<td> phone number: </td>
+    			<td> <input  type ="text" th:field="*{phone}" required ="required"/></td>
+    			<td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:text="' phonenumber can't be negative.'"></td>
+    		</tr>
+    		<tr>
+    			<td> email: </td>
+    			<td> <input  type = "text" th:field="*{email}" required = "required" /></td>
+    			<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="'email can't be negative.'"></td>
+    		</tr>
+       	</table>
         <p>address <select th:field="*{address}">
                       <option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
                     </select>
