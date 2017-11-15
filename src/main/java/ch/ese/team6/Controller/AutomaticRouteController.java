@@ -57,7 +57,7 @@ import ch.ese.team6.Service.TruckService;
 import ch.ese.team6.Service.TruckServiceImpl;
 
 @Controller
-@RequestMapping("/automaticRouteGeneration")
+@RequestMapping("/automaticroutegeneration")
 public class AutomaticRouteController {
 
 	@Autowired
@@ -79,7 +79,7 @@ public class AutomaticRouteController {
 	@Autowired
 	private RouteRepository routeRepository;
 	
-	@GetMapping(path = "/selectDate")
+	@GetMapping(path = "/selectdate")
 	public String selectDate(Model model) {
 
 		// This method lets the customer select a date where he can start an automatic route generation
@@ -107,10 +107,10 @@ public class AutomaticRouteController {
 		}
 		
 		
-		return "/automaticRouteGeneration/selectDate";
+		return "/automaticroutegeneration/selectdate";
 	}
 
-	@RequestMapping(value="/selectDate", params={"submitDate"})
+	@RequestMapping(value="/selectdate", params={"submitDate"})
     public ModelAndView submitDate(final RouteGenerationProblem routeProblem, final BindingResult bindingResult) {
     	
 		
@@ -145,10 +145,10 @@ public class AutomaticRouteController {
 		if(optimalRoutes==null) {
 			//optimalRoutes = null means the Algorithm was not able to solve the problem
 
-			ret = new ModelAndView("/automaticRouteGeneration/optProblem");
+			ret = new ModelAndView("/automaticroutegeneration/optproblem");
 			ret.addObject("routeProblem",routeProblem);
 		}else {
-			ret = new ModelAndView("/automaticRouteGeneration/solution");	
+			ret = new ModelAndView("/automaticroutegeneration/solution");	
 
 			
 			optimalRoutes.removeEmptyRoutes();
