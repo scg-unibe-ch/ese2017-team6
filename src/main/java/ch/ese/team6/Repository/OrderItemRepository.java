@@ -12,6 +12,9 @@ public interface OrderItemRepository  extends JpaRepository<OrderItem, Long>{
 	List<OrderItem>findAll();
 	
 	OrderItem findByOrderItemStatus(String status);
+	
+	List<OrderItem> findByRouteId(long routeid);
+	
 
 	boolean existsByorderItemStatus(String status);
 }
