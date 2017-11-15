@@ -3,8 +3,10 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
 		<h1>order &#38; delivery management</h1>
 		<h2 th:if="${error}" th:text= "${error}"></h2>
 		<h2 th:if="${message}" th:text= "${message}"></h2>
+		</div>
 	</body>
 </html>

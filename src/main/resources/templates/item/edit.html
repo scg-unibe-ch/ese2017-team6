@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
+	<h1 th:text= "${item.name}"></h1>
+    <form action="#" th:action="@{/item/{id}/edit(id = ${item.id})}" th:object="${item}" th:method="post">
+      	<p th:text="'article id: ' + *{id}" />
+      	<p th:text="'article name: ' + *{name}" />
+        <p>vehicle name<input type="text" th:field="*{name}" /></p>
+        <p>availability
+        	<select th:field="*{status}">
+        		<option th:each="var : ${statusArray}"
+        				th:value="${var}" th:text="${var.getTitle()}">
+        		</option>
+            </select></p>
+
+<!--          <div class="dropdown"> -->
+<!-- 			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">availability -->
+<!-- 			<span class="caret"></span></button> -->
+<!-- 			<ul class="dropdown-menu"> -->
+<!-- 			  <li><a href="#">available</a></li> -->
+<!-- 			  <li><a href="#">not available</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+		<br/>
+        <input type="submit" class="btn btn-primary" value="submit"/>
+        <input type="reset" class="btn btn-primary" value="reset"/>
+    </form>
+    <br/>
+<!--     <form action="#" th:action="@{/item/{id}/edit(id = ${item.id})}" th:object="${item}" th:method="delete"> -->
+<!--        	<input type="submit" class="btn btn-danger" value="delete truck?" /> -->
+<!--     </form> -->
+    </div>
+</body>
+</html>
+ 

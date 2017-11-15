@@ -22,7 +22,8 @@
 		    		<td th:text="${item.getId()}"></td>
 		    		<td th:text="${item.getName()}"></td>
 		    		<td th:text="${item.getRequiredSpace()}"></td>
-		    		<td th:text="${item.getAvailabilityAsString()}"></td>
+		    		<td th:text="${item.status.getTitle()}"></td>
+		    		<td><a th:href="@{{id}(id = ${item.id})}">profile</a></td>
 				</tr>
 		</tbody>
     </table>

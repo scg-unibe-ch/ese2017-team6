@@ -1,5 +1,6 @@
 package ch.ese.team6.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,13 +18,46 @@ public class Item {
 	 	@Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private long id;
-	 	@NotNull private String name;
+	 	@NotNull @Column(name = "name", unique = true)
+	 	private String name;
 	 	@Min(value = 0)
 	 	private int requiredAmountOfPalettes;
-	 	@Min(value = 0)
+	 	@Min(value = 0) @Max(value = 40) //max tons of trucks load capacity
 	 	private int weight;
-		@NotNull @Min(value = 0) @Max( value = 1)
-		private int availability;
+		//@Column(name = "status")
+		private Status status;
+		public enum Status {
+			AVAILABLE(0, "available"), UNAVAILABLE(1, "not available");
+			
+			private int value;
+			private String title;
+			public static final Status[] ALL = { AVAILABLE, UNAVAILABLE };
+			
+			private Status (int value, String title) {
+				this.value = value;
+				this.title = title;
+			}
+			
+			public int getValue() {
+				return value;
+			}
+			
+			public String getTitle() {
+				return title;
+			}
+			
+			public void setValue(int value) {
+				this.value = value;
+			}
+						
+			public static String getByValue(int value) {
+				for(Status s : Status.values()) {
+					if (value == s.getValue())
+						return "AVAILABLE";
+				}
+				return "UNAVAILABLE";
+			}
+		}
 	 	/**
 	 	 * Constructor with parameter
 	 	 * @param nameOfObject
@@ -31,14 +65,14 @@ public class Item {
 	 	public Item(String nameOfObject)
 	 	{
 	 		this.name = nameOfObject;
+	 		this.status = Status.AVAILABLE;
 	 	}
 	    
 	 	/**
 	 	 * Empty Constructor
 	 	 */
 	 	public Item() {
-	 		this.availability = 0;
-	 		
+	 		this.status = Status.AVAILABLE;
 	 	}
 	 	
 		public long getId() {
@@ -79,19 +113,12 @@ public class Item {
 			this.weight = weight;
 		}
 		
-		public int getAvailability() {
-			return this.availability;			
-		}
-		
-		public String getAvailabilityAsString() {
-			if (this.getAvailability() == 0)
-				return "available";
-			return "not available";
+		public Status getStatus() {
+			return this.status;			
 		}
 				
-		public void setAvailability(int availability) throws BadSizeException{
-			if(!(availability == 0 || availability == 1)) throw new BadSizeException("availability has to be 1 or 0");
-			this.availability = availability;
+		public void setStatus(Status status) {
+			this.status = status;
 		}
 }
 
