@@ -102,7 +102,7 @@ public class OrderController {
     	
     	order.getOrderItems().add(new OrderItem(order));
     	
-        ModelAndView ret = new ModelAndView("/orders/add");
+        ModelAndView ret = new ModelAndView("orders/add");
 		ret.addObject("order",order);
     	ret.addObject("allCustomers", customerRepository.findAll());
 		ret.addObject("allItems", itemRepository.findAll());
@@ -118,7 +118,7 @@ public class OrderController {
 	        order.getOrderItems().remove(rowId.intValue());
 	   
 	       
-	        ModelAndView ret = new ModelAndView("/orders/add");
+	        ModelAndView ret = new ModelAndView("orders/add");
 			ret .addObject("order",order);
 	    	ret.addObject("allCustomers", customerRepository.findAll());
 			ret.addObject("allItems", itemRepository.findAll());

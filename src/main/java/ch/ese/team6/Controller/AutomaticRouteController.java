@@ -145,10 +145,10 @@ public class AutomaticRouteController {
 		if(optimalRoutes==null) {
 			//optimalRoutes = null means the Algorithm was not able to solve the problem
 
-			ret = new ModelAndView("/automaticroutegeneration/optproblem");
+			ret = new ModelAndView("automaticroutegeneration/optproblem");
 			ret.addObject("routeProblem",routeProblem);
 		}else {
-			ret = new ModelAndView("/automaticroutegeneration/solution");	
+			ret = new ModelAndView("automaticroutegeneration/solution");	
 
 			
 			optimalRoutes.removeEmptyRoutes();

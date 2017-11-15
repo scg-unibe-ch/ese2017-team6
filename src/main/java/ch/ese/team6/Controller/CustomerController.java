@@ -94,7 +94,7 @@ public class CustomerController {
     	}		
 		customerRepository.save(cus);
 		} catch(Exception e) {}
-		return new ModelAndView("/customer/profile", "customer", cus);
+		return new ModelAndView("customer/profile", "customer", cus);
 	}
 	
 	

@@ -200,7 +200,7 @@ public class RouteController{
 			}
 		}
 		
-		ModelAndView ret= new ModelAndView("/route/onmap");
+		ModelAndView ret= new ModelAndView("route/onmap");
 		ret.addObject("route", route);
 		ret.addObject("deliveries", routeRepository.findOne(routeid).getDeliveries());
 		
