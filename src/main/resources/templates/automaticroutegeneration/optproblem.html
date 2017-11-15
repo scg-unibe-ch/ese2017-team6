@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+	<body>
+		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
+		<h1> automatic route generation </h1>
+		
+		<div th:if="${not routeProblem.isOK()}">
+		<p>You have selected an incorrect date. Make sure you have a date where there is at least one route.</p>
+		<a href="/automaticrouteGeneration/selecdate" class="btn btn-primary" role="button">Back</a>
+		</div>
+		
+		
+		<div th:if="${routeProblem.isOK()}">
+		<p>we could not solve the following problem using a heuristic route generation algorithm. This is because
+		the heuristic algorithm was not able to distribute the open orders among the available trucks such that size
+		and weight capacities are satisfied. You may try to schedule the orders manually.</p>
+		
+		
+		<a href="/schedule" class="btn btn-primary" role="button">Manual Scheduling</a>
+		
+		
+		
+		<h2>date</h2>
+		<p th:text="${routeProblem.getDeliveryDate()}"></p>
+		<h2>address of deposit</h2>
+		<p th:text="${routeProblem.getDepositAddress()}"></p>
+		
+		
+		<h2>orders to be delivered</h2>
+		<table class="table table-hover">
+		<thead>
+		    	<tr>
+		    		<th>order address</th>
+		    		<th>order size</th>
+		    		<th>order weight</th>
+		    	</tr>
+		</thead>
+		<tbody>
+		    	<tr th:each="o : ${routeProblem.getOrders()}">
+		    		<td th:text="${o.getAddress()}"></td>
+		    		<td th:text="${o.getSize()}"></td>
+		    		<td th:text="${o.getWeight()}"></td>			
+				</tr>
+		</tbody>
+   		</table>
+		
+		<h2>trucks available</h2>
+		<table class="table table-hover">
+		<thead>
+		    	<tr>
+		    		<th>Truck name</th>
+		    		<th>Truck max. size</th>
+		    		<th>Truck max. weight</th>
+		    	</tr>
+		</thead>
+		<tbody>
+		    	<tr th:each="t : ${routeProblem.getTrucks()}">
+		    		<td th:text="${t.getTruckname()}"></td>
+		    		<td th:text="${t.getMaxCargoSpace()}"></td> 
+		    		<td th:text="${t.getMaxLoadCapacity()}"></td>			
+				</tr>
+		</tbody>
+   		</table>
+		
+		<h2>drivers available</h2>
+		<table class="table table-hover">
+		<thead>
+		    	<tr>
+		    		<th>Driver name</th>
+		    	</tr>
+		</thead>
+		<tbody>
+		    	<tr th:each="t : ${routeProblem.getDrivers()}">
+		    		<td th:text="${t. getRealname()}"></td>
+		    	</tr>
+		</tbody>
+   		</table>
+		
+		
+		
+		
+		</div>
+		
+		</div>
+		
+		
+		
+		
+	</body>
+</html>

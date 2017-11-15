@@ -145,6 +145,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			Item item = new Item();
 			item.setName(itemData[0]);
 			item.setRequiredSpace(Integer.parseInt(itemData[1]));
+			item.setWeight(Integer.parseInt(itemData[2]));
 			itemRepository.save(item);
 		}
 	}
@@ -156,6 +157,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			Truck truck = new Truck();
 			truck.setTruckname(truckData[0]);
 			truck.setMaxCargoSpace(Integer.parseInt(truckData[1].trim()));
+			truck.setMaxLoadCapacity(Integer.parseInt(truckData[2].trim()));
 			truckRepository.save(truck);
 		}
 	}
@@ -164,7 +166,9 @@ public class SampleDataServiceImpl implements SampleDataService{
 		for (int i= 0;i<10; i++) {
 		int n_cus = customerRepository.findAll().size();
 		Customer cus = customerRepository.findAll().get((int) (Math.random()*n_cus));
-		Date deliveryDate = Calendar.getInstance().getTime();
+		Calendar deliveryDateC = Calendar.getInstance();
+		deliveryDateC.add(Calendar.DAY_OF_YEAR, (int) (Math.random()*5));
+		Date deliveryDate = deliveryDateC.getTime();
 		
 		Order order = new Order();
 		order.setCustomer(cus);
@@ -242,181 +246,182 @@ public class SampleDataServiceImpl implements SampleDataService{
 					"Vortexbar,Giacomettistrasse 114-116:7000 Chur,Schweiz,(804) 820-2271,vortexbar@example.com;";
 	
 	private String itemCsv = 
-			"EPX-WQ-965,0;" + 
-			"XKG-TX-156,0;" + 
-			"XKG-S-596,2;" + 
-			"XKG-X-529,4;" + 
-			"XKG-S-68,6;" + 
-			"XKG-X-667,5;" + 
-			"XKG-S-519,0;" + 
-			"XKG-TX-738,4;" + 
-			"XKG-WQ-405,7;" + 
-			"XKG-X-780,1;" + 
-			"XKG-ZZ-759,4;" + 
-			"XKG-S-537,2;" + 
-			"XKG-S-116,0;" + 
-			"XKG-WQ-604,5;" + 
-			"XKG-ZZ-712,0;" + 
-			"XKG-X-990,0;" + 
-			"XKG-X-273,1;" + 
-			"XKG-WQ-3,5;" + 
-			"XKG-TX-287,7;" + 
-			"XKG-S-305,1;" + 
-			"XKG-TX-893,0;" + 
-			"XKG-ZZ-922,2;" + 
-			"XKG-ZZ-645,2;" + 
-			"XKG-TX-196,2;" + 
-			"XKG-TX-356,2;" + 
-			"XKG-S-852,4;" + 
-			"XKG-X-180,4;" + 
-			"XKG-TX-842,1;" + 
-			"XKG-TX-936,5;" + 
-			"XKG-ZZ-908,4;" + 
-			"XKG-X-58,5;" + 
-			"XKG-TX-49,1;" + 
-			"XKG-X-277,6;" + 
-			"XKG-S-538,5;" + 
-			"XKG-ZZ-211,0;" + 
-			"XKG-S-555,7;" + 
-			"XKG-X-890,7;" + 
-			"XKG-WQ-901,0;" + 
-			"XKG-S-590,2;" + 
-			"XKG-S-895,0;" + 
-			"XKG-WQ-27,7;" + 
-			"XKG-WQ-905,4;" + 
-			"XKG-X-903,0;" + 
-			"XKG-S-772,0;" + 
-			"CPT-ZZ-352,0;" + 
-			"CPT-S-302,7;" + 
-			"CPT-TX-129,1;" + 
-			"CPT-ZZ-494,3;" + 
-			"CPT-S-757,2;" + 
-			"CPT-ZZ-240,0;" + 
-			"CPT-ZZ-956,3;" + 
-			"CPT-ZZ-95,7;" + 
-			"WVB-X-579,1;" + 
-			"WVB-WQ-24,5;" + 
-			"WVB-S-36,0;" + 
-			"WVB-ZZ-455,3;" + 
-			"WVB-WQ-788,4;" + 
-			"WVB-X-152,5;" + 
-			"WVB-ZZ-780,7;" + 
-			"JQS-TX-13,7;" + 
-			"JQS-ZZ-240,4;" + 
-			"JQS-ZZ-425,0;" + 
-			"JQS-S-227,2;" + 
-			"JQS-X-628,6;" + 
-			"JQS-ZZ-998,6;" + 
-			"JQS-TX-353,7;" + 
-			"JQS-X-259,2;" + 
-			"JQS-WQ-125,1;" + 
-			"JQS-X-255,7;" + 
-			"JQS-TX-179,4;" + 
-			"JQS-S-997,1;" + 
-			"JQS-ZZ-372,0;" + 
-			"JQS-WQ-442,3;" + 
-			"JQS-WQ-290,5;" + 
-			"JQS-WQ-488,4;" + 
-			"JQS-WQ-973,6;" + 
-			"JQS-ZZ-770,0;" + 
-			"JQS-X-152,6;" + 
-			"JQS-TX-86,7;" + 
-			"JQS-S-69,7;" + 
-			"JQS-X-962,1;" + 
-			"JQS-X-191,4;" + 
-			"JQS-WQ-445,4;" + 
-			"JQS-WQ-528,5;" + 
-			"JQS-TX-705,7;" + 
-			"JQS-ZZ-310,5;" + 
-			"JQS-S-597,7;" + 
-			"JQS-S-321,0;" + 
-			"JQS-ZZ-601,4;" + 
-			"JQS-TX-69,1;" + 
-			"JQS-S-334,7;" + 
-			"JQS-ZZ-630,5;" + 
-			"JQS-ZZ-842,5;" + 
-			"JQS-X-513,0;" + 
-			"JQS-ZZ-534,6;" + 
-			"JQS-ZZ-585,5;" + 
-			"JQS-WQ-716,7;" + 
-			"JQS-TX-418,0;" + 
-			"JQS-ZZ-979,1;" + 
-			"JQS-X-199,7;" + 
-			"JQS-WQ-63,7;" + 
-			"JQS-TX-886,2;" + 
-			"JQS-S-375,7;" + 
-			"JQS-X-557,5;" + 
-			"OEB-TX-495,3;" + 
-			"OEB-WQ-304,7;" + 
-			"OEB-X-165,3;" + 
-			"OEB-WQ-733,4;" + 
-			"OEB-WQ-171,7;" + 
-			"OEB-S-754,5;" + 
-			"OEB-S-475,6;" + 
-			"OEB-TX-864,1;" + 
-			"OEB-WQ-894,1;" + 
-			"OEB-S-211,2;" + 
-			"OEB-S-916,6;" + 
-			"JWQ-WQ-712,5;" + 
-			"JWQ-TX-713,5;" + 
-			"JWQ-ZZ-159,5;" + 
-			"JWQ-WQ-323,4;" + 
-			"JWQ-TX-528,4;" + 
-			"JWQ-S-789,5;" + 
-			"JWQ-S-840,3;" + 
-			"JWQ-X-428,3;" + 
-			"JWQ-ZZ-314,0;" + 
-			"JWQ-WQ-652,2;" + 
-			"JWQ-WQ-53,6;" + 
-			"JWQ-ZZ-861,2;" + 
-			"JWQ-ZZ-142,6;" + 
-			"JWQ-WQ-144,5;" + 
-			"JWQ-X-200,0;" + 
-			"JWQ-WQ-480,0;" + 
-			"JWQ-WQ-923,5;" + 
-			"JWQ-ZZ-871,1;" + 
-			"JWQ-X-133,0;" + 
-			"JWQ-TX-613,1;" + 
-			"JWQ-X-368,5;" + 
-			"JWQ-TX-542,2;" + 
-			"JWQ-WQ-961,1;" + 
-			"JWQ-S-862,4;" + 
-			"JWQ-ZZ-897,5;" + 
-			"JWQ-ZZ-253,2;" + 
-			"JWQ-TX-980,7;" + 
-			"JWQ-ZZ-568,3;" + 
-			"JWQ-ZZ-151,5;" + 
-			"JWQ-TX-876,0;" + 
-			"JWQ-ZZ-431,4;" + 
-			"JWQ-TX-879,7;" + 
-			"JWQ-S-894,6;" + 
-			"ABE-WQ-657,1;" + 
-			"ABE-ZZ-94,5;" + 
-			"ABE-X-13,5;" + 
-			"ABE-ZZ-926,4;" + 
-			"ABE-S-955,6;" + 
-			"ABE-TX-671,7;" + 
-			"ABE-ZZ-948,1;" + 
-			"ABE-WQ-700,7;" + 
-			"ABE-X-272,5;" + 
-			"ABE-ZZ-441,3;";
+	"EPX-WQ-965,0,5;" + 
+	"XKG-TX-156,0,4;" + 
+	"XKG-S-596,2,1135;" + 
+	"XKG-X-529,4,1422;" + 
+	"XKG-S-68,6,869;" + 
+	"XKG-X-667,5,1562;" + 
+	"XKG-S-519,0,8;" + 
+	"XKG-TX-738,4,1679;" + 
+	"XKG-WQ-405,7,1198;" + 
+	"XKG-X-780,1,1636;" + 
+	"XKG-ZZ-759,4,1279;" + 
+	"XKG-S-537,2,1894;" + 
+	"XKG-S-116,0,1;" + 
+	"XKG-WQ-604,5,712;" + 
+	"XKG-ZZ-712,0,1044;" + 
+	"XKG-X-990,0,1912;" + 
+	"XKG-X-273,1,1403;" + 
+	"XKG-WQ-3,5,1669;" + 
+	"XKG-TX-287,7,1857;" + 
+	"XKG-S-305,1,839;" + 
+	"XKG-TX-893,0,4;" + 
+	"XKG-ZZ-922,2,1778;" + 
+	"XKG-ZZ-645,2,1395;" + 
+	"XKG-TX-196,2,1584;" + 
+	"XKG-TX-356,2,979;" + 
+	"XKG-S-852,4,846;" + 
+	"XKG-X-180,4,1526;" + 
+	"XKG-TX-842,1,1849;" + 
+	"XKG-TX-936,5,720;" + 
+	"XKG-ZZ-908,4,1155;" + 
+	"XKG-X-58,5,1637;" + 
+	"XKG-TX-49,1,1837;" + 
+	"XKG-X-277,6,1879;" + 
+	"XKG-S-538,5,1857;" + 
+	"XKG-ZZ-211,0,3;" + 
+	"XKG-S-555,7,1403;" + 
+	"XKG-X-890,7,1675;" + 
+	"XKG-WQ-901,0,1758;" + 
+	"XKG-S-590,2,1230;" + 
+	"XKG-S-895,0,2;" + 
+	"XKG-WQ-27,7,1656;" + 
+	"XKG-WQ-905,4,1178;" + 
+	"XKG-X-903,0,2;" + 
+	"XKG-S-772,0,2;" + 
+	"CPT-ZZ-352,0,3;" + 
+	"CPT-S-302,7,1840;" + 
+	"CPT-TX-129,1,1161;" + 
+	"CPT-ZZ-494,3,738;" + 
+	"CPT-S-757,2,1729;" + 
+	"CPT-ZZ-240,0,6;" + 
+	"CPT-ZZ-956,3,1620;" + 
+	"CPT-ZZ-95,7,1230;" + 
+	"WVB-X-579,1,538;" + 
+	"WVB-WQ-24,5,773;" + 
+	"WVB-S-36,0,2;" + 
+	"WVB-ZZ-455,3,1866;" + 
+	"WVB-WQ-788,4,1025;" + 
+	"WVB-X-152,5,875;" + 
+	"WVB-ZZ-780,7,1465;" + 
+	"JQS-TX-13,7,1970;" + 
+	"JQS-ZZ-240,4,1202;" + 
+	"JQS-ZZ-425,0,3;" + 
+	"JQS-S-227,2,1556;" + 
+	"JQS-X-628,6,1446;" + 
+	"JQS-ZZ-998,6,1124;" + 
+	"JQS-TX-353,7,1015;" + 
+	"JQS-X-259,2,1421;" + 
+	"JQS-WQ-125,1,864;" + 
+	"JQS-X-255,7,646;" + 
+	"JQS-TX-179,4,518;" + 
+	"JQS-S-997,1,1845;" + 
+	"JQS-ZZ-372,0,2;" + 
+	"JQS-WQ-442,3,1528;" + 
+	"JQS-WQ-290,5,1440;" + 
+	"JQS-WQ-488,4,1919;" + 
+	"JQS-WQ-973,6,1995;" + 
+	"JQS-ZZ-770,0,1;" + 
+	"JQS-X-152,6,1573;" + 
+	"JQS-TX-86,7,1087;" + 
+	"JQS-S-69,7,1712;" + 
+	"JQS-X-962,1,1864;" + 
+	"JQS-X-191,4,1664;" + 
+	"JQS-WQ-445,4,1165;" + 
+	"JQS-WQ-528,5,1544;" + 
+	"JQS-TX-705,7,687;" + 
+	"JQS-ZZ-310,5,1477;" + 
+	"JQS-S-597,7,863;" + 
+	"JQS-S-321,0,1;" + 
+	"JQS-ZZ-601,4,1608;" + 
+	"JQS-TX-69,1,814;" + 
+	"JQS-S-334,7,982;" + 
+	"JQS-ZZ-630,5,1187;" + 
+	"JQS-ZZ-842,5,1354;" + 
+	"JQS-X-513,0,6;" + 
+	"JQS-ZZ-534,6,1057;" + 
+	"JQS-ZZ-585,5,654;" + 
+	"JQS-WQ-716,7,603;" + 
+	"JQS-TX-418,0,3;" + 
+	"JQS-ZZ-979,1,1359;" + 
+	"JQS-X-199,7,1381;" + 
+	"JQS-WQ-63,7,1478;" + 
+	"JQS-TX-886,2,1362;" + 
+	"JQS-S-375,7,1734;" + 
+	"JQS-X-557,5,928;" + 
+	"OEB-TX-495,3,1425;" + 
+	"OEB-WQ-304,7,1285;" + 
+	"OEB-X-165,3,1937;" + 
+	"OEB-WQ-733,4,1487;" + 
+	"OEB-WQ-171,7,696;" + 
+	"OEB-S-754,5,1150;" + 
+	"OEB-S-475,6,767;" + 
+	"OEB-TX-864,1,1095;" + 
+	"OEB-WQ-894,1,726;" + 
+	"OEB-S-211,2,632;" + 
+	"OEB-S-916,6,1610;" + 
+	"JWQ-WQ-712,5,822;" + 
+	"JWQ-TX-713,5,1782;" + 
+	"JWQ-ZZ-159,5,639;" + 
+	"JWQ-WQ-323,4,1404;" + 
+	"JWQ-TX-528,4,1815;" + 
+	"JWQ-S-789,5,1134;" + 
+	"JWQ-S-840,3,1531;" + 
+	"JWQ-X-428,3,1724;" + 
+	"JWQ-ZZ-314,0,2;" + 
+	"JWQ-WQ-652,2,1068;" + 
+	"JWQ-WQ-53,6,1529;" + 
+	"JWQ-ZZ-861,2,1578;" + 
+	"JWQ-ZZ-142,6,1257;" + 
+	"JWQ-WQ-144,5,1406;" + 
+	"JWQ-X-200,0,2;" + 
+	"JWQ-WQ-480,0,4;" + 
+	"JWQ-WQ-923,5,1124;" + 
+	"JWQ-ZZ-871,1,1037;" + 
+	"JWQ-X-133,0,2;" + 
+	"JWQ-TX-613,1,1864;" + 
+	"JWQ-X-368,5,1196;" + 
+	"JWQ-TX-542,2,1239;" + 
+	"JWQ-WQ-961,1,916;" + 
+	"JWQ-S-862,4,1318;" + 
+	"JWQ-ZZ-897,5,1221;" + 
+	"JWQ-ZZ-253,2,1100;" + 
+	"JWQ-TX-980,7,992;" + 
+	"JWQ-ZZ-568,3,1439;" + 
+	"JWQ-ZZ-151,5,1400;" + 
+	"JWQ-TX-876,0,5;" + 
+	"JWQ-ZZ-431,4,731;" + 
+	"JWQ-TX-879,7,1088;" + 
+	"JWQ-S-894,6,556;" + 
+	"ABE-WQ-657,1,1387;" + 
+	"ABE-ZZ-94,5,1031;" + 
+	"ABE-X-13,5,1531;" + 
+	"ABE-ZZ-926,4,1115;" + 
+	"ABE-S-955,6,1111;" + 
+	"ABE-TX-671,7,1310;" + 
+	"ABE-ZZ-948,1,1853;" + 
+	"ABE-WQ-700,7,1757;" + 
+	"ABE-X-272,5,1671;" + 
+	"ABE-ZZ-441,3,1408;";
 	
-	private String truckCsv = "VW Transporter 1, 1;"
-			+ "VW Transporter 2, 1;"
-			+ "VW Transporter 3, 1;"
-			+ "VW Transporter 4, 1;"
-			+ "VW Transporter 5, 1;"
-			+ "VW Transporter 6, 1;"
-			+ "VW Transporter 7, 1;"
-			+ "VW Transporter 8, 1;"
-			+ "Scania S 450 B6x4NA 1, 32;"
-			+ "Scania S 450 B6x4NA 2, 32;"
-			+ "Scania S 450 B6x4NA 3, 32;"
-			+ "Scania S 450 B6x4NA 4, 32;"
-			+ "Scania S 450 B6x4NA 5, 32;"
-			+ "Scania S 450 B6x4NA 6, 32;"
-			+ "Mercedes-Benz Actros 1,36;"
-			+ "Mercedes-Benz Actros 2,36;";
+	private String truckCsv = "VW Transporter 1, 10,50;"
+			+ "VW Transporter 2, 100,50000;"
+			+ "VW Transporter 3, 100,40000;"
+			+ "VW Transporter 4, 200,10000;"
+			+ "VW Transporter 5, 100,40000;"
+			+ "VW Transporter 6, 200,10000;"
+			+ "VW Transporter 7, 100,40000;"
+			+ "VW Transporter 8, 200,10000;"
+			+ "Scania S 450 B6x4NA 1, 320,40000;"
+			+ "Scania S 450 B6x4NA 2, 320,40000;"
+			+ "Scania S 450 B6x4NA 3, 100,40000;"
+			+ "Scania S 450 B6x4NA 4, 500,50000;"
+			+ "Scania S 450 B6x4NA 5, 700,50000;"
+			+ "Scania S 450 B6x4NA 6, 800,60000;"
+			+ "Mercedes-Benz Actros 1,900,70000;"
+			+ "Mercedes-Benz Actros 2,1000,80000;";
+
 	
 }
 

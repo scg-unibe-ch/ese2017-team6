@@ -2,6 +2,7 @@ package ch.ese.team6.Model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import ch.ese.team6.Exception.RouteTimeException;
 
 @Entity
 @Table(name = "route")
@@ -36,6 +39,8 @@ public class Route {
 	
 	public long estimatedTime;
 	public long measuredTime;
+	private long routeStart = 0;
+	private long routeStop = 0;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ADDRESS_ID")
@@ -261,8 +266,8 @@ public class Route {
 
 	
 
-	public List<OrderItem> getOrderItems() {
-		return this.orderItems;
+	public ArrayList<OrderItem> getOrderItems() {
+		return (ArrayList<OrderItem>) this.orderItems;
 	}
 
 	
@@ -332,6 +337,93 @@ public class Route {
 			}
 		}
 		return ret;
+	}
+	
+	public void startRoute() throws RouteTimeException {
+		if(this.isRouteStarted()) throw new RouteTimeException ("Route has already started.");
+		if(this.isRouteFinished()) throw new RouteTimeException ("Route has already finished."); 
+		this.routeStart = System.currentTimeMillis();
+	}
+	
+	public boolean isRouteStarted() {
+		return (this.routeStart != 0  && this.routeStop == 0);
+	}
+	
+	public boolean isRouteFinished() {
+		return (this.routeStop != 0);
+	}
+
+	public void stopRoute() throws RouteTimeException {
+		if(this.isRouteStarted()) this.routeStop = System.currentTimeMillis();
+		else throw new RouteTimeException("Can't finish a unstarted route.");
+	}
+
+	/**
+	 * returns a linked list of deliveries
+	 * @return
+	 */
+	public LinkedList<Delivery> getLinkedDeliveries(){
+		LinkedList<Delivery> deliveries = new LinkedList<Delivery>();
+		
+		deliveries.addAll(this.getDeliveries());
+		
+		return deliveries;
+	}
+	
+	/**
+	 * @return
+	 */
+	public void acceptDelivery(Address address){
+		
+		for(int i=0; i<orderItems.size(); i++)
+		{
+			if(orderItems.get(i).getAddress().equals(address))
+			{
+				orderItems.get(i).setOrderItemStatus("delivered");
+				orderItems.remove(orderItems.get(i));
+			}
+		}
+	}
+	
+	/**
+	 * @return
+	 */
+	public void acceptCurrentDelivery(){
+		
+		if(this.getDeliveries().size() > 0)
+		{for(int i=0; i<orderItems.size(); i++)
+		{
+			if(orderItems.get(i).getAddress().equals(this.getDeliveries().get(0).getAddress()))
+			{
+				orderItems.get(i).setOrderItemStatus("delivered");
+				orderItems.remove(orderItems.get(i));
+			}
+		}}
+	}
+	
+	public void removeOrderItem(OrderItem oi) {
+		this.orderItems.remove(oi);
+	}
+	
+	public Address getCurrentAddress() {
+		if(!this.getDeliveries().isEmpty())
+			{return this.getDeliveries().get(0).getAddress();}
+		else
+			return new Address("Münstergasse 61", "3011 Bern");
+	}
+	
+	public Delivery getCurrentDelivery() {
+		if(!this.getDeliveries().isEmpty())
+			{return this.getDeliveries().get(0);}
+		return new Delivery();
+	}
+	
+	public ArrayList<OrderItem> getArrayOfOI() {
+		ArrayList<OrderItem> oi = new ArrayList<OrderItem>();
+		oi.addAll(orderItems);
+		
+		return oi;
+
 	}
 
 		

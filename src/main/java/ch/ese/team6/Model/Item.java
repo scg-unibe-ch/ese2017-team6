@@ -20,9 +20,9 @@ public class Item {
 	    private long id;
 	 	@NotNull @Column(name = "name", unique = true)
 	 	private String name;
-	 	@Min(value = 0)
-	 	private int requiredAmountOfPalettes;
 	 	@Min(value = 0) @Max(value = 40) //max tons of trucks load capacity
+	 	private int requiredSpace;
+	 	@Min(value = 0)
 	 	private int weight;
 		//@Column(name = "status")
 		private Status status;
@@ -88,12 +88,12 @@ public class Item {
 			this.name = name;
 		}
 		public int getRequiredSpace() {
-			return requiredAmountOfPalettes;
+			return requiredSpace;
 		}
 
 		public void setRequiredSpace(int requiredSpace) throws BadSizeException{
 			if (requiredSpace < 0) throw new BadSizeException("required space can't be negative.");
-			this.requiredAmountOfPalettes = requiredSpace;
+			this.requiredSpace = requiredSpace;
 		}
 
 		public void setId(long id) {

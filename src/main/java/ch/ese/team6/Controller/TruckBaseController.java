@@ -3,10 +3,12 @@ package ch.ese.team6.Controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,16 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.TruckRepository;
+import ch.ese.team6.Service.TruckService;
 
 
 @Controller
 @RequestMapping("/truck")
 public class TruckBaseController {
 		
-	@Autowired
-	private TruckRepository truckRepository;
+	@Autowired	private TruckRepository truckRepository;
+	@Autowired	private TruckService truckService;
 	
 	@GetMapping(path="/add")
 	public String createForm(Model model) {
@@ -35,11 +39,20 @@ public class TruckBaseController {
 
 	
 	@PostMapping(path="/add")
-	public ModelAndView addNewTruck (@ModelAttribute Truck truckvalue) {
-		Truck truck = new Truck();
-		truck=truckvalue;
-		truckRepository.save(truck);
-		return new ModelAndView("/truck/profile", "truck", truck);
+	public String addNewTruck (Model model, @ModelAttribute("truck")@Valid Truck truck, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("truck", truck);
+			return "truck/create";
+		}
+		try {
+			truckService.save(truck);
+		} catch (DupplicateEntryException | BadSizeException e) {
+			model.addAttribute("message", e.getMessage());
+			model.addAttribute("truck", truck);
+			return "truck/create";
+		}
+		model.addAttribute("truck",truck);
+		return "truck/profile";
 	}
 	
 	@RequestMapping(path="/")

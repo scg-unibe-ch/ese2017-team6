@@ -52,7 +52,7 @@
                     </select>
                   </td>
                   <td>
-                    <input type="number" min="1" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
+                    <input type="number" min="0" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
                   </td>
                   <td>
                     <button type="submit" class="btn btn-primary" name="removeRow" th:value="${rowStat.index}">Remove row</button>

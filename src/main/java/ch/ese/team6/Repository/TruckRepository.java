@@ -8,9 +8,8 @@ import ch.ese.team6.Model.Truck;
 
 
 public interface TruckRepository  extends JpaRepository<Truck, Long>{
-
 	List<Truck>findAll();	
-	
 	Truck findById(long id);
+	boolean existsByTruckname(String truckname);
 	
 }

@@ -1,9 +1,20 @@
-package ch.ese.team6.Model;
+package ch.ese.team6.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import ch.ese.team6.Model.Address;
+import ch.ese.team6.Model.AddressDistanceManager;
+import ch.ese.team6.Model.IDelivarable;
+import ch.ese.team6.Model.OrderItem;
+import ch.ese.team6.Model.Route;
+import ch.ese.team6.Model.RouteCollection;
+import ch.ese.team6.Model.Truck;
+import ch.ese.team6.Model.User;
 
 public class RouteGenerator implements IAutomaticRouteGenerator {
 private ArrayList<Truck> trucks;
@@ -11,18 +22,19 @@ private ArrayList<IDelivarable> delivarables;
 private AddressDistanceManager addressDistances;
 private Address deposit;
 private RouteCollection routes;
+private ArrayList<User> drivers;
+private Date deliveryDate;
 	@Override
-	public void initialize(ArrayList<Truck> trucks, ArrayList<IDelivarable> items,
-			AddressDistanceManager addressDistances, Address depositAddress) {
-		assert trucks!=null && trucks.size() != 0;
-		assert depositAddress != null;
-		assert items!=null && items.size() !=0;
-		assert addressDistances != null;
-		this.trucks = trucks;
-		this.delivarables = items;
-		this.addressDistances = addressDistances;
-		this.deposit = depositAddress;
+	public void initialize(RouteGenerationProblem routeProblem) {
+		assert routeProblem.isOK();
+		assert routeProblem.theoreticallySolvable();
 		
+		this.trucks = routeProblem.getTrucks();
+		this.delivarables = routeProblem.getOrders();
+		this.addressDistances = routeProblem.getAddressManager();
+		this.deposit = routeProblem.getDepositAddress();
+		this.drivers = routeProblem.getDrivers();
+		this.deliveryDate = routeProblem.getDeliveryDate();
 		
 		// We do 10 random cluster initalizations 
 		int bestDistance = Integer.MAX_VALUE;
@@ -35,6 +47,28 @@ private RouteCollection routes;
 			}
 		}
 		
+		
+		
+		/*
+		 * Since we move the Items from one order to another at the end we have to make
+		 * sure each orderItem stores the right Route
+		 */
+		
+		if(bestSolution==null) {
+			for(IDelivarable o: this.delivarables) {
+				o.setRoute(null);
+			}
+		}else {
+
+			bestSolution.removeEmptyRoutes();
+			
+			for(Route r: bestSolution.getRoutes()) {
+				for(OrderItem o: r.getOrderItems()) {
+					o.setRoute(r);
+				}
+			}
+		}
+		
 		this.routes = bestSolution;
 		
 
@@ -44,12 +78,20 @@ private RouteCollection routes;
 	private RouteCollection initializeRandom(){
 		// First step: Each route will consist of a random address.
 		// We create as many routes as we have trucks
-		RouteCollection candidate = new RouteCollection(trucks.size());
+		int maxRoutes = Math.min(trucks.size(), drivers.size());
+		RouteCollection candidate = new RouteCollection(maxRoutes);
 		ArrayList<Address> addresses = new ArrayList<Address>(getAllAddresses(delivarables));
+		for(IDelivarable o: this.delivarables) {
+			o.setRoute(null);
+		}
 		
 		
-		for(int i = 0; i< trucks.size();i++) {
+		for(int i = 0; i< maxRoutes;i++) {
 			Route route = new Route(deposit);
+			
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
+			route.setRouteDate(df.format(deliveryDate));
+			
 			// Each route will start at a different address.
 			if(!addresses.isEmpty()) {
 				int randomNumber = (int) Math.floor(Math.random()*addresses.size());
@@ -74,11 +116,12 @@ private RouteCollection routes;
 		// Now all delivarables form part of a route. And there are as many routes as trucks
 		// But we did not yet assign trucks to the routes.
 		this.assignTrucks(candidate);
+		this.assignDivers(candidate);
 		
 		//Now all delivarables are assigned to a route and all routes have a truck.
 		// We now want to make sure that the capacity constraints are satisfied.
 		//For each route where the capacity is not satisfied, we try to remove Objects.
-		for(Route route: candidate) {
+		for(Route route: candidate.getRoutes()) {
 			if(!route.isCapacitySatified()) {
 				boolean success = fix(route,candidate);
 				if(!success) {
@@ -90,6 +133,18 @@ private RouteCollection routes;
 		return candidate;
 	}
 
+	private void assignDivers(RouteCollection candidate) {
+
+		
+		assert candidate.size() <= drivers .size();
+		int i = 0;
+		for(Route route:candidate.getRoutes()) {
+			route.setDriver(drivers.get(i));
+			i++;
+		}
+	}
+
+
 	//Tries to fix a Route which does not satisfy capcacity by moving the Elements away to other routes
 	private boolean fix(Route route, RouteCollection candidate) {
 		int n = route.getOrderItems().size();
@@ -97,8 +152,9 @@ private RouteCollection routes;
 			IDelivarable delivarableToMove = route.getOrderItems().get(i);
 			Route routeWhereDeliveryCanBeAdded = getNeighrestRoute(delivarableToMove.getAddress(), candidate, true, delivarableToMove);
 			if(routeWhereDeliveryCanBeAdded!=null) {
-				routeWhereDeliveryCanBeAdded.addDelivarable((delivarableToMove));
 				route.remove(delivarableToMove);
+				routeWhereDeliveryCanBeAdded.addDelivarable((delivarableToMove));
+				
 				if(route.isCapacitySatified()) {
 					return true;
 				}
@@ -117,8 +173,9 @@ private RouteCollection routes;
 	 */
 	private void assignTrucks(RouteCollection candidate) {
 		ArrayList<Truck> trucks_copy = (ArrayList<Truck>) trucks.clone();
-		assert candidate.size() == trucks_copy .size();
-		for(Route route:candidate) {
+		
+		assert candidate.size() <= trucks_copy.size();
+		for(Route route:candidate.getRoutes()) {
 			
 			Truck truckCandidate = trucks_copy.get(0);
 			int bestCandidateD = getDistance(truckCandidate.getMaxCargoSpace()-route.getSize(),truckCandidate.getMaxLoadCapacity()-route.getWeight());
@@ -154,7 +211,7 @@ private RouteCollection routes;
 		
 		Route nearestRoute = null;
 		int distance = Integer.MAX_VALUE;
-		for(Route route: routes) {
+		for(Route route: routes.getRoutes()) {
 			int distanceToNearestAddressInRoute = addressDistances.getDistanceToNeighrestAddress(a, route.getAllAddresses(true));
 			if(distanceToNearestAddressInRoute<distance) {
 				if(!checkCapacity || (checkCapacity && route.doesIDelivarableFit(delivarableToPass))) {
@@ -173,7 +230,6 @@ private RouteCollection routes;
 	 * Will be null if no legal solution was found
 	 */
 	public RouteCollection getRoutes() {
-		routes.removeEmptyRoutes();
 		return routes;
 	}
 	

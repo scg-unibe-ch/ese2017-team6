@@ -26,5 +26,39 @@ public class TruckModelTest {
 		truck.setVehicleCondition(0);
 		assertFalse(truck.isValid());
 	}
+	
+	@Test
+	public void unSavedTrucksHaveNoId() {
+		try {
+			Truck truck = new Truck();
+			assertFalse(truck.hasId());
+		}
+		catch(NullPointerException n) {
+			fail("hasId should't throw exception.");
+		}
+	}
+	
+	@Test
+	public void setWrongLoadCapacity() {
+		try {
+			Truck truck = new Truck();
+			truck.setMaxLoadCapacity(0);
+			fail("Wrong load capacity should throw exception");
+		}
+		catch(BadSizeException e) {
+			
+		}
+	}
+	@Test
+	public void setCorrectLoadCapacity() {
+		try {
+			Truck truck = new Truck();
+			truck.setMaxLoadCapacity(1);
+			
+		}
+		catch(BadSizeException e) {
+			fail("Correct load capacity shouldn't throw exception");
+		}
+	}
 
 }

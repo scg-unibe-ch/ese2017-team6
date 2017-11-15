@@ -1,5 +1,6 @@
 package ch.ese.team6.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class OrderItem implements IDelivarable {
 	 	private Order orders;
 	 	
 
-	 	@ManyToOne(fetch=FetchType.LAZY)
+	 	@ManyToOne(fetch=FetchType.LAZY,cascade = {CascadeType.ALL})
 		@JoinColumn(name="ROUTE_ID")
 	 	private Route route;
 	 	/**

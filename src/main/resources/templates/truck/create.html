@@ -5,10 +5,27 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1>new truck</h1>
+	<div th:if="${message}">
+    	<h2 th:text= "${message}"></h2>
+    </div>
     <form action="#" th:action="@{/truck/add}" th:object="${truck}" method="post">
-        <p>truck name: <input type="text" th:field="*{truckname}" /></p>
-        <p>max cargo space: <input type="number" th:field="*{maxCargoSpace}" /></p>
-        <p>max load capacity: <input type="number" th:field= "*{maxLoadCapacity}" /></p>
+    	<table>
+    		<tr>
+    			<td>truck name: </td>
+    			<td> <input  type = "text" th:field="*{truckname}" required = "required"/></td>
+    			<td th:="${#fields.hasErrors('truckname')}" th:errors="*{truckname}" th:text="'truckname can't be empty.'"></td>
+    		</tr>
+    		<tr>
+    			<td> max cargo space: </td>
+    			<td> <input  type = "number" th:field="*{maxCargoSpace}" required = "required" min="1"/></td>
+    			<td th:if="${#fields.hasErrors('maxCargoSpace')}" th:errors="*{maxCargoSpace}" th:text="'max cargo space can't be negative.'"></td>
+    		</tr>
+    		<tr>
+    			<td> max load capacity: </td>
+    			<td> <input  type = "number" th:field="*{maxLoadCapacity}" required = "required" min="1"/></td>
+    			<td th:if="${#fields.hasErrors('maxLoadCapacity')}" th:errors="*{maxLoadCapacity}" th:text="'max load capacity can't be negative.'"></td>
+    		</tr>
+       	</table>
        <select class="form-control" name="vehicleCondition" id="vehicleCondition">
 					<option value="0">choose vehicle condition</option>
 					<option th:value= "0" th:text="active"/>
@@ -18,6 +35,6 @@
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
-    </div>
+    </div>    
 </body>
 </html>
