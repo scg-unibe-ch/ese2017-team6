@@ -72,7 +72,7 @@ public class RouteController{
 		newRoute.setDriver(userRepository.findOne((long)driverId));
 		newRoute.setTruck(truckRepository.findOne((long)truck));
 		routeRepository.save(newRoute);
-		return new ModelAndView("/route/profile", "route", newRoute);
+		return new ModelAndView("route/profile", "route", newRoute);
 	}
 
 	@RequestMapping(path="/")
