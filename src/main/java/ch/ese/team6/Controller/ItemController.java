@@ -38,7 +38,7 @@ public class ItemController {
 		Item item = new Item();
 		item=itemvalue;
 		itemRepository.save(item);
-		return new ModelAndView("/item/show", "item", item);
+		return new ModelAndView("item/show", "item", item);
 	}
 	
 	@RequestMapping(path="/")
