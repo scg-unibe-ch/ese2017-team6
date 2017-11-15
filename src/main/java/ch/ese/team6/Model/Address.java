@@ -70,12 +70,24 @@ public class Address {
 		return street+", "+city+", "+country;
 	}
 	
+	public String getStreetandCity() {
+		return street+", "+city;
+	}
+	
 	private boolean invariant() {
 		return (this.street!=null && this.city != null && this.street.length()!=0 && this.city.length()!=0 && this.country!= null && this.country.length()!=0);
 	}
 
 	public boolean isOK() {
 		return this.invariant();
+	}
+
+	public boolean equals(Address address) {
+		// TODO Auto-generated method stub
+		if(address.getId() == this.id)
+			return true;
+		else
+			return false;
 	}
 
 }
