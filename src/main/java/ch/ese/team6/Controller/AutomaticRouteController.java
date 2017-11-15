@@ -107,7 +107,7 @@ public class AutomaticRouteController {
 		}
 		
 		
-		return "/automaticroutegeneration/selectdate";
+		return "automaticroutegeneration/selectdate";
 	}
 
 	@RequestMapping(value="/selectdate", params={"submitDate"})

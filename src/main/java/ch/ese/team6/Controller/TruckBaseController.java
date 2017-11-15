@@ -52,7 +52,7 @@ public class TruckBaseController {
 			return "truck/create";
 		}
 		model.addAttribute("truck",truck);
-		return "/truck/profile";
+		return "truck/profile";
 	}
 	
 	@RequestMapping(path="/")

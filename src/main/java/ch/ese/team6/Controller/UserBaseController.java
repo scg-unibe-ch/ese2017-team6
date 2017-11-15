@@ -72,7 +72,7 @@ public class UserBaseController {
 			return "user/create";
 		}
 		model.addAttribute("user", user);
-		return "/user/profile";
+		return "user/profile";
 	}	
 	
 	@GetMapping(path = "/{userId}")
@@ -98,7 +98,7 @@ public class UserBaseController {
 		userService.save(user);
 		}
 		catch(Exception e) {}
-		return new ModelAndView("/user/profile", "user", user);
+		return new ModelAndView("user/profile", "user", user);
 	}
 	
 	@DeleteMapping(path = "/{userId}/edit")

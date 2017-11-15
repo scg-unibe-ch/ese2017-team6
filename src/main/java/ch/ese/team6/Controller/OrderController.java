@@ -50,7 +50,7 @@ public class OrderController {
 	@RequestMapping(path = "/")
 	public String showAllOrders(Model model) {
 		model.addAttribute("orders", orderRepository.findAll());
-		return "/orders/orderMain";
+		return "orders/orderMain";
 	}
 	
 	/*
@@ -94,7 +94,7 @@ public class OrderController {
 		
 		model.addAttribute("allCustomers", customerRepository.findAll());
 		model.addAttribute("allItems", itemRepository.findAll());
-		return "/orders/add";
+		return "orders/add";
 	}
 	
     @RequestMapping(value="/add", params={"addRow"})

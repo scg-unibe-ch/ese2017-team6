@@ -115,7 +115,7 @@ public class RouteController{
 		Route route = routeRepository.findOne(routeId);
 		//route.setVehicleId(routevalue.getVehicleId());route.setDriverId(routevalue.getDriverId());
 		routeRepository.save(route);
-		return new ModelAndView("/route/profile", "route", route);
+		return new ModelAndView("route/profile", "route", route);
 	}
 	
 	@DeleteMapping(path = "/{routeId}/edit")
@@ -153,7 +153,7 @@ public class RouteController{
 		order.scheduleOrder();
 		routeRepository.save(route);
 		orderRepository.save(order);
-		return new ModelAndView("/route/profile", "route", route);
+		return new ModelAndView("route/profile", "route", route);
 	}
 	
 	@RequestMapping(path="/onmap")
