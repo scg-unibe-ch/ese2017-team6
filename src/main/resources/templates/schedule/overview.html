@@ -51,7 +51,7 @@
 			    		<th>Truck</th>
 			    		<th>Driver</th>
 			    		<!-- <th>Capacity Size</th> -->
-			    		<th>Capacity Weight</th>
+			    		<!-- <th>Capacity Weight</th> -->
 			    		<th>Number of deliveries</th>
 			    		<th>Delivery Date</th>
 			    		<th></th>
@@ -63,7 +63,7 @@
 			    		<td th:text="${route.getTruck()}"></td>
 			    		<td th:text="${route.getDriver()}"></td>
 			    		<!--<td th:text="${route.calculateCapacitySize()}"></td> -->
-			    		<td th:text="${route.calculateCapacityWeight()}"></td>
+			    		<!-- <td th:text="${route.calculateCapacityWeight()}"></td> -->
 			    		<td th:text="${route.countDeliveries()}"></td>
 			    		<td th:text="${route.getDate()}"></td>
 			    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
