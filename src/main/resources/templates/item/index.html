@@ -18,7 +18,7 @@
 		    	</tr>
 		</thead>
 		<tbody>
-		    	<tr th:each="item : ${items}">
+		    	<tr th:each="item : ${items}" th:classappend="${item.status.getValue() == 1} ? warning">
 		    		<td th:text="${item.getId()}"></td>
 		    		<td th:text="${item.getName()}"></td>
 		    		<td th:text="${item.getRequiredSpace()}"></td>
