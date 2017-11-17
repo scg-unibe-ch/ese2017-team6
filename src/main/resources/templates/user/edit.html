@@ -6,6 +6,8 @@
 	<div class="container">
 	<h1 th:text= "${user.username}"></h1>
     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="post">
+     <div class="panel panel-default">
+	 <div class="panel-body">
       	<p th:text="'your id: ' + *{id}" />
       	<p th:text="'your name: ' + *{username}" />
         <p>first name:<input type="text" th:field= "*{firstname}"/></p>
@@ -29,7 +31,9 @@
         		<option th:each="var : ${statusArray}"
         				th:value="${var}" th:text="${var.getTitle()}"></option>
             </select></p>
-		<br/>
+      </div>
+      </div>
+		
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>
