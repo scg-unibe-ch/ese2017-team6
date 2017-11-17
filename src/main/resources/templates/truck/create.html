@@ -26,11 +26,16 @@
     			<td th:if="${#fields.hasErrors('maxLoadCapacity')}" th:errors="*{maxLoadCapacity}" th:text="'max load capacity can't be negative.'"></td>
     		</tr>
        	</table>
-       <select class="form-control" name="vehicleCondition" id="vehicleCondition">
-					<option value="0">choose vehicle condition</option>
-					<option th:value= "0" th:text="active"/>
-					<option th:value= "1" th:text="inactive"/>
-    	</select>
+<!--        	        <p>status -->
+<!--         	<select th:field="*{status}"> -->
+<!--         		<option th:each="var : ${statusArray}" -->
+<!--         				th:value="${var}" th:text="${var.getTitle()}"></option> -->
+<!--             </select></p> -->
+<!--        <select class="form-control" name="vehicleCondition" id="vehicleCondition"> -->
+					
+<!-- 					<option th:value= "0" th:text="active"/> -->
+<!-- 					<option th:value= "1" th:text="inactive"/> -->
+<!--     	</select> -->
     	<br/>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>

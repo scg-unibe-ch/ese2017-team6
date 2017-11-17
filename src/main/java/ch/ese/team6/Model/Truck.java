@@ -28,12 +28,14 @@ public class Truck {
 	private int maxCargoSpace;
 	@NotNull @Min( value = 0)
 	private int maxLoadCapacity;
-	@NotNull @Min(value = 0) @Max( value = 1)
-	private int vehicleCondition;
+	//@NotNull @Min(value = 0) @Max( value = 1)
+	private DataStatus status;
 	@OneToMany(mappedBy="truck")
 	private List<Route> routes;
 	
-	public Truck() {}
+	public Truck() {
+ 		this.status = DataStatus.ACTIVE;
+	}
 
 	public long getId() {
 		return id;
@@ -66,24 +68,32 @@ public class Truck {
 		if(maxLoadCapacity < 0) throw new BadSizeException("Max load capacity can't be negative.");
 		this.maxLoadCapacity = maxLoadCapacity;
 	}
-	public int getVehicleCondition() {
-		return vehicleCondition;
-	}
 	
-	public String getVehicleConditionAsString() {
-		if (this.getVehicleCondition() == 0) return "active";
-		return "inactive";
+	public DataStatus getStatus() {
+		return this.status;			
 	}
-	
-	public void setVehicleCondition(int vehicleCondition) throws BadSizeException{
-		if(!(vehicleCondition == 0 || vehicleCondition == 1)) throw new BadSizeException("Vehicle conditions has to be one or null");
-		this.vehicleCondition = vehicleCondition;
+			
+	public void setStatus(DataStatus status) {
+		this.status = status;
 	}
+//	public int getVehicleCondition() {
+//		return vehicleCondition;
+//	}
+//	
+//	public String getVehicleConditionAsString() {
+//		if (this.getVehicleCondition() == 0) return "active";
+//		return "inactive";
+//	}
+//	
+//	public void setVehicleCondition(int vehicleCondition) throws BadSizeException{
+//		if(!(vehicleCondition == 0 || vehicleCondition == 1)) throw new BadSizeException("Vehicle conditions has to be one or null");
+//		this.vehicleCondition = vehicleCondition;
+//	}
 	
 	public boolean isValid() {
 		if(
 			this.truckname.isEmpty() ||
-			!((this.vehicleCondition )== 0 || (this.vehicleCondition == 1)) ||
+//			!((this.vehicleCondition )== 0 || (this.vehicleCondition == 1)) ||
 			!(this.maxCargoSpace > 0) ||
 			!(this.maxLoadCapacity > 0)) {return false;}
 		return true;

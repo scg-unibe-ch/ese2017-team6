@@ -8,15 +8,12 @@
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="post">
       	<p th:text="'truck id: ' + *{id}" />
       	<p th:text="'vehicle name: ' + *{truckname}" />
-        <p>vehicle name<input type="text" th:field="*{truckname}" /></p>
-         <div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">vehicle condition
-			<span class="caret"></span></button>
-			<ul class="dropdown-menu">
-			  <li><a href="#">active</a></li>
-			  <li><a href="#">inactive</a></li>
-			</ul>
-		</div>
+        <p>new vehicle name<input type="text" th:field="*{truckname}" /></p>
+                <p>status
+        	<select th:field="*{status}">
+        		<option th:each="var : ${statusArray}"
+        				th:value="${var}" th:text="${var.getTitle()}"></option>
+            </select></p>
 		<br/>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
