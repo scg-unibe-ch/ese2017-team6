@@ -11,19 +11,22 @@
 		    <table class="table table-hover">
 		    	<thead>
 			    	<tr>
-			    		<th>Id</th>
-			    		<th>Street</th>
-			    		<th>City</th>
-			    		<th>Country</th>
+			    		<th>id</th>
+			    		<th>street</th>
+			    		<th>city</th>
+			    		<th>country</th>
+			    		<th>status</th>
 			    		
 			    	</tr>
 		    	</thead>
 		    	<tbody>
-			    	<tr th:each="ad : ${address}">
+			    	<tr th:each="ad : ${address}" th:classappend="${ad.status.getValue() == 1} ? warning">
 			    		<td th:text="${ad.getId()}"></td>
 			    		<td th:text="${ad.getStreet()}"></td>
 			    		<td th:text="${ad.getCity()}"></td>
 			    		<td th:text="${ad.getCountry()}"></td>
+			    		<td th:text="${ad.status.getTitle()}"></td>
+			    		<td><a th:href="@{{id}(id = ${ad.id})}">profile</a></td>
 	
 					</tr>
 				</tbody>

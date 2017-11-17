@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
+	<h1 th:text= "'address ' + ${address.id}"></h1>
+    <form action="#" th:action="@{/address/{id}/edit(id = ${address.id})}" th:object="${address}" th:method="post">
+    <div class="panel panel-default">
+	<div class="panel-body">
+      	<p th:text="'address id: ' + *{id}" />
+      	<p th:text="'street: ' + *{street}" />
+      	<p th:text="'city: ' + *{city}" />
+      	<p th:text="'country: ' + *{country}" />
+
+        <p>status
+        	<select th:field="*{status}">
+        		<option th:each="var : ${statusArray}"
+        				th:value="${var}" th:text="${var.getTitle()}"></option>
+            </select></p>
+     </div>
+     </div>
+     <br/>
+     <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
+     <input type="reset" class="btn btn-primary" value="reset"/>
+     <a href ="/address/" class="btn btn-primary" role="button">go back to overview</a>
+    </form>
+    </div>
+</body>
+</html>

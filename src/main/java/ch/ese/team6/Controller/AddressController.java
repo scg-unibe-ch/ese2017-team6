@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Address;
+import ch.ese.team6.Model.DataStatus;
+import ch.ese.team6.Model.Item;
 import ch.ese.team6.Repository.AddressRepository;
 
 @Controller
@@ -48,6 +51,27 @@ public class AddressController {
 		return "address/addressIndex";
 	}
 	
+	@GetMapping(path = "/{Id}")
+	public String showAddress(Model address,@PathVariable Long Id) {
+		address.addAttribute("address", addressRepository.findOne(Id));
+		return "address/profile"; 
+	}
+	
+	@GetMapping(path = "/{addressId}/edit")
+	public String editAddress(Model address, @PathVariable long addressId) {
+		address.addAttribute("address", addressRepository.findOne(addressId));
+		address.addAttribute("statusArray", DataStatus.values());
+		return "address/editForm";
+	}
+	
+	@PostMapping(path = "/{addressId}/edit")
+	public String editAddress(Model model, @ModelAttribute Address addressvalue, @PathVariable long addressId) {
+		Address address = addressRepository.findOne(addressId);
+		address.setStatus(addressvalue.getStatus());
+		addressRepository.save(address);
+		model.addAttribute("address", address);
+		return ("address/profile");
+	}	
 	
 	
 }
