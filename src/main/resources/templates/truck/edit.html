@@ -15,8 +15,10 @@
         				th:value="${var}" th:text="${var.getTitle()}"></option>
             </select></p>
 		<br/>
-        <input type="submit" class="btn btn-primary" value="submit"/>
+        <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
+        <a href ="/truck/" class="btn btn-primary" role="button">go back to overview</a>
+        
     </form>
     <br/>
     <form action="#" th:action="@{/truck/{id}/edit(id = ${truck.id})}" th:object="${truck}" th:method="delete">

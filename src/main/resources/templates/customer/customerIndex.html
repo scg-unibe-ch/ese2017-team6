@@ -19,11 +19,11 @@
 		    		</tr>
 		    	</thead>
 		    	<tbody>
-		    	<tr th:each="cus : ${customer}">
+		    	<tr th:each="cus : ${customer}" th:classappend="${cus.status.getValue() == 1} ? warning">
 		    		<td th:text="${cus.getId()}"></td>
 		    		<td th:text="${cus.getName()}"></td>
 		    		<td th:text="${cus.getAddress()}"></td>
-		    		<td th:text="${cus.getCustomerStatusAsString()}"></td>
+		    		<td th:text="${cus.status.getTitle()}"></td>
 		    		<td><a th:href="@{{id}(id = ${cus.id})}">profile</a></td>
 				</tr>
 				</tbody>

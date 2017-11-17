@@ -13,8 +13,8 @@
 	    <p th:text="'status: ' + ${item.getStatus().getTitle()}" />
     </div>
     </div>
-    <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
     <a th:href="@{/item/{id}/edit(id = ${item.id})}" class="btn btn-primary">edit this article</a>
+    <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
     </div>
 </body>
 </html>
