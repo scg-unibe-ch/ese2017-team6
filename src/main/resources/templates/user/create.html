@@ -46,11 +46,14 @@
     			<td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:text="'phonenumber can't be empty'"></td>
     		</tr>
     	</table>
-    	<select class="form-control" th:field = "*{roles}">
+    	<p> role:
+    	<select th:field = "*{roles}">
 			<option th:each= "role : ${roles}" th:value="${role.getId()}" th:text="${role.toString()}"></option>
-		</select>
-        <input type="submit" class="btn btn-primary" value="submit"/>
+		</select></p>
+		<br/>
+        <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
+        <a href ="/user/" class="btn btn-primary" role="button">go back to overview</a>
     </form>
     </div>
 </body>

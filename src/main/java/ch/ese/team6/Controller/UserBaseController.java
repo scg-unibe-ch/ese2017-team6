@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Customer;
+import ch.ese.team6.Model.DataStatus;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.RoleRepository;
 import ch.ese.team6.Repository.UserRepository;
@@ -84,6 +85,8 @@ public class UserBaseController {
 	@GetMapping(path = "/{userId}/edit")
 	public String editUser(Model user, @PathVariable long userId) {
 		user.addAttribute("user", userRepository.findOne(userId));
+		user.addAttribute("statusArray", DataStatus.values());
+		user.addAttribute("roles", roleRepository.findAll());
 		return "user/edit";
 	}
 	
@@ -94,7 +97,8 @@ public class UserBaseController {
 		user.setFirstname(uservalue.getFirstname());
 		user.setSurname(uservalue.getSurname());
 		user.setPassword(uservalue.getPassword());
-		user.setUserCondition(uservalue.getUserCondition());;
+		user.setStatus(uservalue.getStatus());
+		user.setRoles(uservalue.getRoles());
 		userService.save(user);
 		}
 		catch(Exception e) {}

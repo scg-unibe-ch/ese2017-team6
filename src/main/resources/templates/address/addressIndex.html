@@ -4,8 +4,9 @@
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-	<!-- 	TODO: condition for next line: just show when list is empty -->
-<!-- 		<p> no address found </p> -->
+		<div th:if="${#lists.isEmpty(address)}">
+		<p> no address found </p>
+		</div>
 		<div th:if="${not #lists.isEmpty(address)}">
 		    <h1>all addresses</h1>
 		    <table class="table table-hover">

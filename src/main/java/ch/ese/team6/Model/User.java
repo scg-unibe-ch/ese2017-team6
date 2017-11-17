@@ -38,8 +38,8 @@ public class User {
     @NotNull @Email
     private String email;
     private String phoneNumber;
-	@NotNull @Min(value = 0) @Max( value = 1)
-	private int userCondition;
+	//@NotNull @Min(value = 0) @Max( value = 1)
+	private DataStatus status;
     @OneToMany(mappedBy="driver")
     private List<Route> routes;
     
@@ -48,7 +48,7 @@ public class User {
     
     
     public User() {
-		this.userCondition = 0;
+		this.status = DataStatus.ACTIVE;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -157,18 +157,12 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public int getUserCondition() {
-		return this.userCondition;
+	public DataStatus getStatus() {
+		return this.status;			
 	}
-	
-	public String getUserConditionAsString() {
-		if (this.getUserCondition() == 0) return "active";
-		return "inactive";
-	}
-	
-	public void setUserCondition(int userCondition) throws BadSizeException{
-		if(!(userCondition == 0 || userCondition == 1)) throw new BadSizeException("user conditions has to be one or null");
-		this.userCondition = userCondition;
+			
+	public void setStatus(DataStatus status) {
+		this.status = status;
 	}
 	
 	public List<Route> getRoutes(){
