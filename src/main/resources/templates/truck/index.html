@@ -4,8 +4,10 @@
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-<!-- 	TODO: condition for next line: just show when list is empty -->
-<!-- 	<p> no trucks found </p> -->
+
+	<div th:if="${#lists.isEmpty(trucks)}">
+		<p> no trucks found </p>
+	</div>
 		<div th:if="${not #lists.isEmpty(trucks)}">
 		    <h1>all trucks</h1>
 		    <table class="table table-hover">
@@ -15,17 +17,17 @@
 			    		<th>vehicle name</th>
 			    		<th>max cargo space</th>
 			    		<th>max load capacity</th>
-			    		<th>vehicle condition</th>
+			    		<th>status</th>
 			    		<th></th>
 			    	</tr>
 			    </thead>
 			    <tbody>
-			    	<tr th:each="truck : ${trucks}">
+			    	<tr th:each="truck : ${trucks}" th:classappend="${truck.status.getValue() == 1} ? warning">
 			    		<td th:text="${truck.getId()}"></td>
 			    		<td th:text="${truck.getTruckname()}"></td>
 			    		<td th:text="${truck.getMaxCargoSpace()}"></td>
 			    		<td th:text="${truck.getMaxLoadCapacity()}"></td>
-			    		<td th:text="${truck.getVehicleConditionAsString()}"></td>
+			    		<td th:text="${truck.status.getTitle()}"></td>
 			    		<td><a th:href="@{{id}(id = ${truck.id})}">profile</a></td>
 					</tr>
 				</tbody>

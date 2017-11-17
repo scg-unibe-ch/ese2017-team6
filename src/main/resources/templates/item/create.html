@@ -5,44 +5,30 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1>add new article</h1>
-	
-<!-- 	<form class="form-horizontal"> -->
-<!-- 		<div class="form-group"> -->
-<!-- 			<label class="control-lavel col-sm-2" for="email">Email:</label> -->
-<!-- 			<div class="col-sm-10"> -->
-<!-- 				<input type="text" class="form-control" id="name" placeholder="enter name"> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div class="form-group"> -->
-<!-- 			<div class="col-sm-offset-2 col-sm-10"> -->
-<!-- 				<button type="submit" class="btn btn-primary">submit</button> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!--       </form> -->
-        
+
     <form action="#" th:action="@{/item/add}" th:object="${item}" method="post">
         <table>
     		<tr>
-    			<td>Name:</td>
+    			<td>name:</td>
     			<td> <input  type = "text" th:field="*{name}" required = "required"/></td>
     			<td th:="${#fields.hasErrors('name')}" th:errors="*{name}" th:text="'name can't be empty.'"></td>
     		</tr>
     		<tr>
-    			<td>Displacement in palettes:</td>
+    			<td>space in palettes:</td>
     			<td> <input  type ="number" th:field="*{requiredSpace}" required ="required" min="0" /></td>
     			<td th:if="${#fields.hasErrors('requiredSpace')}" th:errors="*{requiredSpace}" th:text="'displacement can't be negative.'"></td>
     		</tr>
     		<tr>
-    			<td>Weight:  </td>
+    			<td>weight:  </td>
     			<td> <input  type = "number" th:field="*{weight}" required = "required" min="0" /></td>
     			<td th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" th:text="'weight can't be negative.'"></td>
     		</tr>
        	</table>
+       	<br/>
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
+        <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
     </form>
-    	
-<!--     </form> -->
     
     </div>
 	</body>

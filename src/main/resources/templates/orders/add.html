@@ -8,62 +8,71 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
     <div>    
-      <h1>add new order</h1>
 
       <form action="#" th:action="@{/orders/add}" th:object="${order}" method="post">
     
         <fieldset>
           
-          <legend>order data</legend>          
-          <div>
-            <label for="delivery date">
-              <span>delivery date</span>
-              (<span>YYYY/MM/DD</span>)
-            </label>
-            <input type="date" th:field="*{deliveryDate}" />
-          </div> 
+          <h2> add new order</h2>
+          <table>
+    		<tr>
+    			<td> customer: </td>
+    			<td><select th:field="*{customer}">
+           	           <option th:each="var : ${allCustomers}" th:value="${var.id}" th:text="${var.getName()}"></option>
+                </select>
+                </td>
+    		</tr>
+    		
+    		<tr>
+    			<td> delivery date: </td>
+    			<td> <input type="date" th:field="*{deliveryDate}" /> </td>
+    		</tr>
+    		
+    		
+    	</table>
           
-          <div>
-            <label for="customer">customer</label>
-                    <select th:field="*{customer}">
-                      <option th:each="var : ${allCustomers}" th:value="${var.id}" th:text="${var.getName()}"></option>
-                    </select>
-          </div>
+        <h2>ordered products</h2>  
+            
+          
           
            <div>
-            <label>rows</label>
+            
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th>row</th>
-                  <th>item</th>
                   <th>amount</th>
-                  <th>
-                    <button type="submit" class="btn btn-primary" name="addRow">Add row</button>
-                  </th>
+                  <th>product</th>
+                  <th>remove</th>
+                   
+                  
                 </tr>
               </thead>
               <tbody>
                 <tr th:each="row,rowStat : *{orderItems}">
                   <td th:text="${rowStat.count}"></td>
                   <td>
+                    <input type="number" min="0" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
+                  </td>
+                  
+                  <td>
                     <select th:field="*{orderItems[__${rowStat.index}__].item}">
                       <option th:each="var : ${allItems}" th:value="${var.id}" th:text="${var.name}">Test</option>
                     </select>
                   </td>
+                  
                   <td>
-                    <input type="number" min="0" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
-                  </td>
-                  <td>
-                    <button type="submit" class="btn btn-primary" name="removeRow" th:value="${rowStat.index}">Remove row</button>
+                    <button type="submit" class="btn btn-primary" name="removeRow" th:value="${rowStat.index}">remove product</button>
                   </td>
                 </tr>
               </tbody>
             </table>
+              <button type="submit" class="btn btn-primary" name="addRow">add product</button>
           </div>
-    
+    	
+    	 <h2>submit order</h2>
           <div class="submit">
-            <button type="submit" class="btn btn-primary" name="save">Add Order</button>    
+            <button type="submit" class="btn btn-primary" name="save">submit Order</button>    
           </div>
         
         </fieldset>

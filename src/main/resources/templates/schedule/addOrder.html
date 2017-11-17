@@ -45,13 +45,13 @@
 				<table class="table table-hover">
 					<thead>
 				    	<tr>
-				    		<th>Id</th>
-				    		<th>Truck</th>
-				    		<th>Driver</th>
-				    		<th>Capacity Size</th>
-				    		<th>Capacity Weight</th>
-				    		<th>Number of deliveries</th>
-				    		<th>Delivery Date</th>
+				    		<th>id</th>
+				    		<th>truck</th>
+				    		<th>driver</th>
+				    		<th>space capacity</th>
+				    		<th>weight capacity</th>
+				    		<th>number of deliveries</th>
+				    		<th>delivery date</th>
 				    		<th></th>
 				    		<th></th>
 				    	</tr>
@@ -73,10 +73,15 @@
 			</div>
 		</form>
 		<form  th:action="@{/route/add/o/{id}(id = ${order.getId()})}" method="get">
+			<div class="panel panel-default">
+			<div class="panel-body">
 				<label for="routeDate"></label>
-	           	<input type="date" th:name="date" placeholder="set route date"/><br/> <br/>
+				<p> choose a date for a new route:
+	           	<input type="date" th:name="date" placeholder="set route date"/></p>
 	           	  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 				<input type="submit" class="btn btn-primary" value="create new route" />
+			</div>
+			</div>
 				</form>
 		</div>
 	</body>

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
+import ch.ese.team6.Model.DataStatus;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Service.TruckService;
@@ -42,6 +43,7 @@ public class TruckBaseController {
 	public String addNewTruck (Model model, @ModelAttribute("truck")@Valid Truck truck, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("truck", truck);
+			model.addAttribute("statusArray", DataStatus.values());
 			return "truck/create";
 		}
 		try {
@@ -71,6 +73,7 @@ public class TruckBaseController {
 	@GetMapping(path = "/{truckId}/edit")
 	public String editTruck(Model truck, @PathVariable long truckId) {
 		truck.addAttribute("truck", truckRepository.findOne(truckId));
+		truck.addAttribute("statusArray", DataStatus.values());
 		return "truck/edit";
 	}
 	
@@ -79,7 +82,7 @@ public class TruckBaseController {
 		Truck truck = truckRepository.findOne(truckId);
 		try {
 			truck.setTruckname(truckvalue.getTruckname());
-			truck.setVehicleCondition(truckvalue.getVehicleCondition());
+			truck.setStatus(truckvalue.getStatus());
 		} catch (BadSizeException e) {
 			// TODO Auto-generated catch block
 			return "staticpage/loaded";

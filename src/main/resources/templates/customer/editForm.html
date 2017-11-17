@@ -6,6 +6,8 @@
 	<div class="container">
 	<h1 th:text= "${customer.name}"></h1>
     <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="post">
+     <div class="panel panel-default">
+	 <div class="panel-body">
       	<p th:text="'id: ' + *{id}" />
       	<p th:text="'name: ' + *{name}" />
       	<p th:text="'address: ' + *{address}" />
@@ -13,17 +15,25 @@
         <p>address <select th:field="*{address}">
         	<option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
                     </select></p>
-        <div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">customer status
-			<span class="caret"></span></button>
-			<ul class="dropdown-menu">
-			  <li><a href="#">active</a></li>
-			  <li><a href="#">inactive</a></li>
-			</ul>
-		</div>
-		<br/>
-        <input type="submit" class="btn btn-primary" value="submit"/>
+        <p>status
+        	<select th:field="*{status}">
+        		<option th:each="var : ${statusArray}"
+        				th:value="${var}" th:text="${var.getTitle()}"></option>
+            </select></p>
+      </div>
+      </div>
+<!--         <div class="dropdown"> -->
+<!-- 			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">customer status -->
+<!-- 			<span class="caret"></span></button> -->
+<!-- 			<ul class="dropdown-menu"> -->
+<!-- 			  <li><a href="#">active</a></li> -->
+<!-- 			  <li><a href="#">inactive</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+		
+        <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
+        <a href ="/customer/" class="btn btn-primary" role="button">go back to overview</a>
     </form>
     <br/>
 <!--     <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="delete"> -->

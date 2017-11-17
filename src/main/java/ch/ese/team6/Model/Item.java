@@ -10,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Model.DataStatus;
 
 
 @Entity
@@ -24,40 +25,9 @@ public class Item {
 	 	private int requiredSpace;
 	 	@Min(value = 0)
 	 	private int weight;
-		//@Column(name = "status")
-		private Status status;
-		public enum Status {
-			AVAILABLE(0, "available"), UNAVAILABLE(1, "not available");
-			
-			private int value;
-			private String title;
-			public static final Status[] ALL = { AVAILABLE, UNAVAILABLE };
-			
-			private Status (int value, String title) {
-				this.value = value;
-				this.title = title;
-			}
-			
-			public int getValue() {
-				return value;
-			}
-			
-			public String getTitle() {
-				return title;
-			}
-			
-			public void setValue(int value) {
-				this.value = value;
-			}
-						
-			public static String getByValue(int value) {
-				for(Status s : Status.values()) {
-					if (value == s.getValue())
-						return "AVAILABLE";
-				}
-				return "UNAVAILABLE";
-			}
-		}
+		@Column(name = "status")
+		private DataStatus status;
+		
 	 	/**
 	 	 * Constructor with parameter
 	 	 * @param nameOfObject
@@ -65,14 +35,14 @@ public class Item {
 	 	public Item(String nameOfObject)
 	 	{
 	 		this.name = nameOfObject;
-	 		this.status = Status.AVAILABLE;
+	 		this.status = DataStatus.ACTIVE;
 	 	}
 	    
 	 	/**
 	 	 * Empty Constructor
 	 	 */
 	 	public Item() {
-	 		this.status = Status.AVAILABLE;
+	 		this.status = DataStatus.ACTIVE;
 	 	}
 	 	
 		public long getId() {
@@ -113,11 +83,11 @@ public class Item {
 			this.weight = weight;
 		}
 		
-		public Status getStatus() {
+		public DataStatus getStatus() {
 			return this.status;			
 		}
 				
-		public void setStatus(Status status) {
+		public void setStatus(DataStatus status) {
 			this.status = status;
 		}
 }

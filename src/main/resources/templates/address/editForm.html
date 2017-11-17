@@ -4,13 +4,14 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "${item.name}"></h1>
-    <form action="#" th:action="@{/item/{id}/edit(id = ${item.id})}" th:object="${item}" th:method="post">
+	<h1 th:text= "'address ' + ${address.id}"></h1>
+    <form action="#" th:action="@{/address/{id}/edit(id = ${address.id})}" th:object="${address}" th:method="post">
     <div class="panel panel-default">
 	<div class="panel-body">
-      	<p th:text="'article id: ' + *{id}" />
-      	<p th:text="'article name: ' + *{name}" />
-        <p>new article name<input type="text" th:field="*{name}" /></p> 
+      	<p th:text="'address id: ' + *{id}" />
+      	<p th:text="'street: ' + *{street}" />
+      	<p th:text="'city: ' + *{city}" />
+      	<p th:text="'country: ' + *{country}" />
 
         <p>status
         	<select th:field="*{status}">
@@ -22,13 +23,8 @@
      <br/>
      <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
      <input type="reset" class="btn btn-primary" value="reset"/>
-     <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
+     <a href ="/address/" class="btn btn-primary" role="button">go back to overview</a>
     </form>
-
-
-<!--     <form action="#" th:action="@{/item/{id}/edit(id = ${item.id})}" th:object="${item}" th:method="delete"> -->
-<!--        	<input type="submit" class="btn btn-danger" value="delete truck?" /> -->
-<!--     </form> -->
     </div>
 </body>
 </html>

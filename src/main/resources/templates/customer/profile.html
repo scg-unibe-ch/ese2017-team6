@@ -11,7 +11,7 @@
 		    <p th:text="'address: ' +${customer.getAddress().toString()}" />
 		    <p th:text="'phone: ' +${customer.getPhone().toString()}" />
 		    <p th:text="'email: ' +${customer.getEmail().toString()}" />
-		    <p th:text="'status: ' +${customer.getCustomerStatusAsString()}" />
+		    <p th:text="'status: ' +${customer.getStatus().getTitle()}" />
 		</div>
 		</div>
 		<a th:href="@{/customer/{id}/edit(id = ${customer.id})}" class="btn btn-primary">edit this customer</a>

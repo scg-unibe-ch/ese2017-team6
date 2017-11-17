@@ -8,13 +8,13 @@
 	<div class="panel panel-default">
 	<div class="panel-body">
 	    <p th:text="'article id: ' + ${item.id}" />
-<!-- 	    <p th:text="'space (palettes): ' + ${item.requiredAmountOfPalettes} + ' stillages'" /> -->
+	    <p th:text="'space: ' + ${item.requiredSpace} + ' stillages'" />
 	    <p th:text="'weight: ' + ${item.weight} + ' tons'" />
-	    <p th:text="'availability: ' + ${item.getStatus().getTitle()}" />
+	    <p th:text="'status: ' + ${item.getStatus().getTitle()}" />
     </div>
     </div>
-    <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
     <a th:href="@{/item/{id}/edit(id = ${item.id})}" class="btn btn-primary">edit this article</a>
+    <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
     </div>
 </body>
 </html>

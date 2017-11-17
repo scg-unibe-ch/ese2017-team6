@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Model.DataStatus;
 import ch.ese.team6.Model.Truck;
 
 public class TruckModelTest {
@@ -15,7 +16,7 @@ public class TruckModelTest {
 		truck.setTruckname("truckname");
 		truck.setMaxCargoSpace(10);
 		truck.setMaxLoadCapacity(10);
-		truck.setVehicleCondition(0);
+		truck.setStatus(DataStatus.ACTIVE);
 		assertTrue(truck.isValid());
 	}
 	
@@ -23,7 +24,7 @@ public class TruckModelTest {
 	public void rejectInvalidTrucks() throws BadSizeException {
 		Truck truck = new Truck();
 		truck.setTruckname("Truck");
-		truck.setVehicleCondition(0);
+		truck.setStatus(DataStatus.ACTIVE);
 		assertFalse(truck.isValid());
 	}
 	

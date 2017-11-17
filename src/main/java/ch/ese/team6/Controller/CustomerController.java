@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Model.Customer;
+import ch.ese.team6.Model.DataStatus;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.CustomerRepository;
 
@@ -78,6 +79,7 @@ public class CustomerController {
 	public String editCustomerForm(Model customer, @PathVariable long customerId) {
 		customer.addAttribute("customer", customerRepository.findOne(customerId));
 		customer.addAttribute("allAddress",addressRepository.findAll());
+		customer.addAttribute("statusArray", DataStatus.values());
 		return "customer/editForm";
 	}
 	
@@ -88,7 +90,7 @@ public class CustomerController {
 		try {
 		cus.setName(customervalue.getName());
 		cus.setAddress(customervalue.getAddress());
-		cus.setCustomerStatus(customervalue.getCustomerStatus());
+		cus.setStatus(customervalue.getStatus());
 		if(!customervalue.isOK()) {
     		return new ModelAndView("customer/error");
     	}		

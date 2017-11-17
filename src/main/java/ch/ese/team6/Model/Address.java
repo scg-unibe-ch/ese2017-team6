@@ -20,15 +20,17 @@ public class Address {
 	private String city; //and Poste Code
 	@NotNull
 	private String country;
+	private DataStatus status;
 	
 	public Address() {
-		
+		this.status = DataStatus.ACTIVE;
 	}
 	
 	public Address(String street, String city) {
 	
 		this.street = street;
 		this.city = city;
+		this.status = DataStatus.ACTIVE;
 	}
 
 
@@ -72,6 +74,14 @@ public class Address {
 	
 	public String getStreetandCity() {
 		return street+", "+city;
+	}
+	
+	public DataStatus getStatus() {
+		return this.status;			
+	}
+			
+	public void setStatus(DataStatus status) {
+		this.status = status;
 	}
 	
 	private boolean invariant() {
