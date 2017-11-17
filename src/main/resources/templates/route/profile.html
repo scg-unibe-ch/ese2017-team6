@@ -10,7 +10,7 @@
 			<div class="panel-body">
 			    <p th:text="'truck name: ' + ${route.getTruck()}" />
 			    <p th:text="'driver: ' + ${route.getDriver()}" /> 
-				     <ul th:each= "delivery : ${route.getDeliveries()}">
+				     <ul th:each= "delivery : ${route.getAllDeliveries()}">
 				    	<li th:text="${delivery.getAddress().toString()}"></li>
 					    	<ul th:each= "orderItem : ${delivery.getItems()}">
 					    		<li th:text = "${orderItem.toString()}"></li>

@@ -13,13 +13,15 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ch.ese.team6.Exception.InconsistentOrderStateException;
+
 @Entity
 public class OrderItem implements IDelivarable {
 	
 	 	@Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private long id;
-	 	@NotNull private String orderItemStatus;
+	 	@NotNull private OrderStatus orderItemStatus;
 	 	@NotNull private int amount;
 	 	
 		
@@ -36,35 +38,24 @@ public class OrderItem implements IDelivarable {
 	 	@ManyToOne(fetch=FetchType.LAZY,cascade = {CascadeType.ALL})
 		@JoinColumn(name="ROUTE_ID")
 	 	private Route route;
-	 	/**
-	 	 * Constructor with parameter
-	 	 * @param item, amount
-	 	 */
-	 	public OrderItem(Item item,int amount)
-	 	{
-	 		this.item= item;
-	 		this.orderItemStatus = "not delivered";
-	 		this.amount = amount;
+	 	
+	 	public OrderItem() {
+	 		super();
+	 		
+	 		this.orderItemStatus=OrderStatus.OPEN;
 	 	}
 	 	
-	 	/**
-	 	 * Empty Constructor
-	 	 */
-	 	public OrderItem()
-	 	{
-	 		this.orderItemStatus = "not delivered";
-	 	}
 	    
 	 	public OrderItem(Order order) {
-	 		this.orderItemStatus = "not delivered";
+	 		this.orderItemStatus = OrderStatus.OPEN;
 	 		this.orders = order;
 		}
 
-		public OrderItem(Order o, Item items, int i) {
-			this.orderItemStatus = "not delivered";
+		public OrderItem(Order o, Item items, int amount) {
+			this.orderItemStatus = OrderStatus.OPEN;
 	 		this.orders = o;
 	 		this.item = items;
-	 		this.amount = i;
+	 		this.amount = amount;
 		}
 
 		public long getId() {
@@ -98,11 +89,11 @@ public class OrderItem implements IDelivarable {
 			return this.route;
 		}
 
-		public String getOrderItemStatus() {
+		public OrderStatus getOrderItemStatus() {
 			return orderItemStatus;
 		}
 
-		public void setOrderItemStatus(String orderItemStatus) {
+		public void setOrderItemStatus(OrderStatus orderItemStatus) {
 			this.orderItemStatus = orderItemStatus;
 		}
 
@@ -135,8 +126,34 @@ public class OrderItem implements IDelivarable {
 		}
 		
 		public boolean invariant() {
-			return amount>=0 && item!=null;
+			return amount>=0 && item!=null && this.orders!=null;
 		}
+
+		@Override
+		public void schedule() throws InconsistentOrderStateException {
+			if(!this.orderItemStatus.equals(OrderStatus.OPEN)) {
+				throw new InconsistentOrderStateException("You can only schedule a open Order Item");
+			}
+			this.orderItemStatus = OrderStatus.SCHEDULED;
+			
+		}
+		@Override
+		public void acceptDelivery() throws InconsistentOrderStateException {
+			if(!this.orderItemStatus.equals(OrderStatus.SCHEDULED)) {
+				throw new InconsistentOrderStateException("You can only deliver a sheduled Order Item");
+			}
+			this.orderItemStatus = OrderStatus.FINISHED;
+		}
+		
+		@Override
+		public void rejectDelivery() throws InconsistentOrderStateException {
+			if(!this.orderItemStatus.equals(OrderStatus.SCHEDULED)) {
+				throw new InconsistentOrderStateException("You can only deliver a sheduled Order Item");
+			}
+			this.orderItemStatus = OrderStatus.OPEN;
+		}
+		
+		
 		
 
 }

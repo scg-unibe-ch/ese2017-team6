@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Repository.OrderRepository;
@@ -60,7 +61,11 @@ public class SchedulingController {
 		Order order = orderRepository.findOne(orderId);
 		route.addDelivarable(order);
 		if (route.isFull()) return"redirect:/schedule/"+orderId;
-		order.scheduleOrder();
+		try {
+			order.schedule();
+		} catch (InconsistentOrderStateException e) {
+			e.printStackTrace();
+		}
 		routeRepository.save(route);
 		orderRepository.save(order);
 		model.addAttribute("orders", orderRepository.findAll());
