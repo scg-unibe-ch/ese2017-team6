@@ -53,42 +53,11 @@ public class OrderController {
 		return "orders/orderMain";
 	}
 	
-	/*
-	 * This function creates testdata
-	 */
-	@GetMapping(path="/addtest")
-	public String addSampleOrders() {
-		
-		for (int i= 0;i<10; i++) {
-			
-			int n_cus = customerRepository.findAll().size();
-			Customer cus = customerRepository.findAll().get((int) (Math.random()*n_cus));
-			Date deliveryDate = Calendar.getInstance().getTime();
-			
-			Order order = new Order();
-			order.setCustomer(cus);
-			order.setDeliveryDate(deliveryDate);
-			
-			for(int j=0;j<(int)(Math.random()*10+1);j++){
-				OrderItem oi = new OrderItem(order);
-				order.getOrderItems().add(oi);
-				oi.setAmount((int)(Math.random()*10));
-				int n_item = itemRepository.findAll().size();
-				oi.setItem(itemRepository.findAll().get((int) (Math.random()*n_item)));
-				
-				//orderItemRepository.save(oi);
-		
-			}	
-			orderRepository.save(order);
-		}
-		return "redirect:/hello";
-	}
 	
 	
 	@GetMapping(path = "/add")
 	public String newOrder(Model model) {
 		Order o = new Order();
-		o.getOrderItems().add(new OrderItem(o));
 		o.setDeliveryDate(Calendar.getInstance().getTime());
 		model.addAttribute("order",o);
 		
