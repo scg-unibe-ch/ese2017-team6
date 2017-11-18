@@ -14,7 +14,7 @@
 	<div class="container">
 	
  <div th:if="${#lists.isEmpty(deliveries)}">
-		<h1> you finished your route</h1></div>
+		<h1> you completed the following route</h1></div>
  <div th:if="${not #lists.isEmpty(deliveries)}">
  
  <h1>the next delivery on the map</h1>
@@ -24,24 +24,36 @@
  	/*<![CDATA[*/
  	var addresses = [[${addresses}]];
  	
+ 	var counter = [[${route.getCounter()}]];
+ 	var deposit = [[${deposit.toString()}]];
+ 	var center = [[${deliveries.get(0).getAddress().toString()}]];
+ 	
  	
  	// Sets up the map
  	function myMap() {
  		
  	var mapOptions = {
- 	    center: new google.maps.LatLng(46.94809, 7.44744),
- 	    zoom: 8,
+ 	    zoom: 7,
  	    mapTypeId: google.maps.MapTypeId.HYBRID
  	}
- 	var geocoder = new google.maps.Geocoder();
  	
- 	var bern = {lat: 46.94809, lng: 7.44744};
+ 	// Geocoder and DirectionsService and Renderer
+ 	var geocoder = new google.maps.Geocoder();
+ 	var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
  	
  	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
  	
- 	addMarker(bern, map, 'Firm');
+ 	// Set the map as the map of the DirectionsDisplay Renderer
+ 	directionsDisplay.setMap(map);
  	
- 	codeCenter(geocoder, map, addresses[0]);
+ 	if(counter == 0) {
+ 		calculateAndDisplayRoute(directionsService, directionsDisplay, deposit, center);
+ 	}
+ 	else {
+ 		var origin = [[${lastAddress.toString()}]];
+ 		calculateAndDisplayRoute(directionsService, directionsDisplay, origin, center);
+ 	}
  	
  	for(i = 1; i< addresses.length;i++)
  		{codeAddress(geocoder, map, addresses[i]);}
@@ -90,6 +102,21 @@
         });
  		displayedmap.panTo(marker.getPosition());
  	}
+ 	
+ 	// Calculates the route on the map
+ 	function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination) {
+        directionsService.route({
+          origin: origin,
+          destination: destination,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Can not calculate the direction between ' + origin + ' and ' + destination);
+          }
+        });
+      }
    </script>
  <script 
  async = "async"
@@ -98,7 +125,34 @@
 </div>
 
 <div th:if="${#lists.isEmpty(deliveries)}">
-		<h3> no deliveries remaining </h3></div>
+		    	<table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>address</th>
+			    		<th>orderitems</th>
+			    		<th>status</th>
+			    		<th></th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr th:each="delivery : ${alldeliveries}">
+			    		<td th:text="${delivery.getAddress().toString()}"></td>
+			    		<td>
+			    			<ul th:each= "orderItem : ${delivery.getItems()}">
+			    				<li th:text = "${orderItem.toString()}"></li>
+			    			</ul>
+			    		</td>
+			    		<td>
+			    			<ul th:each= "orderItem : ${delivery.getItems()}">
+			    				<li th:text = "${orderItem.getOrderItemStatus()}"></li>
+			    			</ul>
+			    		</td>
+			    		
+			    		<td></td>
+					</tr>
+				</tbody>
+				</table>
+</div>
 
 <div th:if="${not #lists.isEmpty(deliveries)}">
 			  <table class="table table-hover">
@@ -111,9 +165,9 @@
 			    </thead>
 			    <tbody>
 			    	<tr>
-			    		<td th:text="${route.getCurrentAddress().toString()}"></td>
+			    		<td th:text="${deliveries.get(0).getAddress().toString()}"></td>
 			    		<td>
-			    			<ul th:each= "orderItem : ${route.getCurrentDelivery().getItems()}">
+			    			<ul th:each= "orderItem : ${deliveries.get(0).getItems()}">
 			    				<li th:text = "${orderItem.toString()}"></li>
 			    			</ul>
 			    		</td>
@@ -121,7 +175,7 @@
 					</tr>
 				</tbody>
 				</table> 
-		    <form action="#" th:action="@{/route/acceptDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
+		    <form action="#" th:action="@{/route/acceptDelivery/{id}(id = ${deliveries.get(0).getAddress().getId()})}" th:object="${route}" method="post"> 
 		    	<input type="hidden" name="routeid" th:value="${route.getId()}"/>
 		    	<button type="submit" class="btn btn-primary">accept delivery</button>
 			</form>

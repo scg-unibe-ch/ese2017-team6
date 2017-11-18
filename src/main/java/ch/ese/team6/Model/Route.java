@@ -41,6 +41,7 @@ public class Route {
 	public long measuredTime;
 	private long routeStart = 0;
 	private long routeStop = 0;
+	private long counter = 0;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ADDRESS_ID")
@@ -80,6 +81,10 @@ public class Route {
 
 	public void setRouteDate(String routeDate) {
 		this.routeDate = routeDate;
+	}
+	
+	public void setDeposit(Address address) {
+		this.deposit = address;
 	}
 
 	public String getDate() {
@@ -156,7 +161,27 @@ public class Route {
 		
 	}
 	
+	/**
+	 * returns a list of all the open deliveries
+	 * @return
+	 */
 	public List<Delivery> getDeliveries(){
+		Set<Address> addresses = this.getAllOpenAddresses(false);
+		List<Delivery> deliveries = new ArrayList<Delivery>(addresses.size());
+		for(Address adress: addresses) {
+			Delivery delivery = new Delivery(this);
+			delivery.setAddress(adress);
+			delivery.addItems((this.getAllAtAddress(adress)));
+			deliveries.add(delivery);
+		}
+		return deliveries;
+	}
+	
+	/**
+	 * returns a list of all the deliveries (delivered or not)
+	 * @return
+	 */
+	public List<Delivery> getAllDeliveries(){
 		Set<Address> addresses = this.getAllAddresses(false);
 		List<Delivery> deliveries = new ArrayList<Delivery>(addresses.size());
 		for(Address adress: addresses) {
@@ -310,10 +335,26 @@ public class Route {
 	}
 	
 	/**
-	 * Returns a set with all the addresses where something must be delivered
+	 * Returns a set with all the addresses where something must still be delivered
+	 */
+	public Set<Address> getAllOpenAddresses(boolean includeDeposit) {
+		Set<Address> addresses = new HashSet<Address>();
+		if(includeDeposit) {
+			addresses.add(this.deposit);
+		}
+		for (OrderItem oi : this.orderItems) {
+			if(oi.getOrderItemStatus().equals("not delivered"))
+			{addresses.add(oi.getAddress());}
+		}
+		return addresses;
+	}
+	
+	/**
+	 * Returns a set with all the addresses of this route (already delivered or not)
 	 */
 	public Set<Address> getAllAddresses(boolean includeDeposit) {
 		Set<Address> addresses = new HashSet<Address>();
+		
 		if(includeDeposit) {
 			addresses.add(this.deposit);
 		}
@@ -321,6 +362,7 @@ public class Route {
 		for (OrderItem oi : this.orderItems) {
 			addresses.add(oi.getAddress());
 		}
+			
 		return addresses;
 	}
 	
@@ -424,6 +466,19 @@ public class Route {
 		
 		return oi;
 
+	}
+	
+	public void increaseCounter() {
+		counter++;
+	}
+	
+	public long getCounter() {
+		return counter;
+	}
+	
+	public Address getDeposit() {
+		return this.deposit;
+				
 	}
 
 		

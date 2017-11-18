@@ -190,6 +190,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 		for (long i= 1;i<4; i++) {
 			String date = "2017-11-01";
 			Route route = new Route(date);
+			route.setDeposit(addressRepository.findOne((long) 1));
 			route.setDriver(userRepository.findOne((long)i));
 			route.setTruck(truckRepository.findOne((long)i));
 			routeRepository.save(route);

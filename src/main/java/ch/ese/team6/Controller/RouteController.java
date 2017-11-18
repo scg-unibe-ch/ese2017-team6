@@ -156,17 +156,6 @@ public class RouteController{
 		return new ModelAndView("route/profile", "route", route);
 	}
 	
-	@RequestMapping(path="/onmap")
-	public String showOnMap(Model model) {
-		Address address = new Address("Meiefeldstrasse 34", "3400 Burgdorf");
-		Address address2 = new Address("Giacomettistrasse 114", "7000 Chur");
-		String[] addresses = new String[2];
-		addresses[0] = address.getStreetandCity();
-		addresses[1] = address2.getStreetandCity();
-		model.addAttribute("address", address);
-		model.addAttribute("addresses", addresses);
-		return "route/onmap";
-	}
 	
 	@RequestMapping(path="/onmap/{routeid}")
 	public String showRouteOnMap(Model model, @PathVariable Long routeid) {
@@ -174,7 +163,14 @@ public class RouteController{
 		Route route = new Route();
 		route = routeRepository.findOne(routeid);
 		model.addAttribute("route", route);
+		// Origin Address of Route
+		model.addAttribute("deposit", routeRepository.findOne(routeid).getDeposit());
+		//  All the open deliveries
 		model.addAttribute("deliveries", routeRepository.findOne(routeid).getDeliveries());
+		// All the deliveries (open or not)
+		model.addAttribute("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
+		model.addAttribute("lastAddress", routeRepository.findOne(routeid).getDeposit());
+		
 		
 		String[] addressesfinal = createAddressStringArray(routeid);
 		model.addAttribute("addresses", addressesfinal);
@@ -188,6 +184,7 @@ public class RouteController{
     
 		Address address = addressRepository.findOne(addressid);
 		Route route = routeRepository.findOne(routeid);
+		route.increaseCounter();
 		
 		ArrayList<OrderItem> orderitems = route.getArrayOfOI();
 		
@@ -196,13 +193,17 @@ public class RouteController{
 			if(oi.getAddress().equals(address))
 			{
 				oi.setOrderItemStatus("delivered");
-				route.removeOrderItem(oi);
+				orderitemrepository.save(oi);	
 			}
 		}
+		routeRepository.save(route);
 		
 		ModelAndView ret= new ModelAndView("route/onmap");
 		ret.addObject("route", route);
+		ret.addObject("deposit", routeRepository.findOne(routeid).getDeposit());
 		ret.addObject("deliveries", routeRepository.findOne(routeid).getDeliveries());
+		ret.addObject("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
+		ret.addObject("lastAddress", address);
 		
 		String[] addressesfinal = createAddressStringArray(routeid);
 		ret.addObject("addresses", addressesfinal);
@@ -220,16 +221,16 @@ public class RouteController{
 	private String[] createAddressStringArray(Long routeid) {
 		ArrayList<Address> addresses = new ArrayList<Address>();
 		
-		for(Delivery deliver : routeRepository.findOne(routeid).getDeliveries())
+		for(Address deliver : routeRepository.findOne(routeid).getAllAddresses(true))
 		{
-			addresses.add(deliver.getAddress());
+			addresses.add(deliver);
 		}
 		
 		String[] addressesfinal = new String[addresses.size()];
 		
 		for(int i=0; i<addresses.size();i++)
 		{
-			addressesfinal[i] = addresses.get(i).getStreetandCity();
+			addressesfinal[i] = addresses.get(i).toString();
 		}
 		return addressesfinal;
 	}
