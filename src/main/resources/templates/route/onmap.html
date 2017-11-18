@@ -128,10 +128,27 @@
 					</tr>
 				</tbody>
 				</table> 
-		    <form action="#" th:action="@{/route/acceptDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
-		    	<input type="hidden" name="routeid" th:value="${route.getId()}"/>
-		    	<button type="submit" class="btn btn-primary">accept delivery</button>
-			</form>
+				
+				<table>
+    		<tr>
+    			
+    			<td>
+	    			<form action="#" th:action="@{/route/acceptDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
+			    	<input type="hidden" name="routeid" th:value="${route.getId()}"/>
+			    	<button type="submit" class="btn btn-primary">accept delivery</button>
+					</form>
+                </td>
+                <td>
+                	<form action="#" th:action="@{/route/rejectDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
+		    		<input type="hidden" name="routeid" th:value="${route.getId()}"/>
+		    		<button type="submit" class="btn btn-primary">reject delivery</button>
+					</form>
+                </td>
+    		</tr>
+    		
+    	</table>
+		    
+			
 			</div>
 </div>
 

@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Service.CalendarService;
 
 import java.util.ArrayList;
@@ -36,8 +37,6 @@ public class Order  implements IDelivarable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull private Date deliveryDate;
 	
-	@NotNull
-	private OrderStatus orderStatus;
 	
 	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
 	@JoinColumn(name="ORDERS_ID")
@@ -47,7 +46,6 @@ public class Order  implements IDelivarable{
 	
 	public Order() {
 		super();
-		this.orderStatus=OrderStatus.OPEN;
 	}
 	
 	
@@ -73,24 +71,57 @@ public class Order  implements IDelivarable{
     	return this.customer = cus;
     }
    
+    
     public OrderStatus getStatus() {
-    	return orderStatus;
+    	if(this.orderItems.isEmpty()) {
+    		return OrderStatus.OPEN;
+    	}
+    	
+    	/**
+    	 * At this stage we want the whole order to have the same status
+    	 * This may change later on if we want to have Teillieferungen for instance.
+    	 */
+    	OrderStatus status = this.orderItems.get(0).getOrderItemStatus();
+    	for(OrderItem oi: this.orderItems) {
+    		if(oi.getOrderItemStatus()!=status) {
+    			throw new RuntimeException("Not all orderItems of the order, have the same status");
+    		}
+    	}
+    	
+    	return status;
+    	
     }
+    
+    
     @Override
     public void setRoute(Route r) {
     	for(OrderItem i: this.orderItems) {
     		i.setRoute(r);
     	}
     }
-
+/* DO NOT USE: Use status of OrderItems, do leave flexibility to have "Teillieferungen"
     public void setStatus(OrderStatus s ) {
     	this.orderStatus = s;
     }
-    
-    public void scheduleOrder() {
-    	this.orderStatus = OrderStatus.SCHEDULED;
+   */ 
+    @Override
+    public void schedule() throws InconsistentOrderStateException {
+    	for(OrderItem oi: this.orderItems) {
+    		oi.schedule();
+    	}
     }
-    
+    @Override
+    public void acceptDelivery() throws InconsistentOrderStateException {
+    	for(OrderItem oi: this.orderItems) {
+    		oi.acceptDelivery();
+    	}
+    }
+    @Override
+    public void rejectDelivery() throws InconsistentOrderStateException {
+    	for(OrderItem oi: this.orderItems) {
+    		oi.rejectDelivery();
+    	}
+    }
     public void setDeliveryDate(Date date) {
 
     	this.deliveryDate = CalendarService.setMidnight(date);
@@ -103,7 +134,7 @@ public class Order  implements IDelivarable{
 
 
     public boolean invariant() {
-    	if((deliveryDate!=null)&&(customer!=null)&&(this.orderStatus!=null)&&(this.orderItems!=null)) {
+    	if((deliveryDate!=null)&&(customer!=null)&&(this.orderItems!=null)) {
   
     		if(this.orderItems.size()==0) {
     			return false;

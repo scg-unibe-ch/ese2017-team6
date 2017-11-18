@@ -212,7 +212,7 @@ private Date deliveryDate;
 		Route nearestRoute = null;
 		int distance = Integer.MAX_VALUE;
 		for(Route route: routes.getRoutes()) {
-			int distanceToNearestAddressInRoute = addressDistances.getDistanceToNeighrestAddress(a, route.getAllAddresses(true));
+			int distanceToNearestAddressInRoute = addressDistances.getDistanceToNeighrestAddress(a, route.getAllAddresses(true,false));
 			if(distanceToNearestAddressInRoute<distance) {
 				if(!checkCapacity || (checkCapacity && route.doesIDelivarableFit(delivarableToPass))) {
 					nearestRoute = route;

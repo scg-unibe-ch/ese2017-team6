@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.Exception.InconsistentOrderStateException;
 //import antlr.collections.List;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Delivery;
@@ -150,7 +151,11 @@ public class RouteController{
 		route.setTruck(truckRepository.findOne((long)truck));
 		Order order = orderRepository.findOne(orderId);
 		route.addDelivarable(order);
-		order.scheduleOrder();
+		try {
+			order.schedule();
+		} catch (InconsistentOrderStateException e) {
+			e.printStackTrace();
+		}
 		routeRepository.save(route);
 		orderRepository.save(order);
 		return new ModelAndView("route/profile", "route", route);
@@ -174,7 +179,7 @@ public class RouteController{
 		Route route = new Route();
 		route = routeRepository.findOne(routeid);
 		model.addAttribute("route", route);
-		model.addAttribute("deliveries", routeRepository.findOne(routeid).getDeliveries());
+		model.addAttribute("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
 		
 		String[] addressesfinal = createAddressStringArray(routeid);
 		model.addAttribute("addresses", addressesfinal);
@@ -189,20 +194,34 @@ public class RouteController{
 		Address address = addressRepository.findOne(addressid);
 		Route route = routeRepository.findOne(routeid);
 		
-		ArrayList<OrderItem> orderitems = route.getArrayOfOI();
+		route.acceptDelivery(address);
+		routeRepository.save(route);
 		
-		for(OrderItem oi :orderitems)
-		{
-			if(oi.getAddress().equals(address))
-			{
-				oi.setOrderItemStatus("delivered");
-				route.removeOrderItem(oi);
-			}
-		}
 		
 		ModelAndView ret= new ModelAndView("route/onmap");
 		ret.addObject("route", route);
-		ret.addObject("deliveries", routeRepository.findOne(routeid).getDeliveries());
+		ret.addObject("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
+		
+		String[] addressesfinal = createAddressStringArray(routeid);
+		ret.addObject("addresses", addressesfinal);
+		
+		return ret;
+       
+    }
+	
+	@PostMapping(value="/rejectDelivery/{addressid}")
+    public ModelAndView rejectDelivery(@RequestParam long routeid, @PathVariable Long addressid) {
+    
+		Address address = addressRepository.findOne(addressid);
+		Route route = routeRepository.findOne(routeid);
+		
+		route.rejectDelivery(address);
+		routeRepository.save(route);
+		
+		
+		ModelAndView ret= new ModelAndView("route/onmap");
+		ret.addObject("route", route);
+		ret.addObject("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
 		
 		String[] addressesfinal = createAddressStringArray(routeid);
 		ret.addObject("addresses", addressesfinal);
@@ -220,7 +239,7 @@ public class RouteController{
 	private String[] createAddressStringArray(Long routeid) {
 		ArrayList<Address> addresses = new ArrayList<Address>();
 		
-		for(Delivery deliver : routeRepository.findOne(routeid).getDeliveries())
+		for(Delivery deliver : routeRepository.findOne(routeid).getOpenDeliveries())
 		{
 			addresses.add(deliver.getAddress());
 		}

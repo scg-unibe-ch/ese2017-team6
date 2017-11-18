@@ -7,9 +7,10 @@ public enum OrderStatus {
     SCHEDULED("SCHEDULED"),
     FINISHED("FINISHED");
 	
+	
     
     
-    public static final OrderStatus[] ALL = { OPEN, FINISHED };
+    public static final OrderStatus[] ALL = { OPEN, FINISHED,SCHEDULED };
     
     
     private final String name;

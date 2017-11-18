@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.AddressDistanceDummyManager;
 import ch.ese.team6.Model.AddressDistanceManager;
@@ -162,10 +163,14 @@ public class AutomaticRouteController {
 			
 			for(IDelivarable o: openOrders) {
 				Order or = (Order)o;
-				or.scheduleOrder();
+				
 				
 				Order orts = orderRepository.findOne(or.getId());
-				orts.scheduleOrder();
+				try {
+					orts.schedule();
+				} catch (InconsistentOrderStateException e) {
+					e.printStackTrace();
+				}
 				orderRepository.save(or);
 			}
 			
