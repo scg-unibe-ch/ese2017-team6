@@ -6,6 +6,8 @@
 	<div class="container">
 	<h1 th:text= "${customer.name}"></h1>
     <form action="#" th:action="@{/customer/{id}/edit(id = ${customer.id})}" th:object="${customer}" th:method="post">
+     <div class="panel panel-default">
+	 <div class="panel-body">
       	<p th:text="'id: ' + *{id}" />
       	<p th:text="'name: ' + *{name}" />
       	<p th:text="'address: ' + *{address}" />
@@ -18,6 +20,8 @@
         		<option th:each="var : ${statusArray}"
         				th:value="${var}" th:text="${var.getTitle()}"></option>
             </select></p>
+      </div>
+      </div>
 <!--         <div class="dropdown"> -->
 <!-- 			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">customer status -->
 <!-- 			<span class="caret"></span></button> -->
@@ -26,7 +30,7 @@
 <!-- 			  <li><a href="#">inactive</a></li> -->
 <!-- 			</ul> -->
 <!-- 		</div> -->
-		<br/>
+		
         <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
         <a href ="/customer/" class="btn btn-primary" role="button">go back to overview</a>

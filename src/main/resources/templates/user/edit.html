@@ -6,29 +6,34 @@
 	<div class="container">
 	<h1 th:text= "${user.username}"></h1>
     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="post">
+     <div class="panel panel-default">
+	 <div class="panel-body">
       	<p th:text="'your id: ' + *{id}" />
       	<p th:text="'your name: ' + *{username}" />
         <p>first name:<input type="text" th:field= "*{firstname}"/></p>
         <p>surname:<input type="text" th:field= "*{surname}"/></p>
         <p>password: <input type="text" th:field= "*{password}" /></p>
-        <div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">role
-			<span class="caret"></span></button>
+<!--         <div class="dropdown"> -->
+<!-- 			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">role -->
+<!-- 			<span class="caret"></span></button> -->
 			
-			<ul class="dropdown-menu">
-			  <li><a href="#">LOGISTICS</a></li>
-			  <li><a href="#">DRIVER</a></li>
-			</ul>
-		</div>
-		<div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">employee condition
-			<span class="caret"></span></button>
-			<ul class="dropdown-menu">
-			  <li><a href="#">active</a></li>
-			  <li><a href="#">inactive</a></li>
-			</ul>
-		</div>
-		<br/>
+<!-- 			<ul class="dropdown-menu"> -->
+<!-- 			  <li><a href="#">LOGISTICS</a></li> -->
+<!-- 			  <li><a href="#">DRIVER</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+		<p>role
+		<select th:field = "*{roles}">
+			<option th:each= "role : ${roles}" th:value="${role.getId()}" th:text="${role.toString()}"></option>
+		</select></p>
+		 <p>status
+        	<select th:field="*{status}">
+        		<option th:each="var : ${statusArray}"
+        				th:value="${var}" th:text="${var.getTitle()}"></option>
+            </select></p>
+      </div>
+      </div>
+		
         <input type="submit" class="btn btn-primary" value="submit"/>
         <input type="reset" class="btn btn-primary" value="reset"/>
     </form>

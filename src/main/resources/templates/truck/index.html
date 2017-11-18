@@ -4,8 +4,10 @@
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-<!-- 	TODO: condition for next line: just show when list is empty -->
-<!-- 	<p> no trucks found </p> -->
+
+	<div th:if="${#lists.isEmpty(trucks)}">
+		<p> no trucks found </p>
+	</div>
 		<div th:if="${not #lists.isEmpty(trucks)}">
 		    <h1>all trucks</h1>
 		    <table class="table table-hover">
