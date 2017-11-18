@@ -5,16 +5,43 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1 th:text= "'article: ' +${item.name}"></h1>
+	<form class="form-horizontal">
 	<div class="panel panel-default">
 	<div class="panel-body">
-	    <p th:text="'article id: ' + ${item.id}" />
-	    <p th:text="'space: ' + ${item.requiredSpace} + ' stillages'" />
-	    <p th:text="'weight: ' + ${item.weight} + ' tons'" />
-	    <p th:text="'status: ' + ${item.getStatus().getTitle()}" />
+	
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="id">article id:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="${item.id}"/>
+		</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">space in stillages:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="${item.requiredSpace}"/>
+	 	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">weight in tons:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="${item.weight}"/>
+	 	</div>
+	 </div>
+	 	 	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">status:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="${item.status}"/>
+	 	</div>
+	 </div>
+
     </div>
     </div>
     <a th:href="@{/item/{id}/edit(id = ${item.id})}" class="btn btn-primary">edit this article</a>
     <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
+    </form>
     </div>
 </body>
 </html>

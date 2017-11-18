@@ -5,30 +5,50 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1>new customer</h1>
-    <form action="#" th:action="@{/customer/add}" th:object="${customer}" method="post">
-       <table>
+    <form action="#" th:action="@{/customer/add}" th:object="${customer}" method="post" class="form-horizontal">
+       <table class="table">
     		<tr>
     			<td>customer name: </td>
-    			<td> <input  type = "text" th:field="*{name}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    				<input  type = "text" th:field="*{name}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:="${#fields.hasErrors('name')}" th:errors="*{name}" th:text="'name can't be empty.'"></td>
     		</tr>
     		<tr>
     			<td> phone number: </td>
-    			<td> <input  type ="text" th:field="*{phone}" required ="required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    				<input  type ="text" th:field="*{phone}" class="form-control" required ="required"/>
+    				</div>	
+    			</td>
     			<td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:text="' phonenumber can't be negative.'"></td>
     		</tr>
     		<tr>
     			<td> email: </td>
-    			<td> <input  type = "email" th:field="*{email}" required = "required" /></td>
+    			<td>
+    				<div class="col-sm-5">
+    				<input  type = "email" th:field="*{email}" class="form-control" required = "required" />
+    				</div>	
+    			</td>
     			<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="'email can't be negative.'"></td>
     		</tr>
-       	</table>
-        <p>address <select th:field="*{address}">
-                      <option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
+    		
+    		<tr>
+    			<td>address:</td>
+    			<td>
+	 		 		<div class="col-sm-5">	 		
+	 				<select class="form-control" th:field="*{address}">
+        				<option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
                     </select>
                     <a href ="/address/add" class="btn btn-primary" role="button">create new address</a>
-        </p>
-        <input type="submit" class="btn btn-primary" value="submit"/>
+	 				</div>
+	 
+				 </td>
+    		</tr>
+       	</table>
+        <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset" />
         <a href ="/customer/" class="btn btn-primary" role="button">go back to overview</a>
     </form>

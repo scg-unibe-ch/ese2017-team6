@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.ese.team6.Exception.InconsistentOrderStateException;
 //import antlr.collections.List;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Delivery;
@@ -155,7 +156,11 @@ public class RouteController{
 		route.setDeposit(addressRepository.findOne((long)addressId));
 		Order order = orderRepository.findOne(orderId);
 		route.addDelivarable(order);
-		order.scheduleOrder();
+		try {
+			order.schedule();
+		} catch (InconsistentOrderStateException e) {
+			e.printStackTrace();
+		}
 		routeRepository.save(route);
 		orderRepository.save(order);
 		return new ModelAndView("route/profile", "route", route);
@@ -168,6 +173,7 @@ public class RouteController{
 		Route route = new Route();
 		route = routeRepository.findOne(routeid);
 		model.addAttribute("route", route);
+<<<<<<< HEAD
 		// Origin Address of Route
 		model.addAttribute("deposit", routeRepository.findOne(routeid).getDeposit());
 		//  All the open deliveries
@@ -176,6 +182,9 @@ public class RouteController{
 		model.addAttribute("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
 		// When the route gets started, the last address is the deposit address of the route
 		model.addAttribute("lastAddress", routeRepository.findOne(routeid).getDeposit());
+=======
+		model.addAttribute("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
+>>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 		
 		// Make sure every addres gets rendered
 		String[] addressesfinal = createAddressStringArray(routeid);
@@ -191,8 +200,10 @@ public class RouteController{
 		Address address = addressRepository.findOne(addressid);
 		Route route = routeRepository.findOne(routeid);
 		
-		ArrayList<OrderItem> orderitems = route.getArrayOfOI();
+		route.acceptDelivery(address);
+		routeRepository.save(route);
 		
+<<<<<<< HEAD
 		for(OrderItem oi :orderitems)
 		{
 			if(oi.getAddress().equals(address))
@@ -202,13 +213,40 @@ public class RouteController{
 			}
 		}
 		routeRepository.save(route);
+=======
+>>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 		
 		ModelAndView ret= new ModelAndView("route/onmap");
 		ret.addObject("route", route);
+<<<<<<< HEAD
 		ret.addObject("deposit", routeRepository.findOne(routeid).getDeposit());
 		ret.addObject("deliveries", routeRepository.findOne(routeid).getDeliveries());
 		ret.addObject("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
 		ret.addObject("lastAddress", address);
+=======
+		ret.addObject("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
+		
+		String[] addressesfinal = createAddressStringArray(routeid);
+		ret.addObject("addresses", addressesfinal);
+		
+		return ret;
+       
+    }
+	
+	@PostMapping(value="/rejectDelivery/{addressid}")
+    public ModelAndView rejectDelivery(@RequestParam long routeid, @PathVariable Long addressid) {
+    
+		Address address = addressRepository.findOne(addressid);
+		Route route = routeRepository.findOne(routeid);
+		
+		route.rejectDelivery(address);
+		routeRepository.save(route);
+		
+		
+		ModelAndView ret= new ModelAndView("route/onmap");
+		ret.addObject("route", route);
+		ret.addObject("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
+>>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 		
 		String[] addressesfinal = createAddressStringArray(routeid);
 		ret.addObject("addresses", addressesfinal);
@@ -226,7 +264,11 @@ public class RouteController{
 	private String[] createAddressStringArray(Long routeid) {
 		ArrayList<Address> addresses = new ArrayList<Address>();
 		
+<<<<<<< HEAD
 		for(Address deliver : routeRepository.findOne(routeid).getAllAddresses(true))
+=======
+		for(Delivery deliver : routeRepository.findOne(routeid).getOpenDeliveries())
+>>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 		{
 			addresses.add(deliver);
 		}

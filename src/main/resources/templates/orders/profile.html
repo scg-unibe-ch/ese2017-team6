@@ -9,19 +9,25 @@
 		<div class="panel-body">
     		<p th:text="'delivery address:  ' + ${order.getAddress()}" />
      		<p th:text="'delivery date:  ' + ${order.getDeliveryDate()}" />
+     		<p th:text="'order status: '+${order.getStatus()}" />
      	<div>
 <!--             <label>Rows</label> -->
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th>item</th>
-                  <th>amount</th>
+                  <th>amount</th>    
+                  <th>status</th>
+                  <th>route</th>
                 </tr>
               </thead>
               <tbody>
                 <tr th:each="oi : ${order.getOrderItems()}">
 		    		<td th:text="${oi.getItem()}"></td>
 		    		<td th:text="${oi.getAmount()}"></td>
+		    		<td th:text="${oi.getOrderItemStatus()}"></td>
+		    		<td><a th:if="${oi.hasRoute()}" th:href="@{/route/{id}(id = ${oi.getRoute().getId()})}">show route</a></td>
+			    	
 				</tr>
               </tbody>
             </table>

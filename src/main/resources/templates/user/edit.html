@@ -4,38 +4,71 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "${user.username}"></h1>
-    <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="post">
+	<h1 th:text= "${user.firstname} + ' ' + ${user.surname}"></h1>
+    <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="post" class="form-horizontal">
      <div class="panel panel-default">
 	 <div class="panel-body">
-      	<p th:text="'your id: ' + *{id}" />
-      	<p th:text="'your name: ' + *{username}" />
-        <p>first name:<input type="text" th:field= "*{firstname}"/></p>
-        <p>surname:<input type="text" th:field= "*{surname}"/></p>
-        <p>password: <input type="text" th:field= "*{password}" /></p>
-<!--         <div class="dropdown"> -->
-<!-- 			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">role -->
-<!-- 			<span class="caret"></span></button> -->
-			
-<!-- 			<ul class="dropdown-menu"> -->
-<!-- 			  <li><a href="#">LOGISTICS</a></li> -->
-<!-- 			  <li><a href="#">DRIVER</a></li> -->
-<!-- 			</ul> -->
-<!-- 		</div> -->
-		<p>role
-		<select th:field = "*{roles}">
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">your id:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="*{id}"/>
+	 	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">your username:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="*{username}"/>
+	 	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="firstname">first name:</label>
+	 	<div class="col-sm-5">
+	 		<input type="text" th:field="*{firstname}" class="form-control" id="text" placeholder="enter first name" />
+	 	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="surename">surname:</label>
+	 	<div class="col-sm-5">
+	 		<input type="text" th:field="*{surname}" class="form-control" id="text" placeholder="enter surname" />
+	 	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="password">password:</label>
+	 	<div class="col-sm-5">
+	 		<input type="text" th:field="*{password}" class="form-control" id="text" placeholder="enter password" />
+	 	</div>
+	 </div>
+
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="name">role:</label>
+	 	<div class="col-sm-5">	 		
+	 		<select class="form-control" th:field = "*{roles}">
 			<option th:each= "role : ${roles}" th:value="${role.getId()}" th:text="${role.toString()}"></option>
-		</select></p>
-		 <p>status
-        	<select th:field="*{status}">
+		</select>
+	 	</div>
+	 </div>	 
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="name">status:</label>
+	 	<div class="col-sm-5">	 		
+	 		<select class="form-control" th:field="*{status}">
         		<option th:each="var : ${statusArray}"
         				th:value="${var}" th:text="${var.getTitle()}"></option>
-            </select></p>
-      </div>
-      </div>
+            </select>
+	 	</div>
+	 </div>
+	 
+     </div>
+     </div>
 		
-        <input type="submit" class="btn btn-primary" value="submit"/>
+        <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
+        <a href ="/user/" class="btn btn-primary" role="button">go back to overview</a>
     </form>
 <!--     <form action="#" th:action="@{/user/{id}/edit(id = ${user.id})}" th:object="${user}" th:method="delete"> -->
 <!--     	<br/> -->

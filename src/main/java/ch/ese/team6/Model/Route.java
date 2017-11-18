@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Exception.RouteTimeException;
 
 @Entity
@@ -165,6 +166,7 @@ public class Route {
 		return !this.orderItems.isEmpty();
 		
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * returns a list of all the open deliveries
@@ -188,6 +190,15 @@ public class Route {
 	 */
 	public List<Delivery> getAllDeliveries(){
 		Set<Address> addresses = this.getAllAddresses(false);
+=======
+	/**
+	 * Return the open deliveries of the route
+	 * if onlyOpen is set you will only get deliveries where there are open Items.
+	 * @return
+	 */
+	private List<Delivery> getDeliveries(boolean onlyOpen){
+		Set<Address> addresses = this.getAllAddresses(false,onlyOpen);
+>>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 		List<Delivery> deliveries = new ArrayList<Delivery>(addresses.size());
 		for(Address adress: addresses) {
 			Delivery delivery = new Delivery(this);
@@ -198,8 +209,15 @@ public class Route {
 		return deliveries;
 	}
 	
+	public List<Delivery> getOpenDeliveries(){
+		return this.getDeliveries(true);
+	}
+	public List<Delivery> getAllDeliveries(){
+		return this.getDeliveries(false);
+	}
+	
 	public int countDeliveries() {
-		return this.getAllAddresses(false).size();
+		return this.getAllAddresses(false,false).size();
 	}
 	
 	
@@ -276,7 +294,7 @@ public class Route {
 		List<OrderItem> sorted = new ArrayList<OrderItem>(orderItems.size());
 		Address currentAddress = deposit;
 		Address nextAddress;
-		Set<Address> addresses = this.getAllAddresses(false);
+		Set<Address> addresses = this.getAllAddresses(false,false);
 		while (!addresses.isEmpty()) {
 			nextAddress = distanceManager.getNeigherstAddress(currentAddress, addresses, false);
 			addresses.remove(nextAddress);
@@ -340,6 +358,7 @@ public class Route {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Returns a set with all the addresses where something must still be delivered
 	 */
 	public Set<Address> getAllOpenAddresses(boolean includeDeposit) {
@@ -356,8 +375,13 @@ public class Route {
 	
 	/**
 	 * Returns a set with all the addresses of this route (already delivered or not)
+=======
+	 * Returns a set with all the addresses where something must be delivered.
+	 * If you pass onlyOpen you will only get the addresses where there are items not yet delivered.
+	 * @param onlyOpen 
+>>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 	 */
-	public Set<Address> getAllAddresses(boolean includeDeposit) {
+	public Set<Address> getAllAddresses(boolean includeDeposit, boolean onlyOpen) {
 		Set<Address> addresses = new HashSet<Address>();
 		
 		if(includeDeposit) {
@@ -365,7 +389,9 @@ public class Route {
 		}
 		
 		for (OrderItem oi : this.orderItems) {
-			addresses.add(oi.getAddress());
+			if(!onlyOpen || onlyOpen&&oi.getOrderItemStatus().equals(OrderStatus.SCHEDULED)) {
+				addresses.add(oi.getAddress());
+			}	
 		}
 			
 		return addresses;
@@ -409,10 +435,10 @@ public class Route {
 	 * returns a linked list of deliveries
 	 * @return
 	 */
-	public LinkedList<Delivery> getLinkedDeliveries(){
+	public LinkedList<Delivery> getLinkedDeliveries(boolean onlyOpen){
 		LinkedList<Delivery> deliveries = new LinkedList<Delivery>();
 		
-		deliveries.addAll(this.getDeliveries());
+		deliveries.addAll(this.getDeliveries(onlyOpen));
 		
 		return deliveries;
 	}
@@ -422,47 +448,52 @@ public class Route {
 	 */
 	public void acceptDelivery(Address address){
 		
-		for(int i=0; i<orderItems.size(); i++)
-		{
-			if(orderItems.get(i).getAddress().equals(address))
-			{
-				orderItems.get(i).setOrderItemStatus("delivered");
-				orderItems.remove(orderItems.get(i));
+		for(OrderItem oi: this.getAllAtAddress(address)) {
+			try {
+				oi.acceptDelivery();
+			} catch (InconsistentOrderStateException e) {
+				e.printStackTrace();
 			}
 		}
 	}
+	
+public void rejectDelivery(Address address){
+		
+		for(OrderItem oi: this.getAllAtAddress(address)) {
+			try {
+				oi.rejectDelivery();
+			} catch (InconsistentOrderStateException e) {
+				e.printStackTrace();
+			}
+			this.remove(oi);
+		}
+	}
+	
 	
 	/**
 	 * @return
 	 */
 	public void acceptCurrentDelivery(){
 		
-		if(this.getDeliveries().size() > 0)
-		{for(int i=0; i<orderItems.size(); i++)
-		{
-			if(orderItems.get(i).getAddress().equals(this.getDeliveries().get(0).getAddress()))
-			{
-				orderItems.get(i).setOrderItemStatus("delivered");
-				orderItems.remove(orderItems.get(i));
-			}
-		}}
+		if(!this.getDeliveries(true).isEmpty()) {
+			Address currentaddress = this.getCurrentAddress();
+			this.acceptDelivery(currentaddress);
+		}
 	}
 	
-	public void removeOrderItem(OrderItem oi) {
-		this.orderItems.remove(oi);
-	}
+	
 	
 	public Address getCurrentAddress() {
-		if(!this.getDeliveries().isEmpty())
-			{return this.getDeliveries().get(0).getAddress();}
+		if(!this.getDeliveries(true).isEmpty())
+			{return this.getDeliveries(true).get(0).getAddress();}
 		else
-			return new Address("Münstergasse 61", "3011 Bern");
+			return deposit;
 	}
 	
 	public Delivery getCurrentDelivery() {
-		if(!this.getDeliveries().isEmpty())
-			{return this.getDeliveries().get(0);}
-		return new Delivery();
+		if(!this.getDeliveries(true).isEmpty())
+			{return this.getDeliveries(true).get(0);}
+		return null;
 	}
 	
 	public ArrayList<OrderItem> getArrayOfOI() {

@@ -35,6 +35,7 @@ public class TruckBaseController {
 	@GetMapping(path="/add")
 	public String createForm(Model model) {
 		  model.addAttribute("truck", new Truck());
+		  model.addAttribute("statusArray", DataStatus.values());
 	        return "truck/create";
 	}
 
@@ -87,6 +88,7 @@ public class TruckBaseController {
 			// TODO Auto-generated catch block
 			return "staticpage/loaded";
 		}
+		
 		truckRepository.save(truck);
 		model.addAttribute("truck", truck);
 		return ("truck/profile");

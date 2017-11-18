@@ -8,37 +8,51 @@
 	<div th:if="${message}">
     	<h2 th:text= "${message}"></h2>
     </div>
-    <form action="#" th:action="@{/truck/add}" th:object="${truck}" method="post">
-    	<table>
+    <form action="#" th:action="@{/truck/add}" th:object="${truck}" method="post" class="form-horizontal">
+    	<table class="table">
     		<tr>
     			<td>truck name: </td>
-    			<td> <input  type = "text" th:field="*{truckname}" required = "required"/></td>
+    			<td> 
+    				<div class="col-sm-5">
+    				<input  type = "text" th:field="*{truckname}" class="form-control" required = "required" placeholder="enter new truck name"/>
+    				</div>
+    			</td>
     			<td th:="${#fields.hasErrors('truckname')}" th:errors="*{truckname}" th:text="'truckname can't be empty.'"></td>
     		</tr>
     		<tr>
-    			<td> max cargo space: </td>
-    			<td> <input  type = "number" th:field="*{maxCargoSpace}" required = "required" min="1"/></td>
+    			<td>max cargo space:</td>
+    			<td>
+    				<div class="col-sm-5">
+    				<input  type = "number" th:field="*{maxCargoSpace}" class="form-control" required = "required" min="1"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('maxCargoSpace')}" th:errors="*{maxCargoSpace}" th:text="'max cargo space can't be negative.'"></td>
     		</tr>
     		<tr>
-    			<td> max load capacity: </td>
-    			<td> <input  type = "number" th:field="*{maxLoadCapacity}" required = "required" min="1"/></td>
+    			<td>max load capacity:</td>
+    			<td>
+    				<div class="col-sm-5">
+    				<input  type = "number" th:field="*{maxLoadCapacity}" class="form-control" required = "required" min="1"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('maxLoadCapacity')}" th:errors="*{maxLoadCapacity}" th:text="'max load capacity can't be negative.'"></td>
     		</tr>
+    		<tr>
+    			<td>status:</td>
+    			<td>
+	 		 		<div class="col-sm-5">	 		
+	 				<select class="form-control" th:field="*{status}">
+        				<option th:each="var : ${statusArray}"
+        					th:value="${var}" th:text="${var.getTitle()}"></option>
+            		</select>
+	 				</div>
+				</td>
+    		</tr>
        	</table>
-<!--        	        <p>status -->
-<!--         	<select th:field="*{status}"> -->
-<!--         		<option th:each="var : ${statusArray}" -->
-<!--         				th:value="${var}" th:text="${var.getTitle()}"></option> -->
-<!--             </select></p> -->
-<!--        <select class="form-control" name="vehicleCondition" id="vehicleCondition"> -->
-					
-<!-- 					<option th:value= "0" th:text="active"/> -->
-<!-- 					<option th:value= "1" th:text="inactive"/> -->
-<!--     	</select> -->
-    	<br/>
-        <input type="submit" class="btn btn-primary" value="submit"/>
+    	
+        <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
+        <a href ="/truck/" class="btn btn-primary" role="button">go back to overview</a>
     </form>
     </div>    
 </body>

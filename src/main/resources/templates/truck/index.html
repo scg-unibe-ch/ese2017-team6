@@ -15,14 +15,14 @@
 			    	<tr>
 			    		<th>id</th>
 			    		<th>vehicle name</th>
-			    		<th>max cargo space</th>
-			    		<th>max load capacity</th>
+			    		<th>max cargo space (stillages)</th>
+			    		<th>max load capacity (tons)</th>
 			    		<th>status</th>
 			    		<th></th>
 			    	</tr>
 			    </thead>
 			    <tbody>
-			    	<tr th:each="truck : ${trucks}" th:classappend="${truck.status.getValue() == 1} ? warning">
+			    	<tr th:each="truck : ${trucks}" th:classappend="${truck.status.getValue() == 1} ? danger">
 			    		<td th:text="${truck.getId()}"></td>
 			    		<td th:text="${truck.getTruckname()}"></td>
 			    		<td th:text="${truck.getMaxCargoSpace()}"></td>

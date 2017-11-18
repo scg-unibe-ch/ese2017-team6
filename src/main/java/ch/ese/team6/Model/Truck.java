@@ -28,7 +28,7 @@ public class Truck {
 	private int maxCargoSpace;
 	@NotNull @Min( value = 0)
 	private int maxLoadCapacity;
-	//@NotNull @Min(value = 0) @Max( value = 1)
+	@NotNull
 	private DataStatus status;
 	@OneToMany(mappedBy="truck")
 	private List<Route> routes;
@@ -76,19 +76,6 @@ public class Truck {
 	public void setStatus(DataStatus status) {
 		this.status = status;
 	}
-//	public int getVehicleCondition() {
-//		return vehicleCondition;
-//	}
-//	
-//	public String getVehicleConditionAsString() {
-//		if (this.getVehicleCondition() == 0) return "active";
-//		return "inactive";
-//	}
-//	
-//	public void setVehicleCondition(int vehicleCondition) throws BadSizeException{
-//		if(!(vehicleCondition == 0 || vehicleCondition == 1)) throw new BadSizeException("Vehicle conditions has to be one or null");
-//		this.vehicleCondition = vehicleCondition;
-//	}
 	
 	public boolean isValid() {
 		if(

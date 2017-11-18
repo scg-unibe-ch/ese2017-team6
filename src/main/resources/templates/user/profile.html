@@ -4,18 +4,40 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "'hi ' +${user.username}"></h1>
+	<h1 th:text= "'hi ' +${user.firstname}+ ' ' +${user.surname}"></h1>
+	<form class="form-horizontal">
 	<div class="panel panel-default">
 	<div class="panel-body">
-	    <p th:text="'your id: ' + ${user.id}" />
-	    <p th:text="'your name: ' + ${user.getRealname()}" />
-	    <p th:text="'your role: ' + ${user.getRoles().toString()}" />
-	   	<p th:text="'your status: ' + ${user.getStatus().getTitle()}" />
+	
+	<div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">your id:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="${user.id}"/>
+	 	</div>
+	 </div>
+	 	
+	<div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">your role:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="${user.getRoles().toString()}"/>
+	 	</div>
+	 </div>
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">status:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="${user.status}"/>
+	 	</div>
+	 </div>
+
 	</div>
 	</div>
 
     <a th:href="@{/user/{id}/edit(id = ${user.id})}" class="btn btn-primary">edit this user</a>
     <a href ="/user/" class="btn btn-primary" role="button">go back to overview</a>
+    </form>
+    
+    
     <h3>users routes</h3>
     <div th:if="${not #lists.isEmpty(user.getRoutes())}">
     <div class="panel panel-default">

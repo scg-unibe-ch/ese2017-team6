@@ -22,7 +22,7 @@
 		    		</tr>
 		    	</thead>
 		    	<tbody>
-		    	<tr th:each="cus : ${customer}" th:classappend="${cus.status.getValue() == 1} ? warning">
+		    	<tr th:each="cus : ${customer}" th:classappend="${cus.status.getValue() == 1} ? danger">
 		    		<td th:text="${cus.getId()}"></td>
 		    		<td th:text="${cus.getName()}"></td>
 		    		<td th:text="${cus.getAddress()}"></td>

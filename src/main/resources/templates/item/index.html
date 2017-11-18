@@ -21,7 +21,7 @@
 		    	</tr>
 		</thead>
 		<tbody>
-		    	<tr th:each="item : ${items}" th:classappend="${item.status.getValue() == 1} ? warning">
+		    	<tr th:each="item : ${items}" th:classappend="${item.status.getValue() == 1} ? danger">
 		    		<td th:text="${item.getId()}"></td>
 		    		<td th:text="${item.getName()}"></td>
 		    		<td th:text="${item.getRequiredSpace()}"></td>
@@ -41,7 +41,7 @@
 <!-- 					</tr>		 -->
 <!-- 		</table> -->
 	</div>
-	<a href ="/item/add" class="btn btn-primary" role="button">add new article</a>
+	<a href ="/item/add" class="btn btn-primary" role="button">create new article</a>
 	</div>		
 	</body>
 </html>

@@ -5,16 +5,43 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1 th:text= "'address ' +${address.id}"></h1>
+	<form class="form-horizontal">
 		<div class="panel panel-default">
 		<div class="panel-body">
-		    <p th:text="'street: ' + ${address.street}" />
-		    <p th:text="'city: ' +${address.city}" />
-		    <p th:text="'country: ' +${address.country}" />
-		    <p th:text="'status: ' +${address.getStatus().getTitle()}" />
+		
+		<div class="form-group">
+		 <label class="control-label col-sm-2" for="street">street name:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${address.street}"/>
+		 	</div>
+		 </div>
+		 		
+		<div class="form-group">
+		 <label class="control-label col-sm-2" for="city">city:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${address.city}"/>
+		 	</div>
+		 </div>
+		 		 		
+		<div class="form-group">
+		 <label class="control-label col-sm-2" for="country">country:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${address.country}"/>
+		 	</div>
+		 </div>
+		 
+		 <div class="form-group">
+		 <label class="control-label col-sm-2" for="status">status:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${address.status}"/>
+		 	</div>
+		 </div>
+		 
 		</div>
 		</div>
 		<a th:href="@{/address/{id}/edit(id = ${address.id})}" class="btn btn-primary">edit this address</a>
 		<a href ="/address/" class="btn btn-primary" role="button">go back to overview</a>
+	</form>
     </div>
 </body>
 </html>

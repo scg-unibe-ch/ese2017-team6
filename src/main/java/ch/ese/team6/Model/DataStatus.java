@@ -29,8 +29,8 @@ public enum DataStatus {
 	public static String getByValue(int value) {
 		for(DataStatus s : DataStatus.values()) {
 			if (value == s.getValue())
-				return "AVAILABLE";
+				return "active";
 		}
-		return "UNAVAILABLE";
+		return "inactive";
 	}
 }

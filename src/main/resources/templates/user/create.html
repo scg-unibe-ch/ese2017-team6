@@ -5,52 +5,86 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1>new user</h1>
-    <form action="#" th:action="@{/user/add}" th:object="${user}" method="post">
+    <form action="#" th:action="@{/user/add}" th:object="${user}" method="post" class="form-horizontal">
     	<div th:if="${message}">
     		<h2 th:text= "${message}"></h2>
     	</div>
-    	<table>
+    	<table class="table">
     		<tr>
     			<td> username: </td>
-    			<td> <input  type = "text" th:field="*{username}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "text" th:field="*{username}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:="${#fields.hasErrors('username')}" th:errors="*{username}" th:text="'username has to be between 6 and 32 to signs long.'"></td>
     		</tr>
     		<tr>
     			<td> firstname: </td>
-    			<td> <input  type = "text" th:field="*{firstname}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "text" th:field="*{firstname}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" th:text= "'firstname can't be empty."></td>
     		</tr>
     		<tr>
     			<td> surname: </td>
-    			<td> <input  type = "text" th:field="*{surname}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "text" th:field="*{surname}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:text="'firstname can't be empty.'"></td>
     		</tr>
     		<tr>
     			<td> password: </td>
-    			<td> <input  type = "password" th:field="*{password}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "password" th:field="*{password}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
     		</tr>
     		<tr>
     			<td> password confirm: </td>
-    			<td> <input  type = "password" th:field="*{passwordConfirm}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "password" th:field="*{passwordConfirm}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></td>
     		</tr>
     		<tr>
     			<td> email: </td>
-    			<td> <input  type = "email" th:field="*{email}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "email" th:field="*{email}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="'email needs a correct format'"></td>
     		</tr>
     		<tr>
-    			<td> phonenumber: </td>
-    			<td> <input  type = "text" th:field="*{phoneNumber}" required = "required"/></td>
+    			<td> phone number: </td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "text" th:field="*{phoneNumber}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:text="'phonenumber can't be empty'"></td>
     		</tr>
+    		<tr>
+    			<td>role:</td>
+    			<td>
+	 		 		<div class="col-sm-5">	 		
+	 				<select class="form-control" th:field = "*{roles}">
+						<option th:each= "role : ${roles}" th:value="${role.getId()}" th:text="${role.toString()}"></option>
+					</select>
+	 				</div>
+				</td>
+    		</tr>
     	</table>
-    	<p> role:
-    	<select th:field = "*{roles}">
-			<option th:each= "role : ${roles}" th:value="${role.getId()}" th:text="${role.toString()}"></option>
-		</select></p>
-		<br/>
+		
         <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
         <a href ="/user/" class="btn btn-primary" role="button">go back to overview</a>
