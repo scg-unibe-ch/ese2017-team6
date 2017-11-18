@@ -14,10 +14,10 @@
 				    		<th>Clientname</th>
 				    		<th>Delivery Adress</th>
 				    		<th>Order Status</th>
-				    		<th>Number of Order items</th>
+				    		<th>Number of open Order items</th>
 				    		<th>Delivery Date</th>
-				    		<th>Size</th>
-				    		<th>Weight</th>
+				    		<th>Size of open Order items</th>
+				    		<th>Weight of open Order items</th>
 				    		<th></th>
 				    		<th></th>
 				    	</tr>
@@ -28,10 +28,10 @@
 				    		<td th:text="${order.getCustomer()}"></td>
 				    		<td th:text="${order.getAddress()}"></td>
 				    		<td th:text="${order.getStatus()}"></td>
-				    		<td th:text="${order.getOrderItems().size()}"></td>
+				    		<td th:text="${order.getOpenOrderItems().size()}"></td>
 				    		<td th:text="${order.getDeliveryDate()}"></td>
-				    		<td th:text="${order.getSize()}"></td>
-				    		<td th:text="${order.getWeight()}"></td>
+				    		<td th:text="${order.getOpenSize()}"></td>
+				    		<td th:text="${order.getOpenWeight()}"></td>
 				    		
 						</tr>
 					</tbody>

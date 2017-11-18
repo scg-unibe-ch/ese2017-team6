@@ -97,10 +97,45 @@ public class Order  implements IDelivarable{
     		}
     	}
     	
-    	return OrderStatus.FINISHED;
-    	
+    	return OrderStatus.FINISHED;	
     	
     }
+    
+    public List<OrderItem> getOpenOrderItems(){
+		List<OrderItem> openItems = new ArrayList<OrderItem>(this.orderItems);
+		for(int i = openItems.size()-1;i>=0;i--) {
+			if(!openItems.get(i).getOrderItemStatus().equals(OrderStatus.OPEN)) {
+				openItems.remove(i);
+			}
+		}
+		return openItems;
+		
+	}
+    
+    /**
+	 * Weight of the orderItems open for sheduling
+	 * @return
+	 */
+	public int getOpenWeight() {
+		int w = 0;
+		for(OrderItem oi: this.orderItems) {
+			w += oi.getOpenWeight();
+		}
+		return w;
+	}
+	
+	/**
+	 * Weight of the orderItems open for scheduling
+	 * @return
+	 */
+	public int getOpenSize() {
+		int s = 0;
+		for(OrderItem oi: this.orderItems) {
+			s += oi.getOpenSize();
+		}
+		return s;
+	}
+    
     
     @Override
     public void setRoute(Route r) {
@@ -108,14 +143,13 @@ public class Order  implements IDelivarable{
     		i.setRoute(r);
     	}
     }
-/* DO NOT USE: Use status of OrderItems, do leave flexibility to have "Teillieferungen"
-    public void setStatus(OrderStatus s ) {
-    	this.orderStatus = s;
-    }
-   */ 
+
+   /**
+    * Sets the status of the remaining open order items to scheduled.
+    */
     @Override
     public void schedule() throws InconsistentOrderStateException {
-    	for(OrderItem oi: this.orderItems) {
+    	for(OrderItem oi: this.getOpenOrderItems()) {
     		oi.schedule();
     	}
     }

@@ -119,6 +119,22 @@ public class OrderItem implements IDelivarable {
 		public int getSize() {
 			return amount*item.getRequiredSpace();
 		}
+		
+		@Override
+		public int getOpenWeight() {
+			if(this.orderItemStatus == OrderStatus.OPEN) {
+				return this.getWeight();
+			}
+			return 0;
+		}
+		
+		@Override
+		public int getOpenSize() {
+			if(this.orderItemStatus == OrderStatus.OPEN) {
+				return this.getSize();
+			}
+			return 0;
+		}
 
 		@Override
 		public Address getAddress() {

@@ -26,7 +26,7 @@
 		    		<td th:text="${oi.getItem()}"></td>
 		    		<td th:text="${oi.getAmount()}"></td>
 		    		<td th:text="${oi.getOrderItemStatus()}"></td>
-		    		<td><a th:if="${oi.hasRoute()}" th:href="@{/route/{id}(id = ${oi.getRoute().getId()})}">show route</a></td>
+		    		<td><a th:if="${oi.hasRoute()}" th:href="@{/route/{id}(id = ${oi.getRoute().getId()})}"><span th:text = "${oi.getRoute().toString()}"></span></a></td>
 			    	
 				</tr>
               </tbody>

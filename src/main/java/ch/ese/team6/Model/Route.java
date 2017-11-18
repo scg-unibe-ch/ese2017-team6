@@ -153,7 +153,7 @@ public class Route {
 		d.setRoute(this);
 		if(d.getClass().equals((Order.class))) {
 			Order o = (Order)d;
-			this.orderItems.addAll(o.getOrderItems());
+			this.orderItems.addAll(o.getOpenOrderItems());
 		}else if(d.getClass().equals(OrderItem.class)){
 			OrderItem oi = (OrderItem)d;
 			this.orderItems.add(oi);
@@ -167,22 +167,11 @@ public class Route {
 		
 	}
 
-	/**
-	 * returns a list of all the open deliveries
-	 * @return
-	 */
-	public List<Delivery> getDeliveries(){
-		Set<Address> addresses = this.getAllOpenAddresses(false);
-		List<Delivery> deliveries = new ArrayList<Delivery>(addresses.size());
-		for(Address adress: addresses) {
-			Delivery delivery = new Delivery(this);
-			delivery.setAddress(adress);
-			delivery.addItems((this.getAllAtAddress(adress)));
-			deliveries.add(delivery);
-		}
-		return deliveries;
+	public List<Delivery> getOpenDeliveries(){
+		return this.getDeliveries(true);
 	}
 	
+
 	/**
 	 * returns a list of all the deliveries (delivered or not)
 	 * @return
@@ -207,9 +196,6 @@ public class Route {
 		return deliveries;
 	}
 	
-	public List<Delivery> getOpenDeliveries(){
-		return this.getDeliveries(true);
-	}
 	
 	public int countDeliveries() {
 		return this.getAllAddresses(false,false).size();
@@ -227,8 +213,8 @@ public class Route {
 		if (truck == null) {
 			return false;
 		}
-		if (d.getSize() <= (truck.getMaxCargoSpace() - this.getSize())) {
-			if (d.getWeight() <= (truck.getMaxLoadCapacity() - this.getWeight())) {
+		if (d.getOpenSize() <= (truck.getMaxCargoSpace() - this.getSize())) {
+			if (d.getOpenWeight() <= (truck.getMaxLoadCapacity() - this.getWeight())) {
 				return true;
 			}
 		}
@@ -243,7 +229,8 @@ public class Route {
 		return (getSize()<=truck.getMaxCargoSpace()) &&(getWeight()<= truck.getMaxLoadCapacity());
 	}
 	public boolean isFull() {
-		return !this.isCapacitySatified();
+		return (getSize()>=truck.getMaxCargoSpace()) &&(getWeight()>= truck.getMaxLoadCapacity());
+	
 	}
 	
 
@@ -315,11 +302,7 @@ public class Route {
 
 	
 	public String toString() {
-		String s = "Route using truck: "+this.truck+"\n";
-		for(IDelivarable i: orderItems) {
-			s = s+"  "+i.getAddress()+"\n";
-		}
-		s = s+"Size: "+getSize()+"/"+truck.getMaxCargoSpace()+", Weight: "+getWeight()+"/"+truck.getMaxLoadCapacity();
+		String s = "Route "+id+" ("+this.driver+"/"+this.truck+")";
 		return s;
 	}
 	
@@ -353,28 +336,19 @@ public class Route {
 	}
 	
 	/**
-<<<<<<< HEAD
+
 	 * Returns a set with all the addresses where something must still be delivered
 	 */
 	public Set<Address> getAllOpenAddresses(boolean includeDeposit) {
-		Set<Address> addresses = new HashSet<Address>();
-		if(includeDeposit) {
-			addresses.add(this.deposit);
+		return getAllAddresses(includeDeposit,true);
 		}
-		for (OrderItem oi : this.orderItems) {
-			if(oi.getOrderItemStatus().equals("not delivered"))
-			{addresses.add(oi.getAddress());}
-		}
-		return addresses;
-	}
 	
 	/**
 	 * Returns a set with all the addresses of this route (already delivered or not)
-=======
+
 	 * Returns a set with all the addresses where something must be delivered.
 	 * If you pass onlyOpen you will only get the addresses where there are items not yet delivered.
 	 * @param onlyOpen 
->>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 	 */
 	public Set<Address> getAllAddresses(boolean includeDeposit, boolean onlyOpen) {
 		Set<Address> addresses = new HashSet<Address>();
