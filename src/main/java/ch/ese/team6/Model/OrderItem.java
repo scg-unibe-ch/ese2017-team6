@@ -125,6 +125,9 @@ public class OrderItem implements IDelivarable {
 			return this.orders.getAddress();
 		}
 		
+		public boolean hasRoute() {
+			return route!=null;
+		}
 		public boolean invariant() {
 			return amount>=0 && item!=null;
 		}

@@ -72,26 +72,35 @@ public class Order  implements IDelivarable{
     }
    
     
+
+    /**
+     * Returns the order status. The order status is OPEN if the order contains orderitems with status open
+     * The status is scheduled if all elements are either scheduled or delivered.
+     * The order is finished if all orderitems have the status finished.
+     * @return
+     */
     public OrderStatus getStatus() {
     	if(this.orderItems.isEmpty()) {
     		return OrderStatus.OPEN;
     	}
     	
-    	/**
-    	 * At this stage we want the whole order to have the same status
-    	 * This may change later on if we want to have Teillieferungen for instance.
-    	 */
-    	OrderStatus status = this.orderItems.get(0).getOrderItemStatus();
+    
     	for(OrderItem oi: this.orderItems) {
-    		if(oi.getOrderItemStatus()!=status) {
-    			throw new RuntimeException("Not all orderItems of the order, have the same status");
+    		if(oi.getOrderItemStatus().equals(OrderStatus.OPEN)) {
+    			return OrderStatus.OPEN;
     		}
     	}
     	
-    	return status;
+    	for(OrderItem oi: this.orderItems) {
+    		if(oi.getOrderItemStatus().equals(OrderStatus.SCHEDULED)) {
+    			return OrderStatus.SCHEDULED;
+    		}
+    	}
+    	
+    	return OrderStatus.FINISHED;
+    	
     	
     }
-    
     
     @Override
     public void setRoute(Route r) {

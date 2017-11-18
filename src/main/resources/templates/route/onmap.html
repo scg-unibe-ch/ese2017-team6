@@ -121,7 +121,10 @@
 			    		<td th:text="${route.getCurrentAddress().toString()}"></td>
 			    		<td>
 			    			<ul th:each= "orderItem : ${route.getCurrentDelivery().getItems()}">
-			    				<li th:text = "${orderItem.toString()}"></li>
+			    				<li>
+			    					<span th:text = "${orderItem.toString()}+' for '"></span> 
+					    		 	<a th:href="@{/customer/{id}(id = ${orderItem.getOrder().getCustomer().getId()})}"> <span th:text="${orderItem.getOrder().getCustomer().toString()}"></span>  </a> 
+					    		</li>
 			    			</ul>
 			    		</td>
 			    		<td></td>
