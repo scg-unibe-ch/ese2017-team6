@@ -400,6 +400,19 @@ public class Route {
 		}
 	}
 	
+public void rejectDelivery(Address address){
+		
+		for(OrderItem oi: this.getAllAtAddress(address)) {
+			try {
+				oi.rejectDelivery();
+			} catch (InconsistentOrderStateException e) {
+				e.printStackTrace();
+			}
+			this.remove(oi);
+		}
+	}
+	
+	
 	/**
 	 * @return
 	 */

@@ -208,6 +208,27 @@ public class RouteController{
 		return ret;
        
     }
+	
+	@PostMapping(value="/rejectDelivery/{addressid}")
+    public ModelAndView rejectDelivery(@RequestParam long routeid, @PathVariable Long addressid) {
+    
+		Address address = addressRepository.findOne(addressid);
+		Route route = routeRepository.findOne(routeid);
+		
+		route.rejectDelivery(address);
+		routeRepository.save(route);
+		
+		
+		ModelAndView ret= new ModelAndView("route/onmap");
+		ret.addObject("route", route);
+		ret.addObject("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
+		
+		String[] addressesfinal = createAddressStringArray(routeid);
+		ret.addObject("addresses", addressesfinal);
+		
+		return ret;
+       
+    }
 
 
 	/**

@@ -126,7 +126,7 @@ public class OrderItem implements IDelivarable {
 		}
 		
 		public boolean invariant() {
-			return amount>=0 && item!=null && this.orders!=null;
+			return amount>=0 && item!=null;
 		}
 
 		@Override
