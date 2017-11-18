@@ -26,7 +26,7 @@
 			    	</tr>
 			    </thead>
 			    <tbody>
-			    	<tr th:each="user : ${users}" th:classappend="${user.status.getValue() == 1} ? warning">
+			    	<tr th:each="user : ${users}" th:classappend="${user.status.getValue() == 1} ? danger">
 			    		<td th:text="${user.getId()}"></td>
 			    		<td th:text="${user.getUsername()}"></td>
 			    		<td th:text="${user.getRealname()}"></td>

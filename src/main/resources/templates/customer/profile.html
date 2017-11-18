@@ -4,18 +4,51 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "'customer ' +${customer.id}"></h1>
+	<h1 th:text= "${customer.Name}"></h1>
+	<form class="form-horizontal">
 		<div class="panel panel-default">
 		<div class="panel-body">
-		    <p th:text="'name: ' + ${customer.Name}" />
-		    <p th:text="'address: ' +${customer.getAddress().toString()}" />
-		    <p th:text="'phone: ' +${customer.getPhone().toString()}" />
-		    <p th:text="'email: ' +${customer.getEmail().toString()}" />
-		    <p th:text="'status: ' +${customer.getStatus().getTitle()}" />
+		
+		<div class="form-group">
+		 <label class="control-label col-sm-2" for="id">id:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${customer.id}"/>
+		 	</div>
+		 </div>
+		 
+		 <div class="form-group">
+		 <label class="control-label col-sm-2" for="address">address:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${customer.getAddress().toString()}"/>
+		 	</div>
+		 </div>
+		 
+		 <div class="form-group">
+		 <label class="control-label col-sm-2" for="phone">phone:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${customer.getPhone().toString()}"/>
+		 	</div>
+		 </div>
+		 		 
+		 <div class="form-group">
+		 <label class="control-label col-sm-2" for="email">email:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${customer.getEmail().toString()}"/>
+		 	</div>
+		 </div>
+		 
+		<div class="form-group">
+		 	<label class="control-label col-sm-2" for="status">status:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${customer.status}"/>
+		 	</div>
+	 	</div>
+	 	
 		</div>
 		</div>
 		<a th:href="@{/customer/{id}/edit(id = ${customer.id})}" class="btn btn-primary">edit this customer</a>
 		<a href ="/customer/" class="btn btn-primary" role="button">go back to overview</a>
+		</form>
     </div>
 </body>
 </html>

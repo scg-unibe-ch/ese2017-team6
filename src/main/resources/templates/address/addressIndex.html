@@ -21,7 +21,7 @@
 			    	</tr>
 		    	</thead>
 		    	<tbody>
-			    	<tr th:each="ad : ${address}" th:classappend="${ad.status.getValue() == 1} ? warning">
+			    	<tr th:each="ad : ${address}" th:classappend="${ad.status.getValue() == 1} ? danger">
 			    		<td th:text="${ad.getId()}"></td>
 			    		<td th:text="${ad.getStreet()}"></td>
 			    		<td th:text="${ad.getCity()}"></td>

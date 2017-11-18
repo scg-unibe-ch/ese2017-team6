@@ -22,7 +22,7 @@
 			    	</tr>
 			    </thead>
 			    <tbody>
-			    	<tr th:each="truck : ${trucks}" th:classappend="${truck.status.getValue() == 1} ? warning">
+			    	<tr th:each="truck : ${trucks}" th:classappend="${truck.status.getValue() == 1} ? danger">
 			    		<td th:text="${truck.getId()}"></td>
 			    		<td th:text="${truck.getTruckname()}"></td>
 			    		<td th:text="${truck.getMaxCargoSpace()}"></td>
