@@ -10,7 +10,7 @@
 	    <p th:text="'truck id: ' + ${truck.id}" />
 	    <p th:text="'max space: ' + ${truck.maxCargoSpace} + ' stillages'" />
 	    <p th:text="'max load: ' + ${truck.maxLoadCapacity} + ' tons'" />
-	    <p th:text="'condition: ' + ${truck.getStatus().getTitle()}" />
+	    <p th:text="'condition: ' + ${truck.status.getTitle()}" />
     </div>
     </div>
     <a th:href="@{/truck/{id}/edit(id = ${truck.id})}" class="btn btn-primary">edit this truck</a>
