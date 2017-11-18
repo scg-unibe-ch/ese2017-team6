@@ -91,7 +91,7 @@ public class UserBaseController {
 	}
 	
 	@PostMapping(path = "/{userId}/edit")
-	public ModelAndView editUser (@ModelAttribute User uservalue, @PathVariable long userId) {
+	public ModelAndView editUser (Model model, @ModelAttribute User uservalue, @PathVariable long userId) {
 		User user = userRepository.findOne(userId);
 		try {
 		user.setFirstname(uservalue.getFirstname());
@@ -99,7 +99,9 @@ public class UserBaseController {
 		user.setPassword(uservalue.getPassword());
 		user.setStatus(uservalue.getStatus());
 		user.setRoles(uservalue.getRoles());
-		userService.save(user);
+		userRepository.save(user);
+		//userService.save(user);
+		model.addAttribute("user", user);
 		}
 		catch(Exception e) {}
 		return new ModelAndView("user/profile", "user", user);

@@ -82,11 +82,13 @@ public class TruckBaseController {
 		Truck truck = truckRepository.findOne(truckId);
 		try {
 			truck.setTruckname(truckvalue.getTruckname());
+			//truckvalue.setStatus(DataStatus.INACTIVE);
 			truck.setStatus(truckvalue.getStatus());
 		} catch (BadSizeException e) {
 			// TODO Auto-generated catch block
 			return "staticpage/loaded";
 		}
+		
 		truckRepository.save(truck);
 		model.addAttribute("truck", truck);
 		return ("truck/profile");
