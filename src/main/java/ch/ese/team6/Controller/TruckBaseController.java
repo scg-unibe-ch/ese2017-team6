@@ -35,6 +35,7 @@ public class TruckBaseController {
 	@GetMapping(path="/add")
 	public String createForm(Model model) {
 		  model.addAttribute("truck", new Truck());
+		  model.addAttribute("statusArray", DataStatus.values());
 	        return "truck/create";
 	}
 
@@ -82,7 +83,6 @@ public class TruckBaseController {
 		Truck truck = truckRepository.findOne(truckId);
 		try {
 			truck.setTruckname(truckvalue.getTruckname());
-			//truckvalue.setStatus(DataStatus.INACTIVE);
 			truck.setStatus(truckvalue.getStatus());
 		} catch (BadSizeException e) {
 			// TODO Auto-generated catch block

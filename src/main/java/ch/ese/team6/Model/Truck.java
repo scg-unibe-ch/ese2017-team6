@@ -28,6 +28,7 @@ public class Truck {
 	private int maxCargoSpace;
 	@NotNull @Min( value = 0)
 	private int maxLoadCapacity;
+	@NotNull
 	private DataStatus status;
 	@OneToMany(mappedBy="truck")
 	private List<Route> routes;

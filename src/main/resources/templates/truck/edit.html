@@ -25,28 +25,16 @@
 	 
 	 <div class="form-group">
 	 	<label class="control-label col-sm-2" for="name">status:</label>
-	 	<div class="col-sm-5">
-<!-- 	 		<input type="hidden" class="form-control" name="status" id="status"/> -->
-	 		
+	 	<div class="col-sm-5">	 		
 	 		<select class="form-control" th:field="*{status}">
         		<option th:each="var : ${statusArray}"
         				th:value="${var}" th:text="${var.getTitle()}"></option>
             </select>
 	 	</div>
 	 </div>
-
 	 
-	 
-<!--       	<p th:text="'truck id: ' + *{id}" /> -->
-<!--       	<p th:text="'vehicle name: ' + *{truckname}" /> -->
-<!--         <p>new truck name<input type="text" th:field="*{truckname}" /></p> -->
-<!--         <p>status -->
-<!--         	<select th:field="*{status}"> -->
-<!--         		<option th:each="var : ${statusArray}" -->
-<!--         				th:value="${var}" th:text="${var.getTitle()}"></option> -->
-<!--             </select></p> -->
-      </div>
-      </div>
+     </div>
+     </div>
 
         <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
