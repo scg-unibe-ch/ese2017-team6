@@ -29,7 +29,8 @@ public class ItemController {
 	public String createForm(Model model) {
 		// add an Attribute called 'item', and fill it with an empty Item-Object
 		  model.addAttribute("item", new Item());
-	        return "item/create";
+		  model.addAttribute("statusArray", DataStatus.values());
+	      return "item/create";
 	}
 
 	
@@ -39,7 +40,7 @@ public class ItemController {
 		Item item = new Item();
 		item=itemvalue;
 		itemRepository.save(item);
-		return new ModelAndView("item/show", "item", item);
+		return new ModelAndView("item/profile", "item", item);
 	}
 	
 	@RequestMapping(path="/")

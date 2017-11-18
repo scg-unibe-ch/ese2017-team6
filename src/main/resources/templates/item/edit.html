@@ -5,18 +5,34 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1 th:text= "${item.name}"></h1>
-    <form action="#" th:action="@{/item/{id}/edit(id = ${item.id})}" th:object="${item}" th:method="post">
+    <form action="#" th:action="@{/item/{id}/edit(id = ${item.id})}" th:object="${item}" th:method="post" class="form-horizontal">
     <div class="panel panel-default">
 	<div class="panel-body">
-      	<p th:text="'article id: ' + *{id}" />
-      	<p th:text="'article name: ' + *{name}" />
-        <p>new article name<input type="text" th:field="*{name}" /></p> 
-
-        <p>status
-        	<select th:field="*{status}">
+	
+	<div class="form-group">
+	 	<label class="control-label col-sm-2" for="id">item id:</label>
+	 	<div class="col-sm-5">
+	 		<p th:text="*{id}"/>
+	 	</div>
+	 </div> 
+	 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="name">article name:</label>
+	 	<div class="col-sm-5">
+	 		<input type="text" th:field="*{name}" class="form-control" id="text" placeholder="enter article name" />
+	 	</div>
+	 </div>
+		 
+	 <div class="form-group">
+	 	<label class="control-label col-sm-2" for="name">status:</label>
+	 	<div class="col-sm-5">	 		
+	 		<select class="form-control" th:field="*{status}">
         		<option th:each="var : ${statusArray}"
         				th:value="${var}" th:text="${var.getTitle()}"></option>
-            </select></p>
+            </select>
+	 	</div>
+	 </div>
+	 
      </div>
      </div>
      <br/>

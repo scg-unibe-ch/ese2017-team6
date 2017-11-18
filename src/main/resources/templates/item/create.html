@@ -4,28 +4,51 @@
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1>add new article</h1>
+	<h1>create new article</h1>
 
-    <form action="#" th:action="@{/item/add}" th:object="${item}" method="post">
-        <table>
+    <form action="#" th:action="@{/item/add}" th:object="${item}" method="post" class="form-horizontal">
+        <table class="table">
     		<tr>
     			<td>name:</td>
-    			<td> <input  type = "text" th:field="*{name}" required = "required"/></td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "text" th:field="*{name}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
     			<td th:="${#fields.hasErrors('name')}" th:errors="*{name}" th:text="'name can't be empty.'"></td>
     		</tr>
     		<tr>
-    			<td>space in palettes:</td>
-    			<td> <input  type ="number" th:field="*{requiredSpace}" required ="required" min="0" /></td>
+    			<td>space in stillages:</td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type ="number" th:field="*{requiredSpace}" class="form-control" required ="required" min="0" />
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('requiredSpace')}" th:errors="*{requiredSpace}" th:text="'displacement can't be negative.'"></td>
     		</tr>
     		<tr>
-    			<td>weight:  </td>
-    			<td> <input  type = "number" th:field="*{weight}" required = "required" min="0" /></td>
+    			<td>weight in tons:  </td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input  type = "number" th:field="*{weight}" class="form-control" required = "required" min="0" />
+    				</div>
+    			</td>
     			<td th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" th:text="'weight can't be negative.'"></td>
     		</tr>
+    		<tr>
+    			<td>status:</td>
+    			<td>
+	 		 		<div class="col-sm-5">	 		
+	 				<select class="form-control" th:field="*{status}">
+        				<option th:each="var : ${statusArray}"
+        					th:value="${var}" th:text="${var.getTitle()}"></option>
+            		</select>
+	 				</div>
+				</td>
+    		</tr>
        	</table>
-       	<br/>
-        <input type="submit" class="btn btn-primary" value="submit"/>
+       	
+        <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
         <a href ="/item/" class="btn btn-primary" role="button">go back to overview</a>
     </form>
