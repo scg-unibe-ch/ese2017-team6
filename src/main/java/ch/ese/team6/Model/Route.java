@@ -41,7 +41,7 @@ public class Route {
 	public long measuredTime;
 	private long routeStart = 0;
 	private long routeStop = 0;
-	private long counter = 0;
+	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ADDRESS_ID")
@@ -85,6 +85,11 @@ public class Route {
 	
 	public void setDeposit(Address address) {
 		this.deposit = address;
+	}
+	
+	public Address getDeposit() {
+		return this.deposit;
+				
 	}
 
 	public String getDate() {
@@ -466,19 +471,6 @@ public class Route {
 		
 		return oi;
 
-	}
-	
-	public void increaseCounter() {
-		counter++;
-	}
-	
-	public long getCounter() {
-		return counter;
-	}
-	
-	public Address getDeposit() {
-		return this.deposit;
-				
 	}
 
 		

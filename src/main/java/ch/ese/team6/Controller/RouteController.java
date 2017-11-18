@@ -60,17 +60,19 @@ public class RouteController{
 		model.addAttribute("routeDate", date);
 		model.addAttribute("trucks", truckService.findFreeTrucks(date));
 		model.addAttribute("drivers", userService.findFreeUsers(date));
+		model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/create";
 	}
 
 	
 	@PostMapping(path="/add")
 	public ModelAndView addNewRoute (@RequestParam String routeDate, 
-			@RequestParam int driverId, @RequestParam int truck) {
+			@RequestParam int driverId, @RequestParam int truck, @RequestParam int addressId) {
 		Route newRoute = new Route();
 		newRoute.setRouteDate(routeDate);
 		newRoute.setDriver(userRepository.findOne((long)driverId));
 		newRoute.setTruck(truckRepository.findOne((long)truck));
+		newRoute.setDeposit(addressRepository.findOne((long) addressId));
 		routeRepository.save(newRoute);
 		return new ModelAndView("route/profile", "route", newRoute);
 	}
@@ -137,17 +139,20 @@ public class RouteController{
 		model.addAttribute("trucks", truckService.findFreeTrucks(date));
 		model.addAttribute("drivers", userService.findFreeUsers(date));
 		model.addAttribute("order", orderRepository.findOne(orderId));
+		model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/createWithOrder";
 		
 	}
 		
 	@PostMapping(path="/add/o/{orderId}")
 	public ModelAndView addNewRouteFromOrder (@RequestParam String routeDate, 
-			@RequestParam int driverId, @RequestParam int truck, @PathVariable long orderId) {
+			@RequestParam int driverId, @RequestParam int truck, @PathVariable long orderId,
+			@RequestParam int addressId) {
 		Route route = new Route();
 		route.setRouteDate(routeDate);
 		route.setDriver(userRepository.findOne((long)driverId));
 		route.setTruck(truckRepository.findOne((long)truck));
+		route.setDeposit(addressRepository.findOne((long)addressId));
 		Order order = orderRepository.findOne(orderId);
 		route.addDelivarable(order);
 		order.scheduleOrder();
@@ -169,9 +174,10 @@ public class RouteController{
 		model.addAttribute("deliveries", routeRepository.findOne(routeid).getDeliveries());
 		// All the deliveries (open or not)
 		model.addAttribute("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
+		// When the route gets started, the last address is the deposit address of the route
 		model.addAttribute("lastAddress", routeRepository.findOne(routeid).getDeposit());
 		
-		
+		// Make sure every addres gets rendered
 		String[] addressesfinal = createAddressStringArray(routeid);
 		model.addAttribute("addresses", addressesfinal);
 		
@@ -184,7 +190,6 @@ public class RouteController{
     
 		Address address = addressRepository.findOne(addressid);
 		Route route = routeRepository.findOne(routeid);
-		route.increaseCounter();
 		
 		ArrayList<OrderItem> orderitems = route.getArrayOfOI();
 		

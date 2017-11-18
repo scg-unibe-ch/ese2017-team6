@@ -22,10 +22,14 @@
  
  	<script text="text/javascript" th:inline="javascript">
  	/*<![CDATA[*/
- 	var addresses = [[${addresses}]];
  	
- 	var counter = [[${route.getCounter()}]];
+ 	// List of all addresses (String datatype)
+ 	var addresses = [[${addresses}]];
+ 	// Deposit is the origin of the route
  	var deposit = [[${deposit.toString()}]];
+ 	// origin symbolizes the last address
+ 	var origin = [[${lastAddress.toString()}]];
+ 	
  	var center = [[${deliveries.get(0).getAddress().toString()}]];
  	
  	
@@ -47,14 +51,8 @@
  	// Set the map as the map of the DirectionsDisplay Renderer
  	directionsDisplay.setMap(map);
  	
- 	if(counter == 0) {
- 		calculateAndDisplayRoute(directionsService, directionsDisplay, deposit, center);
- 	}
- 	else {
- 		var origin = [[${lastAddress.toString()}]];
- 		calculateAndDisplayRoute(directionsService, directionsDisplay, origin, center);
- 	}
- 	
+ 	calculateAndDisplayRoute(directionsService, directionsDisplay, origin, center);
+ 
  	for(i = 1; i< addresses.length;i++)
  		{codeAddress(geocoder, map, addresses[i]);}
  	
@@ -131,7 +129,6 @@
 			    		<th>address</th>
 			    		<th>orderitems</th>
 			    		<th>status</th>
-			    		<th></th>
 			    	</tr>
 			    </thead>
 			    <tbody>
@@ -147,8 +144,6 @@
 			    				<li th:text = "${orderItem.getOrderItemStatus()}"></li>
 			    			</ul>
 			    		</td>
-			    		
-			    		<td></td>
 					</tr>
 				</tbody>
 				</table>

@@ -20,13 +20,23 @@
 				</td>
     		</tr>
     		
-    		<tr><td> driver: </td>
-    		<td><select class="form-control" name="driverId" id="driver">
+    		<tr>
+    			<td> driver: </td>
+    			<td>
+    			<select class="form-control" name="driverId" id="driver">
 		    	<option th:each= "driverId : ${drivers}" th:value="${driverId.getId()}" th:text="${driverId.toString()}"></option>
-			</select>
+				</select>
+			</td>	
+    		</tr>
+    		
+    		<tr>
+    			<td> deposit: </td>
+    			<td>
+    			<select class="form-control" name="addressId" id="address">
+		    	<option th:each= "addressId : ${addresses}" th:value="${addressId.getId()}" th:text="${addressId.toString()}"></option>
+				</select>
 			<br/>
-			</td>
-    			
+			</td>	
     		</tr>
     		
     		
