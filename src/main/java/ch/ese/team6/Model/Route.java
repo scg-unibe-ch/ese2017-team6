@@ -166,8 +166,7 @@ public class Route {
 		return !this.orderItems.isEmpty();
 		
 	}
-<<<<<<< HEAD
-	
+
 	/**
 	 * returns a list of all the open deliveries
 	 * @return
@@ -189,8 +188,8 @@ public class Route {
 	 * @return
 	 */
 	public List<Delivery> getAllDeliveries(){
-		Set<Address> addresses = this.getAllAddresses(false);
-=======
+		return this.getDeliveries(false);
+	}
 	/**
 	 * Return the open deliveries of the route
 	 * if onlyOpen is set you will only get deliveries where there are open Items.
@@ -198,7 +197,6 @@ public class Route {
 	 */
 	private List<Delivery> getDeliveries(boolean onlyOpen){
 		Set<Address> addresses = this.getAllAddresses(false,onlyOpen);
->>>>>>> branch 'master' of https://github.com/scg-unibe-ch/ese2017-team6.git
 		List<Delivery> deliveries = new ArrayList<Delivery>(addresses.size());
 		for(Address adress: addresses) {
 			Delivery delivery = new Delivery(this);
@@ -211,9 +209,6 @@ public class Route {
 	
 	public List<Delivery> getOpenDeliveries(){
 		return this.getDeliveries(true);
-	}
-	public List<Delivery> getAllDeliveries(){
-		return this.getDeliveries(false);
 	}
 	
 	public int countDeliveries() {
