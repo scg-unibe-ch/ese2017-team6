@@ -26,9 +26,9 @@ public class SchedulingController {
 	private OrderRepository orderRepository;
 	@Autowired
 	private RouteRepository routeRepository;
-	
-	@Autowired
+	@Autowired 
 	private RouteService routeService;
+	
 	
 	@RequestMapping
 	public String overview(Model model) {
@@ -42,25 +42,20 @@ public class SchedulingController {
 		Order order = orderRepository.findOne(orderId);
 		model.addAttribute("order", order);
 		
-		List<Route> routes = routeRepository.findAll();
-		// Elimate routes where the order does not fit
-		for(int i = routes.size()-1;i>=0;i--) {
-			Route r = routes.get(i);
-			if(!r.doesIDelivarableFit(order)) {
-				routes.remove(r);
-			}
-		}
+		List<Route> routes = routeService.selectWithLeftCapacity(order);
 		
 		model.addAttribute("routes", routes);
 		return "schedule/addOrder";
 	}
 	
 	@PostMapping(path ="/{orderId}")
-	public String createDelivery(Model model, @PathVariable long orderId, @RequestParam long routeId) {
-		Route route = routeRepository.findOne(routeId);
+	public String createDelivery(Model model, @PathVariable long orderId, @RequestParam String routeId) {
+		long routeIdl = Long.parseLong(routeId.replace("Add order to route ",""));
+		
+		Route route = routeRepository.findOne(routeIdl);
 		Order order = orderRepository.findOne(orderId);
 	
-		if (route.isFull()) return"redirect:/schedule/"+orderId;
+		if (!route.doesIDelivarableFit(order)) return"redirect:/schedule/"+orderId;
 		
 		route.addDelivarable(order);
 		try {

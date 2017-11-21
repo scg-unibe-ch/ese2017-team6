@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Model.Delivery;
+import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.OrderItem;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Repository.RouteRepository;
@@ -25,6 +26,20 @@ public class RouteServiceImpl implements RouteService {
 	
 	public boolean isTruckFull(Route route) {
 		return route.isFull();
+	}
+	/**
+	 * Returns only the rroutes able to transport the delivarable o
+	 * @param o
+	 * @return
+	 */
+	public List<Route> selectWithLeftCapacity(IDelivarable o){
+		List<Route> routes = routeRepository.findAll();
+		for(int i = routes.size()-1; i>=0;i--) {
+			if(!routes.get(i).doesIDelivarableFit(o)) {
+				routes.remove(i);
+			}
+		}
+		return routes;
 	}
 	
 	public List<Route> selectWithLeftCapacity(){

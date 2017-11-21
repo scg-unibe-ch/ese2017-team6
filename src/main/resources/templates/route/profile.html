@@ -28,7 +28,7 @@
 	    <a href="/schedule/" class="btn btn-primary" role="button">go to scheduling</a>
 	    <a href="/route/" class="btn btn-primary" role="button">show all routes</a>
 	    <a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" class="btn btn-primary">driver-profile of this route</a>
-	    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a>
+<!--    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a> -->
 	    <a th:href="@{/route/onmap/{id}(id = ${route.id})}" class="btn btn-success">show route on map</a>
 		</div>
 	</body>

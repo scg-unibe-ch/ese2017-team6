@@ -138,9 +138,11 @@ public class RouteController{
 			@RequestParam String date) {
 		model.addAttribute("routeTemplate", new Route(date));
 		model.addAttribute("routeDate", date);
-		model.addAttribute("trucks", truckService.findFreeTrucks(date));
+		Order order =  orderRepository.findOne(orderId);
+		//only the trucks with enough capacity
+		model.addAttribute("trucks", truckService.findFreeTrucks(date,order));
 		model.addAttribute("drivers", userService.findFreeUsers(date));
-		model.addAttribute("order", orderRepository.findOne(orderId));
+		model.addAttribute("order", order);
 		model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/createWithOrder";
 		
@@ -156,6 +158,11 @@ public class RouteController{
 		route.setTruck(truckRepository.findOne((long)truck));
 		route.setDeposit(addressRepository.findOne((long)addressId));
 		Order order = orderRepository.findOne(orderId);
+		
+		//the order may not fit into the truck
+		if (!route.doesIDelivarableFit(order)) return new ModelAndView("redirect:/schedule/");
+		
+		
 		route.addDelivarable(order);
 		try {
 			order.schedule();

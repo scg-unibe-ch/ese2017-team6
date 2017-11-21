@@ -18,6 +18,7 @@
 				    		<th>Delivery Date</th>
 				    		<th>Size of open Order items</th>
 				    		<th>Weight of open Order items</th>
+				    		<th>Details</th>
 				    		<th></th>
 				    		<th></th>
 				    	</tr>
@@ -32,6 +33,7 @@
 				    		<td th:text="${order.getDeliveryDate()}"></td>
 				    		<td th:text="${order.getOpenSize()}"></td>
 				    		<td th:text="${order.getOpenWeight()}"></td>
+				    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">Details</a></td>
 				    		
 						</tr>
 					</tbody>
@@ -66,7 +68,7 @@
 				    		<td th:text="${route.countDeliveries()}"></td>
 				    		<td th:text="${route.getDate()}"></td>
 				    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
-				    		<td><input th:type="submit" th:name="routeId" th:value="${route.getId()}"></input></td>
+				    		<td><input th:type="submit" th:name="routeId" th:value="'Add order to route '+${route.getId()}"></input></td>
 						</tr>
 					</tbody>
 			    </table>

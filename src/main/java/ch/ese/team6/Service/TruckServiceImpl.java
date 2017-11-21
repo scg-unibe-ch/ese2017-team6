@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
+import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.RouteRepository;
@@ -42,5 +43,19 @@ public class TruckServiceImpl implements TruckService{
 
 	private boolean existByTruckname(String truckname) {
 		return truckRepository.existsByTruckname(truckname);
+	}
+
+	@Override
+	/**
+	 * Will return the trucks free at date data and with enough capacity to transport o
+	 */
+	public List<Truck> findFreeTrucks(String date, IDelivarable o) {
+		List<Truck> freeTrucks = this.findFreeTrucks(date);
+		for(int i = freeTrucks.size()-1; i>=0; i--) {
+			if(o.getOpenWeight()>freeTrucks.get(i).getMaxLoadCapacity() || o.getOpenSize()>freeTrucks.get(i).getMaxCargoSpace()) {
+				freeTrucks.remove(i);
+			}
+		}
+		return freeTrucks;
 	}
 }
