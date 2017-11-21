@@ -163,7 +163,12 @@
 			    		<td th:text="${deliveries.get(0).getAddress().toString()}"></td>
 			    		<td>
 			    			<ul th:each= "orderItem : ${deliveries.get(0).getItems()}">
-			    				<li th:text = "${orderItem.toString()}"></li>
+			    				<li>
+					    		<span th:text = "${orderItem.toString()}"> </span>
+					    		<span> for customer </span> 
+					    		 <span><a th:href="@{/customer/{id}(id = ${orderItem.getOrder().getCustomer().getId()})}"> <span th:text="${orderItem.getOrder().getCustomer().toString()}"></span>  </a> 
+					    		</span>
+					    		</li>
 			    			</ul>
 			    		</td>
 			    		<td></td>

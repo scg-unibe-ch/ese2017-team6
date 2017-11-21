@@ -17,7 +17,7 @@
 					    		<li>
 
 					    		<span th:text = "${orderItem.toString()}"> </span>
-					    		<span> for Customer: </span> 
+					    		<span> for customer </span> 
 					    		 <span><a th:href="@{/customer/{id}(id = ${orderItem.getOrder().getCustomer().getId()})}"> <span th:text="${orderItem.getOrder().getCustomer().toString()}"></span>  </a> 
 					    		</span>
 					    		</li>
