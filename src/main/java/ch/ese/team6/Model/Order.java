@@ -111,6 +111,13 @@ public class Order  implements IDelivarable{
 		return openItems;
 		
 	}
+    /**
+     * Will be true if there is at least one item in the order which is open.
+     * @return
+     */
+    public boolean isOpen() {
+    	return this.getStatus().equals(OrderStatus.OPEN);
+    }
     
     /**
 	 * Weight of the orderItems open for sheduling

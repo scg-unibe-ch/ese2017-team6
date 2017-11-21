@@ -215,21 +215,8 @@ public class SampleDataServiceImpl implements SampleDataService{
 			"Jason,Curry,031 843 72 40,curry@example.com;" + 
 			"Eunice,Mitchell,031 843 72 41,mitchell@example.com;";
 	private String customerCsv =  
-					"Cyclops Motors,Praceta Rosa 1: 2770-123 Paço de Arcos, Portugal,(977) 828-9760,cyclops.motors@example.com;" +
-					"Sail Navigations,98 Porcupine Trail: Dunrobin ON K0A 1T0, Canada,(627) 137-1790,sail.navigations@example.com;" + 
-					"Rose Limited,Ronda de el Olivar de los Pozos 4 : 45004 Toledo, Spain,(567) 906-4052,rose.limited@example.com;" + 
-					"Robinetworks,Calle Generación 21-9:29196 Málaga:, Spain,(426) 707-3647,robinetworks@example.com;" + 
-					"Peachco,Leixlip Co. Kildare:363-371 Castletown,Ireland,(737) 688-0889,peachco@example.com;" + 
-					"Whiteoutwares,Stoke-on-Trent ST1 5HR:151-153 Marsh St N,UK,(176) 380-3148,whiteoutwares@example.com;" + 
-					"Griffindustries,Rue Alexandre Wouters 7-12: 1090 Jette, Belgium,(356) 649-7639,griffindustries@example.com;" + 
-					"Herbbooks,Kaliskiego 25:01-476 Warszawa, Poland,(134) 469-9583,herbbooks@example.com;" + 
-					"Shadowtronics,Im Steinkampe 14-16:38110 Braunschweig:,Germany,(676) 246-7637,shadowtronics@example.com;" + 
-					"Nightwell,Komsomolskaya pl. 1:Moskva,Russia 107140,(555) 232-8189,nightwell@example.com;" + 
-					"Melon Enterprises,Pia?a Doroban?ilor 2: Bucure?ti,Romania,(716) 683-2661,melon.enterprises@example.com;" + 
-					"Granite Corporation,Iera Odos 36-44:Athina 104 35,Greece,(822) 998-3532,granite.corporation@example.com;" + 
-					"Eclipse Productions,Partizanskog odreda Zvijezda 2-22:Vogoš?a,Bosnia and Herzegovina,(587) 173-5823,eclipse.productions@example.com;" + 
-					"Purplelimited,14 Triq Ir-Rifu?jati Tal-Gwerra:Il-Mosta,Malta,(586) 499-4837,purplelimited@example.com;" + 
-					"Omegacoustics,Via Bergamina 14-18:20016 Pero MI,Italy,(114) 462-9810,omegacoustics@example.com;" + 
+			"Peachstar,Burgerstrasse 13-15:3600 Thun,Schweiz,(177) 593-0085,peachstar@example.com;" + 
+			"Omegacoustics,Via Bergamina 14-18:20016 Pero MI,Italy,(114) 462-9810,omegacoustics@example.com;" + 
 					"Jetechnologies,Árpád u. 45-71:Budapest 1196,Hungary,(979) 370-0150,jetechnologies@example.com;" + 
 					"Felinetworks,Grüner Weg 3-1:50825 Köln,Germany,(222) 393-9330,felinetworks@example.com;" + 
 					"Nemoair,Perjenerweg 2:6500 Landeck,Austria,(727) 294-5007,nemoair@example.com;" + 
@@ -244,7 +231,21 @@ public class SampleDataServiceImpl implements SampleDataService{
 					"Galerprises,Hauptstrasse 37:32 Aarau,Schweiz,(895) 953-6977,galerprises@example.com;" + 
 					"Pixelmaster,Neuhofstrasse 2:6340 Baar,Schweiz,(708) 622-2003,pixelmaster@example.com;" + 
 					"Shadetales,Chemin de la Combatte 3:2802 Develier,Schweiz,(681) 776-9988,shadetales@example.com;" + 
-					"Vortexbar,Giacomettistrasse 114-116:7000 Chur,Schweiz,(804) 820-2271,vortexbar@example.com;";
+					"Vortexbar,Giacomettistrasse 114-116:7000 Chur,Schweiz,(804) 820-2271,vortexbar@example.com;"+
+					"Cyclops Motors,Praceta Rosa 1: 2770-123 Paço de Arcos, Portugal,(977) 828-9760,cyclops.motors@example.com;" +
+					"Sail Navigations,98 Porcupine Trail: Dunrobin ON K0A 1T0, Canada,(627) 137-1790,sail.navigations@example.com;" + 
+					"Rose Limited,Ronda de el Olivar de los Pozos 4 : 45004 Toledo, Spain,(567) 906-4052,rose.limited@example.com;" + 
+					"Robinetworks,Calle Generación 21-9:29196 Málaga:, Spain,(426) 707-3647,robinetworks@example.com;" + 
+					"Peachco,Leixlip Co. Kildare:363-371 Castletown,Ireland,(737) 688-0889,peachco@example.com;" + 
+					"Whiteoutwares,Stoke-on-Trent ST1 5HR:151-153 Marsh St N,UK,(176) 380-3148,whiteoutwares@example.com;" + 
+					"Griffindustries,Rue Alexandre Wouters 7-12: 1090 Jette, Belgium,(356) 649-7639,griffindustries@example.com;" + 
+					"Herbbooks,Kaliskiego 25:01-476 Warszawa, Poland,(134) 469-9583,herbbooks@example.com;" + 
+					"Shadowtronics,Im Steinkampe 14-16:38110 Braunschweig:,Germany,(676) 246-7637,shadowtronics@example.com;" + 
+					"Nightwell,Komsomolskaya pl. 1:Moskva,Russia 107140,(555) 232-8189,nightwell@example.com;" + 
+					"Melon Enterprises,Pia?a Doroban?ilor 2: Bucure?ti,Romania,(716) 683-2661,melon.enterprises@example.com;" + 
+					"Granite Corporation,Iera Odos 36-44:Athina 104 35,Greece,(822) 998-3532,granite.corporation@example.com;" + 
+					"Eclipse Productions,Partizanskog odreda Zvijezda 2-22:Vogoš?a,Bosnia and Herzegovina,(587) 173-5823,eclipse.productions@example.com;" + 
+					"Purplelimited,14 Triq Ir-Rifu?jati Tal-Gwerra:Il-Mosta,Malta,(586) 499-4837,purplelimited@example.com;";
 	
 	private String itemCsv = 
 	"EPX-WQ-965,0,5;" + 

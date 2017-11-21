@@ -42,7 +42,7 @@
 			    		<td th:text="${order.getOrderItems().size()}"></td>
 			    		<td th:text="${order.getDeliveryDate()}"></td>
 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td>
-			    		<td><a th:href="@{/schedule/{id}(id = ${order.getId()})}">add to route</a></td>
+			    		<td><a th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}">add to route</a></td>
 					</tr>
 				</tbody>
 		    </table>
