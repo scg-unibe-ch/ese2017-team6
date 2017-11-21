@@ -33,11 +33,17 @@
 				</tbody>
 		    </table>
 		</div>
+		
 		<form action="#" th:action="@{/route/add}" method="get">
+		 <div class="panel panel-default">
+		 <div class="panel-body">
 			<label for="routeDate"></label>
-           	<input type="date" th:name="date" placeholder="set route date" required="required" style="float-left"/>
-			<input type="submit" class="btn btn-primary" value="create new route" />
-		</form> 
+			<p> choose a date for a new route:
+           	<input type="date" th:name="date" placeholder="set route date" /></p>
+           	<input type="submit" class="btn btn-primary" value="create new route"/>
+         </div>
+         </div>
+		</form>
 		</div>
 	</body>
 </html>
