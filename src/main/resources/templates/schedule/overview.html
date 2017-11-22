@@ -1,6 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head lang="en" th:replace="fragments/head :: head"> </head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#datatable").DataTable();
+});
+</script>
+	
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
@@ -20,7 +26,7 @@
 		</form>
 		<div th:if="${not #lists.isEmpty(orders)}">
 		    <h2>all orders</h2>
-		    <table class="table table-hover">
+		    <table id="datatable" class="display table table-hover">
 		    	<thead>
 			    	<tr>
 			    		<th>id</th>
