@@ -10,22 +10,25 @@ $("#datatable").DataTable();
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-		<h1> order and route overview </h1>
+		<h1> schedule open orders </h1>
 
 <!-- 		<a href="/orders/add" class="btn btn-primary" role="button">create new order</a><br/><br/> -->
 <!-- 		<br/> -->
-		<form action="#" th:action="@{/route/add}" method="get">
-		 <div class="panel panel-default">
-		 <div class="panel-body">
-			<label for="routeDate"></label>
-			<p> choose a date for a new route:
-           	<input type="date" th:name="date" placeholder="set route date" /></p>
-           	<input type="submit" class="btn btn-primary" value="create new route"/>
-         </div>
-         </div>
-		</form>
+<!-- 		<form action="#" th:action="@{/route/add}" method="get"> -->
+<!-- 		 <div class="panel panel-default"> -->
+<!-- 		 <div class="panel-body"> -->
+<!-- 			<label for="routeDate"></label> -->
+<!-- 			<p> choose a date for a new route: -->
+<!--            	<input type="date" th:name="date" placeholder="set route date" /></p> -->
+<!--            	<input type="submit" class="btn btn-primary" value="create new route"/> -->
+<!--          </div> -->
+<!--          </div> -->
+<!-- 		</form> -->
 		<div th:if="${not #lists.isEmpty(orders)}">
-		    <h2>all orders</h2>
+		    <h2>add an order to a <a href="/route/">planned route</a> </h2>
+		    
+		    <div class="panel panel-default">
+		    <div class="panel-body">
 		    <table id="datatable" class="display table table-hover">
 		    	<thead>
 			    	<tr>
@@ -33,7 +36,7 @@ $("#datatable").DataTable();
 			    		<th>client name</th>
 			    		<th>delivery adress</th>
 			    		<th>order status</th>
-			    		<th>number of ordered articles</th>
+<!-- 			    		<th>number of ordered articles</th> -->
 			    		<th>delivery date</th>
 			    		<th></th>
 			    		<th></th>
@@ -45,43 +48,46 @@ $("#datatable").DataTable();
 			    		<td th:text="${order.getCustomer()}"></td>
 			    		<td th:text="${order.getAddress()}"></td>
 			    		<td th:text="${order.getStatus()}"></td>
-			    		<td th:text="${order.getOrderItems().size()}"></td>
+<!-- 			    		<td th:text="${order.getOrderItems().size()}"></td> -->
 			    		<td th:text="${order.getDeliveryDate()}"></td>
 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td>
-			    		<td><a th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}">add to route</a></td>
+			    		<td><a th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}"
+			    		class="btn btn-success">add to route</a></td>
 					</tr>
 				</tbody>
 		    </table>
 		</div>
-		<div th:if="${not #lists.isEmpty(orders)}">
-		    <h2>all routes</h2>
-		    <table class="table table-hover">
-		    	<thead>
-			    	<tr>
-			    		<th>id</th>
-			    		<th>truck</th>
-			    		<th>driver</th>
-			    		<!-- <th>space capacity</th> -->
-			    		<!-- <th>weight capacity</th> -->
-			    		<th>number of deliveries</th>
-			    		<th>delivery date</th>
-			    		<th></th>
-			    	</tr>
-			    </thead>
-			    <tbody>
-			    	<tr th:each="route : ${routes}">
-			    		<td th:text="${route.getId()}"></td>
-			    		<td th:text="${route.getTruck()}"></td>
-			    		<td th:text="${route.getDriver()}"></td>
-			    		<!--<td th:text="${route.calculateCapacitySize()}"></td> -->
-			    		<!-- <td th:text="${route.calculateCapacityWeight()}"></td> -->
-			    		<td th:text="${route.countDeliveries()}"></td>
-			    		<td th:text="${route.getDate()}"></td>
-			    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
-					</tr>
-				 </tbody>
-		    </table>
 		</div>
+		</div>
+<!-- 		<div th:if="${not #lists.isEmpty(orders)}"> -->
+<!-- 		    <h2>all planned routes</h2> -->
+<!-- 		    <table class="table table-hover"> -->
+<!-- 		    	<thead> -->
+<!-- 			    	<tr> -->
+<!-- 			    		<th>id</th> -->
+<!-- 			    		<th>truck</th> -->
+<!-- 			    		<th>driver</th> -->
+<!-- 			    		<th>space capacity</th> -->
+<!-- 			    		<th>weight capacity</th> -->
+<!-- 			    		<th>number of deliveries</th> -->
+<!-- 			    		<th>delivery date</th> -->
+<!-- 			    		<th></th> -->
+<!-- 			    	</tr> -->
+<!-- 			    </thead> -->
+<!-- 			    <tbody> -->
+<!-- 			    	<tr th:each="route : ${routes}"> -->
+<!-- 			    		<td th:text="${route.getId()}"></td> -->
+<!-- 			    		<td th:text="${route.getTruck()}"></td> -->
+<!-- 			    		<td th:text="${route.getDriver()}"></td> -->
+<!-- 			    		<td th:text="${route.calculateCapacitySize()}"></td> -->
+<!-- 			    		<td th:text="${route.calculateCapacityWeight()}"></td> -->
+<!-- 			    		<td th:text="${route.countDeliveries()}"></td> -->
+<!-- 			    		<td th:text="${route.getDate()}"></td> -->
+<!-- 			    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td> -->
+<!-- 					</tr> -->
+<!-- 				 </tbody> -->
+<!-- 		    </table> -->
+<!-- 		</div> -->
 		</div>
 	</body>
 </html>
