@@ -80,8 +80,32 @@ public class AddressServiceTest {
 		destination.setCountry("Switzerland");
 		destination.setCity("Zug");
 		destination.setStreet("Bahnhofstrasse 1");
-		if(addressService.calculateDistance(origin, destination) >= 3600) return;
-		fail("Distance should be calculated.");
+		try {
+			if(addressService.calculateDistance(origin, destination) >= 3600) return;
+		} catch (InvalidAddressException e) {
+			fail("Distance should be calculated.");
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void shouldThrowExceptionIfCalculateDistanceFails() {
+		Address origin = new Address();
+		origin.setCountry("Switzerland");
+		origin.setCity("Bern");
+		origin.setStreet("Teufelshalde 8");
+		Address destination = new Address();
+		destination.setCountry("Switzerland");
+		destination.setCity("Zug");
+		destination.setStreet("Bahnhofstrasse 1");
+		try {
+			if(addressService.calculateDistance(origin, destination) >= 3600) {
+				fail("Distance should be calculated.");
+			}
+			
+		} catch (InvalidAddressException e) {
+			e.printStackTrace();
+		}
 	}
 	/*
 	@Test

@@ -21,9 +21,8 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public int calculateDistance(Address origin, Address destination) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long calculateDistance(Address origin, Address destination) throws InvalidAddressException {
+		return mapService.calculateDistance(origin, destination);
 	}
 
 	@Override

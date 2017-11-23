@@ -8,7 +8,7 @@ public interface AddressService {
 
 	boolean isValid(Address address) throws BadSizeException, InvalidAddressException;
 
-	int calculateDistance(Address origin, Address destination);
+	long calculateDistance(Address origin, Address destination) throws InvalidAddressException;
 
 	void save(Address oldAddress);
 
