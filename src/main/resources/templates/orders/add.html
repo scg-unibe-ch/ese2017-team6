@@ -14,26 +14,36 @@
         <fieldset>
           
           <h2> add new order</h2>
-          <table>
+          
+          <div class="panel panel-default">
+		  <div class="panel-body">
+		  <table class="table table-hover">
     		<tr>
     			<td> customer: </td>
-    			<td><select th:field="*{customer}">
+    			<td>
+    			<div class="col-sm-5">
+    				<select class="form-control" th:field="*{customer}">
            	           <option th:each="var : ${allCustomers}" th:value="${var.id}" th:text="${var.getName()}"></option>
-                </select>
+                	</select>
+                </div>
                 </td>
     		</tr>
-    		
     		<tr>
     			<td> delivery date: </td>
-    			<td> <input type="date" th:field="*{deliveryDate}" /> </td>
+    			<td>
+    				<div class="col-sm-5">
+    					<input type="date" class="form-control" th:field="*{deliveryDate}" /> 
+    				</div>
+    			</td>
     		</tr>
     		
     		
     	</table>
-          
-        <h2>ordered products</h2>  
+         
+<!--         <h2>ordered products</h2>   -->
             
-          
+         <div class="panel panel-default">
+		 <div class="panel-body">
           
            <div>
             
@@ -69,7 +79,10 @@
             </table>
               <button type="submit" class="btn btn-primary" name="addRow">add product</button>
           </div>
-			<br/>
+          </div>
+          </div>
+          </div>
+          </div>
 			
           <div class="submit">
             <button type="submit" class="btn btn-success" name="save">submit Order</button>    

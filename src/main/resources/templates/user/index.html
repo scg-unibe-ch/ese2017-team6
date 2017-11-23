@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en" th:replace="fragments/head :: head"> </head>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#datatable").DataTable();
+});
+</script>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
@@ -10,11 +15,7 @@
 	</div>
 	<div th:if="${not #lists.isEmpty(users)}">
 		    <h1>all users</h1>
-		    <table id="table"
-		    		data-toggle="table"
-		    		data-sort-name="role"
-		    		data-sort-order="desc"
-		    		class="table table-hover">
+		    <table id="datatable" class="display table table-hover">
 		    	<thead>
 			    	<tr>
 			    		<th data-field="id" data-sortable="true">id</th>
