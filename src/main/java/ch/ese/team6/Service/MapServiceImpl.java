@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
+import ch.ese.team6.Model.Distance;
 
 @Service
 public class MapServiceImpl implements MapService{
@@ -50,7 +51,7 @@ public class MapServiceImpl implements MapService{
 		
 	}
 	
-	public long calculateDistance(Address origin, Address destination) throws InvalidAddressException {
+	public Distance calculateDistance(Address origin, Address destination) throws InvalidAddressException {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("origin", origin.toString());
@@ -82,7 +83,12 @@ public class MapServiceImpl implements MapService{
 			System.out.println(distance.getString("value"));
 			long distanceInMetres = Long.parseLong(distance.getString("value"));
 			long distanceInSeconds =Long.parseLong(duration.getString("value"));
-			return distanceInSeconds;
+			Distance newDistance = new Distance();
+			newDistance.setDestination(destination);
+			newDistance.setOrigin(origin);
+			newDistance.setDistanceMetres(distanceInMetres);
+			newDistance.setDurationSeconds(distanceInSeconds);
+			return newDistance;
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

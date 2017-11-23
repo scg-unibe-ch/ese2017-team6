@@ -29,4 +29,47 @@ public class Distance {
 	@NotNull
 	private long durationSeconds;
 	
+	public Distance() {}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Address getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(Address origin) {
+		this.origin = origin;
+	}
+
+	public Address getDestination() {
+		return destination;
+	}
+
+	public void setDestination(Address destination) {
+		this.destination = destination;
+	}
+
+	public long getDistanceMetres() {
+		return distanceMetres;
+	}
+
+	public void setDistanceMetres(long distanceMetres) {
+		this.distanceMetres = distanceMetres;
+	}
+
+	public long getDurationSeconds() {
+		return durationSeconds;
+	}
+
+	public void setDurationSeconds(long durationSeconds) {
+		this.durationSeconds = durationSeconds;
+	}
+	
+	
 }

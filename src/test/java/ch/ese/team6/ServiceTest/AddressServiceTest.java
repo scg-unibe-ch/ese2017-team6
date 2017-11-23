@@ -81,7 +81,7 @@ public class AddressServiceTest {
 		destination.setCity("Zug");
 		destination.setStreet("Bahnhofstrasse 1");
 		try {
-			if(addressService.calculateDistance(origin, destination) >= 3600) return;
+			if(addressService.calculateDistance(origin, destination).getDistanceMetres() >= 3600) return;
 		} catch (InvalidAddressException e) {
 			fail("Distance should be calculated.");
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class AddressServiceTest {
 		destination.setCity("Zug");
 		destination.setStreet("Bahnhofstrasse 1");
 		try {
-			if(addressService.calculateDistance(origin, destination) >= 3600) {
+			if(addressService.calculateDistance(origin, destination).getDistanceMetres() >= 3600) {
 				fail("Distance should be calculated.");
 			}
 			
