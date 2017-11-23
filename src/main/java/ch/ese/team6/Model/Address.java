@@ -99,5 +99,10 @@ public class Address {
 		else
 			return false;
 	}
-
+/*
+	public List<Distance> getDistances() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+*/
 }
