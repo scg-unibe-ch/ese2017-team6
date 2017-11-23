@@ -1,9 +1,12 @@
 package ch.ese.team6.Model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -21,6 +24,13 @@ public class Address {
 	@NotNull
 	private String country;
 	private DataStatus status;
+	
+	@OneToMany(mappedBy="origin")
+	private Set<Distance> outGoing;
+	
+	@OneToMany(mappedBy="destination")
+	private Set<Distance> inComing;
+	
 	
 	public Address() {
 		this.status = DataStatus.ACTIVE;
