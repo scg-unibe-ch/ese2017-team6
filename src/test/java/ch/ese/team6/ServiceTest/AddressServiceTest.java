@@ -11,6 +11,7 @@ import ch.ese.team6.Application;
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
+import ch.ese.team6.Model.Distance;
 import ch.ese.team6.Service.AddressService;
 
 @RunWith(SpringRunner.class)
@@ -72,6 +73,7 @@ public class AddressServiceTest {
 	
 	@Test
 	public void shouldCalculateDistance() {
+		System.out.println("*********************************start shouldCalculateDistance()");
 		Address origin = new Address();
 		origin.setCountry("Switzerland");
 		origin.setCity("Bern");
@@ -82,9 +84,12 @@ public class AddressServiceTest {
 		destination.setStreet("Bahnhofstrasse 1");
 		try {
 			if(addressService.calculateDistance(origin, destination).getDistanceMetres() >= 3600) return;
+			System.out.println("*********************************end shouldCalculateDistance()");
 		} catch (InvalidAddressException e) {
-			fail("Distance should be calculated.");
 			e.printStackTrace();
+			System.out.println("*********************************end shouldCalculateDistance()");
+			fail("Distance should be calculated.");
+			
 		}
 	}
 	
@@ -107,9 +112,11 @@ public class AddressServiceTest {
 			e.printStackTrace();
 		}
 	}
-	/*
+	
 	@Test
 	public void newlySavedAddressShouldHaveDistances() {
+		try {
+		System.out.println("*********************************start newlySavedAddressShouldHaveDistances()");
 		Address oldAddress = new Address();
 		oldAddress.setCountry("Switzerland");
 		oldAddress.setCity("Bern");
@@ -117,16 +124,25 @@ public class AddressServiceTest {
 		if(addressService.isValid(oldAddress)) addressService.save(oldAddress);
 		else fail("Valid Address should be saved.");
 		Address newAddress = new Address();
-		newAddress.setCountry("Germany");
-		newAddress.setCity("München");
+		newAddress.setCountry("Switzerland");
+		newAddress.setCity("Zug");
 		newAddress.setStreet("Bahnhofstrasse 1");
 		if(addressService.isValid(newAddress)) addressService.save(newAddress);
 		else fail("Valid Address should be saved.");
-		if(oldAddress.getDistances() == newAddress.getDistances() && newAddress.getDistances() != 0) {
-			System.out.println(newAddress.getDistances());
+		System.out.println("Both distances are ok");
+		Distance distance = addressService.findDistance(oldAddress, newAddress);
+		System.out.println(distance.getOrigin());
+		System.out.println(distance.getDestination());
+		System.out.println(distance.getDurationSeconds() + " s");
+		System.out.println("*********************************end newlySavedAddressShouldHaveDistances()");
 			return;
 		}
-		
+		catch(InvalidAddressException | BadSizeException e) {
+			e.printStackTrace();
+			fail("Didn't work");
+		}
 	}
-*/
-}
+	
+	
+	
+	}

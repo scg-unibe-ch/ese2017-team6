@@ -30,16 +30,25 @@ public class AddressServiceImpl implements AddressService {
 		Distance distance = mapService.calculateDistance(origin, destination); 
 		return distance;
 	}
+	
+	public Distance findDistance(Address origin, Address destination) {
+		return distanceRepository.findByOriginAndDestination(origin, destination);
+		
+	}
 
 	@Override
 	public void save(Address address) throws BadSizeException, InvalidAddressException {
 		if (this.isValid(address)){
 			List<Address> addresses = addressRepository.findAll();
+			addressRepository.save(address);
+			for (Address addressPrint : addresses) {
+				System.out.println(addressPrint);
+			}
 			if (addresses.size()>0) {
-				addressRepository.save(address);
 				for(Address oldAddress : addresses) {
 					Distance out = this.calculateDistance(address, oldAddress);
 					distanceRepository.save(out);
+					System.out.println("First Distance saved");
 					Address origin = oldAddress; Address destination = address;
 					Distance in = new Distance();
 					in.setDestination(destination); 

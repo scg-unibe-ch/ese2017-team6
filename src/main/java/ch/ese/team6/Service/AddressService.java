@@ -13,4 +13,6 @@ public interface AddressService {
 
 	void save(Address oldAddress) throws BadSizeException, InvalidAddressException;
 
+	Distance findDistance(Address oldAddress, Address newAddress);
+
 }

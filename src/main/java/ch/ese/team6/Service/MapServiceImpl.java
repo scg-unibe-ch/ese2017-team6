@@ -64,6 +64,7 @@ public class MapServiceImpl implements MapService{
 			data= new JSONObject(result);
 			System.out.println("Created JSONObject.");
 			System.out.println(data.getString("origin_addresses"));
+			System.out.println(data.getString("destination_addresses"));
 			JSONArray rows = (JSONArray) data.get("rows");
 			System.out.println(rows.toString());
 			System.out.println("_____________________");
