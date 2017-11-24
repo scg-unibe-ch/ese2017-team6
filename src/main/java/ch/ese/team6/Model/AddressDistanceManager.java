@@ -11,7 +11,7 @@ import java.util.Set;
  * In a first place we will use a DummyAddressManger
  * 
  */
-public abstract class AddressDistanceManager {
+public class AddressDistanceManager {
 	
 	/**
 	 * Computes the nearest address in the set addresses to address1
@@ -79,5 +79,9 @@ public abstract class AddressDistanceManager {
 	 * @param a2
 	 * @return
 	 */
-	protected abstract int getDistanceAssym(Address a1, Address a2);
+	private long getDistanceAssym(Address a1, Address a2) {
+		return a1.getDistance(a2);
+	}
+
+
 }

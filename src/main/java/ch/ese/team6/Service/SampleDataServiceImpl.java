@@ -2,14 +2,17 @@ package ch.ese.team6.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
+import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Customer;
+import ch.ese.team6.Model.Distance;
 import ch.ese.team6.Model.Item;
 import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.OrderItem;
@@ -19,6 +22,7 @@ import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.CustomerRepository;
+import ch.ese.team6.Repository.DistanceRepository;
 import ch.ese.team6.Repository.ItemRepository;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RoleRepository;
@@ -38,6 +42,8 @@ public class SampleDataServiceImpl implements SampleDataService{
 	@Autowired	private OrderRepository orderRepository;
 	@Autowired	private RouteRepository routeRepository;
 	@Autowired	private RoleRepository roleRepository;
+	@Autowired  private AddressService addressService;
+	@Autowired private DistanceRepository distanceRepository;
 	
 	public void loadData() throws BadSizeException, DupplicateEntryException {
 		try {
@@ -132,12 +138,50 @@ public class SampleDataServiceImpl implements SampleDataService{
 			address.setCity(addressData[1]);
 			address.setCountry(customerData[2]);
 			customer.setAddress(address);
+			
 			addressRepository.save(address);
+			this.saveDistances(address);
 			customerRepository.save(customer);
 		}
-		
+	
 	}
 	
+	private void saveDistances(Address address) {
+	for(Address otherAddress: addressRepository.findAll()) {
+		Distance newDistance = new Distance();
+		newDistance.setDestination(otherAddress);
+		newDistance.setOrigin(address);
+		int km = this.findDistance(address.toString(),otherAddress.toString());
+		
+		newDistance.setDistanceMetres(km*100);
+		newDistance.setDurationSeconds(km*3600);
+		distanceRepository.save(newDistance);
+		
+		Distance newDistanceRev = new Distance();
+		newDistanceRev.setOrigin(otherAddress);
+		newDistanceRev.setDestination(address);
+		newDistanceRev.setDistanceMetres(km*100);
+		newDistanceRev.setDurationSeconds(km*3600);
+		
+		distanceRepository.save(newDistanceRev);
+	}
+	}
+
+	private int findDistance(String address1, String address2) {
+		String[] distances = distancesCSV.split("<<");
+
+		for(int i = 0; i< distances.length;i++) {
+			String[] line = distances[i].split("<");
+			if(line[0].equals(address1)) {
+				if(line[1].equals(address2)) {
+					return Integer.parseInt(line[2])/100;
+				}
+			}
+		}
+		return 0;
+		
+	}
+
 	public void loadItems() throws NumberFormatException, BadSizeException {
 		String[] items = itemCsv.split(";");
 		for (int i = 0; i < 10/*items.length*/; i++) {
@@ -196,6 +240,8 @@ public class SampleDataServiceImpl implements SampleDataService{
 			routeRepository.save(route);
 		}
 	}
+	
+	
 	private String userCsv = "Ivan,Mann,031 843 72 24,mann@example.com;" + 
 			"Lee,Fisher,031 843 72 25,fisher@example.com;" + 
 			"Shannon,Guzman,031 843 72 26,guzman@example.com;" + 
@@ -406,6 +452,117 @@ public class SampleDataServiceImpl implements SampleDataService{
 	"ABE-WQ-700,7,1757;" + 
 	"ABE-X-272,5,1671;" + 
 	"ABE-ZZ-441,3,1408;";
+	//< separates fields, << separates rows, could not use , because "," is part of many addresses.
+	 String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<0<0<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<0<0<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Burgerstrasse 13-15, 3600 Thun, Schweiz<40000<1440000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Via Bergamina 14-18, 20016 Pero MI, Italy<40000<1440000<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Via Bergamina 14-18, 20016 Pero MI, Italy<0<0<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Via Bergamina 14-18, 20016 Pero MI, Italy<0<0<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Burgerstrasse 13-15, 3600 Thun, Schweiz<120000<4320000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Árpád u. 45-71, Budapest 1196, Hungary<120000<4320000<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Via Bergamina 14-18, 20016 Pero MI, Italy<90000<3240000<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Árpád u. 45-71, Budapest 1196, Hungary<90000<3240000<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Árpád u. 45-71, Budapest 1196, Hungary<0<0<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Árpád u. 45-71, Budapest 1196, Hungary<0<0<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Burgerstrasse 13-15, 3600 Thun, Schweiz<60000<2160000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Grüner Weg 3-1, 50825 Köln, Germany<60000<2160000<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Via Bergamina 14-18, 20016 Pero MI, Italy<82000<2952000<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Grüner Weg 3-1, 50825 Köln, Germany<82000<2952000<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Árpád u. 45-71, Budapest 1196, Hungary<114500<4122000<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Grüner Weg 3-1, 50825 Köln, Germany<114500<4122000<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Grüner Weg 3-1, 50825 Köln, Germany<0<0<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Grüner Weg 3-1, 50825 Köln, Germany<0<0<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Burgerstrasse 13-15, 3600 Thun, Schweiz<36000<1296000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Perjenerweg 2, 6500 Landeck, Austria<36000<1296000<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Via Bergamina 14-18, 20016 Pero MI, Italy<35000<1260000<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Perjenerweg 2, 6500 Landeck, Austria<35000<1260000<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Árpád u. 45-71, Budapest 1196, Hungary<79700<2869200<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Perjenerweg 2, 6500 Landeck, Austria<79700<2869200<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Grüner Weg 3-1, 50825 Köln, Germany<65300<2350800<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Perjenerweg 2, 6500 Landeck, Austria<65300<2350800<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Perjenerweg 2, 6500 Landeck, Austria<0<0<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Perjenerweg 2, 6500 Landeck, Austria<0<0<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<0<0<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<0<0<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Via Bergamina 14-18, 20016 Pero MI, Italy<40000<1440000<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Burgerstrasse 13-15, 3600 Thun, Schweiz<40000<1440000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Árpád u. 45-71, Budapest 1196, Hungary<120000<4320000<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Burgerstrasse 13-15, 3600 Thun, Schweiz<120000<4320000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Grüner Weg 3-1, 50825 Köln, Germany<60900<2192400<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Burgerstrasse 13-15, 3600 Thun, Schweiz<60900<2192400<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Perjenerweg 2, 6500 Landeck, Austria<35700<1285200<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Burgerstrasse 13-15, 3600 Thun, Schweiz<35700<1285200<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<0<0<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<0<0<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<9300<334800<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<9300<334800<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Via Bergamina 14-18, 20016 Pero MI, Italy<32900<1184400<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<32900<1184400<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Árpád u. 45-71, Budapest 1196, Hungary<117100<4215600<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<117100<4215600<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Grüner Weg 3-1, 50825 Köln, Germany<64500<2322000<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<64500<2322000<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Perjenerweg 2, 6500 Landeck, Austria<39600<1425600<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<39600<1425600<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<9400<338400<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<9400<338400<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<0<0<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<0<0<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<16600<597600<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<16600<597600<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Via Bergamina 14-18, 20016 Pero MI, Italy<24000<864000<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Rütistrasse 28, 6032 Emmen, Schweiz<24000<864000<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Árpád u. 45-71, Budapest 1196, Hungary<104700<3769200<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Rütistrasse 28, 6032 Emmen, Schweiz<104700<3769200<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Grüner Weg 3-1, 50825 Köln, Germany<57900<2084400<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Rütistrasse 28, 6032 Emmen, Schweiz<57900<2084400<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Perjenerweg 2, 6500 Landeck, Austria<23300<838800<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Rütistrasse 28, 6032 Emmen, Schweiz<23300<838800<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<13100<471600<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<13100<471600<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<16600<597600<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<16600<597600<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<0<0<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<0<0<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<15200<547200<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<15200<547200<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Via Bergamina 14-18, 20016 Pero MI, Italy<24400<878400<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Röhrliberg 32, 6330 Cham, Schweiz<24400<878400<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Árpád u. 45-71, Budapest 1196, Hungary<102400<3686400<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Röhrliberg 32, 6330 Cham, Schweiz<102400<3686400<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Grüner Weg 3-1, 50825 Köln, Germany<59200<2131200<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Röhrliberg 32, 6330 Cham, Schweiz<59200<2131200<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Perjenerweg 2, 6500 Landeck, Austria<21000<756000<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Röhrliberg 32, 6330 Cham, Schweiz<21000<756000<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<15200<547200<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<15200<547200<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<18800<676800<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<18800<676800<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<2400<86400<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<2400<86400<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<0<0<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<0<0<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<25000<900000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<25000<900000<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Via Bergamina 14-18, 20016 Pero MI, Italy<6800<244800<<" + 
+			"Via Bergamina 14-18, 20016 Pero MI, Italy<Via Vergiò 8-18, 6932 Lugano, Schweiz<6800<244800<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Árpád u. 45-71, Budapest 1196, Hungary<102800<3700800<<" + 
+			"Árpád u. 45-71, Budapest 1196, Hungary<Via Vergiò 8-18, 6932 Lugano, Schweiz<102800<3700800<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Grüner Weg 3-1, 50825 Köln, Germany<75300<2710800<<" + 
+			"Grüner Weg 3-1, 50825 Köln, Germany<Via Vergiò 8-18, 6932 Lugano, Schweiz<75300<2710800<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Perjenerweg 2, 6500 Landeck, Austria<28700<1033200<<" + 
+			"Perjenerweg 2, 6500 Landeck, Austria<Via Vergiò 8-18, 6932 Lugano, Schweiz<28700<1033200<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<25000<900000<<" + 
+			"Burgerstrasse 13-15, 3600 Thun, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<25000<900000<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<34000<1224000<<" + 
+			"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<34000<1224000<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<17600<633600<<" + 
+			"Rütistrasse 28, 6032 Emmen, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<17600<633600<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<17900<644400<<" + 
+			"Röhrliberg 32, 6330 Cham, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<17900<644400<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<0<0<<" + 
+			"Via Vergiò 8-18, 6932 Lugano, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<0<0<<";
 	
 	private String truckCsv = "VW Transporter 1, 10,50;"
 			+ "VW Transporter 2, 100,50000;"

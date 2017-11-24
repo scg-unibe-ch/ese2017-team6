@@ -37,13 +37,13 @@ private Date deliveryDate;
 		this.deliveryDate = routeProblem.getDeliveryDate();
 		
 		// We do 10 random cluster initalizations 
-		int bestDistance = Integer.MAX_VALUE;
+		int bestTime = Integer.MAX_VALUE;
 		RouteCollection bestSolution = null;
 		for(int i = 0; i< 30;i++) {
 			RouteCollection candidate= this.initializeRandom();
-			if(candidate!= null && candidate.getDrivenDistance(addressDistances)<bestDistance) {
+			if(candidate!= null && candidate.getEstimatedTime()<bestTime) {
 				bestSolution = candidate;
-				bestDistance = candidate.getDrivenDistance(addressDistances);
+				bestTime = candidate.getEstimatedTime();
 			}
 		}
 		

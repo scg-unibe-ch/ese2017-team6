@@ -55,7 +55,6 @@ public class Route {
  	
 	
 	private boolean isSorted;
-	private int drivenDistance;
 
 	public Route() {
 		
@@ -233,7 +232,10 @@ public class Route {
 	
 	}
 	
-
+	/**
+	 * Returns the Size of the all the order Items (open, rejected or delivered) in the route. 
+	 * @return
+	 */
 	public int getSize() {
 		int s = 0;
 		for (IDelivarable d : orderItems) {
@@ -250,9 +252,14 @@ public class Route {
 		return w;
 	}
 	
-	public int getDrivenDistance(AddressDistanceManager distanceManager) {
-		this.sortRoute(distanceManager);
-		return this.drivenDistance;
+	/**
+	 * Returns the driven distance in km
+	 * The route is sorted, ie. the deliveries are ordered in a way that the distance is optimal
+	 * @return
+	 */
+	public long getEstimatedTime() {
+		this.sortRoute();
+		return this.estimatedTime;
 	}
 	
 	
@@ -267,12 +274,13 @@ public class Route {
 	 * one etc.
 	 * does also update the drivenDistance
 	 */
-	public void sortRoute(AddressDistanceManager distanceManager) {
+	public void sortRoute() {
 		if(isSorted) {
 			return;
 		}
+		AddressDistanceManager distanceManager = new AddressDistanceManager();
 		
-		this.drivenDistance = 0;
+		this.estimatedTime = 0;
 		List<OrderItem> sorted = new ArrayList<OrderItem>(orderItems.size());
 		Address currentAddress = deposit;
 		Address nextAddress;
@@ -281,12 +289,13 @@ public class Route {
 			nextAddress = distanceManager.getNeigherstAddress(currentAddress, addresses, false);
 			addresses.remove(nextAddress);
 			sorted.addAll(this.getAllAtAddress(nextAddress));
-			drivenDistance+= distanceManager.getDistance(currentAddress, nextAddress);
+			estimatedTime+= distanceManager.getDistance(currentAddress, nextAddress);
+
 			
 			currentAddress = nextAddress;
 		}
 		
-		drivenDistance+= distanceManager.getDistance(currentAddress, deposit);
+		estimatedTime+= distanceManager.getDistance(currentAddress, deposit);
 
 		assert sorted.size() == orderItems.size();
 		orderItems = sorted;
@@ -319,13 +328,7 @@ public class Route {
 	
 	
 
-	public long getEstimatedTime() {
-		return estimatedTime;
-	}
 
-	public void setEstimatedTime(long estimatedTime) {
-		this.estimatedTime = estimatedTime;
-	}
 
 	public long getMeasuredTime() {
 		return measuredTime;
