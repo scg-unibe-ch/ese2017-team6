@@ -91,6 +91,10 @@
 		    <version>5.0.0-M1</version>
 		    <scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
