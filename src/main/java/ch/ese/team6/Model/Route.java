@@ -1,11 +1,14 @@
 package ch.ese.team6.Model;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,6 +32,7 @@ public class Route {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long id;
 	private String routeDate;
+	private Date routeEndDate;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="truck")
@@ -327,7 +331,35 @@ public class Route {
 	}
 	
 	
+	/**
+	 * Returns the addtional time in minutes it takes to include the Order o in this route
+	 * For computing the additional time, the optimal order of the deliveries is computed
+	 * @param o
+	 * @return
+	 */
+	public int getAdditionalTime(IDelivarable o) {
+		//Dummy
+		return 60;
+	}
+	
+	/**
+	 * Return the day where the route ends (i. e. the latest day where the route uses the truck and the driver
+	 * @return
+	 */
 
+	public Date getRouteEndDate() {
+		
+		//DUMMY
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
+        try {
+			return df.parse(routeDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			
+		}
+		return Calendar.getInstance().getTime();
+	}
 
 
 	public long getMeasuredTime() {
