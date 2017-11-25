@@ -154,14 +154,14 @@ public class SampleDataServiceImpl implements SampleDataService{
 		int km = this.findDistance(address.toString(),otherAddress.toString());
 		
 		newDistance.setDistanceMetres(km*100);
-		newDistance.setDurationSeconds(km*3600);
+		newDistance.setDurationSeconds(km*36);
 		distanceRepository.save(newDistance);
 		
 		Distance newDistanceRev = new Distance();
 		newDistanceRev.setOrigin(otherAddress);
 		newDistanceRev.setDestination(address);
 		newDistanceRev.setDistanceMetres(km*100);
-		newDistanceRev.setDurationSeconds(km*3600);
+		newDistanceRev.setDurationSeconds(km*36);
 		
 		distanceRepository.save(newDistanceRev);
 	}
@@ -232,9 +232,8 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadRoutes() {
 		for (long i= 1;i<4; i++) {
-			String date = "2017-11-01";
-			Route route = new Route(date);
-			route.setDeposit(addressRepository.findOne((long) 1));
+			Calendar date = Calendar.getInstance();
+			Route route = new Route(date.getTime(),addressRepository.findOne(OurCompany.depositId));
 			route.setDriver(userRepository.findOne((long)i));
 			route.setTruck(truckRepository.findOne((long)i));
 			routeRepository.save(route);

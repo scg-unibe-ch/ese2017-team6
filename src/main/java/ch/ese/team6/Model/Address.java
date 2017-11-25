@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import ch.ese.team6.Service.CalendarService;
+
 @Entity
 public class Address {
 	@Id
@@ -157,4 +159,8 @@ public class Address {
 		return null;
 	}
 */
+
+	public String getDistanceStr(Address nextAddress) {
+		return CalendarService.formatMinutes(this.getDistance(nextAddress));
+	}
 }

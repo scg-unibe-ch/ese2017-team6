@@ -1,5 +1,7 @@
 package ch.ese.team6.Model;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,21 +26,99 @@ public class AddressDistanceManager {
 	public Address getNeigherstAddress(Address address1, Set<Address> addresses, boolean ignoreSelf) {
 		assert address1 != null;
 		assert addresses != null;
-		
 		assert(addresses.size()>1 && (!ignoreSelf || !addresses.contains(address1) || addresses.size()>2));//We require
+		
+		
+		if(ignoreSelf && addresses.contains(address1)) {
+			addresses.remove(address1);
+		}
+		
 		int min = Integer.MAX_VALUE;
-		Address ret = address1;
+		Address ret = addresses.iterator().next();
 		
 		for(Address t: addresses) {
 			if(!ignoreSelf || (ignoreSelf&&!t.equals(address1))) {
-				if(this.getDistance(address1, t)<min) {
+				int distancetToAddress1 = this.getDistance(address1, t);
+				if(distancetToAddress1<min) {
 					ret = t;
+					min = distancetToAddress1;
+				}
+				
+				//We want this algorithm to be absolutely stable
+				//i. e. if there are two addresses with the same
+				//distance to address1 we want it to allways return
+				//the same address
+				if(distancetToAddress1==min) {
+					if(ret.hashCode()>t.hashCode()) {
+						ret=t;
+					}
 				}
 			}
 			
 		}
 		
 		return ret;
+	}
+	
+	
+	/**
+	 * This method reorders the List addresses such that the total time
+	 * of a tour starting at the deposit at going to all addresses in the
+	 * List address goes fast
+	 * To accomplish this we use a myopic algorithm that starts at the deposit
+	 * and moves to the nearest address we have not yet visited.
+	 * 
+	 * Does not modify the Set addresses
+	 * 
+	 * @param addresses
+	 * @return a set (LinkedHashSet) containing all addresses including the
+	 * deposit. the set starts with the deposit and then contains the addreses
+	 * in an optimal order
+	 */
+	public LinkedHashSet<Address> optimalRoute(Set<Address> addresses,Address deposit){
+		
+		Set<Address> addresses_copy = new HashSet<Address>();
+		addresses_copy.addAll(addresses);
+		
+		//the linkedHashSet retains the order
+		LinkedHashSet<Address> sortedAddresses = new LinkedHashSet<Address>();
+		sortedAddresses.add(deposit);
+		
+		Address currentAddress = deposit;
+		Address nextAddress;
+		
+		while (!addresses_copy.isEmpty()) {
+			nextAddress = this.getNeigherstAddress(currentAddress, addresses_copy, false);
+			addresses_copy.remove(nextAddress);
+			sortedAddresses.add(nextAddress);
+			currentAddress = nextAddress;
+		}
+
+		
+		return sortedAddresses;	
+	}
+	
+	/**
+	 * Returns the time in minutes it takes (computing an optimal route)
+	 * to start at the deposit, visit all addresses and return to the deposit
+	 * 
+	 */
+	public int estimateRouteTime(Set<Address> addresses,Address deposit){
+		LinkedHashSet<Address> sortedAddresses = this.optimalRoute(addresses, deposit);
+		int estimatedTime = 0;
+		
+		Address current = deposit;
+		sortedAddresses.remove(deposit);
+		
+		for(Address next: sortedAddresses) {
+			estimatedTime+=current.getDistance(next);
+			current = next;
+		}
+		
+		//drive back to the deposit
+		estimatedTime += current.getDistance(deposit);
+		
+		return estimatedTime;
 	}
 	
 	/**
@@ -70,17 +150,7 @@ public class AddressDistanceManager {
 	 * @return
 	 */
 	public int getDistance(Address a1, Address a2) {
-		return (int) (getDistanceAssym(a1,a2)+getDistanceAssym(a2,a1))/2;
-	}
-	/**
-	 * Will implemented using GoogleMaps or using a Dummy in a first place.
-	 * Does not need to be symmetric.
-	 * @param a1
-	 * @param a2
-	 * @return
-	 */
-	private long getDistanceAssym(Address a1, Address a2) {
-		return a1.getDistance(a2);
+		return (int) a1.getDistance(a2);
 	}
 
 

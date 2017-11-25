@@ -87,10 +87,8 @@ private Date deliveryDate;
 		
 		
 		for(int i = 0; i< maxRoutes;i++) {
-			Route route = new Route(deposit);
+			Route route = new Route(deliveryDate,deposit);
 			
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-M-dd");
-			route.setRouteDate(df.format(deliveryDate));
 			
 			// Each route will start at a different address.
 			if(!addresses.isEmpty()) {

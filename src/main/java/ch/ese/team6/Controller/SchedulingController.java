@@ -68,6 +68,6 @@ public class SchedulingController {
 		orderRepository.save(order);
 		model.addAttribute("orders", orderRepository.findAll());
 		model.addAttribute("routes", routeRepository.findAll());
-		return "schedule/overview";
+		return "redirect:/orders/"+order.getId();
 	}
 }

@@ -14,20 +14,27 @@
 		    	<thead>
 			    	<tr>
 			    		<th>id</th>
-			    		<th>route date</th>
+			    		<th>route start date</th>
+			    		<th>route end date</th>
 			    		<th>vehicle name</th>
 			    		<th>driver name</th>
 			    		<th>number of deliveries</th>
+			    		<th>size</th>
+			    		<th>weight</th>
 			    		<th></th>
 			    	</tr>
 		    	</thead>
 		    	<tbody>
 			    	<tr th:each="route : ${routes}">
 			    		<td th:text="${route.getId()}"></td>
-			    		<td th:text="${route.getDate()}"></td>
+			    		<td th:text="${route.getStartDateStr()}"></td>
+			    		<td th:text="${route.getEndDateStr()}"></td>
 			    		<td th:text="${route.getTruck()}"></td>
 			    		<td th:text="${route.getDriver()}"></td>
 			    		<td th:text="${route.countDeliveries()}"></td>
+			    		<td th:text="${route.calculateCapacitySize()}"></td>
+				    	<td th:text="${route.calculateCapacityWeight()}"></td>
+				    		
 			    		<td><a th:href="@{{id}(id = ${route.id})}">Profile</a></td>
 					</tr>
 				</tbody>

@@ -10,7 +10,7 @@ import ch.ese.team6.Model.User;
 
 public interface RouteRepository extends JpaRepository<Route, Long>{
 	
-	List<Route> findByRouteDate(String routeDate);
+	List<Route> findByRouteStartDate(Date routeDate);
 	
 	List<Route> findByDriverId(long driver_id);
 	

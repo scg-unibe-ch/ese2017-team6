@@ -1,16 +1,21 @@
 package ch.ese.team6.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
+import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.Truck;
+import ch.ese.team6.Model.User;
+import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 
@@ -21,15 +26,17 @@ public class TruckServiceImpl implements TruckService{
 	private TruckRepository truckRepository;
 	@Autowired
 	private RouteRepository routeRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 	
-	public List<Truck> findFreeTrucks(String date){
-		List<Route> routes = routeRepository.findByRouteDate(date);
-		List<Truck> occupiedTrucks = new ArrayList<Truck>();
-		for(Route route: routes) {
-			occupiedTrucks.add(route.getTruck());
-		}
+	public List<Truck> findFreeTrucks(Date date){
 		List<Truck>freeTrucks = truckRepository.findAll();
-		freeTrucks.removeAll(occupiedTrucks);
+		for(int i =freeTrucks.size()-1; i>=0; i--) {
+			Truck truck = freeTrucks.get(i);
+			if(truck.isOccupied(date)) {
+				freeTrucks.remove(truck);
+			}
+		}
 		return freeTrucks;
 	}
 	
@@ -48,13 +55,30 @@ public class TruckServiceImpl implements TruckService{
 	@Override
 	/**
 	 * Will return the trucks free at date data and with enough capacity to transport o
+	 * and with enough time to transport o
 	 */
-	public List<Truck> findFreeTrucks(String date, IDelivarable o) {
+	public List<Truck> findFreeTrucks(Date date, IDelivarable o) {
 		List<Truck> freeTrucks = this.findFreeTrucks(date);
 		for(int i = freeTrucks.size()-1; i>=0; i--) {
-			if(o.getOpenWeight()>freeTrucks.get(i).getMaxLoadCapacity() || o.getOpenSize()>freeTrucks.get(i).getMaxCargoSpace()) {
+			Truck truck = freeTrucks.get(i);
+			if(o.getOpenWeight()>truck.getMaxLoadCapacity() || o.getOpenSize()>truck.getMaxCargoSpace()) {
 				freeTrucks.remove(i);
+				continue;
 			}
+			// Check if the truck has enough time to drive to the deliveryAddres
+		    Route nextRouteOfthisTruck = truck.nextRoute(date);
+				if(nextRouteOfthisTruck!=null) {
+				    Date nextTimeThisTruckIsOccupied = nextRouteOfthisTruck.getRouteStartDate();
+				    Address deposit = addressRepository.findOne(OurCompany.depositId);
+				    //drive to the address and back
+				    long requiredTime = 2*deposit.getDistance(o.getAddress())*60l*1000l;
+				    Date truckWouldFinish = CalendarService.computeTaskEnd(CalendarService.getWorkingStart(date), requiredTime);
+				    if(nextTimeThisTruckIsOccupied.before(truckWouldFinish)) {
+				    	freeTrucks.remove(i);
+				    }
+				}
+			
+			
 		}
 		return freeTrucks;
 	}

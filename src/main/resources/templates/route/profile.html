@@ -4,13 +4,21 @@
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-		<h1 th:text="'date: ' +${route.getDate()}"></h1>
+		<h1 th:text="'start: ' +${route.getStartDateStr()}"></h1>
+		<h1 th:text="'end: ' +${route.getEndDateStr()}"></h1>
 		<h2 th:text= "'route no: ' +${route.getId()}"></h2>
 			<div class="panel panel-default">
 			<div class="panel-body">
 			    <p th:text="'truck name: ' + ${route.getTruck()}" />
 			    <p th:text="'driver: ' + ${route.getDriver()}" /> 
+			    <p th:text="'estimated time: ' +${route.getEstimatedTimeStr()}"/>
+			    	<ul>
+			    	<li th:text="'deposit: '+${route.getDeposit().toString()}"></li>
+					    
+			    	</ul>
 				     <ul th:each= "delivery : ${route.getAllDeliveries()}">
+				     
+				     	<p th:text="${delivery.getDistanceFromPreviousDeliveryStr()}"></p>
 				    	<li th:text="${delivery.getAddress().toString()}"></li>
 					    	<ul th:each= "orderItem : ${delivery.getItems()}">
 
@@ -21,8 +29,17 @@
 					    		 <span><a th:href="@{/customer/{id}(id = ${orderItem.getOrder().getCustomer().getId()})}"> <span th:text="${orderItem.getOrder().getCustomer().toString()}"></span>  </a> 
 					    		</span>
 					    		</li>
+					    
 					    	</ul>
+					    	
+					    <p></p>	
+				     	<p th:text="${delivery.getDistanceToNextDeliveryStr()}"></p>
+				     	
 				    </ul>
+				    <ul>
+			    	<li th:text="'deposit: '+${route.getDeposit().toString()}"></li>
+					    
+			    	</ul>
 			</div>
 			</div>
 	    <a href="/schedule/" class="btn btn-primary" role="button">go to scheduling</a>
