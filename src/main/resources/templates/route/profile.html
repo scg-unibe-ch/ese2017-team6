@@ -6,10 +6,26 @@
 		<div class="container">
 		<h1 th:text="'date: ' +${route.getDate()}"></h1>
 		<h2 th:text= "'route no: ' +${route.getId()}"></h2>
+		<form class="form-horizontal">
 			<div class="panel panel-default">
 			<div class="panel-body">
-			    <p th:text="'truck name: ' + ${route.getTruck()}" />
-			    <p th:text="'driver: ' + ${route.getDriver()}" /> 
+			
+				
+			<div class="form-group">
+				<label class="col-sm-2" for="name">truck name:</label>
+			 	<div class="col-sm-5">
+			 		<p th:text="${route.getTruck()}"/>
+				</div>
+			 </div>
+			 
+			 <div class="form-group">
+				<label class="col-sm-2" for="name">driver:</label>
+			 	<div class="col-sm-5">
+			 		<p th:text="${route.getDriver()}"/>
+				</div>
+			 </div>
+<!-- 			    <p th:text="'truck name: ' + ${route.getTruck()}" /> -->
+<!-- 			    <p th:text="'driver: ' + ${route.getDriver()}" />  -->
 				     <ul th:each= "delivery : ${route.getAllDeliveries()}">
 				    	<li th:text="${delivery.getAddress().toString()}"></li>
 					    	<ul th:each= "orderItem : ${delivery.getItems()}">
@@ -25,6 +41,7 @@
 				    </ul>
 			</div>
 			</div>
+			</form>
 	    <a href="/schedule/" class="btn btn-primary" role="button">go to scheduling</a>
 	    <a href="/route/" class="btn btn-primary" role="button">show all routes</a>
 	    <a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" class="btn btn-primary">driver-profile of this route</a>
