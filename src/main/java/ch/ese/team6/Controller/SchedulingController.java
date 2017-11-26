@@ -28,7 +28,27 @@ public class SchedulingController {
 	private RouteRepository routeRepository;
 	@Autowired 
 	private RouteService routeService;
+	@Autowired 
+	private RouteService truckService;
+	@Autowired 
+	private RouteService userService;
+	@Autowired
+	private RouteRepository truckRepository;
+	@Autowired
+	private RouteRepository userRepository;
+	@Autowired
+	private RouteRepository addressRepository;
 	
+	
+//	@GetMapping(path="/")
+//	public String scheduleEverything(Model model) {
+//		model.addAttribute("trucks", truckRepository.findAll());
+//		model.addAttribute("drivers", userRepository.findAll());
+//		model.addAttribute("addresses", addressRepository.findAll());
+//		model.addAttribute("orders", orderRepository.findAll());
+//		model.addAttribute("routes", routeRepository.findAll());
+//	    return "schedule/scheduleOrders";
+//	}
 	
 	@RequestMapping
 	public String overview(Model model) {
