@@ -1,11 +1,15 @@
 package ch.ese.team6.Model;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,8 +22,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Exception.RouteTimeException;
+import ch.ese.team6.Service.CalendarService;
+import ch.ese.team6.Service.OurCompany;
 
 @Entity
 @Table(name = "route")
@@ -28,7 +36,9 @@ public class Route {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long id;
-	private String routeDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date routeStartDate;
+	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="truck")
@@ -54,18 +64,15 @@ public class Route {
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
  	
 	
-	private boolean isSorted;
-	private int drivenDistance;
-
 	public Route() {
 		
 	}
-	public Route(Address deposit) {
+	
+
+
+	public Route(Date date,Address deposit) {
 		this.deposit = deposit;
-	}
-		
-	public Route(String date) {
-		this.routeDate = date;
+		this.setRouteStartDate(date);
 	}
 
 	public long getId() {
@@ -76,28 +83,26 @@ public class Route {
 		this.id = id;
 	}
 
-	public String getRouteDate() {
-		return routeDate;
+	public Date getRouteStartDate() {
+		return routeStartDate;
 	}
 
-	public void setRouteDate(String routeDate) {
-		this.routeDate = routeDate;
+	/**
+	 * The route will start at date but at the working Start hour
+	 * specified in {@link OurCompany.java}
+	 * @param date
+	 */
+	public void setRouteStartDate(Date date) {
+	 	this.routeStartDate = CalendarService.getWorkingStart(date);
+	    
 	}
 	
-	public void setDeposit(Address address) {
-		this.deposit = address;
-	}
 	
 	public Address getDeposit() {
 		return this.deposit;
 				
 	}
 
-	public String getDate() {
-		/*SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		return date.format(routeDate.getTime());*/
-		return this.routeDate;
-	}
 		
 	public Truck getTruck() {
 		return truck;
@@ -136,7 +141,7 @@ public class Route {
 			OrderItem oi = (OrderItem)delivarableToMove;
 			this.remove(oi);
 		}
-	}
+		}
 	
 	private void remove(OrderItem orderItem) {
 		assert this.orderItems.contains(orderItem);
@@ -147,6 +152,10 @@ public class Route {
 	
 	/**
 	 * Can be used to add an Order or an OrderItem to a route.
+	 * The delivarable will be added to the route
+	 * idependently of wheter it fits or not
+	 * You should check if it fits using
+	 * doesIDelivarableFit
 	 * @param d
 	 */
 	public void addDelivarable(IDelivarable d) {
@@ -185,13 +194,23 @@ public class Route {
 	 * @return
 	 */
 	private List<Delivery> getDeliveries(boolean onlyOpen){
+		
 		Set<Address> addresses = this.getAllAddresses(false,onlyOpen);
 		List<Delivery> deliveries = new ArrayList<Delivery>(addresses.size());
-		for(Address adress: addresses) {
+		Address lastAddress = deposit;
+		
+		
+		for(Address address: addresses) {		
 			Delivery delivery = new Delivery(this);
-			delivery.setAddress(adress);
-			delivery.addItems((this.getAllAtAddress(adress)));
+			delivery.setAddress(address);
+			delivery.addItems((this.getAllAtAddress(address)));
+			delivery.setDistanceFromPreviousDelivery(lastAddress.getDistance(address));
 			deliveries.add(delivery);
+			lastAddress = address;
+		}
+		if(!deliveries.isEmpty()){
+			Delivery lastDelivery = deliveries.get(deliveries.size()-1);
+			lastDelivery.setDistanceToNextDelivery(lastAddress.getDistance(deposit));		
 		}
 		return deliveries;
 	}
@@ -204,22 +223,60 @@ public class Route {
 	
 	/**
 	 * Return true if the Delivarable d may be added to the route without violating
-	 * size or weight constraints.
-	 * 
+	 * size or weight constraints and without 
+	 * extending the route so much time, that it ends after the next 
+	 * route of either the driver or the truck starts.
 	 * @param d
 	 * @return
 	 */
 	public boolean doesIDelivarableFit(IDelivarable d) {
-		if (truck == null) {
+		if (truck == null || driver==null) {
 			return false;
 		}
 		if (d.getOpenSize() <= (truck.getMaxCargoSpace() - this.getSize())) {
 			if (d.getOpenWeight() <= (truck.getMaxLoadCapacity() - this.getWeight())) {
-				return true;
+				if(this.statisfiesSchedule(d)) {
+					return true;
+				}
 			}
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Returns true if and only if when we add the Delivarable d
+	 * to the route we do not extend the route time in a way
+	 * that the route ends after the starting point of the next route of the driver
+	 * or after the starting point of the next route of the truck
+	 * @param d
+	 * @return
+	 */
+	public boolean statisfiesSchedule(IDelivarable d) {
+		
+		long additionalTimeNeededMillis = this.getAdditionalTime(d)*60l*1000l;
+		Date currentEndOfThisRoute = this.getRouteEndDate();
+		Date newEndOfThisRoute = CalendarService.computeTaskEnd(currentEndOfThisRoute, additionalTimeNeededMillis);
+		
+		
+		Route nextRouteTruck = truck.nextRoute(currentEndOfThisRoute);
+		if(nextRouteTruck!=null) {
+			if(nextRouteTruck.getRouteStartDate().before(newEndOfThisRoute)) {
+				return false;
+			}
+		}
+		
+		/** Checks if it is ok for the Driver
+		 * 
+		 */
+		Route nextRouteDriver =driver.nextRoute(currentEndOfThisRoute);
+		if(nextRouteDriver!=null) {
+			if(nextRouteDriver.getRouteStartDate().before(newEndOfThisRoute)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public boolean isCapacitySatified() {
@@ -233,7 +290,10 @@ public class Route {
 	
 	}
 	
-
+	/**
+	 * Returns the Size of the all the order Items (open, rejected or delivered) in the route. 
+	 * @return
+	 */
 	public int getSize() {
 		int s = 0;
 		for (IDelivarable d : orderItems) {
@@ -250,49 +310,19 @@ public class Route {
 		return w;
 	}
 	
-	public int getDrivenDistance(AddressDistanceManager distanceManager) {
-		this.sortRoute(distanceManager);
-		return this.drivenDistance;
-	}
-	
-	
-
 	/**
-	 * We can add the delivarables to the Route in the order we want sortRoute will
-	 * then give the (nearly) shortest path. It will sort the delivarables such that
-	 * the trucker should start by the first delivarable and then go to the second
-	 * etc. Note that finding a shortes path going through all delivarables is a
-	 * typical NP hard problem. Here we use the following heuristics: Start at the
-	 * deposit: go to the nearest delivery, From the nearest delivery go to the next
-	 * one etc.
-	 * does also update the drivenDistance
+	 * Returns the estimated time in minutes
+	 * The route is sorted, ie. the deliveries are ordered in a way that the distance is optimal
+	 * @return
 	 */
-	public void sortRoute(AddressDistanceManager distanceManager) {
-		if(isSorted) {
-			return;
-		}
+	public long getEstimatedTime() {
 		
-		this.drivenDistance = 0;
-		List<OrderItem> sorted = new ArrayList<OrderItem>(orderItems.size());
-		Address currentAddress = deposit;
-		Address nextAddress;
-		Set<Address> addresses = this.getAllAddresses(false,false);
-		while (!addresses.isEmpty()) {
-			nextAddress = distanceManager.getNeigherstAddress(currentAddress, addresses, false);
-			addresses.remove(nextAddress);
-			sorted.addAll(this.getAllAtAddress(nextAddress));
-			drivenDistance+= distanceManager.getDistance(currentAddress, nextAddress);
-			
-			currentAddress = nextAddress;
-		}
-		
-		drivenDistance+= distanceManager.getDistance(currentAddress, deposit);
-
-		assert sorted.size() == orderItems.size();
-		orderItems = sorted;
-		this.isSorted = true;
-
+		AddressDistanceManager am = new AddressDistanceManager();
+		this.estimatedTime= am.estimateRouteTime(this.getAllAddressesUnsortedWithoutDeposit(), deposit);
+		return estimatedTime;
 	}
+	
+	
 
 	
 
@@ -318,14 +348,57 @@ public class Route {
 	}
 	
 	
+	/**
+	 * Returns the addtional driving time in minutes it takes to include the Order o in this route
+	 * For computing the additional time, the optimal order of the deliveries is computed
+	 * @param o
+	 * @return
+	 */
+	public long getAdditionalTime(IDelivarable o) {
+		
+		long actualRouteTime = this.getEstimatedTime();
+	
+		
+		Address additionalAddress = o.getAddress();
+		Set<Address> currentAddresses = this.getAllAddressesUnsortedWithoutDeposit();
+		currentAddresses.add(additionalAddress);
+		
+		AddressDistanceManager am = new AddressDistanceManager();
+		long newRouteTime = am.estimateRouteTime(currentAddresses, deposit);
+		
+		return Math.max(newRouteTime- actualRouteTime,0l);
+		
+	}
+	
+	public String getAdditionalTimeStr(IDelivarable o) {
+		return CalendarService.formatMinutes((int)this.getAdditionalTime(o));
+	}
+	
+	/**
+	 * Return the Date where the route ends (i. e. the latest Date where the route uses the truck and the driver
+	 * are occupied.
+	 * This takes into account the working Days specified in {@link OurCompany.java}
+	 * @return
+	 */
 
-	public long getEstimatedTime() {
-		return estimatedTime;
+	public Date getRouteEndDate() {
+		long estimatedTimeMillis = this.getEstimatedTime()*60l*1000l;
+		
+		return CalendarService.computeTaskEnd(routeStartDate, estimatedTimeMillis);
+		
+	}
+	
+	public String getEndDateStr() {
+		return CalendarService.formatH(this.getRouteEndDate());
+	}
+	public String getStartDateStr() {
+		return CalendarService.formatH(this.getRouteStartDate());
+	}
+	public String getEstimatedTimeStr() {
+		return CalendarService.formatMinutes(this.getEstimatedTime());
 	}
 
-	public void setEstimatedTime(long estimatedTime) {
-		this.estimatedTime = estimatedTime;
-	}
+
 
 	public long getMeasuredTime() {
 		return measuredTime;
@@ -344,26 +417,66 @@ public class Route {
 		}
 	
 	/**
+	 * Returns all addresses (unsorted, i.e not in the optimal ordering) 
+	 * Does not include the deposit (except if the route is supposed to
+	 * deliver something at the deposit Address)
+	 * @return
+	 */
+	private Set<Address> getAllAddressesUnsortedWithoutDeposit(){
+		Set<Address> addresses = new HashSet<Address>();
+		for (OrderItem oi : this.orderItems) {
+			addresses.add(oi.getAddress());	
+		}
+		return addresses;
+	}
+	/**
 	 * Returns a set with all the addresses of this route (already delivered or not)
-
+	 * The addresses are sorted in the optimal order, such that the time to 
+	 * drive the route is minimal
+	 * 
 	 * Returns a set with all the addresses where something must be delivered.
 	 * If you pass onlyOpen you will only get the addresses where there are items not yet delivered.
 	 * @param onlyOpen 
 	 */
 	public Set<Address> getAllAddresses(boolean includeDeposit, boolean onlyOpen) {
-		Set<Address> addresses = new HashSet<Address>();
+		Set<Address> addresses = this.getAllAddressesUnsortedWithoutDeposit();
 		
-		if(includeDeposit) {
-			addresses.add(this.deposit);
+		AddressDistanceManager am = new AddressDistanceManager();
+		//optimal order of the addresses, does allways include the deposit
+		LinkedHashSet<Address> addressesSorted = am.optimalRoute(addresses, deposit);
+		
+		//remove the deposit if not wanted
+		if(!includeDeposit) {
+			addressesSorted.remove(this.deposit);
 		}
 		
-		for (OrderItem oi : this.orderItems) {
-			if(!onlyOpen || onlyOpen&&oi.getOrderItemStatus().equals(OrderStatus.SCHEDULED)) {
-				addresses.add(oi.getAddress());
-			}	
+		// remove the addresses where nothing must be delivered
+		if(onlyOpen) {
+			ArrayList<Address> addressesToRemove = new ArrayList<Address>();
+			for(Address ad: addressesSorted) {
+				
+				List<OrderItem> orderItemsAtAddress = getAllAtAddress(ad);
+				boolean allItemsClosed = true;
+				
+				// check if there are Open orderItems
+				for(OrderItem oi: orderItemsAtAddress) {
+					if(oi.getOrderItemStatus().equals(OrderStatus.SCHEDULED)) {
+						allItemsClosed = false;
+						break;
+					}
+				}
+				
+				if(allItemsClosed) {
+					if(!ad.equals(deposit)) {
+						addressesToRemove.add(ad);
+					}
+				}
+			}
+			addressesSorted.removeAll(addressesToRemove);
 		}
+		
 			
-		return addresses;
+		return addressesSorted;
 	}
 	
 	/**

@@ -105,7 +105,7 @@ public class OrderController {
 	    	
 	    	this.orderRepository.save(order);
 
-	        return "redirect:/orders/";
+	    	return "redirect:/orders/"+order.getId();
 	    }
 	    
 

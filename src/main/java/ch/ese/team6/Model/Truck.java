@@ -1,5 +1,6 @@
 package ch.ese.team6.Model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Service.CalendarService;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -100,11 +102,43 @@ public class Truck {
 		return this.getTruckname();
 	}
 
-	public boolean isOccupied(String date) {
+	/**
+	 * Return true if the user does not have a route intersecting with
+	 * the date
+	 * @param date
+	 * @return
+	 */
+	public boolean isOccupied(Date date) {
+		Date dateToCheck = CalendarService.getWorkingStart(date);
+		
 		for(Route route: this.routes) {
-			if (route.getRouteDate()== date) return true;
+			Date routeStart = route.getRouteStartDate();
+			Date routeEnd = route.getRouteEndDate();
+			
+			if(CalendarService.intersects(routeStart,routeEnd,dateToCheck)){
+				return true;
+			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Returns the next Route of the Truck which strictly starts
+	 * after Date date, i. e. where route.getStartDate()>date
+	 * Will be null if there is no Route using this truck after Date date
+	 * @param date
+	 * @return
+	 */
+	public Route nextRoute(Date date) {
+		Route nextRoute= null;
+		for(Route route: this.routes) {
+			if(route.getRouteStartDate().after(date)) {
+				if(nextRoute==null || route.getRouteStartDate().before(nextRoute.getRouteStartDate())) {
+					nextRoute =route;
+				}
+			}
+		}
+		return nextRoute;
 	}
 
 	public boolean hasId() {

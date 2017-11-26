@@ -181,6 +181,9 @@ public class Order  implements IDelivarable{
     public Date getDeliveryDate() {
     	return deliveryDate;
     }
+    public String getDeliveryDateStr() {
+    	return CalendarService.format(this.getDeliveryDate());
+    }
 
 
     public boolean invariant() {

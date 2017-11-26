@@ -1,7 +1,7 @@
 package ch.ese.team6.Controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +37,8 @@ import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
+import ch.ese.team6.Service.CalendarService;
+import ch.ese.team6.Service.OurCompany;
 import ch.ese.team6.Service.RouteService;
 import ch.ese.team6.Service.TruckService;
 import ch.ese.team6.Service.UserService;
@@ -58,23 +60,26 @@ public class RouteController{
 	
 	@GetMapping(path="/add")
 	public String createForm(Model model, @RequestParam String date) {
-		model.addAttribute("routeTemplate", new Route(date));
-		model.addAttribute("routeDate", date);
-		model.addAttribute("trucks", truckService.findFreeTrucks(date));
-		model.addAttribute("drivers", userService.findFreeUsers(date));
-		model.addAttribute("addresses", addressRepository.findAll());
+		
+		Date dateD = CalendarService.parseDate(date);
+		model.addAttribute("routeTemplate", new Route(dateD,null));
+		model.addAttribute("routeDate", dateD);
+		model.addAttribute("trucks", truckService.findFreeTrucks(dateD));
+		model.addAttribute("drivers", userService.findFreeUsers(dateD));
+		//model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/create";
 	}
 
 	
 	@PostMapping(path="/add")
-	public ModelAndView addNewRoute (@RequestParam String routeDate, 
-			@RequestParam int driverId, @RequestParam int truck, @RequestParam int addressId) {
-		Route newRoute = new Route();
-		newRoute.setRouteDate(routeDate);
+	public ModelAndView addNewRoute (@RequestParam long routeDate, 
+			@RequestParam int driverId, @RequestParam int truck) {
+		
+		Date routeDateD = new Date(routeDate); 
+		Route newRoute = new Route(routeDateD,addressRepository.findOne(OurCompany.depositId));
+		newRoute.setRouteStartDate(routeDateD);
 		newRoute.setDriver(userRepository.findOne((long)driverId));
 		newRoute.setTruck(truckRepository.findOne((long)truck));
-		newRoute.setDeposit(addressRepository.findOne((long) addressId));
 		routeRepository.save(newRoute);
 		return new ModelAndView("route/profile", "route", newRoute);
 	}
@@ -136,27 +141,30 @@ public class RouteController{
 	@GetMapping(path="/add/o/{orderId}")
 	public String createRouteFromOrder(Model model, @PathVariable long orderId, 
 			@RequestParam String date) {
-		model.addAttribute("routeTemplate", new Route(date));
+
+		Date dateD = CalendarService.parseDate(date);
+		model.addAttribute("routeTemplate", new Route(dateD,addressRepository.findOne(OurCompany.depositId)));
 		model.addAttribute("routeDate", date);
 		Order order =  orderRepository.findOne(orderId);
 		//only the trucks with enough capacity
-		model.addAttribute("trucks", truckService.findFreeTrucks(date,order));
-		model.addAttribute("drivers", userService.findFreeUsers(date));
+		model.addAttribute("trucks", truckService.findFreeTrucks(dateD,order));
+		model.addAttribute("drivers", userService.findFreeUsers(dateD,order));
 		model.addAttribute("order", order);
-		model.addAttribute("addresses", addressRepository.findAll());
+		//model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/createWithOrder";
 		
 	}
 		
 	@PostMapping(path="/add/o/{orderId}")
 	public ModelAndView addNewRouteFromOrder (@RequestParam String routeDate, 
-			@RequestParam int driverId, @RequestParam int truck, @PathVariable long orderId,
-			@RequestParam int addressId) {
-		Route route = new Route();
-		route.setRouteDate(routeDate);
+			@RequestParam int driverId, @RequestParam int truck, @PathVariable long orderId) {
+		
+
+		Date routeDateD = CalendarService.parseDate(routeDate);
+
+		Route route = new Route(routeDateD,addressRepository.findOne(OurCompany.depositId));
 		route.setDriver(userRepository.findOne((long)driverId));
 		route.setTruck(truckRepository.findOne((long)truck));
-		route.setDeposit(addressRepository.findOne((long)addressId));
 		Order order = orderRepository.findOne(orderId);
 		
 		//the order may not fit into the truck
@@ -178,8 +186,7 @@ public class RouteController{
 	@RequestMapping(path="/onmap/{routeid}")
 	public String showRouteOnMap(Model model, @PathVariable Long routeid) {
 		
-		Route route = new Route();
-		route = routeRepository.findOne(routeid);
+		Route route = routeRepository.findOne(routeid);
 		model.addAttribute("route", route);
 
 		// Origin Address of Route

@@ -1,10 +1,15 @@
 package ch.ese.team6.Model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
+import ch.ese.team6.Service.CalendarService;
 
 @Entity
 public class Address {
@@ -22,6 +27,13 @@ public class Address {
 	private String country;
 	private DataStatus status;
 	
+	@OneToMany(mappedBy="origin")
+	private Set<Distance> outGoing;
+	
+	@OneToMany(mappedBy="destination")
+	private Set<Distance> inComing;
+	
+	
 	public Address() {
 		this.status = DataStatus.ACTIVE;
 	}
@@ -32,6 +44,8 @@ public class Address {
 		this.city = city;
 		this.status = DataStatus.ACTIVE;
 	}
+	
+	
 
 
 	
@@ -99,10 +113,54 @@ public class Address {
 		else
 			return false;
 	}
+	/**
+	 * Returns the minutes it takes to drive from Address 1 to Address 2
+	 * Returns 0 if there is not distance object which can answer the question
+	 * This function is symmetric. It is guaranteed that this.getDistance(other) is the same as other.getDistance(this)
+	 * @param address2
+	 * @return
+	 */
+	public long getDistance(Address address2) {
+		long minutes = 0;
+		int datapoints = 0;
+		for(Distance distance:this.outGoing) {
+			if(distance.getOrigin().getId()==this.getId()) {
+				if(distance.getDestination().getId()==address2.getId()) {
+					minutes+= (distance.getDurationSeconds()/60l);
+					datapoints++;
+					break;
+				}
+				
+			}
+		}
+		
+		for(Distance distance:this.inComing) {
+			if(distance.getOrigin().getId()==address2.getId()) {
+				if(distance.getDestination().getId()==this.getId()) {
+					minutes+= (distance.getDurationSeconds()/60l);
+					datapoints++;
+					break;
+				}
+				
+			}
+		}
+		
+		/*
+		 * We return the average of the incoming and outgoing distance if possible
+		 */
+		if(datapoints>0) {
+			return minutes/datapoints;
+		}
+		return 0;
+	}
 /*
 	public List<Distance> getDistances() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 */
+
+	public String getDistanceStr(Address nextAddress) {
+		return CalendarService.formatMinutes(this.getDistance(nextAddress));
+	}
 }

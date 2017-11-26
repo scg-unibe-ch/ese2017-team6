@@ -8,7 +8,7 @@
 		<div class="panel panel-default">
 		<div class="panel-body">
     		<p th:text="'delivery address:  ' + ${order.getAddress()}" />
-     		<p th:text="'delivery date:  ' + ${order.getDeliveryDate()}" />
+     		<p th:text="'delivery date:  ' + ${order.getDeliveryDateStr()}" />
      		<p th:text="'order status: '+${order.getStatus()}" />
      	<div>
 <!--             <label>Rows</label> -->
@@ -34,7 +34,8 @@
           </div>
           </div>
           </div>
-    	<a href ="/orders/" class="btn btn-primary" role="button">go back to overview</a>
+    	<a href ="/orders/" class="btn btn-primary" role="button">go to overview</a>
+    	<a href ="/schedule/" class="btn btn-primary" role="button">go to scheduling</a>
     
     </div>
 </body>

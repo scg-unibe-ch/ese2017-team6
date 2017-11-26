@@ -5,10 +5,10 @@
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
 	
-	    <h1 th:text= "'create new route on ' + ${routeTemplate.getDate()}"></h1>
+	    <h1 th:text= "'create new route on ' + ${routeTemplate.getStartDateStr()}"></h1>
 	    <form th:action="@{/route/add}" th:object="${routeTemplate}" method="post">
 	    	
-	    	<input type="hidden" name="routeDate" th:value="${routeDate.toString()}"/>
+	    	<input type="hidden" name="routeDate" th:value="${routeTemplate.getRouteStartDate().getTime()}"/>
 		    
 		     <table>
     		<tr>
@@ -29,15 +29,6 @@
 			</td>	
     		</tr>
     		
-    		<tr>
-    			<td> deposit: </td>
-    			<td>
-    			<select class="form-control" name="addressId" id="address">
-		    	<option th:each= "addressId : ${addresses}" th:value="${addressId.getId()}" th:text="${addressId.toString()}"></option>
-				</select>
-			<br/>
-			</td>	
-    		</tr>
     		
     		
     	</table>

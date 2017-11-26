@@ -23,7 +23,7 @@
     			<td>
     			<div class="col-sm-5">
     				<select class="form-control" th:field="*{customer}">
-           	           <option th:each="var : ${allCustomers}" th:value="${var.id}" th:text="${var.getName()}"></option>
+           	           <option th:each="var : ${allCustomers}" th:value="${var.id}" th:text="${var.getName()}+' ('+${var.getAddress().getCity()}+')'"></option>
                 	</select>
                 </div>
                 </td>

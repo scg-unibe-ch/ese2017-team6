@@ -30,7 +30,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Model.Address;
-import ch.ese.team6.Model.AddressDistanceDummyManager;
 import ch.ese.team6.Model.AddressDistanceManager;
 import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.IDelivarable;
@@ -135,7 +134,7 @@ public class AutomaticRouteController {
 		routeProblem.setOrders(openOrders);
 		routeProblem.setTrucks(trucks);
 		routeProblem.setDrivers(drivers);
-        routeProblem.setAddressManager(new AddressDistanceDummyManager());
+        routeProblem.setAddressManager(new AddressDistanceManager());
         
         RouteGenerator rg = new RouteGenerator();
 		rg.initialize(routeProblem);

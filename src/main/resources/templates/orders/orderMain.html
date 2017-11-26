@@ -36,7 +36,7 @@ $(document).ready(function(){
 			    		<td th:text="${order.getAddress()}"></td>
 			    		<td th:text="${order.getStatus()}"></td>
 			    		<td th:text="${order.getOrderItems().size()}"></td>
-			    		<td th:text="${order.getDeliveryDate()}"></td>
+			    		<td th:text="${order.getDeliveryDateStr()}"></td>
 			    		<td><a th:href="@{{id}(id = ${order.getId()})}">details</a></td>
 			    		<td><a  th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}">add to route</a></td>
 					</tr>

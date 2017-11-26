@@ -4,7 +4,7 @@
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-		<h1 th:text= "'create new route on ' + ${routeTemplate.getDate()}"></h1>
+		<h1 th:text= "'create new route on ' + ${routeTemplate.getStartDateStr()}"></h1>
 	    
 		<p  th:text="'On this page we propose only trucks with enough capacity to transport the order '+${order.getId()}" ></p>
 		
@@ -18,9 +18,6 @@
 			</select>
 			<select class="form-control" name="driverId" id="driver">
 		    	<option th:each= "driverId : ${drivers}" th:value="${driverId.getId()}" th:text="${driverId.toString()}"></option>
-			</select>
-			<select class="form-control" name="addressId" id="address">
-		    	<option th:each= "addressId : ${addresses}" th:value="${addressId.getId()}" th:text="${addressId.toString()}"></option>
 			</select>
 			<input type="submit" class="btn btn-primary" value="submit"/>
         	<input type="reset" class="btn btn-primary" value="reset"/>

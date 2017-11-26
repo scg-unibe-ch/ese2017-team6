@@ -30,11 +30,11 @@ public void add(Route r) {
 public void remove(Route r) {
 	this.routes.remove(r);
 }
-public int getDrivenDistance(AddressDistanceManager addressDistances) {
+public int getEstimatedTime() {
 	
 	int d = 0;
 	for(Route r:routes) {
-		d+= r.getDrivenDistance(addressDistances);
+		d+= r.getEstimatedTime();
 	}
 	return d;
 }

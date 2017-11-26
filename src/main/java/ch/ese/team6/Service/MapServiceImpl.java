@@ -5,15 +5,15 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import org.json.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
+import ch.ese.team6.Model.Distance;
 
 @Service
 public class MapServiceImpl implements MapService{
@@ -50,7 +50,7 @@ public class MapServiceImpl implements MapService{
 		
 	}
 	
-	public long calculateDistance(Address origin, Address destination) throws InvalidAddressException {
+	public Distance calculateDistance(Address origin, Address destination) throws InvalidAddressException {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("origin", origin.toString());
@@ -61,8 +61,8 @@ public class MapServiceImpl implements MapService{
 		JSONObject data;
 		try {
 			data= new JSONObject(result);
-			System.out.println("Created JSONObject.");
 			System.out.println(data.getString("origin_addresses"));
+			System.out.println(data.getString("destination_addresses"));
 			JSONArray rows = (JSONArray) data.get("rows");
 			System.out.println(rows.toString());
 			System.out.println("_____________________");
@@ -82,7 +82,12 @@ public class MapServiceImpl implements MapService{
 			System.out.println(distance.getString("value"));
 			long distanceInMetres = Long.parseLong(distance.getString("value"));
 			long distanceInSeconds =Long.parseLong(duration.getString("value"));
-			return distanceInSeconds;
+			Distance newDistance = new Distance();
+			newDistance.setDestination(destination);
+			newDistance.setOrigin(origin);
+			newDistance.setDistanceMetres(distanceInMetres);
+			newDistance.setDurationSeconds(distanceInSeconds);
+			return newDistance;
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
