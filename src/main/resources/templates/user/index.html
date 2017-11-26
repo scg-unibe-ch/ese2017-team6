@@ -15,14 +15,14 @@ $("#datatable").DataTable();
 	</div>
 	<div th:if="${not #lists.isEmpty(users)}">
 		    <h1>all users</h1>
-		    <table id="datatable" class="display table table-hover">
+		    <table id="datatable" class="order-column  table table-hover">
 		    	<thead>
 			    	<tr>
-			    		<th data-field="id" data-sortable="true">id</th>
-			    		<th data-field="name" data-sortable="true">username</th>
-			    		<th>real name</th>
-			    		<th>role</th>
-			    		<th>status</th>
+			    		<th><b>id</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>username</b> <i class="fa fa-fw fa-sort"></i></th>
+			    	    <th><b>real name</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>role</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>status</b> <i class="fa fa-fw fa-sort"></i></th>
 			    		<th></th>
 			    	</tr>
 			    </thead>
