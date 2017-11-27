@@ -254,6 +254,26 @@ public class RouteController{
 		return ret;
        
     }
+	
+	@RequestMapping(path="/completeRoute/{routeid}")
+	public String completeRouteOnMap(Model model, @PathVariable Long routeid) {
+		
+		Route route = routeRepository.findOne(routeid);
+		model.addAttribute("route", route);
+
+		// Origin Address of Route
+		model.addAttribute("deposit", routeRepository.findOne(routeid).getDeposit());
+		
+		// All the deliveries (open or not)
+		model.addAttribute("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
+		// When the route gets started, the last address is the deposit address of the route
+		model.addAttribute("lastAddress", routeRepository.findOne(routeid).getDeposit());
+		model.addAttribute("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
+		String[] addressesfinal = createAddressStringArray(routeid);
+		model.addAttribute("addresses", addressesfinal);
+		
+		return "route/completeRoute";
+	}
 
 
 	/**

@@ -10,7 +10,6 @@
 		<form class="form-horizontal">
 			<div class="panel panel-default">
 			<div class="panel-body">
-<<<<<<< HEAD
 			
 				
 			<div class="form-group">
@@ -28,7 +27,6 @@
 			 </div>
 <!-- 			    <p th:text="'truck name: ' + ${route.getTruck()}" /> -->
 <!-- 			    <p th:text="'driver: ' + ${route.getDriver()}" />  -->
-=======
 			    <p th:text="'truck name: ' + ${route.getTruck()}" />
 			    <p th:text="'driver: ' + ${route.getDriver()}" /> 
 			    <p th:text="'estimated time: ' +${route.getEstimatedTimeStr()}"/>
@@ -36,7 +34,6 @@
 			    	<li th:text="'deposit: '+${route.getDeposit().toString()}"></li>
 					    
 			    	</ul>
->>>>>>> refs/remotes/origin/master
 				     <ul th:each= "delivery : ${route.getAllDeliveries()}">
 				     
 				     	<p th:text="${delivery.getDistanceFromPreviousDeliveryStr()}"></p>
@@ -68,7 +65,7 @@
 	    <a href="/route/" class="btn btn-primary" role="button">show all routes</a>
 	    <a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" class="btn btn-primary">driver-profile of this route</a>
 <!--    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a> -->
-	    <a th:href="@{/route/onmap/{id}(id = ${route.id})}" class="btn btn-success">show route on map</a>
+	    <a th:href="@{/route/completeRoute/{id}(id = ${route.id})}" class="btn btn-success">show route on map</a>
 		</div>
 	</body>
 </html>

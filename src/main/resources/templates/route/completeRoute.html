@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+ 	<head lang="en" th:replace="fragments/head :: head"> </head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ 	<style>
+ 		#page {
+ 		margin-right: 400px;
+ 		}
+        #map {
+        float: left;
+         height: 500px;
+         width: 100%;
+        }
+        #right-panel {
+        float:right;
+        width: 400px;
+        margin-right: -400px;  
+        }
+     </style>
+ <body>
+ <div lang="en" th:replace="fragments/header :: header"> </div>
+<div class="container">
+	
+<h1 th:text="'your route from ' + ${deposit.toString()}"></h1>
+	<div id="page">
+		 <div id="map"></div>
+		 <div id="right-panel">
+		 <h4 th:text="'projected start date : ' + ${route.getRouteStartDate()}"></h4>
+		 <h4></h4>
+		 <h4 th:text="'route starts at : ' + ${deposit.toString().toLowerCase()}"></h4>
+		 <h4></h4>
+		 <h4 th:text="'estimated time : ' + ${route.getEstimatedTime()}"></h4>
+		 </div>
+		 
+		 	<script text="text/javascript" th:inline="javascript">
+		 	/*<![CDATA[*/
+		 	
+		 	// List of all addresses (String datatype)
+		 	var addresses = [[${addresses}]];
+		 	// Deposit is the origin of the route
+		 	var deposit = [[${deposit.toString()}]];
+		 	// origin symbolizes the last address
+		 	
+		 	var center = [[${deliveries.get(0).getAddress().toString()}]];
+		 	
+		 	
+		 	// Sets up the map
+		 	function myMap() {
+		 		
+		 	var mapOptions = {
+		 	    zoom: 7,
+		 	    mapTypeId: google.maps.MapTypeId.HYBRID
+		 	}
+		 	
+		 	// Geocoder and DirectionsService and Renderer
+		 	var geocoder = new google.maps.Geocoder();
+		 	var directionsService = new google.maps.DirectionsService;
+		    var directionsDisplay = new google.maps.DirectionsRenderer;
+		 	
+		 	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+		 	
+		 	// Set the map as the map of the DirectionsDisplay Renderer
+		 	directionsDisplay.setMap(map);
+		 	
+		 	calculateAndDisplayRoute(directionsService, directionsDisplay, deposit, deposit, addresses);
+		 	
+		 	
+		 	}
+		 	
+		 	// Codes the DeliveryAddress
+		 	function codeAddress(geocoder, thismap, deliveryaddress) {
+		     var address2 = deliveryaddress;
+		     geocoder.geocode( { 'address': address2}, function(results, status) {
+		       if (status == 'OK') {
+		         addMarker(results[0].geometry.location, thismap, address2);
+		       } else {
+		         alert('Geocode was not successful for the following reason: ' + status + address2);
+		       }
+		     });
+		   }
+		 	
+		 	// Codes the DeliveryAddres at the next delivery
+		 	function codeCenter(geocoder, thismap, deliveryaddress) {
+		     var address2 = deliveryaddress;
+		     geocoder.geocode( { 'address': address2}, function(results, status) {
+		       if (status == 'OK') {
+		         setCenter(results[0].geometry.location, thismap, address2);
+		       } else {
+		         alert('Geocode was not successful for the following reason: ' + status + address2);
+		       }
+		     });
+		   }
+		 	// Adds a Marker to the map
+		 	function addMarker(position, displayedmap, address){
+		         var marker = new google.maps.Marker({
+		             map: displayedmap,
+		             position: position,
+		             title: address
+		         });
+		 	}
+		 	
+		 	// Sets the center of the map
+		 	function setCenter(position, displayedmap, address){
+		 		var marker = new google.maps.Marker({
+		            map: displayedmap,
+		            position: position,
+		            title: address
+		        });
+		 		displayedmap.panTo(marker.getPosition());
+		 	}
+		 	
+		 	
+		 	// Calculates the route on the map
+		 	function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination, addresses) {
+		        
+		 		var waypts = [];
+		        var addressArray = addresses;
+		        for(i = 0; i < addressArray.length; i++) {
+		             waypts.push({
+		               location: addressArray[i],
+		               stopover: true
+		             });
+		           }
+		 		
+		 		directionsService.route({
+		          origin: origin,
+		          destination: destination,
+		          waypoints: waypts,
+		          optimizeWaypoints: false,
+		          travelMode: 'DRIVING'
+		        }, function(response, status) {
+		          if (status === 'OK') {
+		            directionsDisplay.setDirections(response);
+		          } else {
+		            window.alert('cannot generate route because of ' + status);
+		          }
+		        });
+		      }
+		 	/*]]>*/
+		   </script>
+		 <script 
+		 async = "async"
+		 defer = "defer"
+		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb-SCpWFMSIO0OeVAES-xWjRfLAIwzv7g&amp;callback=myMap"></script>
+	</div>
+</div>
+
+</body>
+</html>
