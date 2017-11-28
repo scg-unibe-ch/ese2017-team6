@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
+import ch.ese.team6.Exception.RouteTimeException;
 //import antlr.collections.List;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Delivery;
@@ -188,17 +189,23 @@ public class RouteController{
 		
 		Route route = routeRepository.findOne(routeid);
 		model.addAttribute("route", route);
+		
+		Address origin = route.getDeposit();
+		Address destination = route.getCurrentAddress();
 
 		// Origin Address of Route
-		model.addAttribute("deposit", routeRepository.findOne(routeid).getDeposit());
+		model.addAttribute("deposit", route.getDeposit());
 		
 		// All the deliveries (open or not)
-		model.addAttribute("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
+		model.addAttribute("alldeliveries", route.getAllDeliveries());
 		// When the route gets started, the last address is the deposit address of the route
-		model.addAttribute("lastAddress", routeRepository.findOne(routeid).getDeposit());
-		model.addAttribute("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
-		String[] addressesfinal = createAddressStringArray(routeid);
+		model.addAttribute("lastAddress", route.getDeposit());
+		model.addAttribute("deliveries", route.getOpenDeliveries());
+		
+		String[] addressesfinal = createAddressStringArray(routeid, true, false);
 		model.addAttribute("addresses", addressesfinal);
+		
+		model.addAttribute("duration", origin.getDistanceStr(destination));
 		
 		return "route/onmap";
 	}
@@ -215,6 +222,9 @@ public class RouteController{
 	
 		ModelAndView ret= new ModelAndView("route/onmap");
 		ret.addObject("route", route);
+		
+		Address origin = route.getDeposit();
+		Address destination = route.getCurrentAddress();
 
 		ret.addObject("deposit", routeRepository.findOne(routeid).getDeposit());
 		ret.addObject("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
@@ -222,8 +232,10 @@ public class RouteController{
 
 		ret.addObject("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
 		
-		String[] addressesfinal = createAddressStringArray(routeid);
+		String[] addressesfinal = createAddressStringArray(routeid, true, false);
 		ret.addObject("addresses", addressesfinal);
+		
+		ret.addObject("duration", origin.getDistanceStr(destination));
 		
 		return ret;
        
@@ -241,17 +253,89 @@ public class RouteController{
 		
 		ModelAndView ret= new ModelAndView("route/onmap");
 		ret.addObject("route", route);
-
-
+		
+		Address origin = route.getDeposit();
+		Address destination = route.getCurrentAddress();
+		
 		ret.addObject("deposit", routeRepository.findOne(routeid).getDeposit());
 		ret.addObject("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
 		ret.addObject("lastAddress", address);
 
 		ret.addObject("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
 		
-		String[] addressesfinal = createAddressStringArray(routeid);
+		String[] addressesfinal = createAddressStringArray(routeid, true, false);
 		ret.addObject("addresses", addressesfinal);
+		
+		ret.addObject("duration", origin.getDistanceStr(destination));
+		
 		return ret;
+       
+    }
+	
+	@RequestMapping(path="/completeRoute/{routeid}")
+	public String completeRouteOnMap(Model model, @PathVariable Long routeid) {
+		
+		Route route = routeRepository.findOne(routeid);
+		model.addAttribute("route", route);
+
+		// Origin Address of Route
+		model.addAttribute("deposit", routeRepository.findOne(routeid).getDeposit());
+		
+		String[] addressesfinal = createAddressStringArray(routeid, false, false);
+		model.addAttribute("addresses", addressesfinal);
+		
+		return "route/completeRoute";
+	}
+	
+	/**
+	 * starts the route, and if there is a problem, it sends it to an error page
+	 * @param model
+	 * @param routeid
+	 * @return
+	 */
+	@PostMapping(value="/startRoute/{routeid}")
+    public String startRoute(Model model, @PathVariable Long routeid){
+    
+		Route route = routeRepository.findOne(routeid);
+		
+		try {
+			route.startRoute();
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("message", e.getMessage());
+			model.addAttribute("route", route);
+			
+			// Origin Address of Route
+			model.addAttribute("deposit", routeRepository.findOne(routeid).getDeposit());
+			
+			String[] addressesfinal = createAddressStringArray(routeid, false, false);
+			model.addAttribute("addresses", addressesfinal);
+			
+			return "route/completeRoute";
+		}
+		routeRepository.save(route);
+	
+		model.addAttribute("route", route);
+		
+		Address origin = route.getDeposit();
+		Address destination = route.getCurrentAddress();
+
+		// Origin Address of Route
+		model.addAttribute("deposit", routeRepository.findOne(routeid).getDeposit());
+		
+		// All the deliveries (open or not)
+		model.addAttribute("alldeliveries", routeRepository.findOne(routeid).getAllDeliveries());
+		// When the route gets started, the last address is the deposit address of the route
+		model.addAttribute("lastAddress", routeRepository.findOne(routeid).getDeposit());
+		model.addAttribute("deliveries", routeRepository.findOne(routeid).getOpenDeliveries());
+		
+		String[] addressesfinal = createAddressStringArray(routeid, true, false);
+		model.addAttribute("addresses", addressesfinal);
+		
+		model.addAttribute("duration", origin.getDistanceStr(destination));
+		
+		return "route/onmap";
        
     }
 
@@ -261,10 +345,10 @@ public class RouteController{
 	 * @param routeid
 	 * @return
 	 */
-	private String[] createAddressStringArray(Long routeid) {
+	private String[] createAddressStringArray(Long routeid, boolean includedeposit, boolean onlyOpen) {
 		Set<Address> addresses = new HashSet<Address>();
 		
-		addresses =  routeRepository.findOne(routeid).getAllAddresses(true, true);
+		addresses =  routeRepository.findOne(routeid).getAllAddresses(includedeposit, onlyOpen);
 
 		
 		String[] addressesfinal = new String[addresses.size()];
