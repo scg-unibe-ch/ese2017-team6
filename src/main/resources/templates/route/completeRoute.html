@@ -4,32 +4,66 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
  	<style>
  		#page {
- 		margin-right: 400px;
+ 		height: 100%;
+ 		margin: 0;
+ 		padding: 0; 
  		}
         #map {
         float: left;
-         height: 500px;
-         width: 100%;
+        height: 500px;
+        width: 60%;
         }
         #right-panel {
-        float:right;
+        border-width: 2px;
+        margin: 20px;
+        float: right;
+        text-align: left;
         width: 400px;
-        margin-right: -400px;  
+        height: 500px;
+        }
+        #start-route{
+        margin-top: 50px;
+        padding: 10px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+        }
+        #options{
+        padding: 10px;
         }
      </style>
  <body>
  <div lang="en" th:replace="fragments/header :: header"> </div>
 <div class="container">
 	
-<h1 th:text="'your route from ' + ${deposit.toString()}"></h1>
 	<div id="page">
 		 <div id="map"></div>
 		 <div id="right-panel">
-		 <h4 th:text="'projected start date : ' + ${route.getRouteStartDate()}"></h4>
-		 <h4></h4>
-		 <h4 th:text="'route starts at : ' + ${deposit.toString().toLowerCase()}"></h4>
-		 <h4></h4>
-		 <h4 th:text="'estimated time : ' + ${route.getEstimatedTime()}"></h4>
+		 
+		 <h4><b>projected start date and time: </b></h4>
+		 <ul style="list-style-type:none">
+		 <h4><li th:text="${route.getStartDateStr()}"></li></h4>
+		 </ul>
+	
+		 <h4><b>route starts at: </b></h4>
+		 <ul style="list-style-type:none">
+		 <h4><li th:text="${deposit.getStreet().toLowerCase()}"> </li></h4>
+		 <h4><li th:text="${deposit.getCity().toLowerCase()}"> </li></h4>
+		 <h4><li th:text="${deposit.getCountry().toLowerCase()}"> </li></h4>
+		 </ul>
+		 
+		 <h4><b>estimated time: </b></h4>
+		 <ul style="list-style-type:none">
+		 <h4><li th:text="${route.getHoursandMinutes()}"></li></h4>
+		 </ul>
+			 <div id="start-route">
+			 		<form action="#" th:action="@{/route/startRoute/{id}(id = ${route.getId()})}" th:object="${route}" method="post"> 
+			    	<button type="submit" class="btn btn-success">start route</button>
+					</form>
+				</div>
+			<div id="options">
+					<a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" class="btn btn-primary" th:text="${route.getDriver().getUsername()} + 's profile'"></a>
+					<a th:href="@{/route/{id}(id = ${route.getId()})}" class="btn btn-primary">route-profile</a>
+				</div>
 		 </div>
 		 
 		 	<script text="text/javascript" th:inline="javascript">
@@ -40,8 +74,6 @@
 		 	// Deposit is the origin of the route
 		 	var deposit = [[${deposit.toString()}]];
 		 	// origin symbolizes the last address
-		 	
-		 	var center = [[${deliveries.get(0).getAddress().toString()}]];
 		 	
 		 	
 		 	// Sets up the map
@@ -66,49 +98,6 @@
 		 	
 		 	
 		 	}
-		 	
-		 	// Codes the DeliveryAddress
-		 	function codeAddress(geocoder, thismap, deliveryaddress) {
-		     var address2 = deliveryaddress;
-		     geocoder.geocode( { 'address': address2}, function(results, status) {
-		       if (status == 'OK') {
-		         addMarker(results[0].geometry.location, thismap, address2);
-		       } else {
-		         alert('Geocode was not successful for the following reason: ' + status + address2);
-		       }
-		     });
-		   }
-		 	
-		 	// Codes the DeliveryAddres at the next delivery
-		 	function codeCenter(geocoder, thismap, deliveryaddress) {
-		     var address2 = deliveryaddress;
-		     geocoder.geocode( { 'address': address2}, function(results, status) {
-		       if (status == 'OK') {
-		         setCenter(results[0].geometry.location, thismap, address2);
-		       } else {
-		         alert('Geocode was not successful for the following reason: ' + status + address2);
-		       }
-		     });
-		   }
-		 	// Adds a Marker to the map
-		 	function addMarker(position, displayedmap, address){
-		         var marker = new google.maps.Marker({
-		             map: displayedmap,
-		             position: position,
-		             title: address
-		         });
-		 	}
-		 	
-		 	// Sets the center of the map
-		 	function setCenter(position, displayedmap, address){
-		 		var marker = new google.maps.Marker({
-		            map: displayedmap,
-		            position: position,
-		            title: address
-		        });
-		 		displayedmap.panTo(marker.getPosition());
-		 	}
-		 	
 		 	
 		 	// Calculates the route on the map
 		 	function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination, addresses) {
