@@ -4,43 +4,75 @@
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-	<h1 th:text= "'hi ' +${driver.username}"></h1>
-	<div class="panel panel-default">
-	<div class="panel-body">
-	    <p th:text="'your id: ' + ${driver.id}" />
-	    <p th:text="'your name: ' + ${driver.getRealname()}" />
-	    <p th:text="'your role: ' + ${driver.getRoles().toString()}" />
-	   	<p th:text="'your status: ' + ${driver.getStatus().getTitle()}" />
+		<h1 th:text= "'hi ' +${driver.getRealname()}"></h1>
+		<form class="form-horizontal">
+		<div class="panel panel-default">
+		<div class="panel-body">
+		
+		 <div class="form-group">
+			 	<label class="col-sm-2" for="id">your id:</label>
+			 	<div class="col-sm-5">
+			 		<p th:text="${driver.id}"/>
+			 	</div>
+		 </div>
+		 		
+		 <div class="form-group">
+			 	<label class="col-sm-2" for="id">your username:</label>
+			 	<div class="col-sm-5">
+			 		<p th:text="${driver.username}"/>
+			 	</div>
+		 </div>
+		 		 		
+		 <div class="form-group">
+			 	<label class="col-sm-2" for="id">your role:</label>
+			 	<div class="col-sm-5">
+			 		<p th:text="${driver.getRoles().toString()}"/>
+			 	</div>
+		 </div>
+		 		 		 		
+		 <div class="form-group">
+			 	<label class="col-sm-2" for="id">your sttus:</label>
+			 	<div class="col-sm-5">
+			 		<p th:text="${driver.getStatus().getTitle()}"/>
+			 	</div>
+		 </div>
 	</div>
 	</div>
      
     <div th:if="${not #lists.isEmpty(routes)}">
- 	<h1> Here are all your Routes</h1>
+ 	<h1> here are all your routes</h1>
  		   <table class="table table-hover">
  		   <thead>
  		    	<tr>
- 		    		<th>Date</th>
- 		    		<th>Deposit (Start point)</th>
- 		    		<th>Truck </th>
- 		    		<th>Number of Deliveries</th>
+ 		    		<th>start date</th>
+ 		    		<th>end date</th>
+ 		    		<th>deposit (start point)</th>
+ 		    		<th>truck</th>
+ 		    		<th>deliveries</th>
+ 		    		<th>estimated time</th>
  		    		<th></th>
  		    		<th></th>
  		    	</tr>
  		    </thead>
  		    <tbody>
  	    	<tr th:each="route : ${routes}">
- 		    		<td th:text="${route.getRouteDate()}"></td>
+ 		    		<td th:text="${route.getStartDateStr()}"></td>
+ 		    		<td th:text="${route.getEndDateStr()}"></td>
  		    		<td th:text="${route.getDeposit().toString()}"></td>
  		    		<td th:text="${route.getTruck().toString()}"></td>
  		    		<td th:text="${route.countDeliveries()}"></td>
- 		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">Show Route</a></td>
- 		    		<td><a th:href="@{/route/onmap/{id}(id = ${route.id})}">Start Route</a></td>
+ 		    		<td th:text="${route.getEstimatedTimeStr()}"></td>
+ 		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">route details</a></td>
+ 		    		<td><a th:href="@{/route/onmap/{id}(id = ${route.id})}"
+ 		    		class="btn btn-success">start route</a></td>
  				</tr>
  				</tbody>
  		    </table>
  	</div>
  	<div th:if="${#lists.isEmpty(routes)}">
  	<h1> no routes scheduled </h1></div>
+ 	<a href="/driverview/" class="btn btn-primary">back to driver overview</a>
+ 	</form>
     </div>
  </body>
  </html> 

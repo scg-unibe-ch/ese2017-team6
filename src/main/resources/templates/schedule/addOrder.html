@@ -6,19 +6,21 @@
 		<div class="container">
 		<h1> add order to a route </h1>
 			<form th:action = "@{/schedule/{id}(id = ${order.getId()})}" th:method = "post">
+			<div class="panel panel-default">
+			<div class="panel-body">
 			    <h2>selected order</h2>
 			    <table class="table table-hover">
 			    	<thead>
 			    		<tr>
-				    		<th>Id</th>
-				    		<th>Clientname</th>
-				    		<th>Delivery Adress</th>
-				    		<th>Order Status</th>
-				    		<th>Number of open Order items</th>
-				    		<th>Delivery Date</th>
-				    		<th>Size of open Order items</th>
-				    		<th>Weight of open Order items</th>
-				    		<th>Details</th>
+				    		<th>id</th>
+				    		<th>client</th>
+				    		<th>delivery adress</th>
+<!-- 				    		<th>Status</th> -->
+				    		<th>ordered articles</th>
+				    		<th>delivery date</th>
+				    		<th>size</th>
+				    		<th>weight</th>
+				    		<th></th>
 				    		<th></th>
 				    		<th></th>
 				    	</tr>
@@ -28,22 +30,24 @@
 				    		<td th:text="${order.getId()}"></td>
 				    		<td th:text="${order.getCustomer()}"></td>
 				    		<td th:text="${order.getAddress()}"></td>
-				    		<td th:text="${order.getStatus()}"></td>
+<!-- 				    		<td th:text="${order.getStatus()}"></td> -->
 				    		<td th:text="${order.getOpenOrderItems().size()}"></td>
 				    		<td th:text="${order.getDeliveryDateStr()}"></td>
 				    		<td th:text="${order.getOpenSize()}"></td>
 				    		<td th:text="${order.getOpenWeight()}"></td>
 				    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">Details</a></td>
-				    		
 						</tr>
 					</tbody>
 			    </table>
 			    <div th:if="${#lists.isEmpty(routes)}">
-			    There are no routes where this order could fit in. Make sure you have created a route with a truck
-			    big enough to transport this order.
+			   		<div class="alert alert-info">
+				 	 <strong>Info!</strong> No planned route has enough capacity left.
+				 	 Plan a new route with an appropriate truck.
+				 	</div>
+			    
 			    </div>
 				<div th:if="${not #lists.isEmpty(routes)}">
-			    <h2>available routes</h2>
+			    <h2>choose an available route</h2>
 				<table class="table table-hover">
 					<thead>
 				    	<tr>
@@ -52,10 +56,10 @@
 				    		<th>driver</th>
 				    		<th>space capacity</th>
 				    		<th>weight capacity</th>
-				    		<th>number of deliveries</th>
-				    		<th>route start date</th>
-				    		<th>route end date </th>
-				    		<th>additonal time (minutes)</th>
+				    		<th>deliveries</th>
+				    		<th>start date</th>
+				    		<th>end date </th>
+				    		<th>additonal time</th>
 				    		<th></th>
 				    		<th></th>
 				    	</tr>
@@ -74,15 +78,18 @@
 				    		<td th:text="${route.getAdditionalTimeStr(order)}"></td>
 				    		
 				    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
-				    		<td><input th:type="submit" th:name="routeId" th:value="'Add order to route '+${route.getId()}"></input></td>
+				    		<td><input th:type="submit" th:name="routeId" class="btn btn-success" th:value="'Add order to route '+${route.getId()}"></input></td>
 						</tr>
 					</tbody>
 			    </table>
+			</div>
+			</div>
 			</div>
 		</form>
 		<form  th:action="@{/route/add/o/{id}(id = ${order.getId()})}" method="get">
 			<div class="panel panel-default">
 			<div class="panel-body">
+			<h2>plan a new route</h2>
 				<label for="routeDate"></label>
 				<p> choose a date for a new route:
 	           	<input type="date" th:name="date" placeholder="set route date"/></p>
@@ -90,7 +97,8 @@
 				<input type="submit" class="btn btn-primary" value="create new route" />
 			</div>
 			</div>
-				</form>
+			<a href ="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
+		</form>
 		</div>
 	</body>
 </html>

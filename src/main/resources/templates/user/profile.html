@@ -63,7 +63,7 @@
 		    <tbody>
 		    	<tr th:each="route : ${user.getRoutes()}">
 		    		<td th:text="${route.getId()}"></td>
-		    		<td th:text="${route.getDate()}"></td>
+		    		<td th:text="${route.getRouteStartDate()}"></td>
 		    		<td th:text="${route.countDeliveries()}"></td>
 		    		<td></td>
 		    		<td></td>

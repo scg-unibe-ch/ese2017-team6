@@ -10,10 +10,10 @@ $("#datatable").DataTable();
  	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
  	<div th:if="${not #lists.isEmpty(drivers)}">
- 	<h1> Here are all the Drivers of the Firm </h1>
+ 	<h1> here are all the drivers of the firm </h1>
  	
- 	<h1>Select Your Profile</h1>
- 		    <table id="datatable" class="display table table-hover">
+ 	<h1>select your profile</h1>
+ 		    <table id="datatable" class="table table-hover">
  		    	<thead>
 	 		    	<tr>
 	 		    		<th>id</th>
@@ -29,7 +29,8 @@ $("#datatable").DataTable();
 	 		    		<td th:text="${user.getUsername()}"></td>
 	 		    		<td th:text="${user.getFirstname()}"></td>
 	 		    		<td th:text="${user.getSurname()}"></td>
-	 		    		<td><a th:href="@{{id}(id = ${user.id})}">Profile</a></td>
+	 		    		<td><a th:href="@{{id}(id = ${user.id})}"
+	 		    		class="btn btn-success">Profile</a></td>
 	 				</tr>
  				</tbody>
  		    </table>

@@ -40,17 +40,17 @@ public class SchedulingController {
 	private RouteRepository addressRepository;
 	
 	
-//	@GetMapping(path="/")
-//	public String scheduleEverything(Model model) {
-//		model.addAttribute("trucks", truckRepository.findAll());
-//		model.addAttribute("drivers", userRepository.findAll());
-//		model.addAttribute("addresses", addressRepository.findAll());
-//		model.addAttribute("orders", orderRepository.findAll());
-//		model.addAttribute("routes", routeRepository.findAll());
-//	    return "schedule/scheduleOrders";
-//	}
+	@GetMapping(path="/scheduleOrders")
+	public String scheduleEverything(Model model) {
+		model.addAttribute("trucks", truckRepository.findAll());
+		model.addAttribute("drivers", userRepository.findAll());
+		model.addAttribute("addresses", addressRepository.findAll());
+		model.addAttribute("orders", orderRepository.findAll());
+		model.addAttribute("routes", routeRepository.findAll());
+	    return "schedule/scheduleOrders";
+	}
 	
-	@RequestMapping
+	@GetMapping(path="/")
 	public String overview(Model model) {
 		model.addAttribute("orders", orderRepository.findAll());
 		model.addAttribute("routes", routeService.selectWithLeftCapacity());

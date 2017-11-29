@@ -10,21 +10,21 @@
 	<div class="panel-body">
 	
 	<div class="form-group">
-	 	<label class="control-label col-sm-2" for="id">item id:</label>
+	 	<label class="col-sm-2" for="id">item id:</label>
 	 	<div class="col-sm-5">
 	 		<p th:text="*{id}"/>
 	 	</div>
 	 </div> 
 	 
 	 <div class="form-group">
-	 	<label class="control-label col-sm-2" for="name">article name:</label>
+	 	<label class="col-sm-2" for="name">article name:</label>
 	 	<div class="col-sm-5">
 	 		<input type="text" th:field="*{name}" class="form-control" id="text" placeholder="enter article name" />
 	 	</div>
 	 </div>
 		 
 	 <div class="form-group">
-	 	<label class="control-label col-sm-2" for="name">status:</label>
+	 	<label class="col-sm-2" for="name">status:</label>
 	 	<div class="col-sm-5">	 		
 	 		<select class="form-control" th:field="*{status}">
         		<option th:each="var : ${statusArray}"

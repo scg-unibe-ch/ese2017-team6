@@ -14,15 +14,15 @@ $("#datatable").DataTable();
 		</div>
 		<div th:if="${not #lists.isEmpty(address)}">
 		    <h1>all addresses</h1>
-		    <table id="datatable" class="display table table-hover">
+		    <table id="datatable" class="table table-hover">
 		    	<thead>
 			    	<tr>
-			    		<th>id</th>
-			    		<th>street</th>
-			    		<th>city</th>
-			    		<th>country</th>
-			    		<th>status</th>
-			    		
+			    		<th><b>id</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>street</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>city</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>country</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>status</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th></th>
 			    	</tr>
 		    	</thead>
 		    	<tbody>

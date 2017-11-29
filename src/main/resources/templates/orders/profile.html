@@ -5,11 +5,30 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1 th:text= "'order for ' +${order.customer}"></h1>
+		<form class="form-horizontal">
 		<div class="panel panel-default">
 		<div class="panel-body">
-    		<p th:text="'delivery address:  ' + ${order.getAddress()}" />
-     		<p th:text="'delivery date:  ' + ${order.getDeliveryDateStr()}" />
-     		<p th:text="'order status: '+${order.getStatus()}" />
+		
+		<div class="form-group">
+		 	<label class="col-sm-2" for="id">delivery address:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${order.getAddress()}"/>
+		 	</div>
+	    </div> 
+	    
+	    <div class="form-group">
+		 	<label class="col-sm-2" for="id">delivery date:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${order.getDeliveryDateStr()}"/>
+		 	</div>
+	    </div> 
+	    
+	    <div class="form-group">
+		 	<label class="col-sm-2" for="id">order status:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${order.getStatus()}"/>
+		 	</div>
+	    </div> 
      	<div>
 <!--             <label>Rows</label> -->
             <table class="table table-hover">
@@ -34,9 +53,9 @@
           </div>
           </div>
           </div>
-    	<a href ="/orders/" class="btn btn-primary" role="button">go to overview</a>
-    	<a href ="/schedule/" class="btn btn-primary" role="button">go to scheduling</a>
-    
+<!--     	<a href ="/orders/" class="btn btn-primary" role="button">go to overview</a> -->
+    	<a href ="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
+    </form>
     </div>
 </body>
 </html>

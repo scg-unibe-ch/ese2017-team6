@@ -16,13 +16,14 @@ $("#datatable").DataTable();
 	
 	<div th:if="${not #lists.isEmpty(items)}">
 	<h1> all articles </h1>
-	<table id="datatable" class="display table table-hover">
+	<table id="datatable" class="table table-hover">
 		<thead>
 		    	<tr>
-		    		<th>id</th>
-		    		<th>name</th>
-		    		<th>space (palette)</th>
-		    		<th>status</th>
+		    		<th><b>id</b> <i class="fa fa-fw fa-sort"></i></th>
+		    		<th><b>name</b> <i class="fa fa-fw fa-sort"></i></th>
+		    		<th><b>space (palette)</b> <i class="fa fa-fw fa-sort"></i></th>
+		    		<th><b>status</b> <i class="fa fa-fw fa-sort"></i></th>
+		    		<th></th>
 		    	</tr>
 		</thead>
 		<tbody>

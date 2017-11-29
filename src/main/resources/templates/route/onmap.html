@@ -182,22 +182,21 @@
     			<td>
 	    			<form action="#" th:action="@{/route/acceptDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
 			    	<input type="hidden" name="routeid" th:value="${route.getId()}"/>
-			    	<button type="submit" class="btn btn-primary">accept delivery</button>
+			    	<button type="submit" class="btn btn-success">accept delivery</button>
 					</form>
                 </td>
                 <td>
                 	<form action="#" th:action="@{/route/rejectDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
 		    		<input type="hidden" name="routeid" th:value="${route.getId()}"/>
-		    		<button type="submit" class="btn btn-primary">reject delivery</button>
+		    		<button type="submit" class="btn btn-danger">reject delivery</button>
 					</form>
                 </td>
     		</tr>
     		
     	</table>
-		    
-		    
-		    
-		    
+    	<br/><br/>
+		    <a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary">back to route details</a>
+
 		    </div>
  </div>
  </body>

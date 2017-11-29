@@ -16,7 +16,7 @@ $(document).ready(function(){
 		<a href="/orders/add" class="btn btn-primary" role="button">create new order</a>
 		<div th:if="${not #lists.isEmpty(orders)}">
 		    <h2>all orders</h2>
-		    <table id="datatable" class="table table-hover display order-column">
+		    <table id="datatable" class="table table-hover order-column">
 		    	<thead>
 			    	<tr>
 			    		<th>id</th>
@@ -38,7 +38,8 @@ $(document).ready(function(){
 			    		<td th:text="${order.getOrderItems().size()}"></td>
 			    		<td th:text="${order.getDeliveryDateStr()}"></td>
 			    		<td><a th:href="@{{id}(id = ${order.getId()})}">details</a></td>
-			    		<td><a  th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}">add to route</a></td>
+			    		<td><a th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}"
+			    		class="btn btn-success">add to route</a></td>
 					</tr>
 				</tbody>
 		    </table>

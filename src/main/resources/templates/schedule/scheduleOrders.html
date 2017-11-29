@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head">
+
+</head>
+<body>
+<script>
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+</script>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
+		<h1> add orders to a route </h1>
+ 			
+		  <div class="row">
+		  <div class="col-sm-4">
+		  
+		  <div>
+		  
+		  	<div class="panel panel-default" th:each="order : ${orders}"
+		  	id="drag1" draggable="true" ondragstart="drag(event)">
+		     <div class="panel-heading" >
+		      	<table class="orders">
+		      	<thead>
+		      	<tr>
+		      		<th></th>
+		      		<th></th>
+		      	</tr>
+		      	</thead>
+		      	<tbody>
+		      		<tr>
+		      			<td th:text="${order.getCustomer()}"></td>
+		      			<td class="date" th:text="${order.getDeliveryDate()}"></td>
+		      		</tr>
+		      	</tbody>
+		      	</table>
+		      </div>
+		      
+		      <div class="panel-body">
+		      <table>
+		      	<thead>
+		      	<tr>
+		      		<th></th>
+		      		<th></th>
+		      	</tr>
+		      	</thead>
+		      	<tbody>
+		      		<tr >
+		      			<td th:text="${order.getAddress()}"></td>
+		      			<td class="size" th:text="${order.getOrderItems().size()}"></td>
+		      		</tr>
+		      	</tbody>
+		      	</table>
+		      
+		      </div>
+    	    </div>
+			</div>
+		  </div>
+		  
+		 	 
+		  <div class="col-sm-8">
+		  
+<!-- 		  <div th:each="route : ${routes}"> -->
+<!-- 		 	<ul class="nav nav-tabs"> -->
+<!-- 		 	  <li><a data-toggle="tab" href="#route.getId()" th:text="${route.getId()}"></a></li> -->
+<!-- 			  <li class="active"><a data-toggle="tab" href="#home">Route 1</a></li> -->
+<!-- 			  <li><a data-toggle="tab" href="#menu1">Route 2</a></li> -->
+<!-- 			  <li><a data-toggle="tab" href="#menu2">Route 3</a></li> -->
+<!-- 			</ul> -->
+<!-- 		  </div> -->
+			
+			<div class="tab-content">
+<!-- 			  <div id="route.getId()" class="tab-pane fade in active"> -->
+<!-- 			    <h3>Route</h3> -->
+<!-- 			    <p>Some content.</p> -->
+<!-- 			  </div> -->
+			  
+			  <div id="home" class="tab-pane fade in active">
+			    <h3>Route 1</h3>
+			    <p>Some content.</p>
+			  </div>
+			  <div id="menu1" class="tab-pane fade">
+			    <h3>Route 2</h3>
+			    <p>Some content in menu 1.</p>
+			  </div>
+			  <div id="menu2" class="tab-pane fade">
+			    <h3>Route 3</h3>
+			    <p>Some content in menu 2.</p>
+			  </div>
+			</div>
+			
+		  	<select class="form-control" name="route" id="route">
+		    	<option th:each= "routeId : ${routes}" th:text="${routeId.getRouteStartDate()} + ' size: '
+		    	+ ${routeId.calculateCapacitySize()} + ' weight: '
+		    	+ ${routeId.calculateCapacityWeight()} + ' '
+		    	+ ${routeId.getTruck()} + ' '
+		    	+ ${routeId.getDriver()}">
+		    	</option>
+			</select>
+		<br/><br/>
+		
+ 		 <div >
+ 		 	<div class="panel panel-default">
+ 			 <div class="panel-body" ondrop="drop(event)" ondragover="allowDrop(event)">
+ 				 drop orders here
+ 		  	</div>
+			 </div>
+ 		 </div>
+		 
+		  </div>
+	
+		</div>
+		</div>	
+
+</body>
+</html>
+
