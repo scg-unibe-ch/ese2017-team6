@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+ 	<head lang="en" th:replace="fragments/head :: head"> </head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ 	<style>
+ 		#page {
+ 		height: 100%;
+ 		margin: 0;
+ 		padding: 0; 
+ 		}
+        #map {
+        float: left;
+        height: 500px;
+        width: 60%;
+        }
+        #right-panel {
+        border-width: 2px;
+        margin: 20px;
+        float: right;
+        text-align: left;
+        width: 400px;
+        height: 500px;
+        }
+        #start-route{
+        margin-top: 50px;
+        padding: 10px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+        }
+        #options{
+        padding: 10px;
+        }
+     </style>
+ <body>
+ <div lang="en" th:replace="fragments/header :: header"> </div>
+<div class="container">
+	
+	<div id="page">
+		 <div id="map"></div>
+		 <div id="right-panel">
+		 
+		 <h4><b>projected start date and time: </b></h4>
+		 <ul style="list-style-type:none">
+		 <h4><li th:text="${route.getStartDateStr()}"></li></h4>
+		 </ul>
+	
+		 <h4><b>route starts at: </b></h4>
+		 <ul style="list-style-type:none">
+		 <h4><li th:text="${deposit.getStreet().toLowerCase()}"> </li></h4>
+		 <h4><li th:text="${deposit.getCity().toLowerCase()}"> </li></h4>
+		 <h4><li th:text="${deposit.getCountry().toLowerCase()}"> </li></h4>
+		 </ul>
+		 
+		 <h4><b>estimated time: </b></h4>
+		 <ul style="list-style-type:none">
+		 <h4><li th:text="${route.getHoursandMinutes()}"></li></h4>
+		 </ul>
+			 <div id="start-route">
+			 		<form action="#" th:action="@{/route/startRoute/{id}(id = ${route.getId()})}" th:object="${route}" method="post"> 
+			    	<button type="submit" class="btn btn-success">start route</button>
+					</form>
+				</div>
+			<div id="options">
+					<a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" class="btn btn-primary" th:text="${route.getDriver().getUsername()} + 's profile'"></a>
+					<a th:href="@{/route/{id}(id = ${route.getId()})}" class="btn btn-primary">route-profile</a>
+				</div>
+		 </div>
+		 
+		 	<script text="text/javascript" th:inline="javascript">
+		 	/*<![CDATA[*/
+		 	
+		 	// List of all addresses (String datatype)
+		 	var addresses = [[${addresses}]];
+		 	// Deposit is the origin of the route
+		 	var deposit = [[${deposit.toString()}]];
+		 	// origin symbolizes the last address
+		 	
+		 	
+		 	// Sets up the map
+		 	function myMap() {
+		 		
+		 	var mapOptions = {
+		 	    zoom: 7,
+		 	    mapTypeId: google.maps.MapTypeId.HYBRID
+		 	}
+		 	
+		 	// Geocoder and DirectionsService and Renderer
+		 	var geocoder = new google.maps.Geocoder();
+		 	var directionsService = new google.maps.DirectionsService;
+		    var directionsDisplay = new google.maps.DirectionsRenderer;
+		 	
+		 	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+		 	
+		 	// Set the map as the map of the DirectionsDisplay Renderer
+		 	directionsDisplay.setMap(map);
+		 	
+		 	calculateAndDisplayRoute(directionsService, directionsDisplay, deposit, deposit, addresses);
+		 	
+		 	
+		 	}
+		 	
+		 	// Calculates the route on the map
+		 	function calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination, addresses) {
+		        
+		 		var waypts = [];
+		        var addressArray = addresses;
+		        for(i = 0; i < addressArray.length; i++) {
+		             waypts.push({
+		               location: addressArray[i],
+		               stopover: true
+		             });
+		           }
+		 		
+		 		directionsService.route({
+		          origin: origin,
+		          destination: destination,
+		          waypoints: waypts,
+		          optimizeWaypoints: false,
+		          travelMode: 'DRIVING'
+		        }, function(response, status) {
+		          if (status === 'OK') {
+		            directionsDisplay.setDirections(response);
+		          } else {
+		            window.alert('cannot generate route because of ' + status);
+		          }
+		        });
+		      }
+		 	/*]]>*/
+		   </script>
+		 <script 
+		 async = "async"
+		 defer = "defer"
+		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb-SCpWFMSIO0OeVAES-xWjRfLAIwzv7g&amp;callback=myMap"></script>
+	</div>
+</div>
+
+</body>
+</html>

@@ -322,6 +322,40 @@ public class Route {
 		return estimatedTime;
 	}
 	
+	/**
+	 * returns a string of the Hours and minutes that the route will take time
+	 * @return
+	 */
+	public String getHoursandMinutes() {
+		
+		long minutes = this.getEstimatedTime();
+		float hours = (float) minutes/60;
+		
+		int hour = (int) hours / 1;
+		
+		float decimalMinutes = (float) hours - hour;
+		decimalMinutes *= 60;
+		
+		int finalMinutes = (int) decimalMinutes / 1;
+		
+		String Minutes = " minutes";
+		
+		if(finalMinutes == 1)
+			Minutes = " minute";
+		
+		if(finalMinutes == 0)
+			{if(hour == 1)
+				return "" + hour + " hour";
+			else 
+				return "" + hour + " hours";}
+		else
+			{if(hour == 1)
+				return "" + hour + " hour, " + finalMinutes + "" + Minutes;
+			else 
+				return "" + hour + " hours, " + finalMinutes + "" + Minutes;}
+			
+	}
+	
 	
 
 	
@@ -539,7 +573,7 @@ public class Route {
 		}
 	}
 	
-public void rejectDelivery(Address address){
+	public void rejectDelivery(Address address){
 		
 		for(OrderItem oi: this.getAllAtAddress(address)) {
 			try {

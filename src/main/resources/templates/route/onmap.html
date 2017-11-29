@@ -17,7 +17,6 @@
 		<h1> you completed the following route</h1></div>
  <div th:if="${not #lists.isEmpty(deliveries)}">
  
- <h1>the next delivery on the map</h1>
  <div id="map"></div>
  
  	<script text="text/javascript" th:inline="javascript">
@@ -153,7 +152,8 @@
 			  <table class="table table-hover">
 		    	<thead>
 			    	<tr>
-			    		<th>address</th>
+			    		<th>next address</th>
+			    		<th>estimated duration</th>
 			    		<th>orderitems</th>
 			    		<th></th>
 			    	</tr>
@@ -161,6 +161,7 @@
 			    <tbody>
 			    	<tr>
 			    		<td th:text="${deliveries.get(0).getAddress().toString()}"></td>
+			    		<td th:text="${duration}"></td>
 			    		<td>
 			    			<ul th:each= "orderItem : ${deliveries.get(0).getItems()}">
 			    				<li>

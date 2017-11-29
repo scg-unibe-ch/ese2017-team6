@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.BadSizeException;
+import ch.ese.team6.Exception.DupplicateEntryException;
+import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.DataStatus;
 import ch.ese.team6.Model.Item;
 import ch.ese.team6.Repository.AddressRepository;
+import ch.ese.team6.Service.AddressService;
 
 @Controller
 @RequestMapping("/address")
@@ -27,6 +31,9 @@ public class AddressController {
 		
 	@Autowired
 	private AddressRepository addressRepository;
+	
+	@Autowired  
+	private AddressService addressService;
 	
 	
 	@RequestMapping(path="/")
@@ -43,11 +50,25 @@ public class AddressController {
 
 	
 	@PostMapping(path="/add")
-	public String addNewAddress (@ModelAttribute Address addressValue) {
+	public String addNewAddress (Model model, @ModelAttribute Address addressValue, BindingResult bindingResult) {
 		if(!addressValue.isOK()) {
 			return "address/error";
 		}
-		addressRepository.save(addressValue);
+		try {
+			if (bindingResult.hasErrors()) {
+				model.addAttribute("address", addressValue);
+				return "address/createForm";}
+			if(!addressValue.isOK()) 
+				{throw new BadSizeException("The address isn't created correctly");}
+			// Store the Address, method will throw exceptions if it's doesn't added properly
+			addressService.save(addressValue);
+		} catch (BadSizeException | InvalidAddressException e) {
+			model.addAttribute("message", e.getMessage());
+			model.addAttribute("address", addressValue);
+			e.printStackTrace();
+			return "address/error";
+		}
+		model.addAttribute("address", addressRepository.findAll());
 		return "address/addressIndex";
 	}
 	

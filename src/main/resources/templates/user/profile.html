@@ -4,7 +4,7 @@
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
-	<h1 th:text= "'hi ' +${user.firstname}+ ' ' +${user.surname}"></h1>
+	<h1 th:text= "'hi ' +${user.firstname.toLowerCase()}+ ' ' +${user.surname.toLowerCase()}"></h1>
 	<form class="form-horizontal">
 	<div class="panel panel-default">
 	<div class="panel-body">
@@ -45,10 +45,10 @@
     </form>
     
     
-    <h3>users routes</h3>
     <div th:if="${not #lists.isEmpty(user.getRoutes())}">
     <div class="panel panel-default">
 	<div class="panel-body">
+	<h3>users routes</h3>
 	    <table class="table table-hover">
 	    	<thead>
 	    		<tr>
@@ -63,7 +63,7 @@
 		    <tbody>
 		    	<tr th:each="route : ${user.getRoutes()}">
 		    		<td th:text="${route.getId()}"></td>
-		    		<td th:text="${route.getRouteStartDate()}"></td>
+		    		<td th:text="${route.getStartDateStr()}"></td>
 		    		<td th:text="${route.countDeliveries()}"></td>
 		    		<td></td>
 		    		<td></td>
