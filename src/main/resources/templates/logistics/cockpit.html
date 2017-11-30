@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+	<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
+	
+		<h1>Cockpit</h1>
+		<div class="box">
+			<h1>This is a test</h1>
+		</div>
+	
+		
+	
+	<a th:href="@{/sampleData}" class="btn btn-primary">create sample data</a>
+	<br/><br/>
+	<div lang="en" th:replace="fragments/footer ::footer"> </div>
+	</div>
+	
+	</body>
+</html>

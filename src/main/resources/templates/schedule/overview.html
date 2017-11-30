@@ -10,7 +10,7 @@ $("#datatable").DataTable();
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-		<h1> schedule open orders </h1>
+		<h1> schedule your orders </h1>
 
 <!-- 		<a href="/orders/add" class="btn btn-primary" role="button">create new order</a><br/><br/> -->
 <!-- 		<br/> -->
@@ -38,19 +38,20 @@ $("#datatable").DataTable();
 			    		<th>order status</th>
 			    		<th>ordered articles</th>
 			    		<th>delivery date</th>
-			    		<th></th>
+<!-- 			    		<th></th> -->
 			    		<th></th>
 			    	</tr>
 			    </thead>
 			    <tbody>
 			    	<tr th:each="order : ${orders}">
-			    		<td th:text="${order.getId()}"></td>
+			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="${order.getId()}"></a></td>
+<!-- 			    		<a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" th:text="${route.getDriver()}"></a> -->
 			    		<td th:text="${order.getCustomer()}"></td>
 			    		<td th:text="${order.getAddress()}"></td>
 			    		<td th:text="${order.getStatus()}"></td>
 			    		<td th:text="${order.getOrderItems().size()}"></td>
 			    		<td th:text="${order.getDeliveryDateStr()}"></td>
-			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td>
+<!-- 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td> -->
 			    		<td><a th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}"
 			    		class="btn btn-success">add to route</a></td>
 					</tr>
