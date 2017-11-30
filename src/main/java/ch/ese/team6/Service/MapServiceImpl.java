@@ -1,7 +1,6 @@
 package ch.ese.team6.Service;
 
-import java.io.IOException;
-import java.net.URI;
+
 import java.util.HashMap;
 import java.util.Map;
 
