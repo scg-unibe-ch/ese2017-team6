@@ -68,6 +68,16 @@ public class UserServiceImpl implements UserService {
 		return freeUsers;
 	}
     
+    public List<User> findFreeDrivers(Date date){
+    	List<User>freeDrivers = userRepository.findAll();
+		for(int i =freeDrivers.size()-1; i>=0; i--) {
+			User user = freeDrivers.get(i);
+			if(user.isOccupied(date)) {
+				freeDrivers.remove(user);
+			}
+		}
+		return freeDrivers;
+    }
     
     /**
 	 * Will return the trucks free at date data and with enough capacity to transport o

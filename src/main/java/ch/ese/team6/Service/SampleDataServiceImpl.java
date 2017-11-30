@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -239,7 +240,8 @@ public class SampleDataServiceImpl implements SampleDataService{
 		for (long i= 1;i<4; i++) {
 			Calendar date = Calendar.getInstance();
 			Route route = new Route(date.getTime(),addressRepository.findOne(OurCompany.depositId));
-			List<User> users = userRepository.findAll();
+			Set<Role> roles = roleRepository.findByName("DRIVER");
+			List<User> users = userRepository.findByRoles(roles);
 			List<Truck> trucks = truckRepository.findAll();
 			route.setDriver(users.get((int) i));
 			route.setTruck(trucks.get((int) i));

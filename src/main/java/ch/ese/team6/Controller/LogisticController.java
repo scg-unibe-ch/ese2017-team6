@@ -23,6 +23,7 @@ public class LogisticController {
 	
 	@GetMapping
 	public String cockpit(Model model) {
+		
 		return "logistics/cockpit";
 	}
 	

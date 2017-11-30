@@ -66,7 +66,7 @@ public class RouteController{
 		model.addAttribute("routeTemplate", new Route(dateD,null));
 		model.addAttribute("routeDate", dateD);
 		model.addAttribute("trucks", truckService.findFreeTrucks(dateD));
-		model.addAttribute("drivers", userService.findFreeUsers(dateD));
+		model.addAttribute("drivers", userService.findFreeDrivers(dateD));
 		//model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/create";
 	}
