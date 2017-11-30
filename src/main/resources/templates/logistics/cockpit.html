@@ -6,10 +6,15 @@
 	<div class="container">
 	
 		<h1>Cockpit</h1>
-		<div class="box">
+		<div class="box" style="border: 1px solid black">
+		<div sec:authorize="isAuthenticated()">
+			<h1>Authenticated</h1>
+		</div>
+		<div sec:authorize="hasAuthority('LOGISTICS')">
+  			This content is only shown to administrators.
+		</div>
 			<h1>This is a test</h1>
 		</div>
-	
 		
 	
 	<a th:href="@{/sampleData}" class="btn btn-primary">create sample data</a>
