@@ -4,9 +4,10 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">odm</a>
     </div>
+    <div sec:authorize="isAuthenticated()">
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
-
+		
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Orders <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/orders/add">Add new order</a></li>
@@ -33,8 +34,14 @@
 	        	</ul>
 	      	</li>
 <!--       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-      <li><a href="/login/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      <li><a href="/login?logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
+    </div>
+    <div sec:authorize="!isAuthenticated()">
+    	<ul class="nav navbar-nav navbar-right">
+      		<li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    	</ul>
+    	</div>
   </div>
 </nav>
 </div>

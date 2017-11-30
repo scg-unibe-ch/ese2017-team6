@@ -116,6 +116,8 @@ public class AddressDistanceManager {
 		}
 		
 		//drive back to the deposit
+		System.out.println(current);
+		System.out.println(deposit);
 		estimatedTime += current.getDistance(deposit);
 		
 		return estimatedTime;

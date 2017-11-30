@@ -2,6 +2,7 @@ package ch.ese.team6.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,6 +143,10 @@ public class SampleDataServiceImpl implements SampleDataService{
 			addressRepository.save(address);
 			this.saveDistances(address);
 			customerRepository.save(customer);
+			
+			if(i == 0) {
+				OurCompany.setDepositId(address.getId());
+			}
 		}
 	
 	}
@@ -234,8 +239,10 @@ public class SampleDataServiceImpl implements SampleDataService{
 		for (long i= 1;i<4; i++) {
 			Calendar date = Calendar.getInstance();
 			Route route = new Route(date.getTime(),addressRepository.findOne(OurCompany.depositId));
-			route.setDriver(userRepository.findOne((long)i));
-			route.setTruck(truckRepository.findOne((long)i));
+			List<User> users = userRepository.findAll();
+			List<Truck> trucks = truckRepository.findAll();
+			route.setDriver(users.get((int) i));
+			route.setTruck(trucks.get((int) i));
 			routeRepository.save(route);
 		}
 	}

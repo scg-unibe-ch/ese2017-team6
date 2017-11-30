@@ -7,6 +7,9 @@
 		<h1>order &#38; delivery management</h1>
 		<h2 th:if="${error}" th:text= "${error}"></h2>
 		<h2 th:if="${message}" th:text= "${message}"></h2>
+		<div sec:authorize="!isAuthenticated()">
+			<a th:href="@{/login}" class="btn btn-primary">Login</a>
 		</div>
+	</div>
 	</body>
 </html>
