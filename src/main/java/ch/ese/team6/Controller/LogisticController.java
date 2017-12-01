@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ch.ese.team6.Model.Order;
+import ch.ese.team6.Model.Route;
 import ch.ese.team6.Repository.OrderRepository;
+import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Service.RouteService;
 import ch.ese.team6.Service.TruckService;
 import ch.ese.team6.Service.UserService;
@@ -21,6 +23,7 @@ import ch.ese.team6.Service.UserService;
 public class LogisticController {
 	
 	@Autowired OrderRepository orderRepository;
+	@Autowired RouteRepository routeRepository;
 	@Autowired RouteService routeService;
 	@Autowired TruckService truckService;
 	@Autowired UserService userService;
@@ -39,8 +42,22 @@ public class LogisticController {
 				nonUrgentOrders.add(order);
 			}
 		}
+		List<Route> allRoutes= routeRepository.findAll();
+		List<Route> startedRoutes = new ArrayList<Route>();
+		List<Route> scheduledRoutes = new ArrayList<Route>();
+		for(Route route : allRoutes) {
+			if(route.isRouteStarted()) {
+				startedRoutes.add(route);
+			}
+			else if(!route.isRouteFinished()) {
+				scheduledRoutes.add(route);
+			}
+		}
+		
 		model.addAttribute("urgentOrders", urgentOrders);
 		model.addAttribute("nonUrgentOrders", nonUrgentOrders);
+		model.addAttribute("startedRoutes", startedRoutes);
+		model.addAttribute("scheduledRoutes", scheduledRoutes);
 		return "logistics/cockpit";
 	}
 	

@@ -1,0 +1,28 @@
+	.cockpit{
+		background-color:red;
+	}
+	.orders{
+		background-color: green;
+		border: 1px solid black;
+		display: box;
+		float:left;
+		max-width: 40vw;
+	}
+	#urgent{
+		background-color: #d87070;
+	}
+	#nonUrgent{
+		background-color: #42eef4;
+	}
+	
+	.routes{
+		background-color: yellow;
+		border: 1px solid black;
+		display: box;
+		float:right;
+		max-width: 40vw;
+	}
+	
+	.calm{
+		background-color: green;
+	}
