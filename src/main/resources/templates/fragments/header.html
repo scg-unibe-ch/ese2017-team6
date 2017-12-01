@@ -2,7 +2,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">odm</a>
+      <a class="navbar-brand" href="#">odm <div sec:authorize="isAuthenticated()">as <span style="color: yellow;" sec:authentication="principal.username">Username</span></div></a>
     </div>
     <div sec:authorize="isAuthenticated()">
     <ul class="nav navbar-nav">
@@ -52,7 +52,8 @@
 	        	</ul>
 	      	</li>
 <!--       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-      <li><a href="/login?logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+<!--	 <li><a href="#">Your logged in as:<span sec:authentication="principal.username">Username</span></a></li> -->
+      	<li><a href="/login?logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
     </div>
     <div sec:authorize="!isAuthenticated()">

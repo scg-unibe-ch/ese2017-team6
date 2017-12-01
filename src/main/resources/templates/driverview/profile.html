@@ -40,7 +40,7 @@
 	</div>
 	</div>
 	
-	<a th:href="@{/user/{id}/edit(id = ${driver.id})}" class="btn btn-primary">edit this user</a>
+	<a sec:authorize="hasAuthority('LOGISTICS')" th:href="@{/user/{id}/edit(id = ${driver.id})}" class="btn btn-primary">edit this user</a>
 	</form>
      
     <div th:if="${not #lists.isEmpty(routes)}">

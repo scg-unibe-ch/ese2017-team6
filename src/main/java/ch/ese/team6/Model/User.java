@@ -264,6 +264,7 @@ public class User {
 
 	public boolean hasId() {
 		try {
+			@SuppressWarnings("unused")
 			long i = this.id;
 		}
 		catch(NullPointerException e) {

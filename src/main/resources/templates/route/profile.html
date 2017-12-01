@@ -62,8 +62,8 @@
 			    	</ul>
 			</div>
 			</div>
-	    <a href="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
-	    <a href="/route/" class="btn btn-primary" role="button">show all routes</a>
+	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
+	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/route/" class="btn btn-primary" role="button">show all routes</a>
 <!--    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a> -->
 		</form>
 		<br/>

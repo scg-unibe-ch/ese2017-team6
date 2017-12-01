@@ -26,3 +26,59 @@
 	.calm{
 		background-color: green;
 	}
+		
+	.welcome {
+		position:relative;
+	}
+	
+	.welcome .textbox {
+		width:100vw;
+		height:100vh;
+		position:absolute;
+		top:0;
+		left:0;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+		border-radius:5px;
+		background-color: rgba(0,0,0,0.75);
+		-webkit-box-shadow: 0px 0px 15px 2px rgba(255,255,255,.75);
+		box-shadow: 0px 0px 15px 2px rgba(255,255,255,.75);
+	}
+	
+	.welcome:hover .textbox {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+	
+	.text {
+        color: aliceblue;
+		padding-top: 20vw;
+        text-align: center;
+        vertical-align: middle;
+	}
+	
+	#welcomeodm{
+		display:box;
+		height:100%;
+		width: 100%;
+		color: #222222;
+		font-family: monospace;
+		padding: 25% 25%;
+		font-size:15em;
+	}
+	
+	 .texth1{
+        font-size: 10em;
+        text-transform: lowercase;
+    }
+    
+    .button{
+    	padding-top: 5px;
+    }
+	
+	.textbox {
+		height:100%;
+		width: 100%;
+		-webkit-transition: all 0.7s ease;
+		transition: all 0.7s ease;
+	}
