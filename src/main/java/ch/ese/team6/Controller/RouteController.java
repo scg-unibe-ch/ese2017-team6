@@ -135,7 +135,7 @@ public class RouteController{
 		Order order =  orderRepository.findOne(orderId);
 		//only the trucks with enough capacity
 		model.addAttribute("trucks", truckService.findFreeTrucks(dateD,order));
-		model.addAttribute("drivers", userService.findFreeUsers(dateD,order));
+		model.addAttribute("drivers", userService.findFreeDrivers(dateD,order));
 		model.addAttribute("order", order);
 		//model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/createWithOrder";

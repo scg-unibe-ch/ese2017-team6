@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService {
 	 * and with enough time to transport o
 	 */
 	@Override
-	public List<User> findFreeUsers(Date date, IDelivarable o) {
-		List<User> freeUsers = this.findFreeUsers(date);
+	public List<User> findFreeDrivers(Date date, IDelivarable o) {
+		List<User> freeUsers = this.findFreeDrivers(date);
 		for(int i = freeUsers.size()-1; i>=0; i--) {
 			User user = freeUsers.get(i);
 			

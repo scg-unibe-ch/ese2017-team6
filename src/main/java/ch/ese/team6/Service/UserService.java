@@ -16,7 +16,7 @@ public interface UserService {
 	boolean existByUsername(String username);
 	List<User>findFreeUsers(Date date);
 	List<User>findFreeDrivers(Date date);
-	List<User>findFreeUsers(Date date,IDelivarable o);
+	List<User>findFreeDrivers(Date date,IDelivarable o);
 	
 	
 	String generateUsername(String[] userData);
