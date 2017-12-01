@@ -1,12 +1,6 @@
 package ch.ese.team6.Service;
 
-import java.util.ArrayList;
-
-import ch.ese.team6.Model.Address;
-import ch.ese.team6.Model.AddressDistanceManager;
-import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.RouteCollection;
-import ch.ese.team6.Model.Truck;
 
 /**
  * 

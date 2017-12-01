@@ -2,7 +2,6 @@ package ch.ese.team6.ServiceTest;
 
 import static org.junit.Assert.*;
 
-import javax.net.ssl.SSLEngineResult.Status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -7,7 +7,9 @@
 
 	   		<form th:method="POST" th:action="@{/login}" class="form-signin">
 	        	<h2 class="form-heading">log in</h2>
-	        	<div th:if="!${message}">
+	        	<div>
+	        	
+	        		<span th:if = "${message}" th:text="${message}"></span>
 	            	<span th:if = "${error}" th:text="${error}"></span>
 	            	<input name="username" type="text" class="form-control" placeholder="Username"
 	                	   autofocus="true"/>

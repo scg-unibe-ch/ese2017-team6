@@ -8,6 +8,7 @@ import ch.ese.team6.Model.Customer;
 
 
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
+	@Override
 	List<Customer>findAll();
 	
 	Customer findByName(String name);

@@ -2,14 +2,14 @@ package ch.ese.team6.Service;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
-import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.Distance;
@@ -42,9 +42,9 @@ public class SampleDataServiceImpl implements SampleDataService{
 	@Autowired	private OrderRepository orderRepository;
 	@Autowired	private RouteRepository routeRepository;
 	@Autowired	private RoleRepository roleRepository;
-	@Autowired  private AddressService addressService;
 	@Autowired private DistanceRepository distanceRepository;
 	
+	@Override
 	public void loadData() throws BadSizeException, DupplicateEntryException {
 		try {
 		if (roleRepository.count() == 0) this.loadRoles();
@@ -142,6 +142,10 @@ public class SampleDataServiceImpl implements SampleDataService{
 			addressRepository.save(address);
 			this.saveDistances(address);
 			customerRepository.save(customer);
+			
+			if(i == 0) {
+				OurCompany.setDepositId(address.getId());
+			}
 		}
 	
 	}
@@ -234,8 +238,11 @@ public class SampleDataServiceImpl implements SampleDataService{
 		for (long i= 1;i<4; i++) {
 			Calendar date = Calendar.getInstance();
 			Route route = new Route(date.getTime(),addressRepository.findOne(OurCompany.depositId));
-			route.setDriver(userRepository.findOne((long)i));
-			route.setTruck(truckRepository.findOne((long)i));
+			Set<Role> roles = roleRepository.findByName("DRIVER");
+			List<User> users = userRepository.findByRoles(roles);
+			List<Truck> trucks = truckRepository.findAll();
+			route.setDriver(users.get((int) i));
+			route.setTruck(trucks.get((int) i));
 			routeRepository.save(route);
 		}
 	}

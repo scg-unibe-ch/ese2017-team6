@@ -3,11 +3,12 @@ package ch.ese.team6.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.ese.team6.Model.Address;
 import ch.ese.team6.Repository.AddressRepository;
 
-
+@Service
 public class OurCompany {
+	
+	@Autowired AddressRepository addressRepository; 
 	
 	/**
 	 * The hour where a work day starts
@@ -23,5 +24,9 @@ public class OurCompany {
 	 * The address Id of the deposit
 	 */
 
-	public static final long depositId = 1;
+	public static long depositId;;
+	
+	public static void setDepositId(long id) {
+		depositId = id;
+	}
 }

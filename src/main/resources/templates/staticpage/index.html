@@ -4,6 +4,7 @@
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
+	
 		<h1>order &#38; delivery management</h1>
 		<p> Welcome to our application! You may want to load sample data by pressing on the button below.</p>
 		
@@ -11,9 +12,12 @@
 		<p> username: leefis </p>
 		<p> password: password </p>
 	
+		
+	
 	<a th:href="@{/sampleData}" class="btn btn-primary">create sample data</a>
 	<br/><br/>
 	<div lang="en" th:replace="fragments/footer ::footer"> </div>
 	</div>
+	
 	</body>
 </html>

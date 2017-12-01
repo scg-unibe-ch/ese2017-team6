@@ -31,6 +31,7 @@ public class AddressServiceImpl implements AddressService {
 		return distance;
 	}
 	
+	@Override
 	public Distance findDistance(Address origin, Address destination) {
 		return distanceRepository.findByOriginAndDestination(origin, destination);
 		

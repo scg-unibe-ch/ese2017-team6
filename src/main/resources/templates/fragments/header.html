@@ -4,13 +4,29 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">odm</a>
     </div>
+    <div sec:authorize="isAuthenticated()">
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
+      
+      <li sec:authorize="hasAuthority('LOGISTICS')" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Orders <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/orders/add">Add new order</a></li>
+          <li><a href="/orders/">All orders</a></li>
+         </ul>
+      </li>
+      <li sec:authorize="hasAuthority('LOGISTICS')" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliveries <span class="caret"></span></a>
+      	<ul class="dropdown-menu">
+          <li><a href="/schedule/">Schedule orders</a></li>
+          <li><a href="/route/">All planned routes</a></li>
+          <li><a href="/automaticroutegeneration/selectdate/">Generate routes automatically</a></li>
+        </ul>
+      </li>
 
 <!--       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Orders <span class="caret"></span></a> -->
-       <li><a href="/orders/add">Create new order</a></li>
-       <li><a href="/route/">Routing</a></li>
-       <li><a href="/schedule/">Add orders to routes</a></li>
+       <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/orders/add">Create new order</a></li>
+       <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/route/">Routing</a></li>
+       <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/schedule/">Add orders to routes</a></li>
+       <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/logistics/">Cockpit</a></li>
 <!--         <ul class="dropdown-menu"> -->
 <!--           <li><a href="/orders/add">Add new order</a></li> -->
 <!--           <li><a href="/orders/">All orders</a></li> -->
@@ -26,7 +42,7 @@
 		<li><a href="/driverview/">Driver view</a></li>
     </ul>
         <ul class="nav navbar-nav navbar-right">
-	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Administration <span class="caret"></span></a>
+	        <li sec:authorize="hasAuthority('LOGISTICS')" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Administration <span class="caret"></span></a>
 	        	<ul class="dropdown-menu">
 		          	<li><a href="/user/">User</a></li>
 		          	<li><a href="/truck/">Trucks</a></li>
@@ -36,8 +52,14 @@
 	        	</ul>
 	      	</li>
 <!--       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-      <li><a href="/login/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      <li><a href="/login?logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
+    </div>
+    <div sec:authorize="!isAuthenticated()">
+    	<ul class="nav navbar-nav navbar-right">
+      		<li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    	</ul>
+    	</div>
   </div>
 </nav>
 </div>

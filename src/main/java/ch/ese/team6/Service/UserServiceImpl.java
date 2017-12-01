@@ -10,16 +10,11 @@ import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.Route;
-import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.AddressRepository;
-import ch.ese.team6.Repository.RoleRepository;
-import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -27,11 +22,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private RouteRepository routeRepository;
     @Autowired
 	private AddressRepository addressRepository;
 	
@@ -47,7 +38,8 @@ public class UserServiceImpl implements UserService {
     	userRepository.save(user);
     }
     
-    public boolean existByUsername(String username) {
+    @Override
+	public boolean existByUsername(String username) {
 		return userRepository.existsByUsername(username);
 	}
 
@@ -56,7 +48,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 	    
-    public List<User> findFreeUsers(Date date){
+    @Override
+	public List<User> findFreeUsers(Date date){
 		
 		List<User>freeUsers = userRepository.findAll();
 		for(int i =freeUsers.size()-1; i>=0; i--) {
@@ -68,11 +61,23 @@ public class UserServiceImpl implements UserService {
 		return freeUsers;
 	}
     
+    @Override
+	public List<User> findFreeDrivers(Date date){
+    	List<User>freeDrivers = userRepository.findAll();
+		for(int i =freeDrivers.size()-1; i>=0; i--) {
+			User user = freeDrivers.get(i);
+			if(user.isOccupied(date)) {
+				freeDrivers.remove(user);
+			}
+		}
+		return freeDrivers;
+    }
     
     /**
 	 * Will return the trucks free at date data and with enough capacity to transport o
 	 * and with enough time to transport o
 	 */
+	@Override
 	public List<User> findFreeUsers(Date date, IDelivarable o) {
 		List<User> freeUsers = this.findFreeUsers(date);
 		for(int i = freeUsers.size()-1; i>=0; i--) {
@@ -99,7 +104,8 @@ public class UserServiceImpl implements UserService {
     
     
     
-    public String generateUsername(String[] userData) {
+    @Override
+	public String generateUsername(String[] userData) {
 		String username = userData[0].trim().toLowerCase() + 
 				userData[1].substring(0, 1).trim().toLowerCase();
 		if(username.length() < 6 ) {

@@ -2,19 +2,13 @@ package ch.ese.team6.Controller;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
-
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,22 +19,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
-import ch.ese.team6.Exception.RouteTimeException;
 //import antlr.collections.List;
 import ch.ese.team6.Model.Address;
-import ch.ese.team6.Model.Delivery;
 import ch.ese.team6.Model.Order;
-import ch.ese.team6.Model.OrderItem;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Repository.AddressRepository;
-import ch.ese.team6.Repository.OrderItemRepository;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
 import ch.ese.team6.Service.CalendarService;
 import ch.ese.team6.Service.OurCompany;
-import ch.ese.team6.Service.RouteService;
 import ch.ese.team6.Service.TruckService;
 import ch.ese.team6.Service.UserService;
 
@@ -53,9 +42,6 @@ public class RouteController{
 	@Autowired private UserRepository userRepository;
 	@Autowired private OrderRepository orderRepository;
 	@Autowired private AddressRepository addressRepository;
-	@Autowired private OrderItemRepository orderitemrepository;
-	
-	@Autowired private RouteService routeService;
 	@Autowired private TruckService truckService;
 	@Autowired private UserService userService;
 	
@@ -66,7 +52,7 @@ public class RouteController{
 		model.addAttribute("routeTemplate", new Route(dateD,null));
 		model.addAttribute("routeDate", dateD);
 		model.addAttribute("trucks", truckService.findFreeTrucks(dateD));
-		model.addAttribute("drivers", userService.findFreeUsers(dateD));
+		model.addAttribute("drivers", userService.findFreeDrivers(dateD));
 		//model.addAttribute("addresses", addressRepository.findAll());
 	        return "route/create";
 	}

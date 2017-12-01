@@ -82,6 +82,7 @@ public class Address {
 		this.id = id;
 	}
 
+	@Override
 	public String toString() {
 		return street+", "+city+", "+country;
 	}

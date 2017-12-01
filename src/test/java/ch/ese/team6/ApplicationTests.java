@@ -1,9 +1,6 @@
 package ch.ese.team6;
-/*
-import static org.hamcrest.CoreMatchers.containsString;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -21,9 +18,12 @@ public class ApplicationTests {
 
 	@Autowired
 	private MockMvc mockMvc;
-/*
+
 	@Test
 	public void shouldReturnDefaultMessage() throws Exception {
-		this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk());
+		this.mockMvc.perform(get("/sampleData")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/user")).andExpect(status().is3xxRedirection());
+		//this.mockMvc.perform(post("/login").params()).andExpect(status().is3xxRedirection());
 	}
-*/
+
+}

@@ -2,7 +2,6 @@ package ch.ese.team6.Model;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -116,6 +115,8 @@ public class AddressDistanceManager {
 		}
 		
 		//drive back to the deposit
+		System.out.println(current);
+		System.out.println(deposit);
 		estimatedTime += current.getDistance(deposit);
 		
 		return estimatedTime;

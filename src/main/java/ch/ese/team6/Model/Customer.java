@@ -9,11 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
-import ch.ese.team6.Exception.BadSizeException;
 
 @Entity 
 @Table(name = "Customer")
@@ -91,6 +87,7 @@ public class Customer {
 		this.address = address;
 	}
 	
+	@Override
 	public String toString() {
 		return name;
 	}

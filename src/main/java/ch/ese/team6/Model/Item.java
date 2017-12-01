@@ -70,6 +70,7 @@ public class Item {
 			this.id = id;
 		}
 
+		@Override
 		public String toString() {
 			return name;
 		}

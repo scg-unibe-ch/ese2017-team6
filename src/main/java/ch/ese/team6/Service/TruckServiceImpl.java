@@ -1,11 +1,9 @@
 package ch.ese.team6.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
@@ -14,9 +12,7 @@ import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.Truck;
-import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.AddressRepository;
-import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 
 @Service
@@ -25,10 +21,9 @@ public class TruckServiceImpl implements TruckService{
 	@Autowired
 	private TruckRepository truckRepository;
 	@Autowired
-	private RouteRepository routeRepository;
-	@Autowired
 	private AddressRepository addressRepository;
 	
+	@Override
 	public List<Truck> findFreeTrucks(Date date){
 		List<Truck>freeTrucks = truckRepository.findAll();
 		for(int i =freeTrucks.size()-1; i>=0; i--) {
@@ -40,6 +35,7 @@ public class TruckServiceImpl implements TruckService{
 		return freeTrucks;
 	}
 	
+	@Override
 	public void save(Truck truck) throws DupplicateEntryException, BadSizeException {
 		if (!truck.isValid()) throw new BadSizeException("Truck is invalid.");
 		if ((truck.hasId()) || this.existByTruckname(truck.getTruckname())) {
