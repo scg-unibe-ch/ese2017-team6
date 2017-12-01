@@ -3,11 +3,12 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
-	<div class="cockpit" style="display: box;  margin: 2vw; overflow: auto;" >
+	<div class="cockpit" >
 		<h1>cockpit</h1>
-		<div class="orders" style="diplay: box; max-width: 40vw; float:left;">
+		<div class="orders">
 			<div class="urgent">
-				<h1>urgent orders</h1>
+				<h1 th:if="${!#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: ' + ${urgentOrders.size()}">urgent orders</h1>
+				<h1 th:if="${#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: none'">urgent orders</h1>
 				<div class="panel panel-default">
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(urgentOrders)}">
@@ -30,9 +31,6 @@
 						    	</tr>
 						    </thead>
 						    <tbody>
-							    <div th:if="${#lists.isEmpty(urgentOrders)}">
-								<h2 style="background-color: green"> you have no urgent orders.</h2>
-								</div>
 						    	<tr th:each="order : ${urgentOrders}">
 						    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="${order.getId()}"></a></td>
 			<!-- 			    		<a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" th:text="${route.getDriver()}"></a> -->
@@ -54,7 +52,8 @@
 				</div>
 			</div>
 			<div class="nonUrgent">
-				<h1>non urgent orders</h1>
+				<h1 th:if="${!#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: ' + ${nonUrgentOrders.size()}">urgent orders</h1>
+				<h1 th:if="${#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: none'">urgent orders</h1>
 				<div class="panel panel-default">
 				    <div class="panel-body">
 					    <table id="nonUrgent" class="table table-hover">
@@ -94,8 +93,62 @@
 			</div>
 		</div>
 		<div class="routes" style="diplay: box; width: 40vw; float: right;">
-			<div class="urgent">
-				<h1>routes on tour</h1>
+			<div class="ressources">
+				<h1>ressources</h1>
+				<div class="drivers">
+					<div class="panel panel-default">
+					    <div class="panel-body">
+						     <div th:if="${#lists.isEmpty(freeDrivers)}">
+								<h2 class="calm"> currently there are no routes on tour</h2>
+							</div>
+							<div th:if="${!#lists.isEmpty(freeDrivers)}">
+						    <table id="startedRoutes" class="table table-hover">
+						    	<thead>
+							    	<tr>
+							    		<th>id</th>
+							    		<th>driver</th>
+							    	</tr>
+							    </thead>
+							    <tbody>
+							    	<tr th:each="user : ${freeDrivers}">
+							    		<td><a th:href="@{/user/{id}(id = ${user.getId()})}" th:text="${user.getId()}"></a></td>
+							    		<td th:text="${user.toString()}"></td>
+									</tr>
+								</tbody>
+				    		</table>
+				    		</div>
+						</div>
+					</div>
+				</div>
+				<div class="trucks">
+					<div class="panel panel-default">
+					    <div class="panel-body">
+						     <div th:if="${#lists.isEmpty(freeTrucks)}">
+								<h2 class="calm"> currently there are no routes on tour</h2>
+							</div>
+							<div th:if="${!#lists.isEmpty(freeTrucks)}">
+						    <table id="startedRoutes" class="table table-hover">
+						    	<thead>
+							    	<tr>
+							    		<th>id</th>
+							    		<th>truck</th>
+							    	</tr>
+							    </thead>
+							    <tbody>
+							    	<tr th:each="truck : ${freeTrucks}">
+							    		<td><a th:href="@{/truck/{id}(id = ${truck.getId()})}" th:text="${truck.getId()}"></a></td>
+							    		<td th:text="${truck.toString()}"></td>
+									</tr>
+								</tbody>
+				    		</table>
+				    		</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="onTour">
+				<h1 th:if="${!#lists.isEmpty(startedRoutes)}" th:text="'routes on tour: ' + ${startedRoutes.size()}"></h1>
+				<h1 th:if="${#lists.isEmpty(startedRoutes)}" th:text="'routes:  none'"></h1>
 				<div class="panel panel-default">
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(startedRoutes)}">
@@ -130,7 +183,8 @@
 				</div>
 			</div>
 			<div class="nonUrgent">
-				<h1>scheduled routes</h1>
+				<h1 th:if="${!#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled routes: ' + ${scheduledRoutes.size()}"></h1>
+				<h1 th:if="${#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled:  none'"></h1>
 				<div class="panel panel-default">
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(scheduledRoutes)}">

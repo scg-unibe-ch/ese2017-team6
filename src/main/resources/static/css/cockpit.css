@@ -1,12 +1,23 @@
 	.cockpit{
-		background-color:red;
+		border: 1px solid black;
+		background-color:white;
+		display: box;  
+		margin: 2vw; 
+		overflow: auto;
 	}
+	.drivers{
+		border-right: 5px solid black;
+		display: inline-block;
+		width: 40%;
+	}
+	
 	.orders{
-		background-color: green;
+		diplay: box;
+		background-color: grey;
 		border: 1px solid black;
 		display: box;
 		float:left;
-		max-width: 40vw;
+		max-width: 45vw;
 	}
 	#urgent{
 		background-color: #d87070;
@@ -15,12 +26,23 @@
 		background-color: #42eef4;
 	}
 	
+	
+	.ressources{
+		border: 1px solid black;
+		display: box;
+		margin: 10px;
+		padding: 5px;
+	}
 	.routes{
-		background-color: yellow;
+		background-color: #758a78;
 		border: 1px solid black;
 		display: box;
 		float:right;
 		max-width: 40vw;
+	}
+	.trucks{
+		display: inline-block;
+		width: 40%;
 	}
 	
 	.calm{

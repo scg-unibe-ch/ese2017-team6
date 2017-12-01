@@ -58,6 +58,9 @@ public class LogisticController {
 		model.addAttribute("nonUrgentOrders", nonUrgentOrders);
 		model.addAttribute("startedRoutes", startedRoutes);
 		model.addAttribute("scheduledRoutes", scheduledRoutes);
+		
+		model.addAttribute("freeDrivers", userService.findFreeDrivers(today.getTime()));
+		model.addAttribute("freeTrucks", truckService.findFreeTrucks(today.getTime()));
 		return "logistics/cockpit";
 	}
 	
