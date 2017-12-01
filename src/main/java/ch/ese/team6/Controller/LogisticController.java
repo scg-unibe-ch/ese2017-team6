@@ -28,6 +28,11 @@ public class LogisticController {
 	@Autowired TruckService truckService;
 	@Autowired UserService userService;
 	
+	/**
+	 * Creates a cockpit view with all the sample data. For saving time the amount of querys is kept on the minimum.
+	 * @param model
+	 * @return
+	 */
 	@GetMapping
 	public String cockpit(Model model) {
 		Calendar today = Calendar.getInstance();

@@ -19,14 +19,21 @@ import ch.ese.team6.Repository.UserRepository;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * UserServiceImpl provides different services for the controllers. It's mostly used to 
+ * check for free Drivers or to save a new user. 
+ * @author Domi
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired  private UserRepository userRepository;
     @Autowired  private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired	private AddressRepository addressRepository;
     @Autowired 	private RoleRepository roleRepository;
-	
+	/**
+	 * checks if the user is valid, encrypts his password and saves him.
+	 */
     @Override
     public void save(User user) throws BadSizeException, DupplicateEntryException {
     	if (user.isValid()) {
@@ -38,17 +45,23 @@ public class UserServiceImpl implements UserService {
     	}
     	userRepository.save(user);
     }
-    
+    /**
+     * checks if the user exists.
+     */
     @Override
 	public boolean existByUsername(String username) {
 		return userRepository.existsByUsername(username);
 	}
-
+    /**
+     * finds the user in the database and returns the user.
+     */
 	@Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-	    
+	/**
+	 * returns all free Users. I guess this one could be deleted.
+	 */
     @Override
 	public List<User> findFreeUsers(Date date){
 		
@@ -61,7 +74,9 @@ public class UserServiceImpl implements UserService {
 		}
 		return freeUsers;
 	}
-    
+    /**
+     * returns all unscheduled drivers for the choosen date
+     */
     @Override
 	public List<User> findFreeDrivers(Date date){
     	Set<Role> roles = roleRepository.findByName("DRIVER");
@@ -105,7 +120,9 @@ public class UserServiceImpl implements UserService {
 
     
     
-    
+    /**
+     * generates a username from userdata. Used for the sampleData
+     */
     @Override
 	public String generateUsername(String[] userData) {
 		String username = userData[0].trim().toLowerCase() + 
