@@ -1,10 +1,7 @@
 package ch.ese.team6.Model;
 
 import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -20,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
@@ -333,7 +328,7 @@ public class Route {
 		
 		int hour = (int) hours / 1;
 		
-		float decimalMinutes = (float) hours - hour;
+		float decimalMinutes = hours - hour;
 		decimalMinutes *= 60;
 		
 		int finalMinutes = (int) decimalMinutes / 1;
@@ -365,6 +360,7 @@ public class Route {
 	}
 
 	
+	@Override
 	public String toString() {
 		String s = "Route "+id+" ("+this.driver+"/"+this.truck+")";
 		return s;

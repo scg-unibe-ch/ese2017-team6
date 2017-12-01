@@ -7,11 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 
@@ -82,6 +79,7 @@ public class OrderItem implements IDelivarable {
 			this.orders = o;
 		}
 
+		@Override
 		public void setRoute(Route r) {
 			this.route = r;
 		}
@@ -105,6 +103,7 @@ public class OrderItem implements IDelivarable {
 			this.amount = amount;
 		}
 		
+		@Override
 		public String toString() {
 			return this.amount+" x "+this.item;
 			

@@ -2,8 +2,7 @@ package ch.ese.team6.ModelTest;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 import org.junit.Test;
 

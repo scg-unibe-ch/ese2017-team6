@@ -1,7 +1,5 @@
 package ch.ese.team6.Model;
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,7 +8,6 @@ import org.hibernate.validator.constraints.Email;
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Service.CalendarService;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;

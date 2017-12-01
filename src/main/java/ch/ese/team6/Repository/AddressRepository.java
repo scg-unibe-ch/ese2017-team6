@@ -8,6 +8,7 @@ import ch.ese.team6.Model.Address;
 
 
 public interface AddressRepository extends JpaRepository<Address, Long>{
+	@Override
 	List<Address>findAll();
 
 

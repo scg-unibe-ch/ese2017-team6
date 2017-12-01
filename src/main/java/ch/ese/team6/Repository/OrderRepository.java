@@ -10,6 +10,7 @@ import ch.ese.team6.Model.Order;
 
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
+	@Override
 	List<Order>findAll();
 	
 	Order findByCustomer(Customer customer);

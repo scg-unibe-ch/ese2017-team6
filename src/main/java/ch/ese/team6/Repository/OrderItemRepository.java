@@ -9,6 +9,7 @@ import ch.ese.team6.Model.OrderItem;
 
 public interface OrderItemRepository  extends JpaRepository<OrderItem, Long>{
 
+	@Override
 	List<OrderItem>findAll();
 	
 	OrderItem findByOrderItemStatus(String status);

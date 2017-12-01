@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Service.CalendarService;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 @Entity
 @Table(name= "truck")

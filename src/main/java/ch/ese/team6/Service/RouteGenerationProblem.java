@@ -1,7 +1,6 @@
 package ch.ese.team6.Service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;

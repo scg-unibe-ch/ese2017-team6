@@ -28,10 +28,6 @@ public class SchedulingController {
 	private RouteRepository routeRepository;
 	@Autowired 
 	private RouteService routeService;
-	@Autowired 
-	private RouteService truckService;
-	@Autowired 
-	private RouteService userService;
 	@Autowired
 	private RouteRepository truckRepository;
 	@Autowired

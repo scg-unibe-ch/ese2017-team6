@@ -3,7 +3,6 @@ package ch.ese.team6.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.ese.team6.Model.Address;
 import ch.ese.team6.Repository.AddressRepository;
 
 @Service

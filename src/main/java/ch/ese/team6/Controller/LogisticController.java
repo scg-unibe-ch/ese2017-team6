@@ -1,12 +1,16 @@
 package ch.ese.team6.Controller;
 
-import org.hibernate.boot.model.source.spi.Orderable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ch.ese.team6.Model.Order;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Service.RouteService;
 import ch.ese.team6.Service.TruckService;
@@ -23,7 +27,20 @@ public class LogisticController {
 	
 	@GetMapping
 	public String cockpit(Model model) {
-		
+		Calendar today = Calendar.getInstance();
+		List<Order> allOrders = orderRepository.findAll();
+		List<Order> urgentOrders = new ArrayList<Order>();
+		List<Order> nonUrgentOrders = new ArrayList<Order>();
+		for (Order order: allOrders) {
+			if(order.isOpen() && order.getDeliveryDate().before(today.getTime())) {
+				urgentOrders.add(order);
+			}
+			else if(order.isOpen()) {
+				nonUrgentOrders.add(order);
+			}
+		}
+		model.addAttribute("urgentOrders", urgentOrders);
+		model.addAttribute("nonUrgentOrders", nonUrgentOrders);
 		return "logistics/cockpit";
 	}
 	

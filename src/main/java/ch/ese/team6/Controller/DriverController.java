@@ -3,7 +3,6 @@ package ch.ese.team6.Controller;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import ch.ese.team6.Repository.UserRepository;
 import ch.ese.team6.Repository.RoleRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Model.Role;
-import ch.ese.team6.Model.User;
  
  @Controller
  @RequestMapping("/driverview")

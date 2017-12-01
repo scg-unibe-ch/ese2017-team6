@@ -6,7 +6,6 @@ import java.util.Map;
 
 
 import org.json.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -49,6 +48,7 @@ public class MapServiceImpl implements MapService{
 		
 	}
 	
+	@Override
 	public Distance calculateDistance(Address origin, Address destination) throws InvalidAddressException {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, String> uriVariables = new HashMap<String, String>();

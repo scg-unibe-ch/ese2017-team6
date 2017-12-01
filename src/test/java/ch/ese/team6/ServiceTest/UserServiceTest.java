@@ -17,7 +17,6 @@ import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.RoleRepository;
 import ch.ese.team6.Repository.UserRepository;
 import ch.ese.team6.Service.UserService;
-import ch.ese.team6.Service.UserServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)

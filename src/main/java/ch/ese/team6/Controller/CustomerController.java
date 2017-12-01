@@ -1,8 +1,6 @@
 package ch.ese.team6.Controller;
 
 import java.io.IOException;
-import java.util.Calendar;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;

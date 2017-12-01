@@ -26,10 +26,6 @@ public class SampleDataServiceTest {
 	public void csvParsing() {
 		String csv = "a,b,c;d, e      ,f";
 		String[][] data = sampleDataService.parseCsv(csv);
-		for(String[] line : data) {
-			for(String value : line) {
-			}
-		}
 		assertEquals("a", data[0][0]);
 		assertEquals("b", data[0][1]);
 		assertEquals("c", data[0][2]);

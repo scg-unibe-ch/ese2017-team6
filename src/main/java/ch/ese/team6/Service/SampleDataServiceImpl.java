@@ -3,7 +3,6 @@ package ch.ese.team6.Service;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
-import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.Distance;
@@ -44,9 +42,9 @@ public class SampleDataServiceImpl implements SampleDataService{
 	@Autowired	private OrderRepository orderRepository;
 	@Autowired	private RouteRepository routeRepository;
 	@Autowired	private RoleRepository roleRepository;
-	@Autowired  private AddressService addressService;
 	@Autowired private DistanceRepository distanceRepository;
 	
+	@Override
 	public void loadData() throws BadSizeException, DupplicateEntryException {
 		try {
 		if (roleRepository.count() == 0) this.loadRoles();

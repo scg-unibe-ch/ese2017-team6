@@ -1,7 +1,6 @@
 package ch.ese.team6.Model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RouteCollection {
@@ -39,6 +38,7 @@ public int getEstimatedTime() {
 	return d;
 }
 
+@Override
 public String toString() {
 	System.out.println("_____________");
 	

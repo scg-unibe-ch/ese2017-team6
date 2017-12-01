@@ -1,6 +1,5 @@
 package ch.ese.team6.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -170,6 +169,7 @@ private Date deliveryDate;
 	 * @param candidate
 	 */
 	private void assignTrucks(RouteCollection candidate) {
+		@SuppressWarnings("unchecked")
 		ArrayList<Truck> trucks_copy = (ArrayList<Truck>) trucks.clone();
 		
 		assert candidate.size() <= trucks_copy.size();

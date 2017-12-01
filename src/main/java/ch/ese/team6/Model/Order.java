@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -63,7 +62,8 @@ public class Order  implements IDelivarable{
     	return this.customer;
     }
     
-    public Address getAddress() {
+    @Override
+	public Address getAddress() {
     	return this.customer.getAddress();
     }
     
@@ -123,6 +123,7 @@ public class Order  implements IDelivarable{
 	 * Weight of the orderItems open for sheduling
 	 * @return
 	 */
+	@Override
 	public int getOpenWeight() {
 		int w = 0;
 		for(OrderItem oi: this.orderItems) {
@@ -135,6 +136,7 @@ public class Order  implements IDelivarable{
 	 * Weight of the orderItems open for scheduling
 	 * @return
 	 */
+	@Override
 	public int getOpenSize() {
 		int s = 0;
 		for(OrderItem oi: this.orderItems) {
