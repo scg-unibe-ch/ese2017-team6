@@ -27,7 +27,7 @@ function drop(ev) {
 		  
 		  <div>
 		  
-		  	<div class="panel panel-default" th:each="order : ${orders}"
+		  	<div class="panel panel-info" th:each="order : ${orders}"
 		  	id="drag1" draggable="true" ondragstart="drag(event)">
 		     <div class="panel-heading" >
 		      	<table class="orders">
@@ -35,33 +35,19 @@ function drop(ev) {
 		      	<tr>
 		      		<th></th>
 		      		<th></th>
+		      		<th></th>
+		      		<th></th>
 		      	</tr>
 		      	</thead>
 		      	<tbody>
 		      		<tr>
 		      			<td th:text="${order.getCustomer()}"></td>
-		      			<td class="date" th:text="${order.getDeliveryDate()}"></td>
-		      		</tr>
-		      	</tbody>
-		      	</table>
-		      </div>
-		      
-		      <div class="panel-body">
-		      <table>
-		      	<thead>
-		      	<tr>
-		      		<th></th>
-		      		<th></th>
-		      	</tr>
-		      	</thead>
-		      	<tbody>
-		      		<tr >
+		      			<td th:text="${order.getDeliveryDate()}"></td>
 		      			<td th:text="${order.getAddress()}"></td>
-		      			<td class="size" th:text="${order.getOrderItems().size()}"></td>
+		      			<td th:text="${order.getOrderItems().size()}"></td>
 		      		</tr>
 		      	</tbody>
 		      	</table>
-		      
 		      </div>
     	    </div>
 			</div>
@@ -69,54 +55,73 @@ function drop(ev) {
 		  
 		 	 
 		  <div class="col-sm-8">
-		  
-<!-- 		  <div th:each="route : ${routes}"> -->
-<!-- 		 	<ul class="nav nav-tabs"> -->
-<!-- 		 	  <li><a data-toggle="tab" href="#route.getId()" th:text="${route.getId()}"></a></li> -->
-<!-- 			  <li class="active"><a data-toggle="tab" href="#home">Route 1</a></li> -->
-<!-- 			  <li><a data-toggle="tab" href="#menu1">Route 2</a></li> -->
-<!-- 			  <li><a data-toggle="tab" href="#menu2">Route 3</a></li> -->
-<!-- 			</ul> -->
-<!-- 		  </div> -->
+		  	<div class="panel panel-default">
+			<div class="panel-body">
+			  <h2>choose a route</h2>
+			 	<ul class="nav nav-tabs nav-justified">
+				  <li class="nav-item" th:each="route : ${routes}">
+				  	  <a class="nav-link" data-toggle="tab" th:classappend="${route.getId() == 1} ? 'active'"
+				  	  href="#route.getId()" th:text="${route.getId()}"></a>
+				  </li>
+	<!-- 			  <li><a data-toggle="tab" href="#menu1">Route 2</a></li> -->
+	<!-- 			  <li><a data-toggle="tab" href="#menu2">Route 3</a></li> -->
+				</ul>
+				
+				<div class="tab-content">
+				  <div class="tab-pane fade" th:classappend="${route.getId() == 1} ? 'show active'"
+				  		id="{route.getId()}" th:each="route : ${routes}">
+				    <h3>route <a th:text="${route.getId()}"></a></h3>
+				    
+					<table class="table">
+				      	<thead>
+				      	<tr>
+				      		<th>truck</th>
+				      		<th>driver</th>
+				      		<th>space capacity</th>
+				      		<th>weight capacity</th>
+				      		<th>estimated time</th>
+				      	</tr>
+				      	</thead>
+				      	<tbody>
+				      		<tr>
+				      			<td th:text="${route.getTruck()}"></td>
+				      			<td th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" th:text="${route.getDriver()}"></td>
+				      			<td th:text="${route.calculateCapacitySize()}"></td>
+				      			<td th:text="${route.calculateCapacityWeight()}"></td>
+				      			<td th:text="${route.getEstimatedTimeStr()}"></td>
+				      		</tr>
+				      	</tbody>
+				      	</table>
+				  </div>
+				  
+				  
+	<!-- 			  <div id="1" class="tab-pane fade in active"> -->
+	<!-- 			    <h3>Route 1</h3> -->
+	<!-- 			    <p>Some content.</p> -->
+	<!-- 			  </div> -->
+				  
+				  
+	<!-- 			  <div id="menu1" class="tab-pane fade"> -->
+	<!-- 			    <h3>Route 2</h3> -->
+	<!-- 			    <p>Some content in menu 1.</p> -->
+	<!-- 			  </div> -->
+	<!-- 			  <div id="menu2" class="tab-pane fade"> -->
+	<!-- 			    <h3>Route 3</h3> -->
+	<!-- 			    <p>Some content in menu 2.</p> -->
+	<!-- 			  </div> -->
+				</div>
 			
-<!-- 			<div class="tab-content"> -->
-<!-- 			  <div id="route.getId()" class="tab-pane fade in active"> -->
-<!-- 			    <h3>Route</h3> -->
-<!-- 			    <p>Some content.</p> -->
-<!-- 			  </div> -->
-			  
-<!-- 			  <div id="home" class="tab-pane fade in active"> -->
-<!-- 			    <h3>Route 1</h3> -->
-<!-- 			    <p>Some content.</p> -->
-<!-- 			  </div> -->
-<!-- 			  <div id="menu1" class="tab-pane fade"> -->
-<!-- 			    <h3>Route 2</h3> -->
-<!-- 			    <p>Some content in menu 1.</p> -->
-<!-- 			  </div> -->
-<!-- 			  <div id="menu2" class="tab-pane fade"> -->
-<!-- 			    <h3>Route 3</h3> -->
-<!-- 			    <p>Some content in menu 2.</p> -->
-<!-- 			  </div> -->
-<!-- 			</div> -->
-			
-		  	<select class="form-control" name="route" id="route">
-		    	<option th:each= "routeId : ${routes}" th:text="${routeId.getRouteStartDate()} + ' size: '
-		    	+ ${routeId.calculateCapacitySize()} + ' weight: '
-		    	+ ${routeId.calculateCapacityWeight()} + ' '
-		    	+ ${routeId.getTruck()} + ' '
-		    	+ ${routeId.getDriver()}">
-		    	</option>
-			</select>
-		<br/><br/>
-		
- 		 <div >
- 		 	<div class="panel panel-default">
- 			 <div class="panel-body" ondrop="drop(event)" ondragover="allowDrop(event)">
- 				 drop orders here
- 		  	</div>
-			 </div>
- 		 </div>
-		 
+	 		 <div>
+	 		 	<div class="panel panel-info">
+	 			 <div class="panel-body" ondrop="drop(event)" ondragover="allowDrop(event)">
+	 				  
+	 				 drop orders here
+	 				 
+	 		  	 </div>
+				</div>
+	 		 </div>
+			</div>
+			</div>
 		  </div>
 	
 		</div>
