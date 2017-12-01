@@ -27,7 +27,7 @@
 				    </thead>
 				    <tbody>
 				    	<tr>
-				    		<td th:text="${order.getId()}"></td>
+				    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="${order.getId()}"></a></td>
 				    		<td th:text="${order.getCustomer()}"></td>
 				    		<td th:text="${order.getAddress()}"></td>
 <!-- 				    		<td th:text="${order.getStatus()}"></td> -->
@@ -35,7 +35,6 @@
 				    		<td th:text="${order.getDeliveryDateStr()}"></td>
 				    		<td th:text="${order.getOpenSize()}"></td>
 				    		<td th:text="${order.getOpenWeight()}"></td>
-				    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">Details</a></td>
 						</tr>
 					</tbody>
 			    </table>
@@ -66,7 +65,7 @@
 				    </thead>
 				    <tbody>
 				    	<tr th:each="route : ${routes}">
-				    		<td th:text="${route.getId()}"></td>
+				    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}" th:text="${route.getId()}"></a></td>
 				    		<td th:text="${route.getTruck()}"></td>
 				    		<td th:text="${route.getDriver()}"></td>
 				    		<td th:text="${route.calculateCapacitySize()}"></td>
@@ -77,7 +76,6 @@
 				    		
 				    		<td th:text="${route.getAdditionalTimeStr(order)}"></td>
 				    		
-				    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">Details</a></td>
 				    		<td><input th:type="submit" th:name="routeId" class="btn btn-success" th:value="'Add order to route '+${route.getId()}"></input></td>
 						</tr>
 					</tbody>
