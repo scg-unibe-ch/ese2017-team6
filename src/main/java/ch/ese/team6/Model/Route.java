@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.NotNull;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Exception.RouteTimeException;
@@ -43,6 +44,8 @@ public class Route {
 	@JoinColumn(name="driver")
 	private User driver;
 	
+	@NotNull private RouteStatus routeStatus;
+
 	public long estimatedTime;
 	public long measuredTime;
 	private long routeStart = 0;
@@ -60,7 +63,7 @@ public class Route {
  	
 	
 	public Route() {
-		
+		this.routeStatus = RouteStatus.OPEN;
 	}
 	
 
@@ -68,6 +71,7 @@ public class Route {
 	public Route(Date date,Address deposit) {
 		this.deposit = deposit;
 		this.setRouteStartDate(date);
+		this.routeStatus = RouteStatus.OPEN;
 	}
 
 	public long getId() {
@@ -113,6 +117,14 @@ public class Route {
 
 	public void setDriver(User driver) {
 		this.driver = driver;
+	}
+	
+	public RouteStatus getRouteStatus() {
+		return routeStatus;
+	}
+
+	public void setRouteStatus(RouteStatus routeStatus) {
+		this.routeStatus = routeStatus;
 	}
 
 	
@@ -431,7 +443,13 @@ public class Route {
 
 
 	public long getMeasuredTime() {
-		return measuredTime;
+		long milliseconds = this.routeStop - this.routeStart;
+		
+		milliseconds /= 1000;
+		
+		milliseconds /= 60;
+		
+		return milliseconds;
 	}
 
 	public void setMeasuredTime(long measuredTime) {
@@ -527,19 +545,22 @@ public class Route {
 	public void startRoute() throws RouteTimeException {
 		if(this.isRouteStarted()) throw new RouteTimeException ("Route has already started.");
 		if(this.isRouteFinished()) throw new RouteTimeException ("Route has already finished."); 
+		this.routeStatus = RouteStatus.ONROUTE;
 		this.routeStart = System.currentTimeMillis();
 	}
 	
 	public boolean isRouteStarted() {
-		return (this.routeStart != 0  && this.routeStop == 0);
+		return (this.routeStatus.equals(RouteStatus.ONROUTE));
 	}
 	
 	public boolean isRouteFinished() {
-		return (this.routeStop != 0);
+		return (this.routeStatus.equals(RouteStatus.FINISHED));
 	}
 
 	public void stopRoute() throws RouteTimeException {
-		if(this.isRouteStarted()) this.routeStop = System.currentTimeMillis();
+		if(this.isRouteStarted()) 
+			{this.routeStop = System.currentTimeMillis();
+			this.routeStatus = RouteStatus.FINISHED;}
 		else throw new RouteTimeException("Can't finish a unstarted route.");
 	}
 
@@ -614,6 +635,28 @@ public class Route {
 		
 		return oi;
 
+	}
+	
+	/**
+	 * creates an Array with addresses stored as Strings
+	 * @param routeid
+	 * @return
+	 */
+	public String[] getAddressStringArray(boolean includedeposit, boolean onlyOpen) {
+		Set<Address> addresses = new HashSet<Address>();
+		
+		addresses =  this.getAllAddresses(includedeposit, onlyOpen);
+
+		
+		String[] addressesfinal = new String[addresses.size()];
+		
+		int i = 0;
+		for(Address ad: addresses)
+		{
+			addressesfinal[i] =  ad.toString();
+			i++;
+		}
+		return addressesfinal;
 	}
 
 		

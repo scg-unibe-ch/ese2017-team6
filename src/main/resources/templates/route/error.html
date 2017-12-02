@@ -6,7 +6,7 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<div th:if="${message}">
-    		<h2 th:text= " 'There was a starting the route due to the following reason: "></h2>
+    		<h2 th:text= " 'There was a problem with the route due to the following reason: "></h2>
     		<h2 th:text="${message}"></h2>		
 	</div>
 	<a th:href="@{/route/{id}(id = ${route.getId()})}" class="btn btn-primary">route-profile</a>

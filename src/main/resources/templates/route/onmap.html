@@ -13,23 +13,19 @@
  <div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	
- <div th:if="${#lists.isEmpty(deliveries)}">
-		<h1> you completed the following route</h1></div>
- <div th:if="${not #lists.isEmpty(deliveries)}">
- 
- <div id="map"></div>
+<div id="map"></div>
  
  	<script text="text/javascript" th:inline="javascript">
  	/*<![CDATA[*/
  	
  	// List of all addresses (String datatype)
  	var addresses = [[${addresses}]];
- 	// Deposit is the origin of the route
- 	var deposit = [[${deposit.toString()}]];
+ 	
  	// origin symbolizes the last address
  	var origin = [[${lastAddress.toString()}]];
  	
- 	var center = [[${deliveries.get(0).getAddress().toString()}]];
+ 	// Destination is the first address of the remaining open deliveries
+ 	var destination = [[${route.getOpenDeliveries().get(0).getAddress().toString()}]];
  	
  	
  	// Sets up the map
@@ -50,7 +46,7 @@
  	// Set the map as the map of the DirectionsDisplay Renderer
  	directionsDisplay.setMap(map);
  	
- 	calculateAndDisplayRoute(directionsService, directionsDisplay, origin, center);
+ 	calculateAndDisplayRoute(directionsService, directionsDisplay, origin, destination);
  
  	for(i = 1; i< addresses.length;i++)
  		{codeAddress(geocoder, map, addresses[i]);}
@@ -119,36 +115,8 @@
  async = "async"
  defer = "defer"
  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb-SCpWFMSIO0OeVAES-xWjRfLAIwzv7g&amp;callback=myMap"></script>
-</div>
 
-<div th:if="${#lists.isEmpty(deliveries)}">
-		    	<table class="table table-hover">
-		    	<thead>
-			    	<tr>
-			    		<th>address</th>
-			    		<th>orderitems</th>
-			    		<th>status</th>
-			    	</tr>
-			    </thead>
-			    <tbody>
-			    	<tr th:each="delivery : ${alldeliveries}">
-			    		<td th:text="${delivery.getAddress().toString()}"></td>
-			    		<td>
-			    			<ul th:each= "orderItem : ${delivery.getItems()}">
-			    				<li th:text = "${orderItem.toString()}"></li>
-			    			</ul>
-			    		</td>
-			    		<td>
-			    			<ul th:each= "orderItem : ${delivery.getItems()}">
-			    				<li th:text = "${orderItem.getOrderItemStatus()}"></li>
-			    			</ul>
-			    		</td>
-					</tr>
-				</tbody>
-				</table>
-</div>
-
-<div th:if="${not #lists.isEmpty(deliveries)}">
+<div th:if="${not #lists.isEmpty(route.getOpenDeliveries())}">
 			  <table class="table table-hover">
 		    	<thead>
 			    	<tr>
@@ -160,10 +128,10 @@
 			    </thead>
 			    <tbody>
 			    	<tr>
-			    		<td th:text="${deliveries.get(0).getAddress().toString()}"></td>
+			    		<td th:text="${route.getOpenDeliveries().get(0).getAddress().toString()}"></td>
 			    		<td th:text="${duration}"></td>
 			    		<td>
-			    			<ul th:each= "orderItem : ${deliveries.get(0).getItems()}">
+			    			<ul th:each= "orderItem : ${route.getOpenDeliveries().get(0).getItems()}">
 			    				<li>
 					    		<span th:text = "${orderItem.toString()}"> </span>
 					    		<span> for customer </span> 
