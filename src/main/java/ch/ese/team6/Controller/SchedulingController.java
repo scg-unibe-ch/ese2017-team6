@@ -1,5 +1,6 @@
 package ch.ese.team6.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.Route;
+import ch.ese.team6.Model.RouteStatus;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Service.RouteService;
@@ -58,7 +60,15 @@ public class SchedulingController {
 		Order order = orderRepository.findOne(orderId);
 		model.addAttribute("order", order);
 		
-		List<Route> routes = routeService.selectWithLeftCapacity(order);
+		List<Route> allroutes = routeService.selectWithLeftCapacity(order);
+		
+		List<Route> routes = new ArrayList<Route>();
+		
+		for(Route r : allroutes)
+		{
+			if(r.getRouteStatus().equals(RouteStatus.OPEN))
+				routes.add(r);
+		}
 		
 		model.addAttribute("routes", routes);
 		return "schedule/addOrder";

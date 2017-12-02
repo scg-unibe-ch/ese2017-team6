@@ -2,6 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
-		<p>Finished the route</p>
-	</body>
+		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<div class="container">
+		
+		<table class="table table-hover">
+		<h2>you completed the following route</h2>
+				<thead>
+			    	<tr>
+			    		<th>start date</th>
+			    		<th>end date</th>
+			    		<th>measured time</th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr>
+			    		<td th:text="${route.getStartDateStr()}"></td>
+			    		<td th:text="${route.getEndDateStr()}"></td>
+			    		<td th:text="${route.getMeasuredTime() + ' minutes'}"></td>
+					</tr>
+				</tbody>
+		</table>
+		
+		<table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>address</th>
+			    		<th>orderitems</th>
+			    		<th>status</th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr th:each="delivery : ${route.getAllDeliveries()}">
+			    		<td th:text="${delivery.getAddress().toString()}"></td>
+			    		<td>
+			    			<ul th:each= "orderItem : ${delivery.getItems()}">
+			    				<li th:text = "${orderItem.toString()}"></li>
+			    			</ul>
+			    		</td>
+			    		<td>
+			    			<ul th:each= "orderItem : ${delivery.getItems()}">
+			    				<li th:text = "${orderItem.getOrderItemStatus()}"></li>
+			    			</ul>
+			    		</td>
+					</tr>
+				</tbody>
+			</table>
+</div>
+		
+</body>
 </html>

@@ -7,6 +7,7 @@
 		<h1 th:text="'start: ' +${route.getStartDateStr()}"></h1>
 		<h1 th:text="'end: ' +${route.getEndDateStr()}"></h1>
 		<h2 th:text= "'route no: ' +${route.getId()}"></h2>
+		<h2 th:text= "'status: ' +${route.getRouteStatus()}"></h2>
 		<form class="form-horizontal">
 			<div class="panel panel-default">
 			<div class="panel-body">
@@ -67,7 +68,7 @@
 <!--    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a> -->
 		</form>
 		<br/>
-	    <a th:href="@{/route/completeRoute/{id}(id = ${route.id})}" class="btn btn-success">show route on map</a>
+	    <a th:href="@{/route/completeRoute/{id}(id = ${route.id})}" class="btn btn-success" th:if="${#strings.equals(route.routeStatus,'OPEN')}">show route on map</a>
 
 		</div>
 	</body>

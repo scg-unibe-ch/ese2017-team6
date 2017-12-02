@@ -8,7 +8,7 @@
 		<div th:if="${#lists.isEmpty(routes)}">
 		<p> no routes found </p></div>
 		
-		<div th:if="${not #lists.isEmpty(routes)}">
+		<div th:if="${not #lists.isEmpty(openroutes)}">
 		    <h1>planned routes</h1>
 		    <table class="table table-hover">
 		    	<thead>
@@ -16,6 +16,7 @@
 			    		<th>id</th>
 			    		<th>route start date</th>
 			    		<th>route end date</th>
+			    		<th>status</th>
 			    		<th>vehicle name</th>
 			    		<th>driver name</th>
 			    		<th>number of deliveries</th>
@@ -24,10 +25,11 @@
 			    	</tr>
 		    	</thead>
 		    	<tbody>
-			    	<tr th:each="route : ${routes}">
+			    	<tr th:each="route : ${openroutes}">
 			    		<td><a th:href="@{{id}(id = ${route.id})}" th:text="${route.id}"></a></td>
 			    		<td th:text="${route.getStartDateStr()}"></td>
 			    		<td th:text="${route.getEndDateStr()}"></td>
+			    		<td th:text="${route.getRouteStatus()}"></td>
 			    		<td th:text="${route.getTruck()}"></td>
 			    		<td th:text="${route.getDriver()}"></td>
 			    		<td th:text="${route.countDeliveries()}"></td>
@@ -37,6 +39,41 @@
 				</tbody>
 		    </table>
 		</div>
+		
+		<div th:if="${not #lists.isEmpty(onrouteRoutes)}">
+		    <h1>routes on the way</h1>
+		    <table class="table table-hover">
+		    	<thead>
+			    	<tr>
+			    		<th>id</th>
+			    		<th>route started at: </th>
+			    		<th>route end date</th>
+			    		<th>status</th>
+			    		<th>vehicle name</th>
+			    		<th>driver name</th>
+			    		<th>number of deliveries</th>
+			    		<th>next delivery at</th>
+			    		<th>size</th>
+			    		<th>weight</th>
+			    	</tr>
+		    	</thead>
+		    	<tbody>
+			    	<tr th:each="route : ${onrouteRoutes}">
+			    		<td><a th:href="@{{id}(id = ${route.id})}" th:text="${route.id}"></a></td>
+			    		<td th:text="${route.getStartDateStr()}"></td>
+			    		<td th:text="${route.getEndDateStr()}"></td>
+			    		<td th:text="${route.getRouteStatus()}"></td>
+			    		<td th:text="${route.getTruck()}"></td>
+			    		<td th:text="${route.getDriver()}"></td>
+			    		<td th:text="${route.countDeliveries()}"></td>
+			    		<td th:text="${route.getCurrentAddress().getCity()}"></td>
+			    		<td th:text="${route.calculateCapacitySize()}"></td>
+				    	<td th:text="${route.calculateCapacityWeight()}"></td>
+					</tr>
+				</tbody>
+		    </table>
+		</div>
+		
 		
 		<a href="/schedule/" class="btn btn-success" role="button">add orders to a route</a>
 		<br/><br/>		

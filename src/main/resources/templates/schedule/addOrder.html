@@ -65,6 +65,7 @@
 				    </thead>
 				    <tbody>
 				    	<tr th:each="route : ${routes}">
+				    	<div th:if="${#strings.equals(route.routeStatus,'OPEN')}">
 				    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}" th:text="${route.getId()}"></a></td>
 				    		<td th:text="${route.getTruck()}"></td>
 				    		<td th:text="${route.getDriver()}"></td>
@@ -77,6 +78,7 @@
 				    		<td th:text="${route.getAdditionalTimeStr(order)}"></td>
 				    		
 				    		<td><input th:type="submit" th:name="routeId" class="btn btn-success" th:value="'Add order to route '+${route.getId()}"></input></td>
+				    	</div>
 						</tr>
 					</tbody>
 			    </table>
