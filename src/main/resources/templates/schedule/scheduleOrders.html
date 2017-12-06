@@ -1,11 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head lang="en" th:replace="fragments/head :: head">
-
-</head>
+<head lang="en" th:replace="fragments/head :: head"></head>
 <body>
 <script>
-
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
@@ -20,16 +17,16 @@ function drop(ev) {
 </script>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
+		<form>
 		<h1> add orders to a route </h1>
  			
 		  <div class="row">
 		  <div class="col-sm-4">
 		  
 		  <div>
-		  
 		  	<div class="panel panel-info" th:each="order : ${orders}"
 		  	id="drag1" draggable="true" ondragstart="drag(event)">
-		     <div class="panel-heading" >
+		     <div class="panel-heading">
 		      	<table class="orders">
 		      	<thead>
 		      	<tr>
@@ -53,23 +50,24 @@ function drop(ev) {
 			</div>
 		  </div>
 		  
-		 	 
 		  <div class="col-sm-8">
+		  <label for="routeDate"></label>
+			<p> choose the date for your route:
+           	<input type="date" th:name="date" placeholder="set route date" /></p>
+           	<input type="submit" class="btn btn-primary" value="check available routes for this date"/>
 		  	<div class="panel panel-default">
 			<div class="panel-body">
 			  <h2>choose a route</h2>
 			 	<ul class="nav nav-tabs nav-justified">
 				  <li class="nav-item" th:each="route : ${routes}">
-				  	  <a class="nav-link" data-toggle="tab" th:classappend="${route.getId() == 1} ? 'active'"
-				  	  href="#route.getId()" th:text="${route.getId()}"></a>
+				  	  <a class="nav-link" data-toggle="tab" th:classappend="${route.getId() == 1} ? 'active'" 
+				  	  th:href="@{'#' + ${route.getId()}}" th:text="${route.getId()}"></a>
 				  </li>
-	<!-- 			  <li><a data-toggle="tab" href="#menu1">Route 2</a></li> -->
-	<!-- 			  <li><a data-toggle="tab" href="#menu2">Route 3</a></li> -->
 				</ul>
 				
 				<div class="tab-content">
-				  <div class="tab-pane fade" th:classappend="${route.getId() == 1} ? 'show active'"
-				  		id="{route.getId()}" th:each="route : ${routes}">
+				  <div class="tab-pane fade"
+				  		th:id="${route.getId()}" th:each="route : ${routes}">
 				    <h3>route <a th:text="${route.getId()}"></a></h3>
 				    
 					<table class="table">
@@ -79,6 +77,7 @@ function drop(ev) {
 				      		<th>driver</th>
 				      		<th>space capacity</th>
 				      		<th>weight capacity</th>
+				      		<th>start date</th>
 				      		<th>estimated time</th>
 				      	</tr>
 				      	</thead>
@@ -88,27 +87,13 @@ function drop(ev) {
 				      			<td th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" th:text="${route.getDriver()}"></td>
 				      			<td th:text="${route.calculateCapacitySize()}"></td>
 				      			<td th:text="${route.calculateCapacityWeight()}"></td>
+				      			<td th:text="${route.getRouteStartDate()}"></td>
 				      			<td th:text="${route.getEstimatedTimeStr()}"></td>
 				      		</tr>
 				      	</tbody>
 				      	</table>
 				  </div>
 				  
-				  
-	<!-- 			  <div id="1" class="tab-pane fade in active"> -->
-	<!-- 			    <h3>Route 1</h3> -->
-	<!-- 			    <p>Some content.</p> -->
-	<!-- 			  </div> -->
-				  
-				  
-	<!-- 			  <div id="menu1" class="tab-pane fade"> -->
-	<!-- 			    <h3>Route 2</h3> -->
-	<!-- 			    <p>Some content in menu 1.</p> -->
-	<!-- 			  </div> -->
-	<!-- 			  <div id="menu2" class="tab-pane fade"> -->
-	<!-- 			    <h3>Route 3</h3> -->
-	<!-- 			    <p>Some content in menu 2.</p> -->
-	<!-- 			  </div> -->
 				</div>
 			
 	 		 <div>
@@ -122,9 +107,12 @@ function drop(ev) {
 	 		 </div>
 			</div>
 			</div>
+		    	<input type="submit" class="btn btn-success" value="submit"></input>
+        		<input type="reset" class="btn btn-primary" value="reset"/>
 		  </div>
 	
 		</div>
+		</form>
 		</div>	
 
 </body>
