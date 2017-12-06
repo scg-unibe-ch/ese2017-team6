@@ -63,6 +63,10 @@ public class Delivery {
 		
 	}
 	
+	public int getSize() {
+		return this.items.size();
+	}
+	
 	
 
 

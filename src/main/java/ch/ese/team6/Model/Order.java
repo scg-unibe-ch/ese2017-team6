@@ -236,6 +236,10 @@ public class Order  implements IDelivarable{
 		}
 		return s;
 	}
+	
+	public int getNumberOfItems() {
+		return this.orderItems.size();
+	}
     
 
 
