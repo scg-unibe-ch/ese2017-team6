@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head lang="en" th:replace="fragments/head :: head"> </head>
+<head lang="en" th:replace="fragments/head :: head"> </head>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#datatable").DataTable();
+});
+</script>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
@@ -9,8 +14,10 @@
 		<p> no routes found </p></div>
 		
 		<div th:if="${not #lists.isEmpty(openroutes)}">
-		    <h1>planned routes</h1>
-		    <table class="table table-hover">
+		<div class="panel panel-success">
+		<div class="panel-heading"><h1>planned routes</h1></div>
+		 <div class="panel-body">
+		    <table id="datatable" class="table table-hover">
 		    	<thead>
 			    	<tr>
 			    		<th>id</th>
@@ -38,7 +45,7 @@
 					</tr>
 				</tbody>
 		    </table>
-		</div>
+		
 		
 		<div th:if="${not #lists.isEmpty(onrouteRoutes)}">
 		    <h1>routes on the way</h1>
@@ -76,11 +83,15 @@
 		
 		
 		<a href="/schedule/" class="btn btn-success" role="button">add orders to a route</a>
-		<br/><br/>		
+		
+		</div>
+		</div>
+		</div>
+			
 		<form action="#" th:action="@{/route/add}" method="get">
-		 <div class="panel panel-default">
+		 <div class="panel panel-info">
+		 <div class="panel-heading"><h1>plan a new route</h1></div>
 		 <div class="panel-body">
-		 <h2>plan a new route</h2>
 			<label for="routeDate"></label>
 			<p> choose a date for a new route:
            	<input type="date" th:name="date" placeholder="set route date" /></p>

@@ -12,11 +12,11 @@
       <form action="#" th:action="@{/orders/add}" th:object="${order}" method="post">
     
         <fieldset>
-          
-          <h2> add new order</h2>
-          
-          <div class="panel panel-default">
+          <div class="panel panel-success">
+		  <div class="panel-heading"><h1> add new order</h1></div>
 		  <div class="panel-body">
+                 
+          
 		  <table class="table table-hover">
     		<tr>
     			<td> customer: </td>
@@ -77,17 +77,18 @@
                 </tr>
               </tbody>
             </table>
-              <button type="submit" class="btn btn-primary" name="addRow">add product</button>
+              <button type="submit" class="btn btn-basic" name="addRow"><span class="glyphicon glyphicon-plus"></span> add product</button>
           </div>
           </div>
           </div>
-          </div>
-          </div>
+          
+       
 			
           <div class="submit">
-            <button type="submit" class="btn btn-success" name="save">submit Order</button>    
+            <button type="submit" class="btn btn-success" name="save">submit order</button>    
           </div>
-        
+          </div>
+        </div>
         </fieldset>
           
       </form>
