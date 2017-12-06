@@ -17,13 +17,13 @@ function drop(ev) {
 </script>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-		<form>
+		
 		<h1> add orders to a route </h1>
- 			
 		  <div class="row">
 		  <div class="col-sm-4">
 		  
-		  <div>
+		  <div ondrop="drop(event)" ondragover="allowDrop(event)">
+		  	
 		  	<div class="panel panel-info" th:each="order : ${orders}"
 		  	id="drag1" draggable="true" ondragstart="drag(event)">
 		     <div class="panel-heading">
@@ -68,6 +68,7 @@ function drop(ev) {
 				<div class="tab-content">
 				  <div class="tab-pane fade"
 				  		th:id="${route.getId()}" th:each="route : ${routes}">
+				  	<form action="#" th:action="@{/schedule/scheduleOrders}" th:object="${route}" method="post">
 				    <h3>route <a th:text="${route.getId()}"></a></h3>
 				    
 					<table class="table">
@@ -92,27 +93,43 @@ function drop(ev) {
 				      		</tr>
 				      	</tbody>
 				      	</table>
-				  </div>
-				  
-				</div>
-			
-	 		 <div>
-	 		 	<div class="panel panel-info">
+				      	
+				<div class="panel panel-info">
 	 			 <div class="panel-body" ondrop="drop(event)" ondragover="allowDrop(event)">
-	 				  
-	 				 drop orders here
+	 			 
+	 				
+	 				drop orders here
+	 				
+	 				
+	 				<div class="panel panel-info" th:each="delivery : ${route.getAllDeliveries()}"
+		  				id="drag2" draggable="true" ondragstart="drag(event)">
+		     			<div class="panel-heading">
+					      	<ul>
+					      			<li th:text="${delivery.getAddress().toString()}"></li>
+					      			<li th:text="'Items: '  + ${delivery.getSize()}"></li>
+					      	</ul>
+					   
+				      </div>
+		    	    </div>
+	 				
 	 				 
 	 		  	 </div>
 				</div>
-	 		 </div>
+				</form>
+				      	
+				      	
+			 </div>
+				  
+			</div>
+			
+	 		 <div>
+	 		
 			</div>
 			</div>
-		    	<input type="submit" class="btn btn-success" value="submit"></input>
-        		<input type="reset" class="btn btn-primary" value="reset"/>
+		  </div>
 		  </div>
 	
 		</div>
-		</form>
 		</div>	
 
 </body>

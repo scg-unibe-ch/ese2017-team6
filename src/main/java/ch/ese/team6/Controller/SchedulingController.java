@@ -6,14 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Model.Order;
+import ch.ese.team6.Model.OrderItem;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.RouteStatus;
 import ch.ese.team6.Repository.OrderRepository;
@@ -47,6 +50,24 @@ public class SchedulingController {
 		model.addAttribute("routes", routeRepository.findAll());
 	    return "schedule/scheduleOrders";
 	}
+	
+	@RequestMapping(value="/scheduleOrders", params={"orderid"})
+    public ModelAndView addRow(final Route route, final BindingResult bindingResult, @RequestParam Order order) {
+    	
+		if(route.doesIDelivarableFit(order))
+			{route.addDelivarable(order);
+			routeRepository.save(route);}
+    	
+        ModelAndView ret = new ModelAndView("schedule/scheduleOrders");
+        ret.addObject("trucks", truckRepository.findAll());
+		ret.addObject("drivers", userRepository.findAll());
+		ret.addObject("addresses", addressRepository.findAll());
+		ret.addObject("orders", orderRepository.findAll());
+		ret.addObject("routes", routeRepository.findAll());
+
+		return ret;
+       
+    }
 	
 	@GetMapping(path="/")
 	public String overview(Model model) {
@@ -96,4 +117,51 @@ public class SchedulingController {
 		model.addAttribute("routes", routeRepository.findAll());
 		return "redirect:/orders/"+order.getId();
 	}
+	
+	@GetMapping(path="/addOrderstoRoute/{routeid}")
+	public String addOrderstoRoute(Model model, @PathVariable long routeid)
+	{
+		
+		List<Order> orders = new ArrayList<Order>();
+		
+		for(Order o : orderRepository.findAll())
+		{
+			if(routeRepository.findOne(routeid).doesIDelivarableFit(o) && o.isOpen())
+				{orders.add(o);}
+		}
+		
+		model.addAttribute("route", routeRepository.findOne(routeid));
+		model.addAttribute("orders", orders);
+		
+		return "schedule/addOrderstoRoute";
+	}
+	
+	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderId"})
+	public String addOrderstoRoute(Model model, @PathVariable long routeid, @RequestParam long orderId) throws InconsistentOrderStateException
+	{
+		
+		Route route = routeRepository.findOne(routeid);
+		
+		Order o = orderRepository.findOne(orderId);
+		
+		route.addDelivarable(o);
+		o.schedule();
+		orderRepository.save(o);
+		routeRepository.save(route);
+		
+		List<Order> orders = new ArrayList<Order>();
+		
+		for(Order order : orderRepository.findAll())
+		{
+			if(route.doesIDelivarableFit(order) && order.isOpen())
+				{orders.add(order);}
+		}
+		
+		model.addAttribute("route", route);
+		model.addAttribute("orders", orders);
+		
+		return "schedule/addOrderstoRoute";
+	}
+	
+	
 }
