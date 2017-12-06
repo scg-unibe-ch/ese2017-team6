@@ -65,7 +65,7 @@
 			</div>
 	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
 	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/route/" class="btn btn-primary" role="button">show all routes</a>
-<!--    <a th:href="@{/route/{id}/edit(id = ${route.id})}" class="btn btn-primary">edit this route(Placeholder)</a> -->
+		<a th:href="@{/schedule/addOrderstoRoute/{id}(id = ${route.id})}" class="btn btn-primary">add orders</a>
 		</form>
 		<br/>
 	    <a th:href="@{/route/completeRoute/{id}(id = ${route.id})}" class="btn btn-success" th:if="${#strings.equals(route.routeStatus,'OPEN')}">show route on map</a>
