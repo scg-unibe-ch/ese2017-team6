@@ -136,9 +136,10 @@ public class SchedulingController {
 		return "schedule/addOrderstoRoute";
 	}
 	
-	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderId"})
-	public String addOrderstoRoute(Model model, @PathVariable long routeid, @RequestParam long orderId) throws InconsistentOrderStateException
+	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderID"})
+	public String addOrderstoRoute(Model model, @PathVariable long routeid, @RequestParam String orderID) throws InconsistentOrderStateException
 	{
+		long orderId = Long.parseLong(orderID.replace("add order number ",""));
 		
 		Route route = routeRepository.findOne(routeid);
 		Order o = orderRepository.findOne(orderId);

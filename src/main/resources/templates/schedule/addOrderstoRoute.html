@@ -7,51 +7,28 @@
 		
 		<form action="#" th:action="@{/schedule/addOrderstoRoute/{id}(id = ${route.getId()})}" method="post">
 		
-		<div th:if="${not #lists.isEmpty(orders)}">
-		<div class="panel panel-success">
-		<div class="panel-heading"><h1>add orders to this route</h1></div>
-		<div class="panel-body">
-           	           			<table class="table table-hover">
-						    	<thead>
-						    		<tr>
-							    		<th>id</th>
-							    		<th>client</th>
-							    		<th>delivery address</th>
-							    		<th>ordered articles</th>
-							    		<th>delivery date</th>
-							    		<th>size</th>
-							    		<th>weight</th>
-							    		<th></th>
-							    	</tr>
-							    </thead>
-							    <tbody>
-							    	<tr th:each="order : ${orders}">
-							    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="${order.getId()}"></a></td>
-							    		<td th:text="${order.getCustomer()}"></td>
-							    		<td th:text="${order.getAddress()}"></td>
-							    		<td th:text="${order.getOpenOrderItems().size()}"></td>
-							    		<td th:text="${order.getDeliveryDateStr()}"></td>
-							    		<td th:text="${order.getOpenSize()}"></td>
-							    		<td th:text="${order.getOpenWeight()}"></td>
-							    		<td><input th:type="submit" th:name="orderId" class="btn btn-success" th:value="${order.id}"></input></td>
-									</tr>
-								</tbody>
-						    </table>
-			</div>
-		</div>
-		</div>
-						    
-				    <div th:if="${#lists.isEmpty(orders)}">
-				    <div class="panel panel-warning">				    
-						<div class="panel-heading"><h1>no order fits in this route</h1></div>
-					</div>
-					</div>
-		
-		<div th:if="${not #lists.isEmpty(route.getAllDeliveries())}">
 		<div class="panel panel-info">
-		<div class="panel-heading"><h1>current deliveries of this route</h1></div>
+		<div class="panel-heading"><h1>route summary</h1></div>
 		<div class="panel-body">
+			<table class="table table-hover">
+			<h3>left space</h3>
+			<thead>
+					<tr>
+						<th>space capacity</th>
+				    	<th>weight capacity</th>
+				    </tr>
+				    </thead>
+				    <tbody>
+				    	<tr class="info">
+				    	<td th:text="${route.calculateCapacitySize()}"></td>
+				    	<td th:text="${route.calculateCapacityWeight()}"></td>
+				    	</tr>
+				    </tbody>
+			
+			</table>
+								<div th:if="${not #lists.isEmpty(route.getAllDeliveries())}">
            	           			<table class="table table-hover">
+           	           			<h3>deliveries</h3>
 								    	<thead>
 									    	<tr>
 									    		<th>address</th>
@@ -71,9 +48,49 @@
 											</tr>
 										</tbody>
 										</table>
+										</div>
 						    </div>
 		</div>
+
+		
+		<div th:if="${not #lists.isEmpty(orders)}">
+		<div class="panel panel-success">
+		<div class="panel-heading"><h1>add orders to this route</h1></div>
+		<div class="panel-body">
+           	           			<table class="table table-hover">
+						    	<thead>
+						    		<tr>
+							    		<th>client</th>
+							    		<th>delivery address</th>
+							    		<th>ordered articles</th>
+							    		<th>delivery date</th>
+							    		<th>size</th>
+							    		<th>weight</th>
+							    		<th></th>
+							    	</tr>
+							    </thead>
+							    <tbody>
+							    	<tr th:each="order : ${orders}">
+							    		<td><a th:href="@{/customer/{id}(id = ${order.getCustomer().getId()})}" th:text="${order.getCustomer()}"></a></td>
+							    		<td th:text="${order.getAddress()}"></td>
+							    		<td th:text="${order.getOpenOrderItems().size()}"></td>
+							    		<td th:text="${order.getDeliveryDateStr()}"></td>
+							    		<td th:text="${order.getOpenSize()}"></td>
+							    		<td th:text="${order.getOpenWeight()}"></td>
+							    		<td><input th:type="submit" th:name="orderID" class="btn btn-success" th:value="'add order number ' + ${order.id}"></input></td>
+									</tr>
+								</tbody>
+						    </table>
+			</div>
 		</div>
+		</div>
+						    
+				    <div th:if="${#lists.isEmpty(orders)}">
+				    <div class="panel panel-warning">				    
+						<div class="panel-heading"><h1>no available order for this route</h1></div>
+					</div>
+					</div>
+		
 		</form>
 		
 		<a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary" role="button">back to route</a>
