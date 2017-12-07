@@ -141,13 +141,13 @@ public class SchedulingController {
 	{
 		
 		Route route = routeRepository.findOne(routeid);
-		
 		Order o = orderRepository.findOne(orderId);
 		
-		route.addDelivarable(o);
-		o.schedule();
-		orderRepository.save(o);
-		routeRepository.save(route);
+		if(o.isOpen() && route.doesIDelivarableFit(o))
+			{route.addDelivarable(o);
+			o.schedule();
+			orderRepository.save(o);
+			routeRepository.save(route);}
 		
 		List<Order> orders = new ArrayList<Order>();
 		

@@ -7,16 +7,16 @@
 		
 		<form action="#" th:action="@{/schedule/addOrderstoRoute/{id}(id = ${route.getId()})}" method="post">
 		
-		<div class="panel panel-default">
+		<div th:if="${not #lists.isEmpty(orders)}">
+		<div class="panel panel-success">
+		<div class="panel-heading"><h1>add orders to this route</h1></div>
 		<div class="panel-body">
-								<div th:if="${not #lists.isEmpty(orders)}">
-								<h3>add orders to this route</h3>
            	           			<table class="table table-hover">
 						    	<thead>
 						    		<tr>
 							    		<th>id</th>
 							    		<th>client</th>
-							    		<th>delivery adress</th>
+							    		<th>delivery address</th>
 							    		<th>ordered articles</th>
 							    		<th>delivery date</th>
 							    		<th>size</th>
@@ -37,52 +37,48 @@
 									</tr>
 								</tbody>
 						    </table>
-						    </div>
-						    
-						    <div th:if="${#lists.isEmpty(orders)}">
-								<h3>no order fits in this route</h3>
-							</div>
+			</div>
 		</div>
-		
-		<div class="panel-body">
-		
+		</div>
+						    
+				    <div th:if="${#lists.isEmpty(orders)}">
+				    <div class="panel panel-warning">				    
+						<div class="panel-heading"><h1>no order fits in this route</h1></div>
+					</div>
+					</div>
 		
 		<div th:if="${not #lists.isEmpty(route.getAllDeliveries())}">
-								<h5>current deliveries of this route</h5>
+		<div class="panel panel-info">
+		<div class="panel-heading"><h1>current deliveries of this route</h1></div>
+		<div class="panel-body">
            	           			<table class="table table-hover">
 								    	<thead>
 									    	<tr>
 									    		<th>address</th>
-									    		<th>orderitems</th>
+									    		<th>number of items</th>
+									    		<th>weight of delivery</th>
+									    		<th>size of delivery</th>
 									    		<th></th>
 									    	</tr>
 									    </thead>
 									    <tbody>
 									    	<tr th:each="delivery : ${route.getAllDeliveries()}">
 									    		<td th:text="${delivery.getAddress().toString()}"></td>
-									    		<td>
-									    			<ul th:each= "orderItem : ${delivery.getItems()}">
-									    				<li>
-											    		<span th:text = "${orderItem.toString()}"> </span>
-											    		<span> for customer </span> 
-											    		 <span><a th:href="@{/customer/{id}(id = ${orderItem.getOrder().getCustomer().getId()})}"> <span th:text="${orderItem.getOrder().getCustomer().toString()}"></span>  </a> 
-											    		</span>
-											    		</li>
-									    			</ul>
-									    		</td>
+									    		<td th:text="${delivery.getNumberOfItems()}"></td>
+									    		<td th:text="${delivery.getWeight()}"></td>
+									    		<td th:text="${delivery.getSize()}"></td>
 									    		<td></td>
 											</tr>
 										</tbody>
 										</table>
 						    </div>
-		
-		
-		
-		
 		</div>
-		
 		</div>
 		</form>
+		
+		<a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary" role="button">back to route</a>
+		<a sec:authorize="hasAuthority('LOGISTICS')" href="/logistics/" class="btn btn-primary" role="button">cockpit</a>
+		
 		</div>
 	</body>
 </html>

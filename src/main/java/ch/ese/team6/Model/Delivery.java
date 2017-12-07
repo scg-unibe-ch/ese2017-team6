@@ -42,15 +42,10 @@ public class Delivery {
 		this.address = address;
 	}
 	
-	
-
-
 	public ArrayList<OrderItem> getItems() {
 		return items;
 	}
 	
-
-
 	public void addItem(OrderItem item) {
 		this.items.add(item);
 	}
@@ -63,13 +58,11 @@ public class Delivery {
 		
 	}
 	
-	public int getSize() {
+	public int getNumberOfItems() {
 		return this.items.size();
 	}
 	
 	
-
-
 	public Route getRoute() {
 		return route;
 	}
@@ -77,6 +70,32 @@ public class Delivery {
 
 	public void setRoute(Route route) {
 		this.route = route;
+	}
+	
+	/**
+	 * returns the whole weight of the delivery
+	 * @return
+	 */
+	public int getWeight() {
+		int sum = 0;
+		
+		for(OrderItem oi : this.items)
+			{sum += oi.getWeight();}
+		
+		return sum;
+	}
+	
+	/**
+	 * returns the whole size of the delivery
+	 * @return
+	 */
+	public int getSize() {
+		int sum = 0;
+		
+		for(OrderItem oi : this.items)
+			{sum += oi.getSize();}
+		
+		return sum;
 	}
 
 
