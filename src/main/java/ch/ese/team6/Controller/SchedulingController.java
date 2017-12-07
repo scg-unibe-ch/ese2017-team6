@@ -17,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 import ch.ese.team6.Model.Order;
 import ch.ese.team6.Model.OrderItem;
+import ch.ese.team6.Model.OrderStatus;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.RouteStatus;
+import ch.ese.team6.Repository.OrderItemRepository;
 import ch.ese.team6.Repository.OrderRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Service.RouteService;
@@ -39,7 +41,8 @@ public class SchedulingController {
 	private RouteRepository userRepository;
 	@Autowired
 	private RouteRepository addressRepository;
-	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	@GetMapping(path="/scheduleOrders")
 	public String scheduleEverything(Model model) {
@@ -148,6 +151,34 @@ public class SchedulingController {
 			{route.addDelivarable(o);
 			o.schedule();
 			orderRepository.save(o);
+			routeRepository.save(route);}
+		
+		List<Order> orders = new ArrayList<Order>();
+		
+		for(Order order : orderRepository.findAll())
+		{
+			if(route.doesIDelivarableFit(order) && order.isOpen())
+				{orders.add(order);}
+		}
+		
+		model.addAttribute("route", route);
+		model.addAttribute("orders", orders);
+		
+		return "schedule/addOrderstoRoute";
+	}
+	
+	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderItem"})
+	public String removeItemfromRoute(Model model, @PathVariable long routeid, @RequestParam String orderItem) throws InconsistentOrderStateException
+	{
+		long orderItemId = Long.parseLong(orderItem.replace("remove item ",""));
+		
+		Route route = routeRepository.findOne(routeid);
+		OrderItem oi = orderItemRepository.findOne(orderItemId);
+		
+		if(oi.getOrderItemStatus().equals(OrderStatus.SCHEDULED))
+			{oi.setOrderItemStatus(OrderStatus.OPEN);
+			orderItemRepository.save(oi);
+			route.remove(oi);
 			routeRepository.save(route);}
 		
 		List<Order> orders = new ArrayList<Order>();

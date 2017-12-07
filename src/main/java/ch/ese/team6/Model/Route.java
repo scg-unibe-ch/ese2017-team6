@@ -99,10 +99,8 @@ public class Route {
 	
 	public Address getDeposit() {
 		return this.deposit;
-				
 	}
 
-		
 	public Truck getTruck() {
 		return truck;
 	}
