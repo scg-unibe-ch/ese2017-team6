@@ -1,9 +1,9 @@
-	.cockpit{
-		background-color:white;
-		display: box;  
-		margin: 2vw; 
-		overflow: auto;
-	}
+/* 	.cockpit{ */
+/* 		background-color:white; */
+/* 		display: box;   */
+/* 		margin: 2vw;  */
+/* 		overflow: auto; */
+/* 	} */
 	.drivers{
 		border-right: 5px solid black;
 		display: inline-block;

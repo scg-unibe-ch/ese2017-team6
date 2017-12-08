@@ -8,38 +8,12 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
       
-<!--       <li sec:authorize="hasAuthority('LOGISTICS')" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Orders <span class="caret"></span></a> -->
-<!--         <ul class="dropdown-menu"> -->
-<!--           <li><a href="/orders/add">Add new order</a></li> -->
-<!--           <li><a href="/orders/">All orders</a></li> -->
-<!--          </ul> -->
-<!--       </li> -->
-<!--       <li sec:authorize="hasAuthority('LOGISTICS')" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliveries <span class="caret"></span></a> -->
-<!--       	<ul class="dropdown-menu"> -->
-<!--           <li><a href="/schedule/">Schedule orders</a></li> -->
-<!--           <li><a href="/route/">All planned routes</a></li> -->
-<!--           <li><a href="/automaticroutegeneration/selectdate/">Generate routes automatically</a></li> -->
-<!--         </ul> -->
-<!--       </li> -->
-
-<!--       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Orders <span class="caret"></span></a> -->
        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/orders/add">Create new order</a></li>
        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/route/">Routing</a></li>
        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/schedule/">Add orders to routes</a></li>
        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/logistics/">Cockpit</a></li>
-<!--         <ul class="dropdown-menu"> -->
-<!--           <li><a href="/orders/add">Add new order</a></li> -->
-<!--           <li><a href="/orders/">All orders</a></li> -->
-<!--          </ul> -->
-<!--       </li> -->
-<!--       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliveries <span class="caret"></span></a> -->
-<!--       	<ul class="dropdown-menu"> -->
-<!--           <li><a href="/schedule/">Schedule orders</a></li> -->
-<!--           <li><a href="/route/">All planned routes</a></li> -->
-<!--           <li><a href="/automaticroutegeneration/selectdate/">Generate routes automatically</a></li> -->
-<!--         </ul> -->
-<!--       </li> -->
-		<li><a href="/driverview/">Driver view</a></li>
+		<button class="btn btn-alert navbar-btn" sec:authorize="hasAuthority('LOGISTICS')"><a href="/logistics/">Cockpit</a></button>
+		<li><a href="/driverview/" >Driver view</a></li>
     </ul>
         <ul class="nav navbar-nav navbar-right">
 	        <li sec:authorize="hasAuthority('LOGISTICS')" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Administration <span class="caret"></span></a>

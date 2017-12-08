@@ -4,14 +4,15 @@
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
 		<div class="container">
-		<h1 th:text="'start: ' +${route.getStartDateStr()}"></h1>
-		<h1 th:text="'end: ' +${route.getEndDateStr()}"></h1>
-		<h2 th:text= "'route no: ' +${route.getId()}"></h2>
-		<h2 th:text= "'status: ' +${route.getRouteStatus()}"></h2>
-		<form class="form-horizontal">
-			<div class="panel panel-default">
-			<div class="panel-body">
-
+		 <div class="panel panel-success">
+		  <div class="panel-heading">
+			<h1 th:text="'start: ' +${route.getStartDateStr()}"></h1>
+			<h1 th:text="'end: ' +${route.getEndDateStr()}"></h1>
+			<h2 th:text= "'route no: ' +${route.getId()}"></h2>
+			<h2 th:text= "'status: ' +${route.getRouteStatus()}"></h2></div>
+		   
+	    	<form class="form-horizontal">
+			<div class="panel-body"></div>
 			<div class="form-group">
 				<label class="col-sm-2" for="name">truck name:</label>
 			 	<div class="col-sm-5">
@@ -61,15 +62,15 @@
 			    	<li th:text="'end point: '+${route.getDeposit().toString()}"></li>
 					    
 			    	</ul>
-			</div>
-			</div>
+			</form>
+		</div>
+			
 	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
 	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/route/" class="btn btn-primary" role="button">show all routes</a>
 		<a sec:authorize="hasAuthority('LOGISTICS')" th:href="@{/schedule/addOrderstoRoute/{id}(id = ${route.id})}" class="btn btn-primary" role="button">add orders</a>
-		</form>
-		<br/>
+		
+		<br/><br/>
 	    <a th:href="@{/route/completeRoute/{id}(id = ${route.id})}" class="btn btn-success" th:if="${#strings.equals(route.routeStatus,'OPEN')}">show route on map</a>
-
 		</div>
 	</body>
 </html>
