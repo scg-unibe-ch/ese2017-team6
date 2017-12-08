@@ -16,3 +16,7 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.cockpit {
+	margin: 6em;
+}

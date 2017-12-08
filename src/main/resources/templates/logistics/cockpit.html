@@ -3,18 +3,24 @@
 <head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
-	<div class="cockpit" >
+	<div class="cockpit">
 		<h1>cockpit</h1>
-		
-		<div class="orders">
-			<a href="/orders/add" class="btn btn-success" role="button">create an order</a>
+		<br/>
+		<div class="row">
+		<div class="col-sm-6">
+		<div class="orders" >
+<!-- 			<a href="/orders/add" class="btn btn-success" role="button">create an order</a> -->
 			<div class="urgent">
+			<div class="panel panel-danger">
+			 <div class="panel-heading">
 				<h1 th:if="${!#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: ' + ${urgentOrders.size()}">urgent orders</h1>
-				<h1 th:if="${#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: none'">urgent orders</h1>
-				<div class="panel panel-default">
+				<h1 th:if="${#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: none'">urgent orders</h1></div>
+				 
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(urgentOrders)}">
-							<h2 class="calm"> you have no urgent orders.</h2>
+					     <div class="alert alert-danger">
+						 	 <strong>info!</strong> you have no urgend orders
+						 </div>
 						</div>
 						<div th:if="${!#lists.isEmpty(urgentOrders)}">
 					    <table id="urgent" class="table table-hover">
@@ -44,19 +50,21 @@
 						    		<td th:text="${order.getDeliveryDateStr()}"></td>
 			<!-- 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td> -->
 						    		<td><a th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}"
-						    		class="btn btn-success">add to route</a></td>
+						    		class="btn btn-danger">add to route</a></td>
 								</tr>
 							</tbody>
 			    		</table>
 			    		</div>
 					</div>
 				</div>
+				</div>
 			</div>
 			<div class="nonUrgent">
+			<div class="panel panel-success">
+			 <div class="panel-heading">
 				<h1 th:if="${!#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: ' + ${nonUrgentOrders.size()}">urgent orders</h1>
-				<h1 th:if="${#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: none'">urgent orders</h1>
-				<div class="panel panel-default">
-				    <div class="panel-body">
+				<h1 th:if="${#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: none'">urgent orders</h1></div>
+				   <div class="panel-body">
 					    <table id="nonUrgent" class="table table-hover">
 					    	<thead>
 						    	<tr>
@@ -92,24 +100,30 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="routes" style="diplay: box; width: 40vw; float: right;">
+			
+			</div>
+		
+		<div class="col-sm-6">
+		<div class="routes">
 		<form action="#" th:action="@{/route/add}" method="get">
 			 <div class="panel panel-info">
 				 <div class="panel-heading"><h1>plan a new route</h1></div>
 				 <div class="panel-body">
 					<label for="routeDate"></label>
 					<p> choose a date for a new route:
-		           	<input type="date" th:name="date" placeholder="set route date" /></p>
-		           	<input type="submit" class="btn btn-primary" value="create new route"/>
+		           	<input type="date" th:name="date" placeholder="set route date" />
+		           	<input type="submit" class="btn btn-primary" value="create new route"/></p>
 		         </div>
 	         </div>
 		</form>
 		<div class="ressources">
-				<h1>ressources</h1>
+				<h1>resources</h1>
+				<div class="row">
+				<div class="col-sm-6">
 				<div class="drivers">
-					<div class="panel panel-default">
-					    <div class="panel-body">
+				 <div class="panel panel-info">
+				  <div class="panel-heading"><h3>driver</h3></div>
+      				<div class="panel-body">
 						     <div th:if="${#lists.isEmpty(freeDrivers)}">
 								<h2 class="calm"> currently there are no routes on tour</h2>
 							</div>
@@ -118,24 +132,26 @@
 						    <table id="startedRoutes" class="table table-hover">
 						    	<thead>
 							    	<tr>
-							    		<th>id</th>
-							    		<th>driver</th>
+							    		<th></th>
 							    	</tr>
 							    </thead>
 							    <tbody>
 							    	<tr th:each="user : ${freeDrivers}">
-							    		<td><a th:href="@{/user/{id}(id = ${user.getId()})}" th:text="${user.getId()}"></a></td>
-							    		<td th:text="${user.toString()}"></td>
+							    		<td><a th:href="@{/user/{id}(id = ${user.getId()})}" th:text="${user.toString()}"></a></td>
 									</tr>
 								</tbody>
 				    		</table>
 				    		</div>
 						</div>
+						
 					</div>
 				</div>
+				</div>
+				<div class="col-sm-6">
 				<div class="trucks">
-					<div class="panel panel-default">
-					    <div class="panel-body">
+					<div class="panel panel-info">
+				     <div class="panel-heading"><h3>trucks</h3></div>
+      				  <div class="panel-body">
 						     <div th:if="${#lists.isEmpty(freeTrucks)}">
 								<h2 class="calm"> currently there are no routes on tour</h2>
 							</div>
@@ -143,51 +159,54 @@
 						    <table id="startedRoutes" class="table table-hover">
 						    	<thead>
 							    	<tr>
-							    		<th>id</th>
-							    		<th>truck</th>
+							    		<th></th>
 							    	</tr>
 							    </thead>
 							    <tbody>
 							    	<tr th:each="truck : ${freeTrucks}">
-							    		<td><a th:href="@{/truck/{id}(id = ${truck.getId()})}" th:text="${truck.getId()}"></a></td>
-							    		<td th:text="${truck.toString()}"></td>
+<!-- 							    		<td><a th:href="@{/truck/{id}(id = ${truck.getId()})}" th:text="${truck.getId()}"></a></td> -->
+							    		<td><a th:href="@{/truck/{id}(id = ${truck.getId()})}" th:text="${truck.toString()}"></a></td>
 									</tr>
 								</tbody>
 				    		</table>
 				    		</div>
 						</div>
 					</div>
-				</div>	
+				</div>
+				</div>
+				</div>
 			</div>
 			<div class="onTour">
+			 <div class="panel panel-info">
+			  <div class="panel-heading">
 				<h1 th:if="${!#lists.isEmpty(startedRoutes)}" th:text="'routes on tour: ' + ${startedRoutes.size()}"></h1>
-				<h1 th:if="${#lists.isEmpty(startedRoutes)}" th:text="'routes:  none'"></h1>
-				<div class="panel panel-default">
+				<h1 th:if="${#lists.isEmpty(startedRoutes)}" th:text="'routes:  none'"></h1></div>
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(startedRoutes)}">
-							<h2 class="calm"> currently there are no routes on tour</h2>
+							<div class="alert alert-info">
+						 	 <strong>info!</strong> currently there are no deliveries on the road
+						    </div>
 						</div>
 						<div th:if="${!#lists.isEmpty(startedRoutes)}">
 					    <table id="startedRoutes" class="table table-hover">
 					    	<thead>
 						    	<tr>
-						    		<th>id</th>
 						    		<th>driver</th>
 						    		<th>truck</th>
 						    		<th># deliveries</th>
 						    		<th>start</th>
 						    		<th>estimated end</th>
+						    		<th></th>
 						    	</tr>
 						    </thead>
 						    <tbody>
-						    	<tr th:each="route : ${startedRoutes}">
-						    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}" th:text="${route.getId()}"></a></td>
+						    	<tr th:each="route : ${startedRoutes}" >
 						    		<td th:text="${route.getDriver()}"></td>
 						    		<td th:text="${route.getTruck()}"></td>
 						    		<td th:text="${route.countDeliveries()}"></td>
 						    		<td th:text="${route.getStartDateStr()}"></td>
 						    		<td th:text="${route.getEndDateStr()}"></td>
-			<!-- 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td> -->
+						    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">details</a></td>
 								</tr>
 							</tbody>
 			    		</table>
@@ -196,9 +215,11 @@
 				</div>
 			</div>
 			<div class="nonUrgent">
+			 <div class="panel panel-info">
+			  <div class="panel-heading">
 				<h1 th:if="${!#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled routes: ' + ${scheduledRoutes.size()}"></h1>
-				<h1 th:if="${#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled:  none'"></h1>
-				<div class="panel panel-default">
+				<h1 th:if="${#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled:  none'"></h1></div>
+				
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(scheduledRoutes)}">
 							<h2 class="calm"> currently there are no schedule routes</h2>
@@ -207,23 +228,23 @@
 					    <table id="scheduledRoutes" class="table table-hover">
 					    	<thead>
 						    	<tr>
-						    		<th>id</th>
 						    		<th>driver</th>
 						    		<th>truck</th>
 						    		<th># deliveries</th>
 						    		<th>start</th>
 						    		<th>estimated end</th>
+						    		<th></th>
 						    	</tr>
 						    </thead>
 						    <tbody>
 						    	<tr th:each="route : ${scheduledRoutes}">
-						    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}" th:text="${route.getId()}"></a></td>
+<!-- 						    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}" th:text="${route.getId()}"></a></td> -->
 						    		<td th:text="${route.getDriver()}"></td>
 						    		<td th:text="${route.getTruck()}"></td>
 						    		<td th:text="${route.countDeliveries()}"></td>
 						    		<td th:text="${route.getStartDateStr()}"></td>
 						    		<td th:text="${route.getEndDateStr()}"></td>
-			<!-- 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td> -->
+						    		<td><a th:href="@{/route/{id}(id = ${route.getId()})}">details</a></td>
 								</tr>
 							</tbody>
 			    		</table>
@@ -231,8 +252,11 @@
 					</div>
 				</div>
 			</div>
+			</div>
+			</div>
 		</div>
-	</div>
+		</div>
+<!-- 		</div> -->
 	<div lang="en" th:replace="fragments/footer ::footer"> </div>
 	</body>
 </html>
