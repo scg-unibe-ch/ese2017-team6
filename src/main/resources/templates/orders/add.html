@@ -53,9 +53,8 @@
                   <th>row</th>
                   <th>amount</th>
                   <th>product</th>
-                  <th>remove</th>
-                   
-                  
+                  <th></th>
+
                 </tr>
               </thead>
               <tbody>
@@ -65,14 +64,15 @@
                     <input type="number" min="0" th:field="*{orderItems[__${rowStat.index}__].amount}" th:errorclass="fieldError" />
                   </td>
                   
-                  <td>
+                  <td>   
                     <select th:field="*{orderItems[__${rowStat.index}__].item}">
                       <option th:each="var : ${allItems}" th:value="${var.id}" th:text="${var.name}">Test</option>
                     </select>
                   </td>
                   
                   <td>
-                    <button type="submit" class="btn btn-primary" name="removeRow" th:value="${rowStat.index}">remove product</button>
+                    <button type="submit" class="btn btn-classic" name="removeRow" th:value="${rowStat.index}">
+                    <span class="glyphicon glyphicon-minus"></span> remove product</button>
                   </td>
                 </tr>
               </tbody>
