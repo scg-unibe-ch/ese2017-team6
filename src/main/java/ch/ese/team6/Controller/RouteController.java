@@ -62,7 +62,7 @@ public class RouteController{
 
 	
 	@PostMapping(path="/add")
-	public ModelAndView addNewRoute (@RequestParam long routeDate, 
+	public String addNewRoute (@RequestParam long routeDate, 
 			@RequestParam int driverId, @RequestParam int truck) {
 		
 		Date routeDateD = new Date(routeDate); 
@@ -71,7 +71,8 @@ public class RouteController{
 		newRoute.setDriver(userRepository.findOne((long)driverId));
 		newRoute.setTruck(truckRepository.findOne((long)truck));
 		routeRepository.save(newRoute);
-		return new ModelAndView("route/profile", "route", newRoute);
+		return "redirect:/schedule/addOrderstoRoute/" + newRoute.getId();
+		//return new ModelAndView("route/profile", "route", newRoute);
 	}
 
 	@RequestMapping(path="/")

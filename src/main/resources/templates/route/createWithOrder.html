@@ -3,6 +3,7 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<a href="/logistics/" class="btn btn-success" role="button">go back to cockpit</a>
 		<div class="container">
 		<h1 th:text= "'create new route on ' + ${routeTemplate.getStartDateStr()}"></h1>
 	    

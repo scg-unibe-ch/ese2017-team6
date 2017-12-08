@@ -3,6 +3,7 @@
 	<head lang="en" th:replace="fragments/head :: head"> </head>
 	<body>
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<a href="/logistics/" class="btn btn-success" role="button">go back to cockpit</a>
 		<div class="container">
 		
 		<form action="#" th:action="@{/schedule/addOrderstoRoute/{id}(id = ${route.getId()})}" method="post">
@@ -35,6 +36,7 @@
 									    		<th>number of items</th>
 									    		<th>weight of delivery</th>
 									    		<th>size of delivery</th>
+									    		<th>order-items</th>
 									    		<th></th>
 									    	</tr>
 									    </thead>
@@ -44,6 +46,16 @@
 									    		<td th:text="${delivery.getNumberOfItems()}"></td>
 									    		<td th:text="${delivery.getWeight()}"></td>
 									    		<td th:text="${delivery.getSize()}"></td>
+									    		<td>
+										    		<ul th:each= "orderItem : ${delivery.getItems()}">
+									    				<li>
+											    		<span th:text = "${orderItem.toString()}"> </span>
+											    		 <span>
+											    		 <input th:type="submit" th:name="orderItem" class="close" th:value="'remove item ' + ${orderItem.id}">
+											    		 </input></span>
+											    		</li>
+									    			</ul>
+								    			</td>
 									    		<td></td>
 											</tr>
 										</tbody>

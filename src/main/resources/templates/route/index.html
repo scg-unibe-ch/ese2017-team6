@@ -7,8 +7,11 @@ $("#datatable").DataTable();
 });
 </script>
 	<body>
+	
 		<div lang="en" th:replace="fragments/header :: header"> </div>
+		<a href="/logistics/" class="btn btn-success" role="button">go back to cockpit</a>
 		<div class="container">
+		
 		
 		<div th:if="${#lists.isEmpty(routes)}">
 		<p> no routes found </p></div>
