@@ -8,9 +8,6 @@
 		<br/>
 		<div class="row">
 		<div class="col-sm-6">
-<!-- 		<div class="orders" > -->
-			
-<!-- 			<div class="urgent"> -->
 			<div class="panel panel-danger">
 			 <div class="panel-heading">
 				<h2 th:if="${!#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: ' + ${urgentOrders.size()}">urgent orders</h2>
@@ -57,9 +54,6 @@
 			    		</div>
 					</div>
 				</div>
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="nonUrgent"> -->
 			<div class="panel panel-success">
 			 <div class="panel-heading">
 				<h2 th:if="${!#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: ' + ${nonUrgentOrders.size()}">urgent orders</h2>
@@ -99,12 +93,10 @@
 			    		</table>
 					</div>
 				</div>
-<!-- 			</div> -->
 			<h2><a href="/orders/add" class="btn btn-success" role="button">create a new order</a></h2> 	
 			</div>
 		
 		<div class="col-sm-6">
-<!-- 		<div class="routes"> -->
 		<form action="#" th:action="@{/route/add}" method="get">
 			 <div class="panel panel-info">
 				 <div class="panel-heading"><h2>plan a new route</h2></div>
@@ -116,11 +108,9 @@
 		         </div>
 	         </div>
 		</form>
-<!-- 		<div class="ressources"> -->
 				<h1>resources</h1>
 				<div class="row">
 				<div class="col-sm-6">
-<!-- 				<div class="drivers"> -->
 				 <div class="panel panel-info">
 				  <div class="panel-heading"><h3>driver</h3></div>
       				<div class="panel-body">
@@ -147,10 +137,8 @@
 						</div>
 						
 					</div>
-<!-- 				</div> -->
 				</div>
 				<div class="col-sm-6">
-<!-- 				<div class="trucks"> -->
 					<div class="panel panel-info">
 				     <div class="panel-heading"><h3>trucks</h3></div>
       				  <div class="panel-body">
@@ -176,11 +164,8 @@
 				    		</div>
 						</div>
 					</div>
-<!-- 				</div> -->
 				</div>
 				</div>
-<!-- 			</div> -->
-<!-- 			<div class="onTour"> -->
 			 <div class="panel panel-info">
 			  <div class="panel-heading">
 				<h2 th:if="${!#lists.isEmpty(startedRoutes)}" th:text="'routes on tour: ' + ${startedRoutes.size()}"></h2>
@@ -217,8 +202,6 @@
 			    		</div>
 					</div>
 				</div>
-<!-- 			</div> -->
-<!-- 			<div class="nonUrgent"> -->
 			 <div class="panel panel-info">
 			  <div class="panel-heading">
 				<h2 th:if="${!#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled routes: ' + ${scheduledRoutes.size()}"></h2>
@@ -256,12 +239,9 @@
 			    		</div>
 					</div>
 				</div>
-<!-- 			</div> -->
 			</div>
 			</div>
 		</div>
-<!-- 		</div> -->
-<!-- 		</div> -->
 	<div lang="en" th:replace="fragments/footer ::footer"> </div>
 	</body>
 </html>
