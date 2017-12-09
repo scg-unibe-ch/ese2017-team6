@@ -11,7 +11,7 @@
        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/orders/add">Create new order</a></li>
        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/route/">Routing</a></li>
        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/schedule/">Add orders to routes</a></li>
-       <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/logistics/">Cockpit</a></li>
+<!--        <li sec:authorize="hasAuthority('LOGISTICS')"><a href="/logistics/">Cockpit</a></li> -->
 		<button class="btn btn-alert navbar-btn" sec:authorize="hasAuthority('LOGISTICS')"><a href="/logistics/">Cockpit</a></button>
 		<li><a href="/driverview/" >Driver view</a></li>
     </ul>
