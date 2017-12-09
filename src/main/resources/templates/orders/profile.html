@@ -55,7 +55,7 @@
           </div>
           </div>
 <!--     	<a href ="/orders/" class="btn btn-primary" role="button">go to overview</a> -->
-    		<a th:href="@{/schedule/{id}(id = ${order.getId()})}" class="btn btn-primary" role="button">schedule order</a>
+    		<a th:href="@{/schedule/{id}(id = ${order.getId()})}" class="btn btn-primary" role="button" th:if="${#strings.equals(order.getStatus(),'OPEN')}">schedule order</a>
     </form>
     </div>
 </body>
