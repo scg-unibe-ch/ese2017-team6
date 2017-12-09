@@ -5,7 +5,7 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<a href="/logistics/" class="btn btn-success" role="button">go back to cockpit</a>
 	<div class="container">
-	<h1 th:text= "'order for ' +${order.customer}"></h1>
+	<h1>order for <a th:href="@{/customer/{Id}(Id = ${order.getCustomer().getId()})}" th:text= "${order.customer}"></a></h1>
 		<form class="form-horizontal">
 		<div class="panel panel-default">
 		<div class="panel-body">
@@ -55,8 +55,7 @@
           </div>
           </div>
 <!--     	<a href ="/orders/" class="btn btn-primary" role="button">go to overview</a> -->
-    	<a href ="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
-    	<a href="/route/" class="btn btn-primary" role="button">show all routes</a>
+    		<a th:href="@{/schedule/{id}(id = ${order.getId()})}" class="btn btn-primary" role="button">schedule order</a>
     </form>
     </div>
 </body>

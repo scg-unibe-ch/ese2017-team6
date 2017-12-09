@@ -70,8 +70,10 @@
  		    		<td th:text="${route.countDeliveries()}"></td>
  		    		<td th:text="${route.getEstimatedTimeStr()}"></td>
  		    		<td><a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary">route profile</a></td>
- 		    		<td><a th:href="@{/route/onmap/{id}(id = ${route.id})}"
- 		    		class="btn btn-success">start route</a></td>
+ 		    		<td>
+ 		    		<form action="#" th:action="@{/route/startRoute/{id}(id = ${route.getId()})}" th:object="${route}" method="post"> 
+			    	<button type="submit" class="btn btn-success">start route</button>
+					</form></td>
  				</tr>
  				</tbody>
  		    </table>
@@ -80,7 +82,7 @@
  	</div>
  	<div th:if="${#lists.isEmpty(routes)}">
  	<h1> no routes scheduled </h1></div>
- 	<a href="/driverview/" class="btn btn-primary">back to driver overview</a>
+ 	<a href="/driverview/" class="btn btn-primary">all drivers</a>
     </div>
  </body>
  </html> 

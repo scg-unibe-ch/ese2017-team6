@@ -50,6 +50,7 @@ public class Route {
 	public long measuredTime;
 	private long routeStart = 0;
 	private long routeStop = 0;
+	private long lastAddressid = 0;
 	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -582,6 +583,7 @@ public class Route {
 		for(OrderItem oi: this.getAllAtAddress(address)) {
 			try {
 				oi.acceptDelivery();
+				this.lastAddressid = address.getId();
 			} catch (InconsistentOrderStateException e) {
 				e.printStackTrace();
 			}
@@ -593,6 +595,7 @@ public class Route {
 		for(OrderItem oi: this.getAllAtAddress(address)) {
 			try {
 				oi.rejectDelivery();
+				this.lastAddressid = address.getId();
 			} catch (InconsistentOrderStateException e) {
 				e.printStackTrace();
 			}
@@ -633,6 +636,17 @@ public class Route {
 		
 		return oi;
 
+	}
+	
+	public long getLastAddressId() {
+		if(this.lastAddressid != 0)
+			{return lastAddressid;}
+		else
+			return deposit.getId();
+	}
+	
+	public void setLastAddressId(long value) {
+		this.lastAddressid = value;
 	}
 	
 	/**
