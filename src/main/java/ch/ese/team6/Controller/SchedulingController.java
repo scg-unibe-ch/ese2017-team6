@@ -139,10 +139,11 @@ public class SchedulingController {
 		return "schedule/addOrderstoRoute";
 	}
 	
-	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderID"})
-	public String addOrderstoRoute(Model model, @PathVariable long routeid, @RequestParam String orderID) throws InconsistentOrderStateException
+	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderIDString"})
+	public String addOrderstoRoute(Model model, @PathVariable long routeid, @RequestParam String orderIDString, @RequestParam Long orderID) throws InconsistentOrderStateException
 	{
-		long orderId = Long.parseLong(orderID.replace("add order number ",""));
+		//long orderId = orderID;
+		long orderId = Long.parseLong(orderIDString.replace("add order ",""));
 		
 		Route route = routeRepository.findOne(routeid);
 		Order o = orderRepository.findOne(orderId);
@@ -167,10 +168,11 @@ public class SchedulingController {
 		return "schedule/addOrderstoRoute";
 	}
 	
-	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderItem"})
-	public String removeItemfromRoute(Model model, @PathVariable long routeid, @RequestParam String orderItem) throws InconsistentOrderStateException
+	@PostMapping(path="/addOrderstoRoute/{routeid}", params={"orderItemString"})
+	public String removeItemfromRoute(Model model, @PathVariable long routeid, @RequestParam String orderItemString, @RequestParam Long orderItem) throws InconsistentOrderStateException
 	{
-		long orderItemId = Long.parseLong(orderItem.replace("remove item ",""));
+		//long orderItemId = orderItem;
+		long orderItemId = Long.parseLong(orderItemString.replace("remove item ",""));
 		
 		Route route = routeRepository.findOne(routeid);
 		OrderItem oi = orderItemRepository.findOne(orderItemId);

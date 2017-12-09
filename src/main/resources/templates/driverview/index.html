@@ -17,7 +17,6 @@ $("#datatable").DataTable();
  		    <table id="datatable" class="table table-hover">
  		    	<thead>
 	 		    	<tr>
-	 		    		<th>id</th>
 	 		    		<th>username</th>
 	 		    		<th>first name</th>
 	 		    		<th>surname</th>
@@ -26,7 +25,6 @@ $("#datatable").DataTable();
  		    	</thead>
  		    	<tbody>
 	 		    	<tr th:each="user : ${drivers}">
-	 		    		<td th:text="${user.getId()}"></td>
 	 		    		<td th:text="${user.getUsername()}"></td>
 	 		    		<td th:text="${user.getFirstname()}"></td>
 	 		    		<td th:text="${user.getSurname()}"></td>

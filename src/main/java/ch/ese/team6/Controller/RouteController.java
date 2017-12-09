@@ -305,6 +305,46 @@ public class RouteController{
     }
 	
 	/**
+	 * rejects the delivery at the current address
+	 * if the address is the lastAddress of the route, the view will be
+	 * route/driveHome, where he sees the way back to the deposit address
+	 * @param routeid
+	 * @param addressid
+	 * @return
+	 */
+	@PostMapping(value="/continueRoute/{routeid}")
+    public ModelAndView continueRoute(@PathVariable Long routeid, @RequestParam long addressid) {
+    
+		Address address = addressRepository.findOne(addressid);
+		Route route = routeRepository.findOne(routeid);
+		
+		
+		if(!route.getOpenDeliveries().isEmpty())
+			{ModelAndView ret= new ModelAndView("route/onmap");
+			ret.addObject("route", route);
+			
+			Address destination = route.getCurrentAddress();
+			
+			ret.addObject("lastAddress", address);
+			ret.addObject("addresses", route.getAddressStringArray(true, false));
+			ret.addObject("duration", address.getDistanceStr(destination));
+		
+			return ret;}
+		else
+			{ModelAndView ret= new ModelAndView("route/driveHome");
+			ret.addObject("route", route);
+			
+			Address destination = route.getDeposit();
+			
+			ret.addObject("lastAddress", address);
+			ret.addObject("addresses", route.getAddressStringArray(true, false));
+			ret.addObject("duration", address.getDistanceStr(destination));
+		
+			return ret;}
+       
+    }
+	
+	/**
 	 * schows the complete route on the map (viewPage: route/completeRoute). 
 	 * @param model
 	 * @param routeid

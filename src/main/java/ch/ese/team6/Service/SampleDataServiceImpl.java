@@ -225,7 +225,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 		for(int j=0;j<(int)(Math.random()*10+1);j++){
 			OrderItem oi = new OrderItem(order);
 			order.getOrderItems().add(oi);
-			oi.setAmount((int)(Math.random()*10));
+			oi.setAmount((int)(Math.random()*10+1));
 			int n_item = itemRepository.findAll().size();
 			oi.setItem(itemRepository.findAll().get((int) (Math.random()*n_item)));	
 			}
