@@ -195,7 +195,9 @@ public class SampleDataServiceImpl implements SampleDataService{
 	 * @param dis
 	 */
 	private void completeDistance(Distance dis) {
-		String[] distances = distancesCSV.split("<<");
+		String[] distancesCSV = {distancesCSV0,distancesCSV1,distancesCSV2,distancesCSV3,distancesCSV4,distancesCSV5,distancesCSV6,distancesCSV7,distancesCSV8,distancesCSV9,distancesCSV10,distancesCSV11};
+		for(int j = 0; j < distancesCSV.length;j++) {
+		String[] distances = distancesCSV[j].split("<<");
 
 		for(int i = 0; i< distances.length;i++) {
 			String[] line = distances[i].split("<");
@@ -206,6 +208,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 					return;
 				}
 			}
+		}
 		}
 		
 	}
@@ -501,7 +504,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 			+ "Mercedes-Benz Actros 2,1000,80000;";
 
 	//< separates fields, << separates rows, could not use , because "," is part of many addresses.
-String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 6, 3012 Bern, Schweiz<1675<36381<<" + 
+String distancesCSV0 = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 6, 3012 Bern, Schweiz<1675<36381<<" + 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<1675<36381<<" + 
 		"Via Bergamina 14-18, 20016 Pero MI, Italy<Hochschulstrasse 6, 3012 Bern, Schweiz<13590<344413<<" + 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Via Bergamina 14-18, 20016 Pero MI, Italy<13590<344413<<" + 
@@ -530,8 +533,9 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Perjenerweg 2, 6500 Landeck, Austria<Árpád u. 45-71, Budapest 1196, Hungary<28564<821570<<" + 
 		"Árpád u. 45-71, Budapest 1196, Hungary<Perjenerweg 2, 6500 Landeck, Austria<28564<821570<<" + 
 		"Perjenerweg 2, 6500 Landeck, Austria<Grüner Weg 3-1, 50825 Köln, Germany<25130<660316<<" + 
-		"Grüner Weg 3-1, 50825 Köln, Germany<Perjenerweg 2, 6500 Landeck, Austria<25130<660316<<" + 
-		"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Hochschulstrasse 6, 3012 Bern, Schweiz<2563<62733<<" + 
+		"Grüner Weg 3-1, 50825 Köln, Germany<Perjenerweg 2, 6500 Landeck, Austria<25130<660316<<";
+		
+String distancesCSV1 = "Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Hochschulstrasse 6, 3012 Bern, Schweiz<2563<62733<<" + 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<2563<62733<<" + 
 		"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<3612<96251<<" + 
 		"Burgerstrasse 13-15, 3600 Thun, Schweiz<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<3612<96251<<" + 
@@ -591,7 +595,9 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Rütistrasse 28, 6032 Emmen, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<7195<170961<<" + 
 		"Via Vergiò 8-18, 6932 Lugano, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<7307<174337<<" + 
 		"Röhrliberg 32, 6330 Cham, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<7307<174337<<" + 
-		"Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<Hochschulstrasse 6, 3012 Bern, Schweiz<1494<26404<<" + 
+		"Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<Hochschulstrasse 6, 3012 Bern, Schweiz<1494<26404<<";
+		
+String distancesCSV5 = 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<1494<26404<<" + 
 		"Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<Burgerstrasse 13-15, 3600 Thun, Schweiz<2279<51682<<" + 
 		"Burgerstrasse 13-15, 3600 Thun, Schweiz<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<2279<51682<<" + 
@@ -630,8 +636,9 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<7598<206220<<" + 
 		"Röhrliberg 32, 6330 Cham, Schweiz<Les Chandelènes 2-4, 1436 Chamblon, Schweiz<7598<206220<<" + 
 		"Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<13424<353982<<" + 
-		"Via Vergiò 8-18, 6932 Lugano, Schweiz<Les Chandelènes 2-4, 1436 Chamblon, Schweiz<13424<353982<<" + 
-		"Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<4192<103919<<" + 
+		"Via Vergiò 8-18, 6932 Lugano, Schweiz<Les Chandelènes 2-4, 1436 Chamblon, Schweiz<13424<353982<<";
+	
+String distancesCSV3 = "Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<4192<103919<<" + 
 		"Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<Les Chandelènes 2-4, 1436 Chamblon, Schweiz<4192<103919<<" + 
 		"Chemin du Château 2-8, 1920 Martigny, Schweiz<Hochschulstrasse 6, 3012 Bern, Schweiz<4889<129036<<" + 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Chemin du Château 2-8, 1920 Martigny, Schweiz<4889<129036<<" + 
@@ -674,7 +681,8 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Hauptstrasse 37, 32 Aarau, Schweiz<Rütistrasse 28, 6032 Emmen, Schweiz<2992<69795<<" + 
 		"Rütistrasse 28, 6032 Emmen, Schweiz<Hauptstrasse 37, 32 Aarau, Schweiz<2992<69795<<" + 
 		"Hauptstrasse 37, 32 Aarau, Schweiz<Röhrliberg 32, 6330 Cham, Schweiz<2649<64509<<" + 
-		"Röhrliberg 32, 6330 Cham, Schweiz<Hauptstrasse 37, 32 Aarau, Schweiz<2649<64509<<" + 
+		"Röhrliberg 32, 6330 Cham, Schweiz<Hauptstrasse 37, 32 Aarau, Schweiz<2649<64509<<";
+		String distancesCSV4 = 
 		"Hauptstrasse 37, 32 Aarau, Schweiz<Via Vergiò 8-18, 6932 Lugano, Schweiz<9166<237365<<" + 
 		"Via Vergiò 8-18, 6932 Lugano, Schweiz<Hauptstrasse 37, 32 Aarau, Schweiz<9166<237365<<" + 
 		"Hauptstrasse 37, 32 Aarau, Schweiz<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<3027<74573<<" + 
@@ -735,8 +743,10 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<Chemin de la Combatte 3, 2802 Develier, Schweiz<4062<91935<<" + 
 		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Les Chandelènes 2-4, 1436 Chamblon, Schweiz<5610<120536<<" + 
 		"Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Chemin de la Combatte 3, 2802 Develier, Schweiz<5610<120536<<" + 
-		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Chemin du Château 2-8, 1920 Martigny, Schweiz<8389<217011<<" + 
-		"Chemin du Château 2-8, 1920 Martigny, Schweiz<Chemin de la Combatte 3, 2802 Develier, Schweiz<8389<217011<<" + 
+		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Chemin du Château 2-8, 1920 Martigny, Schweiz<8389<217011<<";
+		
+		
+		String distancesCSV8 = "Chemin du Château 2-8, 1920 Martigny, Schweiz<Chemin de la Combatte 3, 2802 Develier, Schweiz<8389<217011<<" + 
 		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Hauptstrasse 37, 32 Aarau, Schweiz<4401<87267<<" + 
 		"Hauptstrasse 37, 32 Aarau, Schweiz<Chemin de la Combatte 3, 2802 Develier, Schweiz<4401<87267<<" + 
 		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Neuhofstrasse 2, 6340 Baar, Schweiz<5750<130975<<" + 
@@ -781,8 +791,8 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Via Bergamina 14-18, 20016 Pero MI, Italy<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<71330<2156682<<" + 
 		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Árpád u. 45-71, Budapest 1196, Hungary<102570<3110487<<" + 
 		"Árpád u. 45-71, Budapest 1196, Hungary<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<102570<3110487<<" + 
-		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Grüner Weg 3-1, 50825 Köln, Germany<73220<2238519<<" + 
-		"Grüner Weg 3-1, 50825 Köln, Germany<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<73220<2238519<<" + 
+		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Grüner Weg 3-1, 50825 Köln, Germany<73220<2238519<<";
+		String distancesCSV6="Grüner Weg 3-1, 50825 Köln, Germany<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<73220<2238519<<" + 
 		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Perjenerweg 2, 6500 Landeck, Austria<79451<2321735<<" + 
 		"Perjenerweg 2, 6500 Landeck, Austria<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<79451<2321735<<" + 
 		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<65026<1972290<<" + 
@@ -807,8 +817,9 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<67257<1995756<<" + 
 		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Giacomettistrasse 114-116, 7000 Chur, Schweiz<75110<2229246<<" + 
 		"Giacomettistrasse 114-116, 7000 Chur, Schweiz<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<75110<2229246<<" + 
-		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Hochschulstrasse 6, 3012 Bern, Schweiz<52618<1611499<<" + 
-		"Hochschulstrasse 6, 3012 Bern, Schweiz<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<52618<1611499<<" + 
+		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Hochschulstrasse 6, 3012 Bern, Schweiz<52618<1611499<<"; 
+		
+		String distancesCSV2 = "Hochschulstrasse 6, 3012 Bern, Schweiz<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<52618<1611499<<" + 
 		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Burgerstrasse 13-15, 3600 Thun, Schweiz<53664<1644998<<" + 
 		"Burgerstrasse 13-15, 3600 Thun, Schweiz<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<53664<1644998<<" + 
 		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Via Bergamina 14-18, 20016 Pero MI, Italy<55572<1657874<<" + 
@@ -842,8 +853,8 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Giacomettistrasse 114-116, 7000 Chur, Schweiz<61006<1850168<<" + 
 		"Giacomettistrasse 114-116, 7000 Chur, Schweiz<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<61006<1850168<<" + 
 		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<19351<603869<<" + 
-		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<19351<603869<<" + 
-		"Calle Generación 21-9, 29196 Málaga,  Spain<Hochschulstrasse 6, 3012 Bern, Schweiz<62351<1928530<<" + 
+		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<19351<603869<<";
+		String distancesCSV7 = "Calle Generación 21-9, 29196 Málaga,  Spain<Hochschulstrasse 6, 3012 Bern, Schweiz<62351<1928530<<" + 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Calle Generación 21-9, 29196 Málaga,  Spain<62351<1928530<<" + 
 		"Calle Generación 21-9, 29196 Málaga,  Spain<Burgerstrasse 13-15, 3600 Thun, Schweiz<63396<1962029<<" + 
 		"Burgerstrasse 13-15, 3600 Thun, Schweiz<Calle Generación 21-9, 29196 Málaga,  Spain<63396<1962029<<" + 
@@ -937,8 +948,9 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<51940<1348643<<" + 
 		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Rütistrasse 28, 6032 Emmen, Schweiz<47593<1261189<<" + 
 		"Rütistrasse 28, 6032 Emmen, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<47593<1261189<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Röhrliberg 32, 6330 Cham, Schweiz<47705<1264566<<" + 
-		"Röhrliberg 32, 6330 Cham, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<47705<1264566<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Röhrliberg 32, 6330 Cham, Schweiz<47705<1264566<<"; 
+		
+		String distancesCSV9 = "Röhrliberg 32, 6330 Cham, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<47705<1264566<<" + 
 		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Via Vergiò 8-18, 6932 Lugano, Schweiz<40997<1095702<<" + 
 		"Via Vergiò 8-18, 6932 Lugano, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<40997<1095702<<" + 
 		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<50669<1349644<<" + 
@@ -1008,8 +1020,8 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<51676<1405194<<" + 
 		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Kaliskiego 25, 01-476 Warszawa,  Poland<51676<1405194<<" + 
 		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Hochschulstrasse 6, 3012 Bern, Schweiz<27115<757869<<" + 
-		"Hochschulstrasse 6, 3012 Bern, Schweiz<Im Steinkampe 14-16, 38110 Braunschweig, Germany<27115<757869<<" + 
-		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Burgerstrasse 13-15, 3600 Thun, Schweiz<27899<783147<<" + 
+		"Hochschulstrasse 6, 3012 Bern, Schweiz<Im Steinkampe 14-16, 38110 Braunschweig, Germany<27115<757869<<"; 
+		String distancesCSV10 = "Im Steinkampe 14-16, 38110 Braunschweig, Germany<Burgerstrasse 13-15, 3600 Thun, Schweiz<27899<783147<<" + 
 		"Burgerstrasse 13-15, 3600 Thun, Schweiz<Im Steinkampe 14-16, 38110 Braunschweig, Germany<27899<783147<<" + 
 		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Via Bergamina 14-18, 20016 Pero MI, Italy<34603<952827<<" + 
 		"Via Bergamina 14-18, 20016 Pero MI, Italy<Im Steinkampe 14-16, 38110 Braunschweig, Germany<34603<952827<<" + 
@@ -1064,7 +1076,8 @@ String distancesCSV = "Burgerstrasse 13-15, 3600 Thun, Schweiz<Hochschulstrasse 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Grüner Weg 3-1, 50825 Köln, Germany<87733<2364418<<" + 
 		"Grüner Weg 3-1, 50825 Köln, Germany<Komsomolskaya pl. 1, Moskva, Russia 107140<87733<2364418<<" + 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Perjenerweg 2, 6500 Landeck, Austria<93584<2494462<<" + 
-		"Perjenerweg 2, 6500 Landeck, Austria<Komsomolskaya pl. 1, Moskva, Russia 107140<93584<2494462<<" + 
+		"Perjenerweg 2, 6500 Landeck, Austria<Komsomolskaya pl. 1, Moskva, Russia 107140<93584<2494462<<";
+		String distancesCSV11 = 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<101006<2758874<<" + 
 		"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Komsomolskaya pl. 1, Moskva, Russia 107140<101006<2758874<<" + 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Rütistrasse 28, 6032 Emmen, Schweiz<97012<2648213<<" + 
