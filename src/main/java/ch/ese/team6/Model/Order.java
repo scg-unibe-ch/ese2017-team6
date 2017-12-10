@@ -145,10 +145,12 @@ public class Order  implements IDelivarable{
 		return s;
 	}
     
-    
+    /**
+     * Sets the route of the open order items equal to r
+     */
     @Override
     public void setRoute(Route r) {
-    	for(OrderItem i: this.orderItems) {
+    	for(OrderItem i: this.getOpenOrderItems()) {
     		i.setRoute(r);
     	}
     }
@@ -225,7 +227,9 @@ public class Order  implements IDelivarable{
 		return w;
 	}
 	
-
+	public String toString() {
+		return "Order "+id+" for "+this.getCustomer().getName();
+	}
 
 
 	@Override

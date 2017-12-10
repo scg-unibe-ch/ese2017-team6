@@ -9,7 +9,7 @@
 	    
 		<p  th:text="'On this page we propose only trucks with enough capacity to transport the order '+${order.getId()}" ></p>
 		
-		<h1 th:if="${#lists.isEmpty(trucks)}" th:text= "'There are no trucks where this order may in'"></h1>
+		<h1 th:if="${#lists.isEmpty(trucks)}" th:text= "'There are no free trucks where this order may fit in'"></h1>
 	    
 		
 	    <form th:if="${not #lists.isEmpty(trucks)}" th:action="@{/route/add/o/{id}(id = ${order.getId()})}" th:object="${routeTemplate}" method="post">

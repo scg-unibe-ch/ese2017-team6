@@ -51,7 +51,9 @@
 	    	<thead>
 	    		<tr>
 		    		<th>id</th>
-		    		<th>routing date</th>
+		    		<th>route start date</th>
+		    		<th>route end date</th>
+		    		<th>driver</th>
 		    		<th>number of deliveries</th>
 		    		<th></th>
 		    		<th></th>
@@ -61,7 +63,9 @@
 		    <tbody>
 		    	<tr th:each="route : ${truck.getRoutes()}">
 		    		<td th:text="${route.getId()}"></td>
-		    		<td th:text="${route.getRouteStartDate()}"></td>
+		    		<td th:text="${route.getStartDateStr()}"></td>
+		    		<td th:text="${route.getEndDateStr()}"></td>
+		    		<td><a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" th:text="${route.getDriver()}"></a></td>
 		    		<td th:text="${route.countDeliveries()}"></td>
 		    		<td></td>
 		    		<td></td>

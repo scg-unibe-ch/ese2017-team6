@@ -2,6 +2,7 @@ package ch.ese.team6.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,9 +23,9 @@ import ch.ese.team6.Model.User;
 public class RouteGenerationProblem {
 private Address depositAddress;
 private ArrayList<IDelivarable> orders;
-private ArrayList<Truck> trucks;
+private List<Truck> trucks;
 private AddressDistanceManager addressManager;
-private ArrayList<User> drivers;
+private List<User> drivers;
 
 @DateTimeFormat(pattern = "yyyy-MM-dd")
 private Date deliveryDate;
@@ -110,10 +111,10 @@ public ArrayList<IDelivarable> getOrders() {
 public void setOrders(ArrayList<IDelivarable> orders) {
 	this.orders = orders;
 }
-public ArrayList<Truck> getTrucks() {
+public List<Truck> getTrucks() {
 	return trucks;
 }
-public void setTrucks(ArrayList<Truck> trucks) {
+public void setTrucks(List<Truck> trucks) {
 	this.trucks = trucks;
 }
 public AddressDistanceManager getAddressManager() {
@@ -136,12 +137,12 @@ public Date getDeliveryDate() {
 }
 
 
-public ArrayList<User> getDrivers() {
+public List<User> getDrivers() {
 	return drivers;
 }
 
 
-public void setDrivers(ArrayList<User> drivers) {
+public void setDrivers(List<User> drivers) {
 	this.drivers = drivers;
 }
 

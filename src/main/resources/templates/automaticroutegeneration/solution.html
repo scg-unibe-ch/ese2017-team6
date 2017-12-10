@@ -14,7 +14,8 @@
 		    	<thead>
 			    	<tr>
 			    		<th>Id</th>
-			    		<th>Route Date</th>
+			    		<th>Route Start Date</th>
+			    		<th>Route End Date</th>
 			    		<th>Vehicle name</th>
 			    		<th>Driver name</th>
 			    		<th>Size</th>
@@ -26,10 +27,11 @@
 		    	<tbody>
 			    	<tr th:each="route : ${optimalRoutes.getRoutes()}">
 			    		<td th:text="${route.getId()}"></td>
-			    		<td th:text="${route.getDate()}"></td>
-			    		<td th:text="${route.getTruck()}"></td>
-			    		<td th:text="${route.getDriver()}"></td>
-			    		<td th:text="${route.calculateCapacitySize()}"></td>
+			    		<td th:text="${route.getStartDateStr()}"></td>    		
+			    		<td th:text="${route.getEndDateStr()}"></td>
+			    		<td><a th:href="@{/truck/{id}(id = ${route.getTruck().getId()})}" th:text="${route.getTruck()}"></a></td> 	
+			    		<td><a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" th:text="${route.getDriver()}"></a></td>
+			 			<td th:text="${route.calculateCapacitySize()}"></td>
 			    		<td th:text="${route.calculateCapacityWeight()}"></td>
 			    		<td th:text="${route.countDeliveries()}"></td>
 			    		<td><a th:href="@{/route/{id}(id = ${route.id})}">Profile</a></td>

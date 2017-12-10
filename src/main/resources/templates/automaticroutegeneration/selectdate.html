@@ -27,27 +27,16 @@
 		</tbody>
    		 </table>
 		
-		
-		<p>please enter the the day you want schedule: </p>
+	
 		
 		<form action="#" th:action="@{/automaticroutegeneration/selectdate}" th:object="${routeProblem}" method="post">
 		  <div>
-            <label for="delivery date">
-              <span>delivery date</span>
-              (<span>YYYY/MM/DD</span>)
-            </label>
-            <input type="date" th:field="*{deliveryDate}" />
-          </div> 
-          
-            							  
-          <p>please enter the address where you store the items
-           <select th:field="*{depositAddress}">
-                      <option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
-                    </select>
-                 </p>
+		  <p> please enter the the day you want schedule:
+           	<input type="date" th:name="date" placeholder="set route date"  th:field="*{deliveryDate}" /></p>       
+           </div>
+  
                   
-                    
-        <button type="submit" class="btn btn-primary" name="submitDate">start</button>
+             <button type="submit" class="btn btn-primary" name="submitDate">start</button>
         </form>                             
 		</div>
 		</div>
