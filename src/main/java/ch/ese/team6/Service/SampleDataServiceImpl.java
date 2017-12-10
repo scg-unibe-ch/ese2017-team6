@@ -932,49 +932,49 @@ String distancesCSV3 = "Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstr
 		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<55464<1653732<<" + 
 		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Calle Generación 21-9, 29196 Málaga,  Spain<69538<2105994<<" + 
 		"Calle Generación 21-9, 29196 Málaga,  Spain<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<69538<2105994<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Hochschulstrasse 6, 3012 Bern, Schweiz<51308<1366666<<" + 
-		"Hochschulstrasse 6, 3012 Bern, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<51308<1366666<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Burgerstrasse 13-15, 3600 Thun, Schweiz<51173<1333796<<" + 
-		"Burgerstrasse 13-15, 3600 Thun, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<51173<1333796<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Via Bergamina 14-18, 20016 Pero MI, Italy<38567<1030896<<" + 
-		"Via Bergamina 14-18, 20016 Pero MI, Italy<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<38567<1030896<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Árpád u. 45-71, Budapest 1196, Hungary<23041<550237<<" + 
-		"Árpád u. 45-71, Budapest 1196, Hungary<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<23041<550237<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Grüner Weg 3-1, 50825 Köln, Germany<55626<1469211<<" + 
-		"Grüner Weg 3-1, 50825 Köln, Germany<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<55626<1469211<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Perjenerweg 2, 6500 Landeck, Austria<40901<1054588<<" + 
-		"Perjenerweg 2, 6500 Landeck, Austria<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<40901<1054588<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<51940<1348643<<" + 
-		"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<51940<1348643<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Rütistrasse 28, 6032 Emmen, Schweiz<47593<1261189<<" + 
-		"Rütistrasse 28, 6032 Emmen, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<47593<1261189<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Röhrliberg 32, 6330 Cham, Schweiz<47705<1264566<<"; 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Hochschulstrasse 6, 3012 Bern, Schweiz<51308<1366666<<" + 
+		"Hochschulstrasse 6, 3012 Bern, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<51308<1366666<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Burgerstrasse 13-15, 3600 Thun, Schweiz<51173<1333796<<" + 
+		"Burgerstrasse 13-15, 3600 Thun, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<51173<1333796<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Via Bergamina 14-18, 20016 Pero MI, Italy<38567<1030896<<" + 
+		"Via Bergamina 14-18, 20016 Pero MI, Italy<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<38567<1030896<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Árpád u. 45-71, Budapest 1196, Hungary<23041<550237<<" + 
+		"Árpád u. 45-71, Budapest 1196, Hungary<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<23041<550237<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Grüner Weg 3-1, 50825 Köln, Germany<55626<1469211<<" + 
+		"Grüner Weg 3-1, 50825 Köln, Germany<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<55626<1469211<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Perjenerweg 2, 6500 Landeck, Austria<40901<1054588<<" + 
+		"Perjenerweg 2, 6500 Landeck, Austria<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<40901<1054588<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<51940<1348643<<" + 
+		"Vue-des-Alpes 19-1, 1627 Vaulruz, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<51940<1348643<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Rütistrasse 28, 6032 Emmen, Schweiz<47593<1261189<<" + 
+		"Rütistrasse 28, 6032 Emmen, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<47593<1261189<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Röhrliberg 32, 6330 Cham, Schweiz<47705<1264566<<"; 
 		
-		String distancesCSV9 = "Röhrliberg 32, 6330 Cham, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<47705<1264566<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Via Vergiò 8-18, 6932 Lugano, Schweiz<40997<1095702<<" + 
-		"Via Vergiò 8-18, 6932 Lugano, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<40997<1095702<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<50669<1349644<<" + 
-		"Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<50669<1349644<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Les Chandelènes 2-4, 1436 Chamblon, Schweiz<53485<1437292<<" + 
-		"Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<53485<1437292<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Chemin du Château 2-8, 1920 Martigny, Schweiz<49665<1282486<<" + 
-		"Chemin du Château 2-8, 1920 Martigny, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<49665<1282486<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Hauptstrasse 37, 32 Aarau, Schweiz<49698<1284739<<" + 
-		"Hauptstrasse 37, 32 Aarau, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<49698<1284739<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Neuhofstrasse 2, 6340 Baar, Schweiz<47973<1271271<<" + 
-		"Neuhofstrasse 2, 6340 Baar, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<47973<1271271<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Chemin de la Combatte 3, 2802 Develier, Schweiz<51887<1362381<<" + 
-		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<51887<1362381<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Giacomettistrasse 114-116, 7000 Chur, Schweiz<46101<1207820<<" + 
-		"Giacomettistrasse 114-116, 7000 Chur, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<46101<1207820<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<108597<3157098<<" + 
-		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<108597<3157098<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<92767<2656815<<" + 
-		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<92767<2656815<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Calle Generación 21-9, 29196 Málaga,  Spain<102377<2975761<<" + 
-		"Calle Generación 21-9, 29196 Málaga,  Spain<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<102377<2975761<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<61904<1678662<<" + 
-		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<61904<1678662<<" + 
+		String distancesCSV9 = "Röhrliberg 32, 6330 Cham, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<47705<1264566<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Via Vergiò 8-18, 6932 Lugano, Schweiz<40997<1095702<<" + 
+		"Via Vergiò 8-18, 6932 Lugano, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<40997<1095702<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<50669<1349644<<" + 
+		"Meiefeldstrasse 34, 3400 Burgdorf, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<50669<1349644<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Les Chandelènes 2-4, 1436 Chamblon, Schweiz<53485<1437292<<" + 
+		"Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<53485<1437292<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Chemin du Château 2-8, 1920 Martigny, Schweiz<49665<1282486<<" + 
+		"Chemin du Château 2-8, 1920 Martigny, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<49665<1282486<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Hauptstrasse 37, 32 Aarau, Schweiz<49698<1284739<<" + 
+		"Hauptstrasse 37, 32 Aarau, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<49698<1284739<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Neuhofstrasse 2, 6340 Baar, Schweiz<47973<1271271<<" + 
+		"Neuhofstrasse 2, 6340 Baar, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<47973<1271271<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Chemin de la Combatte 3, 2802 Develier, Schweiz<51887<1362381<<" + 
+		"Chemin de la Combatte 3, 2802 Develier, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<51887<1362381<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Giacomettistrasse 114-116, 7000 Chur, Schweiz<46101<1207820<<" + 
+		"Giacomettistrasse 114-116, 7000 Chur, Schweiz<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<46101<1207820<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<108597<3157098<<" + 
+		"Praceta Rosa 1,  2770-123 Paço de Arcos,  Portugal<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<108597<3157098<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<92767<2656815<<" + 
+		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<92767<2656815<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Calle Generación 21-9, 29196 Málaga,  Spain<102377<2975761<<" + 
+		"Calle Generación 21-9, 29196 Málaga,  Spain<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<102377<2975761<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<61904<1678662<<" + 
+		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<61904<1678662<<" + 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Hochschulstrasse 6, 3012 Bern, Schweiz<47950<1436449<<" + 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Kaliskiego 25, 01-476 Warszawa,  Poland<47950<1436449<<" + 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Burgerstrasse 13-15, 3600 Thun, Schweiz<48734<1461727<<" + 
@@ -1017,8 +1017,8 @@ String distancesCSV3 = "Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstr
 		"Calle Generación 21-9, 29196 Málaga,  Spain<Kaliskiego 25, 01-476 Warszawa,  Poland<107758<3329198<<" + 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<42815<1287605<<" + 
 		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Kaliskiego 25, 01-476 Warszawa,  Poland<42815<1287605<<" + 
-		"Kaliskiego 25, 01-476 Warszawa,  Poland<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<51676<1405194<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Kaliskiego 25, 01-476 Warszawa,  Poland<51676<1405194<<" + 
+		"Kaliskiego 25, 01-476 Warszawa,  Poland<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<51676<1405194<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Kaliskiego 25, 01-476 Warszawa,  Poland<51676<1405194<<" + 
 		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Hochschulstrasse 6, 3012 Bern, Schweiz<27115<757869<<" + 
 		"Hochschulstrasse 6, 3012 Bern, Schweiz<Im Steinkampe 14-16, 38110 Braunschweig, Germany<27115<757869<<"; 
 		String distancesCSV10 = "Im Steinkampe 14-16, 38110 Braunschweig, Germany<Burgerstrasse 13-15, 3600 Thun, Schweiz<27899<783147<<" + 
@@ -1061,8 +1061,8 @@ String distancesCSV3 = "Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstr
 		"Calle Generación 21-9, 29196 Málaga,  Spain<Im Steinkampe 14-16, 38110 Braunschweig, Germany<86923<2650618<<" + 
 		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<18809<533562<<" + 
 		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Im Steinkampe 14-16, 38110 Braunschweig, Germany<18809<533562<<" + 
-		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<55010<1483340<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Im Steinkampe 14-16, 38110 Braunschweig, Germany<55010<1483340<<" + 
+		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<55010<1483340<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Im Steinkampe 14-16, 38110 Braunschweig, Germany<55010<1483340<<" + 
 		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Kaliskiego 25, 01-476 Warszawa,  Poland<24534<758159<<" + 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Im Steinkampe 14-16, 38110 Braunschweig, Germany<24534<758159<<" + 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Hochschulstrasse 6, 3012 Bern, Schweiz<99041<2699628<<" + 
@@ -1108,8 +1108,8 @@ String distancesCSV3 = "Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstr
 		"Calle Generación 21-9, 29196 Málaga,  Spain<Komsomolskaya pl. 1, Moskva, Russia 107140<158849<4592377<<" + 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<93907<2550784<<" + 
 		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Komsomolskaya pl. 1, Moskva, Russia 107140<93907<2550784<<" + 
-		"Komsomolskaya pl. 1, Moskva, Russia 107140<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<100783<2381926<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Komsomolskaya pl. 1, Moskva, Russia 107140<100783<2381926<<" + 
+		"Komsomolskaya pl. 1, Moskva, Russia 107140<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<100783<2381926<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Komsomolskaya pl. 1, Moskva, Russia 107140<100783<2381926<<" + 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Kaliskiego 25, 01-476 Warszawa,  Poland<51434<1265528<<" + 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Komsomolskaya pl. 1, Moskva, Russia 107140<51434<1265528<<" + 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Im Steinkampe 14-16, 38110 Braunschweig, Germany<75742<2019304<<" + 
@@ -1156,8 +1156,8 @@ String distancesCSV3 = "Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstr
 		"Calle Generación 21-9, 29196 Málaga,  Spain<Piata Dorobantilor 2,  Bucuresti, Romania<128824<3739114<<" + 
 		"Piata Dorobantilor 2,  Bucuresti, Romania<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<79193<2187515<<" + 
 		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Piata Dorobantilor 2,  Bucuresti, Romania<79193<2187515<<" + 
-		"Piata Dorobantilor 2,  Bucuresti, Romania<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<46299<890082<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Piata Dorobantilor 2,  Bucuresti, Romania<46299<890082<<" + 
+		"Piata Dorobantilor 2,  Bucuresti, Romania<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<46299<890082<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Piata Dorobantilor 2,  Bucuresti, Romania<46299<890082<<" + 
 		"Piata Dorobantilor 2,  Bucuresti, Romania<Kaliskiego 25, 01-476 Warszawa,  Poland<62517<1714103<<" + 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Piata Dorobantilor 2,  Bucuresti, Romania<62517<1714103<<" + 
 		"Piata Dorobantilor 2,  Bucuresti, Romania<Im Steinkampe 14-16, 38110 Braunschweig, Germany<66396<1801565<<" + 
@@ -1186,7 +1186,7 @@ String distancesCSV3 = "Les Chandelènes 2-4, 1436 Chamblon, Schweiz<Meiefeldstr
 		"Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<Ronda de el Olivar de los Pozos 4 ,  45004 Toledo,  Spain<0<0<<" + 
 		"Calle Generación 21-9, 29196 Málaga,  Spain<Calle Generación 21-9, 29196 Málaga,  Spain<0<0<<" + 
 		"Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<Rue Alexandre Wouters 7-12,  1090 Jette,  Belgium<0<0<<" + 
-		"Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<Partizanskog odreda Zvijezda 2-22, Vogoš?a, Bosnia and Herzegovina<0<0<<" + 
+		"Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<Partizanskog odreda Zvijezda 2-22, Vogošća, Bosnia and Herzegovina<0<0<<" + 
 		"Kaliskiego 25, 01-476 Warszawa,  Poland<Kaliskiego 25, 01-476 Warszawa,  Poland<0<0<<" + 
 		"Im Steinkampe 14-16, 38110 Braunschweig, Germany<Im Steinkampe 14-16, 38110 Braunschweig, Germany<0<0<<" + 
 		"Komsomolskaya pl. 1, Moskva, Russia 107140<Komsomolskaya pl. 1, Moskva, Russia 107140<0<0<<" + 
