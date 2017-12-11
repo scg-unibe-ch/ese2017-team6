@@ -26,6 +26,10 @@ public class OurCompany {
 
 	public static long depositId;;
 	
+	public static final String street = "Hochschulstrasse 6";
+	public static final String city = "3012 Bern";
+	public static final String country = "Schweiz";
+	
 	public static void setDepositId(long id) {
 		depositId = id;
 	}

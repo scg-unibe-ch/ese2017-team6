@@ -51,6 +51,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	@Override
 	public void loadData() throws BadSizeException, DupplicateEntryException {
 		try {
+			this.loadDepositAddress();
 		if (roleRepository.count() == 0) this.loadRoles();
 		if (userRepository.count() == 0) this.loadUsers();
 		if (customerRepository.count() == 0)this.loadCustomers();
@@ -131,10 +132,10 @@ public class SampleDataServiceImpl implements SampleDataService{
 	
 	public void loadCustomers() {
 		
-		this.loadDepositAddress();
+		long idOfPort = 0; //here we store the id of the port in Portugal for clients in oversee
 		
 		String[] customers = customerCsv.split(";");
-		for (int i = 0; i < 26/*6/*customers.length*/; i++) {
+		for (int i = 0; i <customers.length; i++) {
 			String[] customerData = customers[i].split(",");
 			Customer customer = new Customer();
 			Address address = new Address();
@@ -145,11 +146,38 @@ public class SampleDataServiceImpl implements SampleDataService{
 			address.setStreet(addressData[0]);
 			address.setCity(addressData[1]);
 			address.setCountry(customerData[2]);
-			customer.setAddress(address);
 			
 			
-			addressRepository.save(address);
-			this.saveDistances(address);	
+			/**
+			 * EUROPE
+			 */
+			if(i<25) {
+				address.setReachableByTruck(true);
+				addressRepository.save(address);
+				
+				try {
+					customer.setAddress(address);
+				} catch (BadSizeException e) {
+					e.printStackTrace();
+				}
+				
+				this.saveDistances(address);	
+				if(address.getCountry().contains("Portugal")) {
+					idOfPort=address.getId();
+				}
+				
+			}else {//Oversea
+				address.setReachableByTruck(false);
+				addressRepository.save(address);
+				customer.setDomicilAddress(address);
+				try {
+					customer.setAddress(addressRepository.findOne(idOfPort));
+				} catch (BadSizeException e) {
+					e.printStackTrace();
+				}//Oversea clients will be shiped to portugal
+			}
+			
+			
 			customerRepository.save(customer);
 			
 			
@@ -160,12 +188,12 @@ public class SampleDataServiceImpl implements SampleDataService{
 	/**
 	 * Creates the deposit of the items
 	 */
-	private void loadDepositAddress() {
+	public void loadDepositAddress() {
 
 		Address deposit = new Address();
-		deposit.setStreet("Hochschulstrasse 6");
-		deposit.setCity("3012 Bern");
-		deposit.setCountry("Schweiz");
+		deposit.setStreet(OurCompany.street);
+		deposit.setCity(OurCompany.city);
+		deposit.setCountry(OurCompany.country);
 		addressRepository.save(deposit);
 		this.saveDistances(deposit);
 		OurCompany.setDepositId(deposit.getId());
@@ -294,6 +322,12 @@ public class SampleDataServiceImpl implements SampleDataService{
 			"Ben,Harmon,031 843 72 39,harmon@example.com;" + 
 			"Jason,Curry,031 843 72 40,curry@example.com;" + 
 			"Eunice,Mitchell,031 843 72 41,mitchell@example.com;";
+	
+	/*Careful the customers are sorted such that the first 25 are in Europe
+     and the last one are the ones oversea (where a domicil address is needed).
+     If you change this please change the Code which creates the customer too.
+     */
+	
 	private String customerCsv =  
 			"Peachstar,Burgerstrasse 13-15:3600 Thun,Schweiz,(177) 593-0085,peachstar@example.com;" + 
 			"Omegacoustics,Via Bergamina 14-18:20016 Pero MI,Italy,(114) 462-9810,omegacoustics@example.com;" + 

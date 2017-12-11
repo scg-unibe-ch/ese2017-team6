@@ -134,6 +134,8 @@ public class Route {
 
 	/**
 	 * Removes a Delivarable from the route
+	 * The status of the delivarable needs to be changed separately from
+	 * scheduled to open
 	 * @param delivarableToMove
 	 */
 	public void remove(IDelivarable delivarableToMove) {

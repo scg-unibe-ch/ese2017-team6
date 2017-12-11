@@ -21,6 +21,7 @@ $("#datatable").DataTable();
 			    		<th><b>street</b> <i class="fa fa-fw fa-sort"></i></th>
 			    		<th><b>city</b> <i class="fa fa-fw fa-sort"></i></th>
 			    		<th><b>country</b> <i class="fa fa-fw fa-sort"></i></th>
+			    		<th><b>valid delivery address</b> <i class="fa fa-fw fa-sort"></i></th>
 			    		<th><b>status</b> <i class="fa fa-fw fa-sort"></i></th>
 			    		<th></th>
 			    	</tr>
@@ -31,6 +32,7 @@ $("#datatable").DataTable();
 			    		<td th:text="${ad.getStreet()}"></td>
 			    		<td th:text="${ad.getCity()}"></td>
 			    		<td th:text="${ad.getCountry()}"></td>
+			    		<td th:text="${ad.isReachableByTruck()}"></td>
 			    		<td th:text="${ad.status.getTitle()}"></td>
 			    		<td><a th:href="@{{id}(id = ${ad.id})}">profile</a></td>
 	

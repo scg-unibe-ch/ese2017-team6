@@ -1,5 +1,7 @@
 package ch.ese.team6.Service;
 
+import java.util.List;
+
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
@@ -14,5 +16,7 @@ public interface AddressService {
 	void save(Address oldAddress) throws BadSizeException, InvalidAddressException;
 
 	Distance findDistance(Address oldAddress, Address newAddress);
+	
+	List<Address> findAllAddressesReachableByTruck();
 
 }

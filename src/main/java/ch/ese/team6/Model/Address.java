@@ -33,6 +33,8 @@ public class Address {
 	@OneToMany(mappedBy="destination")
 	private Set<Distance> inComing;
 	
+	private boolean reachableByTruck;//only addresses in Europe will be reachable by truck
+	//for the customer we will only be able to delivery Addresses which are reachableByTruck
 	
 	public Address() {
 		this.status = DataStatus.ACTIVE;
@@ -45,7 +47,13 @@ public class Address {
 		this.status = DataStatus.ACTIVE;
 	}
 	
-	
+	//Is set by the AddressService
+	public void setReachableByTruck(boolean t) {
+		this.reachableByTruck = t;
+	}
+	public boolean isReachableByTruck() {
+		return this.reachableByTruck;
+	}
 
 
 	
