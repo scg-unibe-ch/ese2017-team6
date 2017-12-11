@@ -50,6 +50,7 @@ public class Route {
 	public long measuredTime;
 	private long routeStart = 0;
 	private long routeStop = 0;
+	private long lastAddressid = 0;
 	
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -61,9 +62,8 @@ public class Route {
 	@JoinColumn(name="ROUTE_ID")
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
  	
-	
 	public Route() {
-		this.routeStatus = RouteStatus.OPEN;
+		this.routeStatus=RouteStatus.OPEN;
 	}
 	
 
@@ -134,6 +134,8 @@ public class Route {
 
 	/**
 	 * Removes a Delivarable from the route
+	 * The status of the delivarable needs to be changed separately from
+	 * scheduled to open
 	 * @param delivarableToMove
 	 */
 	public void remove(IDelivarable delivarableToMove) {
@@ -158,12 +160,13 @@ public class Route {
 	/**
 	 * Can be used to add an Order or an OrderItem to a route.
 	 * The delivarable will be added to the route
-	 * idependently of wheter it fits or not
-	 * You should check if it fits using
-	 * doesIDelivarableFit
-	 * @param d
+	 * only if it fits
+	 * If it does not fit nothing will be done
+	 * * @param d
 	 */
 	public void addDelivarable(IDelivarable d) {
+		if(!this.doesIDelivarableFit(d)) {return;}
+		
 		d.setRoute(this);
 		if(d.getClass().equals((Order.class))) {
 			Order o = (Order)d;
@@ -332,33 +335,7 @@ public class Route {
 	 * @return
 	 */
 	public String getHoursandMinutes() {
-		
-		long minutes = this.getEstimatedTime();
-		float hours = (float) minutes/60;
-		
-		int hour = (int) hours / 1;
-		
-		float decimalMinutes = hours - hour;
-		decimalMinutes *= 60;
-		
-		int finalMinutes = (int) decimalMinutes / 1;
-		
-		String Minutes = " minutes";
-		
-		if(finalMinutes == 1)
-			Minutes = " minute";
-		
-		if(finalMinutes == 0)
-			{if(hour == 1)
-				return "" + hour + " hour";
-			else 
-				return "" + hour + " hours";}
-		else
-			{if(hour == 1)
-				return "" + hour + " hour, " + finalMinutes + "" + Minutes;
-			else 
-				return "" + hour + " hours, " + finalMinutes + "" + Minutes;}
-			
+		return this.getEstimatedTimeStr();			
 	}
 	
 	
@@ -477,11 +454,13 @@ public class Route {
 	}
 	/**
 	 * Returns a set with all the addresses of this route (already delivered or not)
-	 * The addresses are sorted in the optimal order, such that the time to 
-	 * drive the route is minimal
-	 * 
-	 * Returns a set with all the addresses where something must be delivered.
-	 * If you pass onlyOpen you will only get the addresses where there are items not yet delivered.
+	 * The set is ordered such that the total driving time is minimal.
+	 * The ordering of the set is stable, i. e. if you call this method several times
+	 * you will always get the same order.
+	 * if you specify onlyOpen then you will get only the addresses where there are open items
+	 * to deliver
+	 * if you specify includeDeposit=false, then the deposit will be removed as long
+	 * as there are no items to be delivered at the deposit address.
 	 * @param onlyOpen 
 	 */
 	public Set<Address> getAllAddresses(boolean includeDeposit, boolean onlyOpen) {
@@ -492,7 +471,7 @@ public class Route {
 		LinkedHashSet<Address> addressesSorted = am.optimalRoute(addresses, deposit);
 		
 		//remove the deposit if not wanted
-		if(!includeDeposit) {
+		if(!includeDeposit && this.getAllAtAddress(deposit).isEmpty()) {
 			addressesSorted.remove(this.deposit);
 		}
 		
@@ -582,6 +561,7 @@ public class Route {
 		for(OrderItem oi: this.getAllAtAddress(address)) {
 			try {
 				oi.acceptDelivery();
+				this.lastAddressid = address.getId();
 			} catch (InconsistentOrderStateException e) {
 				e.printStackTrace();
 			}
@@ -593,6 +573,7 @@ public class Route {
 		for(OrderItem oi: this.getAllAtAddress(address)) {
 			try {
 				oi.rejectDelivery();
+				this.lastAddressid = address.getId();
 			} catch (InconsistentOrderStateException e) {
 				e.printStackTrace();
 			}
@@ -633,6 +614,17 @@ public class Route {
 		
 		return oi;
 
+	}
+	
+	public long getLastAddressId() {
+		if(this.lastAddressid != 0)
+			{return lastAddressid;}
+		else
+			return deposit.getId();
+	}
+	
+	public void setLastAddressId(long value) {
+		this.lastAddressid = value;
 	}
 	
 	/**

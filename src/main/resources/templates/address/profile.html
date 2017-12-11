@@ -37,6 +37,13 @@
 		 	</div>
 		 </div>
 		 
+		  <div class="form-group">
+		 <label class="col-sm-2" for="status">valid delivery address:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${address.isReachableByTruck()}"/>
+		 	</div>
+		 </div>
+		 
 		</div>
 		</div>
 		<a th:href="@{/address/{id}/edit(id = ${address.id})}" class="btn btn-primary">edit this address</a>

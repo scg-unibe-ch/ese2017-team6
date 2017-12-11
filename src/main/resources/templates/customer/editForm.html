@@ -24,20 +24,36 @@
 		 </div>
 		 
 		 <div class="form-group">
-	 		<label class="col-sm-2" for="id">address:</label>
+	 		<label class="col-sm-2" for="id">domicil address:</label>
+	 		<div class="col-sm-5">
+	 			<p th:text="*{domicilAddress}"/>
+	 		</div>
+	 	</div>
+		 
+		  	<div class="form-group">
+		 	<label class="col-sm-2" for="name">new domicil address:</label>
+		 	<div class="col-sm-5">	 		
+		 		<select class="form-control" th:field="*{domicilAddress}">
+        			<option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
+                </select>
+        	</div>
+		 </div>
+	 
+		 
+		 <div class="form-group">
+	 		<label class="col-sm-2" for="id">delivery address:</label>
 	 		<div class="col-sm-5">
 	 			<p th:text="*{address}"/>
 	 		</div>
 	 	</div>
 	 	
 	 	<div class="form-group">
-		 	<label class="col-sm-2" for="name">new address:</label>
+		 	<label class="col-sm-2" for="name">new delivery address:</label>
 		 	<div class="col-sm-5">	 		
 		 		<select class="form-control" th:field="*{address}">
-        			<option th:each="var : ${allAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
+        			<option th:each="var : ${allDAddress}" th:value="${var.id}" th:text="${var.toString()}"></option>
                 </select>
-                <a href ="/address/add" class="btn btn-primary" role="button">create new address</a>
-	 		</div>
+            </div>
 		 </div>
 	 
 	 	<div class="form-group">

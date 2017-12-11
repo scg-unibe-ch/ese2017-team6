@@ -89,7 +89,7 @@ public class MapServiceImpl implements MapService{
 			return newDistance;
 			
 		} catch (JSONException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new InvalidAddressException("Google didn't find a distance.");
 		}
 	}

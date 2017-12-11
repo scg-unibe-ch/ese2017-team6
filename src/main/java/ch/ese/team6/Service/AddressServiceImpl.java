@@ -40,8 +40,10 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public void save(Address address) throws BadSizeException, InvalidAddressException {
 		if (this.isValid(address)){
-			List<Address> addresses = addressRepository.findAll();
+			address.setReachableByTruck(true);
 			addressRepository.save(address);
+			List<Address> addresses = this.findAllAddressesReachableByTruck();
+			
 			for (Address addressPrint : addresses) {
 				System.out.println(addressPrint);
 			}
@@ -61,5 +63,17 @@ public class AddressServiceImpl implements AddressService {
 			
 			}
 		}
+	}
+
+	@Override
+	public List<Address> findAllAddressesReachableByTruck() {
+		List <Address> reachable = addressRepository.findAll();
+		for(int i = reachable.size()-1; i>=0;i--) {
+			Address a = reachable.get(i);
+			if(!a.isReachableByTruck()) {
+				reachable.remove(i);
+			}
+		}
+		return reachable;
 	}
 }

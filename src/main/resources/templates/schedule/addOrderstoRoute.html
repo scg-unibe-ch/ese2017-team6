@@ -9,18 +9,20 @@
 		<form action="#" th:action="@{/schedule/addOrderstoRoute/{id}(id = ${route.getId()})}" method="post">
 		
 		<div class="panel panel-info">
-		<div class="panel-heading"><h1>route summary</h1></div>
+		<div class="panel-heading"><h1><a th:href="@{/route/{id}(id = ${route.id})}" th:text="route ">summary</a></h1></div>
 		<div class="panel-body">
 			<table class="table table-hover">
 			<h3>left space</h3>
 			<thead>
 					<tr>
-						<th>space capacity</th>
+						<th>delivery date</th>
+						<th>size capacity</th>
 				    	<th>weight capacity</th>
 				    </tr>
 				    </thead>
 				    <tbody>
 				    	<tr class="info">
+				    	<td th:text="${route.getStartDateStr()}"></td>
 				    	<td th:text="${route.calculateCapacitySize()}"></td>
 				    	<td th:text="${route.calculateCapacityWeight()}"></td>
 				    	</tr>
@@ -34,8 +36,8 @@
 									    	<tr>
 									    		<th>address</th>
 									    		<th>number of items</th>
-									    		<th>weight of delivery</th>
 									    		<th>size of delivery</th>
+									    		<th>weight of delivery</th>
 									    		<th>order-items</th>
 									    		<th></th>
 									    	</tr>
@@ -44,15 +46,17 @@
 									    	<tr th:each="delivery : ${route.getAllDeliveries()}">
 									    		<td th:text="${delivery.getAddress().toString()}"></td>
 									    		<td th:text="${delivery.getNumberOfItems()}"></td>
-									    		<td th:text="${delivery.getWeight()}"></td>
 									    		<td th:text="${delivery.getSize()}"></td>
+									    		<td th:text="${delivery.getWeight()}"></td>
 									    		<td>
 										    		<ul th:each= "orderItem : ${delivery.getItems()}">
 									    				<li>
 											    		<span th:text = "${orderItem.toString()}"> </span>
 											    		 <span>
-											    		 <input th:type="submit" th:name="orderItem" class="close" th:value="'remove item ' + ${orderItem.id}">
-											    		 </input></span>
+											    		 <input th:type="submit" th:name="orderItemString" class="close" th:value="'remove item ' + ${orderItem.id}">
+											    		 <input th:type="hidden" th:name="orderItem" class="close" th:value="${orderItem.id}"></input>
+											    		 </input>
+											    		 </span>
 											    		</li>
 									    			</ul>
 								    			</td>
@@ -78,6 +82,7 @@
 							    		<th>delivery date</th>
 							    		<th>size</th>
 							    		<th>weight</th>
+							    		<th>additional time</th>
 							    		<th></th>
 							    	</tr>
 							    </thead>
@@ -89,7 +94,10 @@
 							    		<td th:text="${order.getDeliveryDateStr()}"></td>
 							    		<td th:text="${order.getOpenSize()}"></td>
 							    		<td th:text="${order.getOpenWeight()}"></td>
-							    		<td><input th:type="submit" th:name="orderID" class="btn btn-success" th:value="'add order number ' + ${order.id}"></input></td>
+							    		<td th:text="${route.getAdditionalTimeStr(order)}"></td>
+							    		<td><input th:type="submit" th:name="orderIDString" class="btn btn-success" th:value="'add order ' + ${order.id}">
+							    		<input th:type="hidden" th:name="orderID" class="close" th:value="${order.id}"></input>
+							    		</input></td>
 									</tr>
 								</tbody>
 						    </table>
@@ -104,10 +112,6 @@
 					</div>
 		
 		</form>
-		
-		<a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary" role="button">back to route</a>
-		<a sec:authorize="hasAuthority('LOGISTICS')" href="/logistics/" class="btn btn-primary" role="button">cockpit</a>
-		
 		</div>
 	</body>
 </html>

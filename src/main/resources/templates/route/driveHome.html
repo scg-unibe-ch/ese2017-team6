@@ -94,7 +94,8 @@
 			  <form action="#" th:action="@{/route/stopRoute/{id}(id = ${route.getId()})}" th:object="${route}" method="post"> 
 				    	<button type="submit" class="btn btn-success">finish route</button>
 				</form>
-		    <a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary">show route details</a>
+				<br/><br/>
+		    <a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary">route details</a>
 
 </div>
  </body>

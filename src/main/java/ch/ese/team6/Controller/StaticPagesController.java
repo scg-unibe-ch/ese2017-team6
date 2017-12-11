@@ -45,6 +45,7 @@ public class StaticPagesController {
 		return "staticpage/loaded";
 	}
 	
+	
 	@RequestMapping(path= "/welcome")
 	public String welcomeUser(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

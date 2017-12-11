@@ -45,23 +45,36 @@ public class AddressController {
 		if(!addressValue.isOK()) {
 			return "address/error";
 		}
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("address", addressValue);
+			return "address/createForm";}
+		
 		try {
-			if (bindingResult.hasErrors()) {
-				model.addAttribute("address", addressValue);
-				return "address/createForm";}
-			if(!addressValue.isOK()) 
-				{throw new BadSizeException("The address isn't created correctly");}
+			
 			// Store the Address, method will throw exceptions if it's doesn't added properly
+			//because it is not connected to the other addresses in this case the createDomicilAddress Window shows up
 			addressService.save(addressValue);
 		} catch (BadSizeException | InvalidAddressException e) {
-			model.addAttribute("message", e.getMessage());
 			model.addAttribute("address", addressValue);
-			e.printStackTrace();
-			return "address/error";
+			//e.printStackTrace();
+			return "address/createDomicilAddress";
 		}
 		model.addAttribute("address", addressRepository.findAll());
 		return "address/addressIndex";
 	}
+	
+	@PostMapping(path="/createDomicilAddress")
+	public String addNewDomicilAddress (Model model, @ModelAttribute Address addressValue, BindingResult bindingResult) {
+		if(!addressValue.isOK()) {
+			return "address/error";
+		}
+		addressRepository.save(addressValue);
+
+		model.addAttribute("address", addressRepository.findAll());
+		return "address/addressIndex";
+	}
+	
+	
 	
 	@GetMapping(path = "/{Id}")
 	public String showAddress(Model address,@PathVariable Long Id) {

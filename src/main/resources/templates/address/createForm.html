@@ -5,6 +5,7 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<h1>new address</h1>
+	
     <form action="#" th:action="@{/address/add}" th:object="${address}" method="post" class="form-horizontal">
         <table class="table">
     		<tr>
@@ -35,6 +36,10 @@
     			<td th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="'country can't be negative.'"></td>
     		</tr>
        	</table>
+       	 <div class="alert alert-info">
+	     <strong>info!</strong> Saving a new address may take some time, depending on how much addresses you have already stored in the database. The reason is that the software will look up and save the distance of the new address to all existing addresses.   
+	     </div>
+	
         <input type="submit" class="btn btn-primary" value="submit"/><br/><br/>
         <input type="reset" class="btn btn-primary" value="reset"/>
         <a href ="/address/" class="btn btn-primary" role="button">go back to overview</a>

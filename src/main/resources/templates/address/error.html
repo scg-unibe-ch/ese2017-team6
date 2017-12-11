@@ -6,9 +6,8 @@
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
 	<div th:if="${message}">
-    		<h2 th:text= " 'there was a problem creating the address: ' + ${message}"></h2>
-    		<p>please make sure you enter a valid address that exists in the GoogleDatabase</p>		
-	</div>
+    		<h2 th:text= " 'problem creating the addres: ' + ${message}"></h2>
+   	</div>
 	<a href ="/address/add" class="btn btn-primary" role="button">try again</a>
 	<a href ="/address/" class="btn btn-primary" role="button">back to all addresses</a>
 	</div>

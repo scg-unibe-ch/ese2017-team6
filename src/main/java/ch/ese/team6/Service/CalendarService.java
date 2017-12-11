@@ -166,12 +166,28 @@ public class CalendarService {
 	}
 	
 	
+
 	public static String formatMinutes(long minutes) {
-		if(minutes%60<10) {
-			return minutes/60+"h:0"+minutes%60+"min";
+		
+		int h =  ((int) minutes) / 60;
+		
+		
+		int m = ((int) minutes) % 60;
+		
+		
+		
+		String result = "";
+		
+		if(h>0) {
+			result = h+" hour"+((h!=1) ? "s" : "")+", ";
 		}
-		return minutes/60+"h:"+minutes%60+"min";
-	}
+		
+	
+		result = result+m+" minute"+((m!=1) ? "s" : "");
+		
+		return result;
+		
+		}
 
 	/**
 	 * Format date without hours and minutes
@@ -180,7 +196,7 @@ public class CalendarService {
 	 */
 	public static String format(Date date) {
 
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(date);
 	}
 

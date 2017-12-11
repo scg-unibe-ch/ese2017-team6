@@ -6,10 +6,13 @@
 		<a href="/logistics/" class="btn btn-success" role="button">go back to cockpit</a>
 		<div class="container">
 		<h1 th:text= "'create new route on ' + ${routeTemplate.getStartDateStr()}"></h1>
-	    
-		<p  th:text="'On this page we propose only trucks with enough capacity to transport the order '+${order.getId()}" ></p>
+	     <div class="alert alert-info">
+	    <strong>info!</strong> <p  th:text="'On this page we propose only trucks with enough capacity to transport the order '+${order.getId()}" ></p>
+	    <p>Moreover we make sure that creating a new route using those trucks and drivers does yield to a timetable confilct.</p>
+		</div>
+	
 		
-		<h1 th:if="${#lists.isEmpty(trucks)}" th:text= "'There are no trucks where this order may in'"></h1>
+		<h1 th:if="${#lists.isEmpty(trucks)}" th:text= "'There are no free trucks where this order may fit in'"></h1>
 	    
 		
 	    <form th:if="${not #lists.isEmpty(trucks)}" th:action="@{/route/add/o/{id}(id = ${order.getId()})}" th:object="${routeTemplate}" method="post">

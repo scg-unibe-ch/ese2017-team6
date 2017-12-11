@@ -18,7 +18,7 @@
 		and weight capacities are satisfied. You may try to schedule the orders manually.</p>
 		
 		
-		<a href="/schedule" class="btn btn-primary" role="button">Manual Scheduling</a>
+		<a href="/schedule/" class="btn btn-primary" role="button">Manual Scheduling</a>
 		
 		
 		
@@ -32,6 +32,8 @@
 		<table class="table table-hover">
 		<thead>
 		    	<tr>
+		    		<th>order id</th>
+		    		<th>customer</th>
 		    		<th>order address</th>
 		    		<th>order size</th>
 		    		<th>order weight</th>
@@ -39,6 +41,8 @@
 		</thead>
 		<tbody>
 		    	<tr th:each="o : ${routeProblem.getOrders()}">
+		    		<td><a th:href="@{/orders/{id}(id = ${o.getId()})}" th:text="${o}"></a></td> 	
+		    		<td th:text="${o.getCustomer()}"></td>
 		    		<td th:text="${o.getAddress()}"></td>
 		    		<td th:text="${o.getSize()}"></td>
 		    		<td th:text="${o.getWeight()}"></td>			
@@ -57,8 +61,8 @@
 		</thead>
 		<tbody>
 		    	<tr th:each="t : ${routeProblem.getTrucks()}">
-		    		<td th:text="${t.getTruckname()}"></td>
-		    		<td th:text="${t.getMaxCargoSpace()}"></td> 
+		    		<td><a th:href="@{/truck/{id}(id = ${t.getId()})}" th:text="${t}"></a></td> 	
+			    	<td th:text="${t.getMaxCargoSpace()}"></td> 
 		    		<td th:text="${t.getMaxLoadCapacity()}"></td>			
 				</tr>
 		</tbody>
@@ -72,9 +76,9 @@
 		    	</tr>
 		</thead>
 		<tbody>
-		    	<tr th:each="t : ${routeProblem.getDrivers()}">
-		    		<td th:text="${t. getRealname()}"></td>
-		    	</tr>
+		    	<tr th:each="d : ${routeProblem.getDrivers()}">
+		    	<td><a th:href="@{/driverview/{id}(id = ${d.getId()})}" th:text="${d}"></a></td>
+			    </tr>
 		</tbody>
    		</table>
 		

@@ -17,11 +17,20 @@
 		 </div>
 		 
 		 <div class="form-group">
-		 <label class="col-sm-2" for="address">address:</label>
+		 <label class="col-sm-2" for="address">domicil address:</label>
+		 	<div class="col-sm-5">
+		 		<p th:text="${customer.getDomicilAddress().toString()}"/>
+		 	</div>
+		 </div>
+		 
+		 <div class="form-group">
+		 <label class="col-sm-2" for="address">delivery address:</label>
 		 	<div class="col-sm-5">
 		 		<p th:text="${customer.getAddress().toString()}"/>
 		 	</div>
 		 </div>
+		 
+		
 		 
 		 <div class="form-group">
 		 <label class="col-sm-2" for="phone">phone:</label>

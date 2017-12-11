@@ -18,6 +18,7 @@ import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.DataStatus;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.CustomerRepository;
+import ch.ese.team6.Service.AddressService;
 
 @Controller
 @RequestMapping("/customer")
@@ -28,23 +29,9 @@ public class CustomerController {
 	
 	@Autowired
 	private AddressRepository addressRepository;
+	@Autowired
+	private AddressService addressService;
 	
-	/*
-	 * This function creates testdata
-	 */
-	@GetMapping(path="/addtest")
-	public String addSampleCustomers() {
-		String[] names = {"sbb","swisscom","ibm","postfinance","google","brumBrumm"};
-		for (int i= 0;i<names.length; i++) {
-			Customer cus = new Customer();
-			cus.setName(names[i]);
-			int n = addressRepository.findAll().size();
-			cus.setAddress(addressRepository.findAll().get(i%n));
-			
-			customerRepository.save(cus);
-		}
-		return "redirect:/orders/addtest";
-	}
 	
 	
 	
@@ -52,6 +39,7 @@ public class CustomerController {
 	public String createForm(Model model) {
 		  model.addAttribute("customer", new Customer());
 		  model.addAttribute("allAddress",addressRepository.findAll());
+		  model.addAttribute("allDAddress",addressService.findAllAddressesReachableByTruck());
 	        return "customer/createForm";
 	}
 
@@ -77,6 +65,7 @@ public class CustomerController {
 	public String editCustomerForm(Model customer, @PathVariable long customerId) {
 		customer.addAttribute("customer", customerRepository.findOne(customerId));
 		customer.addAttribute("allAddress",addressRepository.findAll());
+		customer.addAttribute("allDAddress",addressService.findAllAddressesReachableByTruck());
 		customer.addAttribute("statusArray", DataStatus.values());
 		return "customer/editForm";
 	}
@@ -88,6 +77,7 @@ public class CustomerController {
 		try {
 		cus.setName(customervalue.getName());
 		cus.setAddress(customervalue.getAddress());
+		cus.setDomicilAddress(customervalue.getDomicilAddress());
 		cus.setStatus(customervalue.getStatus());
 		if(!customervalue.isOK()) {
     		return new ModelAndView("customer/error");
@@ -97,17 +87,6 @@ public class CustomerController {
 		return new ModelAndView("customer/profile", "customer", cus);
 	}
 	
-	
-	@DeleteMapping(path = "/{Id}/edit")
-	public void deleteCustomer(@PathVariable long Id, HttpServletResponse response) {
-		customerRepository.delete(Id);
-		try {
-			response.sendRedirect("/customer/");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 
 	@GetMapping(path = "/{Id}")

@@ -59,21 +59,7 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-	/**
-	 * returns all free Users. I guess this one could be deleted.
-	 */
-    @Override
-	public List<User> findFreeUsers(Date date){
-		
-		List<User>freeUsers = userRepository.findAll();
-		for(int i =freeUsers.size()-1; i>=0; i--) {
-			User user = freeUsers.get(i);
-			if(user.isOccupied(date)) {
-				freeUsers.remove(user);
-			}
-		}
-		return freeUsers;
-	}
+	
     /**
      * returns all unscheduled drivers for the choosen date
      */

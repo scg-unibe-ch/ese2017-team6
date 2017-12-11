@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import ch.ese.team6.Exception.BadSizeException;
+
 @Entity 
 @Table(name = "Customer")
 public class Customer {
@@ -32,10 +34,12 @@ public class Customer {
 	@NotNull
     private Address address;
 
-    public Customer(String customername, Address address) {
-    	this.name = customername;
-    	this.address = address;
-    }
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="DOMICILADDRESS_ID")
+	@NotNull
+	private Address domiciladdress;
+
+    
     public Customer() {
     	this.status = DataStatus.ACTIVE;
     }
@@ -83,8 +87,33 @@ public class Customer {
 	public Address getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
+	/**
+	 * Will set the Delivery address
+	 * if address.isReachableByTruck() returns false, nothing will be done and an Exception is thrown
+	 * if the customer does not yet have a domicil address the domicil address
+	 * will be the same as the delivery address.
+	 * @param address
+	 */
+	public void  setAddress(Address address) throws BadSizeException{
+		if(!address.isReachableByTruck()) {throw new BadSizeException("You specified an invalid delivery Address");}
 		this.address = address;
+		if(this.domiciladdress==null) {
+			this.domiciladdress=address;
+		}
+	}
+	
+	/**
+	 * Sets the domicil address of the client, this is optional
+	 * if it is not done the domicil address will be the delivery address.
+	 * The domicil address does not necessarily need to be reachable by track.
+	 * @param address
+	 */
+	public void setDomicilAddress(Address address) {
+		this.domiciladdress=address;
+	}
+	
+	public Address getDomicilAddress() {
+		return domiciladdress;
 	}
 	
 	@Override
@@ -95,7 +124,7 @@ public class Customer {
 		return this.invariant();
 	}
 	private boolean invariant() {
-		return name!=null && address!=null &&name.length()!=0;
+		return name!=null && address!=null &&name.length()!=0 && address.isReachableByTruck()&&domiciladdress!=null;
 	}
 
 

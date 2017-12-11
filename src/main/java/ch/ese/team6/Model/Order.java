@@ -40,6 +40,16 @@ public class Order  implements IDelivarable{
 	@OneToMany(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
 	@JoinColumn(name="ORDERS_ID")
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	
+	/**
+	 * The address is stored even if the customer is stored
+	 * The reason: we do not want to have address changes for the customer
+	 * affecting its executed or scheduled orders
+	 */
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ADDRESS_ID")
+	@NotNull
+	private Address address;
  	
 
 	
@@ -64,11 +74,12 @@ public class Order  implements IDelivarable{
     
     @Override
 	public Address getAddress() {
-    	return this.customer.getAddress();
+    	return address;
     }
     
-    public Customer setCustomer(Customer cus) {
-    	return this.customer = cus;
+    public void setCustomer(Customer cus) {
+    	 this.address = cus.getAddress();
+    	 this.customer = cus;
     }
    
     
@@ -145,10 +156,12 @@ public class Order  implements IDelivarable{
 		return s;
 	}
     
-    
+    /**
+     * Sets the route of the open order items equal to r
+     */
     @Override
     public void setRoute(Route r) {
-    	for(OrderItem i: this.orderItems) {
+    	for(OrderItem i: this.getOpenOrderItems()) {
     		i.setRoute(r);
     	}
     }
@@ -225,7 +238,9 @@ public class Order  implements IDelivarable{
 		return w;
 	}
 	
-
+	public String toString() {
+		return "Order "+id+" for "+this.getCustomer().getName();
+	}
 
 
 	@Override

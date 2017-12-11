@@ -6,17 +6,19 @@
 		<div class="container">
 		 <div class="panel panel-success">
 		  <div class="panel-heading">
+		  <div class="form-group">
 			<h1 th:text="'start: ' +${route.getStartDateStr()}"></h1>
 			<h1 th:text="'end: ' +${route.getEndDateStr()}"></h1>
-			<h2 th:text= "'route no: ' +${route.getId()}"></h2>
-			<h2 th:text= "'status: ' +${route.getRouteStatus()}"></h2></div>
+			<h2 th:text= "'status: ' +${route.getRouteStatus()}"></h2>
+			</div>
+			</div>
 		   
 	    	<form class="form-horizontal">
 			<div class="panel-body"></div>
 			<div class="form-group">
 				<label class="col-sm-2" for="name">truck name:</label>
 			 	<div class="col-sm-5">
-			 		<p th:text="${route.getTruck()}"/>
+			 		<a th:href="@{/truck/{id}(id = ${route.getTruck().getId()})}" th:text="${route.getTruck()}"></a>
 			 	</div>
 			 </div>
 			 
@@ -65,12 +67,15 @@
 			</form>
 		</div>
 			
-	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/schedule/" class="btn btn-primary" role="button">go back to scheduling</a>
-	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/route/" class="btn btn-primary" role="button">show all routes</a>
-		<a sec:authorize="hasAuthority('LOGISTICS')" th:href="@{/schedule/addOrderstoRoute/{id}(id = ${route.id})}" class="btn btn-primary" role="button">add orders</a>
+	    <a sec:authorize="hasAuthority('LOGISTICS')" href="/schedule/" class="btn btn-primary" role="button" th:if="${#strings.equals(route.routeStatus,'OPEN')}">scheduling</a>
+		<a sec:authorize="hasAuthority('LOGISTICS')" th:href="@{/schedule/addOrderstoRoute/{id}(id = ${route.id})}" class="btn btn-primary" role="button" th:if="${#strings.equals(route.routeStatus,'OPEN')}">manage orders</a>
 		
 		<br/><br/>
-	    <a th:href="@{/route/completeRoute/{id}(id = ${route.id})}" class="btn btn-success" th:if="${#strings.equals(route.routeStatus,'OPEN')}">show route on map</a>
+	    <a th:href="@{/route/completeRoute/{id}(id = ${route.id})}" class="btn btn-success" th:if="${#strings.equals(route.routeStatus,'OPEN') and not #lists.isEmpty(route.getAllDeliveries())}">show route on map</a>
+	    <form action="#" th:action="@{/route/continueRoute/{id}(id = ${route.id})}" th:object="${route}" method="post" th:if="${#strings.equals(route.routeStatus,'ON ROUTE') and not #lists.isEmpty(route.getAllDeliveries())}"> 
+			    	<input type="hidden" name="addressid" th:value="${route.getLastAddressId()}"/>
+			    	<button type="submit" class="btn btn-warning">continue route</button>
+					</form>
 		</div>
 	</body>
 </html>
