@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
+	<h1>new address</h1>
+	 <div class="alert alert-danger">
+	    <strong>info!</strong> the address you have entered was either not found in Google Maps or it is not reachable by truck. You may save the address anyway. In this case you will only be able to use it as a customer domicil (and not as a delivery address) 
+	</div>
+	
+	
+    <form action="#" th:action="@{/address/createDomicilAddress}" th:object="${address}" method="post" class="form-horizontal">
+        <table class="table">
+    		<tr>
+    			<td>street name and number:</td>
+    			<td>
+    				<div class="col-sm-5">
+    				<p th:text="*{street}"></p>
+    				<input  type = "hidden" th:field="*{street}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>post code and city:</td>
+    			<td>
+    				<div class="col-sm-5">		
+    				<p th:text="*{city}"></p>
+    				<input  type = "hidden" th:field="*{city}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>country </td>
+    			<td>
+    				<div class="col-sm-5">
+    				<p th:text="*{city}"></p>
+    				<input  type = "hidden" th:field="*{country}" class="form-control" required = "required"/>
+    				</div>
+    			</td>
+    		</tr>
+    			
+       	</table>
+        <input type="submit" class="btn btn-primary" value="submit anyway"/><br/><br/>
+        <a href ="/address/" class="btn btn-primary" role="button">go back to overview</a>
+    </form>
+    </div>
+</body>
+</html>

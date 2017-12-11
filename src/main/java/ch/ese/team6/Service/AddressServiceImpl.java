@@ -42,7 +42,7 @@ public class AddressServiceImpl implements AddressService {
 		if (this.isValid(address)){
 			address.setReachableByTruck(true);
 			addressRepository.save(address);
-			List<Address> addresses = addressRepository.findAll();
+			List<Address> addresses = this.findAllAddressesReachableByTruck();
 			
 			for (Address addressPrint : addresses) {
 				System.out.println(addressPrint);

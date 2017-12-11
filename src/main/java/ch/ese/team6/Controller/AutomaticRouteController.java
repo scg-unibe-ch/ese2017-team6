@@ -29,6 +29,7 @@ import ch.ese.team6.Repository.RoleRepository;
 import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Repository.TruckRepository;
 import ch.ese.team6.Repository.UserRepository;
+import ch.ese.team6.Service.CalendarService;
 import ch.ese.team6.Service.OrderService;
 import ch.ese.team6.Service.OurCompany;
 import ch.ese.team6.Service.RouteGenerationProblem;
@@ -61,14 +62,23 @@ public class AutomaticRouteController {
 		// We will propose him only dates where there are order ready to shedule.
 		List<Date> dates = orderService.findAllDatesWithOpenOrders();
 		// Dates are all the dates where they are routes
-		model.addAttribute("dates", dates);
 
 		RouteGenerationProblem routeProblem = new RouteGenerationProblem();
 
+		/**
+		 * This already proposes the first date 
+		 */
 		if (!dates.isEmpty()) {
 			routeProblem.setDeliveryDate(dates.get(0));
 			model.addAttribute("routeProblem", routeProblem);
 		}
+		
+		List<String> formattedDates = new ArrayList<String>(dates.size());
+		for(Date d: dates) {
+			formattedDates.add(CalendarService.format(d));
+		}
+		model.addAttribute("dates", formattedDates);
+
 
 		return "automaticroutegeneration/selectdate";
 	}

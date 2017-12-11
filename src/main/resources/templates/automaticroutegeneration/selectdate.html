@@ -6,11 +6,16 @@
 		<div class="container">
 		<h1> automatic route generation </h1>
 		<div th:if="${#lists.isEmpty(dates)}">
+		
+		
 		<p>there are currently no orders open for scheduling</p>
 		<a href="/orders/add" class="btn btn-primary" role="button">create new order</a>
 		</div>
 		<div th:if="${not #lists.isEmpty(dates)}">
 		
+		<div class="alert alert-info">
+		<strong>info!</strong> this part of the software will create optimal routes (minimal total duration) for you using a heuristic. In a first step you enter the date of the orders you want to schedule. Afterwards the software will select free trucks and drivers and assign the orders to the trucks in a way that minimizes the total driving time. The algorithm takes into account the capacity constraints of the trucks and the timetables of the trucks and the drivers. 
+		</div>
 		
 		<p>there are currently orders at the following days open for scheduling:</p>
 		
@@ -22,7 +27,7 @@
 		</thead>
 		<tbody>
 		    	<tr th:each="date : ${dates}">
-		    		<td th:text="${date.toString()}"></td>
+		    		<td th:text="${date}"></td>
 				</tr>
 		</tbody>
    		 </table>
@@ -31,7 +36,7 @@
 		
 		<form action="#" th:action="@{/automaticroutegeneration/selectdate}" th:object="${routeProblem}" method="post">
 		  <div>
-		  <p> please enter the the day you want schedule:
+		  <p> please enter the the date of the orders you want schedule:
            	<input type="date" th:name="date" placeholder="set route date"  th:field="*{deliveryDate}" /></p>       
            </div>
   

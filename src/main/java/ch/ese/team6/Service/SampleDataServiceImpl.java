@@ -194,6 +194,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 		deposit.setStreet(OurCompany.street);
 		deposit.setCity(OurCompany.city);
 		deposit.setCountry(OurCompany.country);
+		deposit.setReachableByTruck(true);
 		addressRepository.save(deposit);
 		this.saveDistances(deposit);
 		OurCompany.setDepositId(deposit.getId());
