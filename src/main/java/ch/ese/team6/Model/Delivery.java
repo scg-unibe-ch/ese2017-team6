@@ -16,13 +16,14 @@ public class Delivery {
 	private Route route;
 	
 	private ArrayList<OrderItem> items;
+
 	
-	/*
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="route")
-	private Route route;
-	*/
-	
+	/**
+	 * A Delivery object consists of an adress and several orderitems
+	 * The delivery is created by the route on the fly and never
+	 * stored in the database.
+	 * 
+	 */
 	public Delivery() {}
 
 
@@ -107,6 +108,12 @@ public class Delivery {
 	}
 
 
+	
+	/**
+	 * This parameter will only be used to display the distance to the next
+	 * delivery. It is set by the route when it constructs the deliveries
+	 * @param distanceToNextDelivery
+	 */
 	public void setDistanceToNextDelivery(long distanceToNextDelivery) {
 		this.distanceToNextDelivery = distanceToNextDelivery;
 	}
@@ -119,7 +126,13 @@ public class Delivery {
 		return "drive "+CalendarService.formatMinutes(distanceFromPreviousDelivery);
 	}
 
-
+	
+	/**
+	 * This distance will only be used for display purposes
+	 * namely when you call getDistanceFromPreviousDeliveryStr
+	 * This is set by the route
+	 * @param distanceFromPreviousDelivery
+	 */
 	public void setDistanceFromPreviousDelivery(long distanceFromPreviousDelivery) {
 		this.distanceFromPreviousDelivery = distanceFromPreviousDelivery;
 	}

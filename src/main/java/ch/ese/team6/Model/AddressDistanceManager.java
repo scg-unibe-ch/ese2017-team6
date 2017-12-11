@@ -7,9 +7,6 @@ import java.util.Set;
 /**
  * Our Application will need an Object, that tells us
  * how far an adress is away from some other Address.
- * The implementation may be with Google Maps and may
- * or may not cache data.
- * In a first place we will use a DummyAddressManger
  * 
  */
 public class AddressDistanceManager {
@@ -20,12 +17,14 @@ public class AddressDistanceManager {
 	 * address1 and will give the nearest Address different from address1
 	 * Precondition addresses has at least one element.
 	 * If ignoreSelf is true then addresses must contain one element different from address1
+	 * The implementation is stable: meaning that two addresses having 
+	 * the same same distance to address1 always the same address will be returned.
 	 * @return
 	 */
 	public Address getNeigherstAddress(Address address1, Set<Address> addresses, boolean ignoreSelf) {
 		assert address1 != null;
 		assert addresses != null;
-		assert(addresses.size()>1 && (!ignoreSelf || !addresses.contains(address1) || addresses.size()>2));//We require
+		assert(addresses.size()>=1 && (!ignoreSelf || !addresses.contains(address1) || addresses.size()>=2));//We require
 		
 		
 		if(ignoreSelf && addresses.contains(address1)) {
@@ -114,9 +113,7 @@ public class AddressDistanceManager {
 			current = next;
 		}
 		
-		//drive back to the deposit
-		System.out.println(current);
-		System.out.println(deposit);
+		
 		estimatedTime += current.getDistance(deposit);
 		
 		return estimatedTime;
@@ -144,8 +141,6 @@ public class AddressDistanceManager {
 	
 	/**
 	 * Returns the distance from Address a1 to Address a2. 
-	 * The method makes sure that the distance from a1 to a2 is the same
-	 * as the distance from a2 to a1
 	 * @param a1
 	 * @param a2
 	 * @return

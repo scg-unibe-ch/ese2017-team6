@@ -10,7 +10,20 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import ch.ese.team6.Service.CalendarService;
-
+/**
+ * The address object stores street, city and country.
+ * There are two types of Address
+ * - the ones reachable by Truck
+ * the ones reachable by Truck may be used as a delivery address and domicil address
+ * the ones not reachable by truck may only be used be as domicil address
+ *  
+ *  For a "reachableByTruck" address:
+ *  - the address service will make sure it is a valid Google Maps address
+ *  - the address service will store in going and outgoing distances to all other "reachableByTruck" addresses
+ *  
+ *  For a not "reachableByTruck" address:
+ *  - outgoing and incoming distances are not stored
+ */
 @Entity
 public class Address {
 	@Id
@@ -28,10 +41,10 @@ public class Address {
 	private DataStatus status;
 	
 	@OneToMany(mappedBy="origin")
-	private Set<Distance> outGoing;
+	private Set<Distance> outGoing;//The outgoing distances (Distance from here to an other address): this is set by the AddressService using Google Maps
 	
 	@OneToMany(mappedBy="destination")
-	private Set<Distance> inComing;
+	private Set<Distance> inComing;//The incoming distances (Distances from other address to here): this is set by the AddressService using Google Maps
 	
 	private boolean reachableByTruck;//only addresses in Europe will be reachable by truck
 	//for the customer we will only be able to delivery Addresses which are reachableByTruck
@@ -40,12 +53,6 @@ public class Address {
 		this.status = DataStatus.ACTIVE;
 	}
 	
-	public Address(String street, String city) {
-	
-		this.street = street;
-		this.city = city;
-		this.status = DataStatus.ACTIVE;
-	}
 	
 	//Is set by the AddressService
 	public void setReachableByTruck(boolean t) {
@@ -115,8 +122,12 @@ public class Address {
 		return this.invariant();
 	}
 
+	/**
+	 * To addresses are equal if and only if they have the same id
+	 * @param address
+	 * @return
+	 */
 	public boolean equals(Address address) {
-		// TODO Auto-generated method stub
 		if(address.getId() == this.id)
 			return true;
 		else
@@ -130,6 +141,7 @@ public class Address {
 	 * @return
 	 */
 	public long getDistance(Address address2) {
+		assert (this.reachableByTruck && address2.reachableByTruck);
 		long minutes = 0;
 		int datapoints = 0;
 		for(Distance distance:this.outGoing) {
@@ -162,13 +174,8 @@ public class Address {
 		}
 		return 0;
 	}
-/*
-	public List<Distance> getDistances() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-*/
 
+    
 	public String getDistanceStr(Address nextAddress) {
 		return CalendarService.formatMinutes(this.getDistance(nextAddress));
 	}
