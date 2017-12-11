@@ -3,7 +3,12 @@ package ch.ese.team6.Service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * This class static formatters and parsers for dates and time.
+ * Moreover it provides static methods to do timetable computations like: "When does a worker complete a task 
+ * that needs 8 hours and 40 Minutes when he works between 10am and 4pm every day.
+ * 
+ */
 public class CalendarService {
 
 	/**
@@ -12,15 +17,15 @@ public class CalendarService {
 	 * then yyyy-MM-dd
 	 * and if this fails
 	 * dd-MM-yyyy
-	 * if this fails too the current Date is returned.
-	 * @param s
+	 * if this fails null is returned.
+	 * @param stringToParse
 	 * @return
 	 */
-	public static Date parseDate(String s) {
+	public static Date parseDate(String stringToParse) {
 		
 		SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		try {
-			Date date = parser.parse(s);
+			Date date = parser.parse(stringToParse);
 			return date;
 		} catch (Exception e) {
 		}
@@ -28,19 +33,19 @@ public class CalendarService {
 
 		 parser = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Date date = parser.parse(s);
+			Date date = parser.parse(stringToParse);
 			return date;
 		} catch (Exception e) {
 		}
 
 		parser = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			Date date = parser.parse(s);
+			Date date = parser.parse(stringToParse);
 			return date;
 		} catch (Exception e) {
 		}
 
-		return Calendar.getInstance().getTime();
+		return null;
 		
 	}
 
@@ -57,9 +62,10 @@ public class CalendarService {
 
 	/**
 	 * Returns a new date with the same day of month, month and year as the Date
-	 * date but hour set to hour
+	 * date but hour set to hour. Minutes and seconds are cleared.
+	 * If hour is not between 0 and 23 we calculate it modulo 24
 	 * 
-	 * @param date
+	 * @param date, hour
 	 * @return
 	 */
 
@@ -121,9 +127,12 @@ public class CalendarService {
 	public static Date computeTaskEnd(Date taskStart, long milliSeconds) {
 
 		long remainingTaksLength = milliSeconds;
+		if(taskStart.before(CalendarService.getWorkingStart(taskStart))) {
+			taskStart = CalendarService.getWorkingStart(taskStart);
+		}
+		
 		Calendar taskEnd = Calendar.getInstance();
 		taskEnd.setTime(taskStart);
-
 		while (remainingTaksLength > 0) {
 			long capacityToday = Math
 					.max(CalendarService.getWorkingEnd(taskEnd).getTimeInMillis() - taskEnd.getTimeInMillis(), 0);
