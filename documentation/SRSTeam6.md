@@ -43,11 +43,11 @@ They receive the deliveries.
 Finances the software. Want to manage the same workload with less logisticians.
 
 ## 1.3 Definitions
-* OrderItem: A physical object which should be delivered to a customer. Consists of an Item, an order and a route. Has one of the following status: open, shedueld, delivered.
-* Item: Object that can be theoretically delivered to a customer. Item has a space that it uses in the truck.
-* Order: Contains items, a customer and an address.
+* OrderItem: A entry in a order should be delivered to a customer. Consists of an Item and an amount. Has one of the following status: open, shedueld, delivered (finished).
+* Item: Object that can be theoretically delivered to a customer. Item has a space that it uses in the truck and a weight.
+* Order: Contains orderitems, a customer and an address.
 * Route: Contains orderitems, which then form one or more deliveries. A Route gets started by the driver, and starts at the company. After delivering the last delivery, the route ends at the company and gets stopped. A route measures the time between start and stop.
-* Truck: Is driven by a driver and makes the route. Contains several orderItems. A truck has a capacity.
+* Truck: Is driven by a driver and makes the route. Contains several orderItems. A truck has a weight and size capacity.
 
 ## 1.4 System Overview
 The System will be a client-server application, the most common browsers as chrome and firefox will act as clients. The application follows a MVC architekture. At least one part of the application will be a responsive webpage to be usable on a mobile device.
@@ -123,7 +123,7 @@ A logistician is logged into the system and has internet connection.
 > 4. The user types in valid credentials for the new address.
 > 5. The user clicks on the 'submit' button.
 > 6. The system can't find the address in GoogleMaps or can't calculate a distance to any of the existing addresses.
-> 7. The user sees his inputs an can now select if he saves the address anyway ('submit anyway'). If that's not the case, he can go back to the overwiev.  
+> 7. The user sees his inputs an can now select if he saves the address anyway ('submit anyway'). If that's not the case, he can go back to the overwiev.  When he saves the address anyway, the address can only be used as a domicil address for the customer but not as a delivery address.
 
 * *Postcondition:*  
 The address is saved in the system.  
@@ -151,7 +151,7 @@ A logistician is logged into the system and has internet connection.
 > 6. Continue with 1. in *Scenario*.
 
 * *Postcondition:*  
-The address is saved in the system.  
+The customer is saved in the system.  
 
 ### **2.1.6 Create new order**
 * *Actors:*  
@@ -163,7 +163,7 @@ A logistician is logged into the system and has internet connection. The custome
 * *Scenario:*
 > 1. The user selects 'Create new order' in the header.
 > 2. The user selects a customer and a delivery date for the order.
-> 3. The user adds all the items that the customer ordered with the ordered number. 
+> 3. The user adds all the items that the customer ordered with the ordered amount. 
 > 4. The user submits the order.  
 * *Postcondition:*  
 The order and all the items (orderItems) it contains are saved into the system with the status 'OPEN'.  
@@ -206,7 +206,7 @@ A logistician is logged into the system and has internet connection. At least on
 > 2. The user selects 'schedule order'.
 > 3. The user gets informed that no current route satisfies the needs*(capacity, date)* to add the required order. 
 > 4. The user selects to create a new route.  
-> 5. The user creates a route which satisfies the needs of the order.  
+> 5. The user creates a route which satisfies the needs of the order. 
 * *Alternative Scenario 2:*  
 > 1. The user is on the cockpit-page.
 > 2. The user selects 'Add order to Route' in the header.
@@ -231,7 +231,7 @@ A driver is logged into the system and is connected to the internet.
 > 2. The driver sees all the scheduled routes for him.
 > 3. The driver clicks on 'start route' at the route he wants to start.  
 * *Postcondition:*  
-The status of the route is now switched to 'ON ROUTE'.  
+The status of the route is now switched to 'ON ROUTE'. The start time is registered.
 
 ### **2.1.10 Accept/reject delivery**
 * *Actors:*  
@@ -271,7 +271,7 @@ A logistician is logged into the system and is connected to the internet.
 > 2. The user selects a date on which he wants to create routes automatically. 
 > 3. The user clicks 'start'.  
 * *Postcondition:*  
-Routes are automatically generated based on the best options *(trucks, orders, distances)* for the given orders. Orders that are added to the routes change their status to 'SCHEDULED'.  
+Routes are automatically generated based on the best options *(trucks, orders, distances)* for the given orders. Orders that are added to the routes change their status to 'SCHEDULED'. If the RouteGenerator was not able to find a solution (because for instance there are not enough free trucks), the logitistician is notified and may still create routes manually.
 
  
 
@@ -294,16 +294,28 @@ The driver accesses the application mostly via a mobile device. He executes a ro
    
 ### 3.1.3 Creation and administration of Routes:
 * A route is created by the logistician (Task: Create new route). The logistician first selects a Driver from the available drivers and a truck from the available Trucks. Afterwards he selects one or more Orders with the status „OPEN“. The articles from the orders which are assigned to a route get the status „SCHEDULED“.
-* Routes have three status: „OPEN“, „ON ROUTE“, „FINISHED“. Only routes with the status „OPEN“ can be deleted or manipulated. If a route is deleted all OrderItems in that route will change the status from „scheduled“ to „OPEN“.
+* Routes have three status: „OPEN“, „ON ROUTE“, „FINISHED“. Only routes with the status „OPEN“ can be deleted or manipulated. If a route is deleted all OrderItems in that route will change the status from „SCHEDULED“ to „OPEN“.
 * The logistician can access a list with all routes (Task: Show routes) where he sees the start date, the end-date, the driver, the expected time and the route status. By clicking on a route he can see the items which are in the route. Only routes with the status „OPEN“ can be deleted or manipulated.
+* The route is always sorted such that the driving time is minimal. I. e. the software searches for a shortest path.
+
    
 ### 3.1.4 Execution of routes:
 * A driver can select to view the route on the map(Task: Show route on map) with the status „OPEN“ and can there start the route. The starting time of the route is registered and the route gets the status „ON ROUTE“.
 * The driver sees on the ongoing route the next delivery that he has to execute. He can press „accept delivery“ or „reject delivery“ for each delivery. Depending on his choice the status of the items change from „scheduled“ to "finished" or back to „open“. In the „open“ case the item shows up again when a logistician is going to create a new route.
-* The Route changes it's status to finished, when the driver finished the route (even if he rejected deliveries).  
+* The Route changes it's status to finished, when the driver finished the route (even if he rejected deliveries).
 
-![](https://github.com/scg-unibe-ch/ese2017-team6/blob/docu/UIdriver.jpg?raw=true)
-  
+### 3.1.5 Timetable
+* The drivers and the trucks are not allowed to be at two routes at the same time.
+* The software makes sure that it is never possible to create a route that intersects with another route of the same truck or driver.
+* Routes may last several days. We compute using the distances from Google Maps (see 3.1.6) the time it will take to drive the route. We compute the end date of a route taking into account the working days (like 8am to 5 pm). The working days can be specified in the software (see file OurCompany.java).
+* It is not possible for a truck or driver to have more than one route per day. (confirmed by client on November 21)
+
+
+### 3.1.6 Administration of addresses:
+* Newly added addresses are checked in Google Maps to see whether they are valid. For valid addresses we search in Google Maps the distance to all other valid addresses already stored in the database. We store the distances in the database to avoid retrieving too much data from Google Maps (we are not allowed to submit more than 2500 requests/day).
+* There are customers which are not reachable by truck (for instance because they live in Canada). For each customer we specify a domicil and a delivery address. The delivery address must be reachable by truck from the deposit of the company (i.e. it could be a port for a customer in Canada). The domicil address may not be reachable by truck.
+   
+
 ## 3.2 Nonfunctional requirements
 ### 3.2.1 Stability and Robustness
 We used TRAVIS CI and Heroku to ensure stability and robustness, it's very useful to test new commits automatically with heroku, failed commits were shown in github and could be fixed easily. Testing the app on heroku shows us additional bugs which couldn't be found on a local instance due changes of the infrastructure, for example, the deployment on heroku was supported by PostGreSQL while the initial development was in MySQL.
