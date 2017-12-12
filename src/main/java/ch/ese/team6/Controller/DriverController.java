@@ -1,5 +1,7 @@
 package ch.ese.team6.Controller;
  
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ import ch.ese.team6.Repository.RouteRepository;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Role;
 import ch.ese.team6.Model.Route;
+import ch.ese.team6.Model.RouteStatus;
  
  @Controller
  @RequestMapping("/driverview")
@@ -42,7 +45,20 @@ import ch.ese.team6.Model.Route;
 	@GetMapping(path = "/{userId}")
  	public String showUser(Model driver,@PathVariable Long userId) {
 	driver.addAttribute("driver", userRepository.findOne(userId));
-	driver.addAttribute("routes", routeRepository.findByDriverId(userId));
+	
+	List<Route> openRoutes = new ArrayList<Route>();
+	List<Route> finishedRoutes = new ArrayList<Route>();
+	
+	for(Route r : routeRepository.findByDriverId(userId))
+	{
+		if(r.getRouteStatus().equals(RouteStatus.OPEN))
+			openRoutes.add(r);
+		if(r.getRouteStatus().equals(RouteStatus.FINISHED))
+			finishedRoutes.add(r);
+	}
+	
+	driver.addAttribute("openroutes", openRoutes);
+	driver.addAttribute("finishedroutes", finishedRoutes);
 		return "driverview/profile"; 
 	}
 	

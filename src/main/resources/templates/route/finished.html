@@ -18,7 +18,7 @@
 			    	<tr>
 			    		<td th:text="${route.getStartDateStr()}"></td>
 			    		<td th:text="${route.getEndDateStr()}"></td>
-			    		<td th:text="${route.getMeasuredTime() + ' minutes'}"></td>
+			    		<td th:text="${route.getMeasuredTime() + ' min.'}"></td>
 					</tr>
 				</tbody>
 		</table>
@@ -50,6 +50,7 @@
 			
 			<br/><br/>
 		    <a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary">route details</a>
+		    <a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" class="btn btn-primary" th:text="${route.getDriver().getUsername()}"> profile</a>
 </div>
 		
 </body>

@@ -55,11 +55,7 @@
 		 <ul style="list-style-type:none">
 		 <h4><li th:text="${route.getHoursandMinutes()}"></li></h4>
 		 </ul>
-			 <div id="start-route">
-			 		<form action="#" th:action="@{/route/startRoute/{id}(id = ${route.getId()})}" th:object="${route}" method="post"> 
-			    	<button type="submit" class="btn btn-success">start route</button>
-					</form>
-				</div>
+			 
 			<div id="options">
 					<a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" class="btn btn-primary" th:text="${route.getDriver().getUsername()} + 's profile'"></a>
 					<a th:href="@{/route/{id}(id = ${route.getId()})}" class="btn btn-primary">route-profile</a>

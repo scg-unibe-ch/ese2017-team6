@@ -39,20 +39,18 @@
 		 </div>
 	</div>
 	</div>
-	
-	<a sec:authorize="hasAuthority('LOGISTICS')" th:href="@{/user/{id}/edit(id = ${driver.id})}" class="btn btn-primary">edit this user</a>
 	</form>
      
-    <div th:if="${not #lists.isEmpty(routes)}">
-    
- 	<h1> here are all your routes</h1>
- 	<div class="panel panel-default">
+    <div th:if="${not #lists.isEmpty(openroutes)}">
+ 	<div class="panel panel-info">
+ 	<div class="panel-heading"><h1>open routes</h1></div>
 	<div class="panel-body">
  		   <table class="table table-hover">
  		   <thead>
  		    	<tr>
  		    		<th>start date</th>
  		    		<th>end date</th>
+ 		    		<th>status</th>
  		    		<th>deposit (start point)</th>
  		    		<th>truck</th>
  		    		<th>deliveries</th>
@@ -62,17 +60,18 @@
  		    	</tr>
  		    </thead>
  		    <tbody>
- 	    	<tr th:each="route : ${routes}">
+ 	    	<tr th:each="route : ${openroutes}">
  		    		<td th:text="${route.getStartDateStr()}"></td>
  		    		<td th:text="${route.getEndDateStr()}"></td>
+ 		    		<td th:text="${route.getRouteStatus()}"></td>
  		    		<td th:text="${route.getDeposit().toString()}"></td>
  		    		<td th:text="${route.getTruck().toString()}"></td>
  		    		<td th:text="${route.countDeliveries()}"></td>
  		    		<td th:text="${route.getEstimatedTimeStr()}"></td>
- 		    		<td><a th:href="@{/route/{id}(id = ${route.id})}" class="btn btn-primary">route profile</a></td>
+ 		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">details</a></td>
  		    		<td>
  		    		<form action="#" th:action="@{/route/startRoute/{id}(id = ${route.getId()})}" th:object="${route}" method="post"> 
-			    	<button type="submit" class="btn btn-success">start route</button>
+			    	<button type="submit" class="btn btn-success" th:if="${#strings.equals(route.routeStatus,'OPEN')}">start route</button>
 					</form></td>
  				</tr>
  				</tbody>
@@ -80,9 +79,49 @@
  	</div>
  	</div>
  	</div>
- 	<div th:if="${#lists.isEmpty(routes)}">
- 	<h1> no routes scheduled </h1></div>
- 	<a href="/driverview/" class="btn btn-primary">all drivers</a>
+ 		<div th:if="${#lists.isEmpty(openroutes)}">
+ 			<div class="panel panel-warning">
+ 				<div class="panel-heading"><h1>no open routes</h1></div>
+ 			</div>
+    	</div>
+    
+    <div th:if="${not #lists.isEmpty(finishedroutes)}">
+ 	<div class="panel panel-success">
+ 	<div class="panel-heading"><h1>finished routes</h1></div>
+	<div class="panel-body">
+ 		   <table class="table table-hover">
+ 		   <thead>
+ 		    	<tr>
+ 		    		<th>start date</th>
+ 		    		<th>end date</th>
+ 		    		<th>status</th>
+ 		    		<th>deposit (start point)</th>
+ 		    		<th>truck</th>
+ 		    		<th>deliveries</th>
+ 		    		<th>measured time</th>
+ 		    		<th></th>
+ 		    		<th></th>
+ 		    	</tr>
+ 		    </thead>
+ 		    <tbody>
+ 	    	<tr th:each="route : ${finishedroutes}">
+ 		    		<td th:text="${route.getStartDateStr()}"></td>
+ 		    		<td th:text="${route.getEndDateStr()}"></td>
+ 		    		<td th:text="${route.getRouteStatus()}"></td>
+ 		    		<td th:text="${route.getDeposit().toString()}"></td>
+ 		    		<td th:text="${route.getTruck().toString()}"></td>
+ 		    		<td th:text="${route.countDeliveries()}"></td>
+ 		    		<td th:text="${route.getMeasuredTime()} + ' min.'"></td>
+ 		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">details</a></td>
+ 		    		<td></td>
+ 				</tr>
+ 				</tbody>
+ 		    </table>
+ 	</div>
+ 	</div>
+ 	</div>
+    	
+    
     </div>
  </body>
  </html> 
