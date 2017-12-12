@@ -7,10 +7,11 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 
 import ch.ese.team6.Model.Address;

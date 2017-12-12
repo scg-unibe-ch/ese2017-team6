@@ -12,7 +12,12 @@ import javax.validation.constraints.NotNull;
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.DataStatus;
 
-
+/**
+ * Items are the objects our store sells and holds in its deposit.
+ * A Item has a name a weight and a size
+ * size may be zero to account for those items the customer told us
+ * that "they always fit into the truck"
+ */
 @Entity
 public class Item {
 	

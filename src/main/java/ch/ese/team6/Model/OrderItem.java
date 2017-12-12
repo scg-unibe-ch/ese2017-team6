@@ -12,6 +12,13 @@ import javax.validation.constraints.NotNull;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
 
+/**
+ * A order consists of one or more orderItems
+ * a orderItems consists of a item and a amount
+ * 
+ * OrderItems are assigned to a route for delivery
+ * 
+ */
 @Entity
 public class OrderItem implements IDelivarable {
 	
@@ -47,14 +54,7 @@ public class OrderItem implements IDelivarable {
 	 		this.orderItemStatus = OrderStatus.OPEN;
 	 		this.orders = order;
 		}
-
-		public OrderItem(Order o, Item items, int amount) {
-			this.orderItemStatus = OrderStatus.OPEN;
-	 		this.orders = o;
-	 		this.item = items;
-	 		this.amount = amount;
-		}
-
+		
 		public long getId() {
 			return id;
 		}
@@ -119,6 +119,10 @@ public class OrderItem implements IDelivarable {
 			return amount*item.getRequiredSpace();
 		}
 		
+		/**
+		 * Returns the weight of the item if it has been delivered
+		 * and zero if is still open
+		 */
 		@Override
 		public int getOpenWeight() {
 			if(this.orderItemStatus == OrderStatus.OPEN) {
@@ -126,7 +130,11 @@ public class OrderItem implements IDelivarable {
 			}
 			return 0;
 		}
-		
+
+		/**
+		 * Returns the size of the item if it has been delivered
+		 * and zero if is still open
+		 */
 		@Override
 		public int getOpenSize() {
 			if(this.orderItemStatus == OrderStatus.OPEN) {

@@ -20,7 +20,10 @@ import ch.ese.team6.Service.CalendarService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * Consists of a customer, and one or several orderItems
+ * 
+ */
 @Entity
 @Table(name = "Orders")
 public class Order  implements IDelivarable{
@@ -44,7 +47,7 @@ public class Order  implements IDelivarable{
 	/**
 	 * The address is stored even if the customer is stored
 	 * The reason: we do not want to have address changes for the customer
-	 * affecting its executed or scheduled orders
+	 * affecting its already executed or scheduled orders
 	 */
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ADDRESS_ID")

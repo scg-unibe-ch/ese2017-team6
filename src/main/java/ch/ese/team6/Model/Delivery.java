@@ -23,6 +23,9 @@ public class Delivery {
 	 * The delivery is created by the route on the fly and never
 	 * stored in the database.
 	 * 
+	 * The route will automatically join the orderitems with the same
+	 * address to one delivery. 
+	 * 
 	 */
 	public Delivery() {}
 

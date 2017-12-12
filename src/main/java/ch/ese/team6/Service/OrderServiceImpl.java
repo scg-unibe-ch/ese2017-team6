@@ -39,7 +39,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	/**
+	 * Returns the open Orders with Deliverydate equal to date
+	 */
 	public List<Order> findOpenOrders(Date date) {
+		date = CalendarService.setMidnight(date);
 		List<Order> orders = orderRepository.findAll();
 
 		for (int i = orders.size() - 1; i >= 0; i--) {
