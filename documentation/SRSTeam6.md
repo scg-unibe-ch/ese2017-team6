@@ -286,14 +286,14 @@ The driver accesses the application mostly via a mobile device. He executes a ro
 
 ## 3.1 Functional requirements
 ### 3.1.1 Items:
-* The logisticians creates Orders(Task: Create new Order) which consist of a Client and a delivery address and several OrderItems. After an item is created it belongs to the items that should be delivered (has status “open”. OrderItems can only be deleted if they were not delivered yet (if they have status “not delivered”).
+* The logistician creates Orders(Task: Create new Order) which consist of a Client and a delivery address and several OrderItems. After an item is created it belongs to the items that should be delivered (has status “open”. OrderItems can only be deleted if they were not delivered yet (if they have status “not delivered”).
 * OrderItems have the status „delivered“, „scheduled“, „open“. After creation the have the status „open“. Once they are assigned to a route they get the status „scheduled“. Depending on whether the trucker is able to deliver the change to „delivered“ or again to „open“.
    
 ### 3.1.2 Driver:
-* A Driver is a user with role 'Driver'. He has only the authentication to acces the overview of all Drivers. On His Profile, he can start a route, and after finishing the route, he can stop it.
+* A Driver is a user with role 'Driver'. He has only the authentication to access the overview of all Drivers. On his Profile, he can start a route, and after finishing the route, he can stop it.
    
 ### 3.1.3 Creation and administration of Routes:
-* A route is created by the logistician (Task: Create new route). The logistician first selects a Driver from the available drivers and a truck from the available Trucks. Afterwards he selects one or more Orders with the status „OPEN“. The orderitems from the orders which are assigned to a route get the status „SCHEDULED“.
+* A route is created by the logistician (Task: Create new route). The logistician first selects a Driver from the available drivers and a truck from the available Trucks. Afterwards he selects one or more Orders with the status „OPEN“. The articles from the orders which are assigned to a route get the status „SCHEDULED“.
 * Routes have three status: „OPEN“, „ON ROUTE“, „FINISHED“. Only routes with the status „OPEN“ can be deleted or manipulated. If a route is deleted all OrderItems in that route will change the status from „scheduled“ to „OPEN“.
 * The logistician can access a list with all routes (Task: Show routes) where he sees the start date, the end-date, the driver, the expected time and the route status. By clicking on a route he can see the items which are in the route. Only routes with the status „OPEN“ can be deleted or manipulated.
    
@@ -308,10 +308,10 @@ The driver accesses the application mostly via a mobile device. He executes a ro
   
 ## 3.2 Nonfunctional requirements
 ### 3.2.1 Stability and Robustness
-We used TRAVIS CI and Heroku to ensure stability and robustness, it's very useful to test new commits automatically with heroku, failed commits were shown in github and could be fixed easily. Testing the app on heroku shows us additional bugs which couldn't be found on a local instance due changements of the infrastructure, for example, the deployment on heroku was supported by PostGreSQL while the initial development was in MySQL.
+We used TRAVIS CI and Heroku to ensure stability and robustness, it's very useful to test new commits automatically with heroku, failed commits were shown in github and could be fixed easily. Testing the app on heroku shows us additional bugs which couldn't be found on a local instance due changes of the infrastructure, for example, the deployment on heroku was supported by PostGreSQL while the initial development was in MySQL.
 ### 3.2.2 Security
 It's a application in the open web, a minimal authorization and authentication system should be in place. User have a secure login, all passwords in the database will be encrypted. BCrypt is used for the encryption of the passwords.
-### 3.2.3 Plattforms
+### 3.2.3 Platforms
 The application should run on a server an be accessible from the internet. Some stakeholders might access the application from a mobile device. The application is currently deployed on heroku. https://eseteam6.herokuapp.com
 To ensure a responsive design we used bootstrap for the styling.
 ### 3.2.4 DataStorage
@@ -329,6 +329,6 @@ The application is designed as a REST webservice, the whole communication betwee
 * Do you need to know the order history of a customer? Do you need a customer relationship plugin? Maybe the customer could get an e-mail or SMS when a OrderItem is going to be delivered. **Not yet needed, not yet implemented.**
 * Should the driver see the delivery address on his user interface? **Yes, it's implemented.**
 * How do you create your orders? How does a order look like? Who creates them? They consist of large machines. They come in in different ways like Fax, e-mail, Phone. **We can assume the logistician translates them into the System.**
-* How should the software be able to propose tours: Is it enough if we store the adresses in the first place? **Automatic route generation implemented as additional feature. Distance between addresses is calculated by googleMaps**
+* How should the software be able to propose tours: Is it enough if we store the addresses in the first place? **Automatic route generation implemented as additional feature. Distance between addresses is calculated by googleMaps**
 * Does the driver need a offline capability? **Not needed. Homepage is enough.**
 
