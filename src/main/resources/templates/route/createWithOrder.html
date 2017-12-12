@@ -8,7 +8,7 @@
 		<h1 th:text= "'create new route on ' + ${routeTemplate.getStartDateStr()}"></h1>
 	     <div class="alert alert-info">
 	    <strong>info!</strong> <p  th:text="'On this page we propose only trucks with enough capacity to transport the order '+${order.getId()}" ></p>
-	    <p>Moreover we make sure that creating a new route using those trucks and drivers does yield to a timetable confilct.</p>
+	    <p>Moreover we make sure that creating a new route using those trucks and drivers does yield to a timetable conflict. It is guaranteed the route will finish before the start of the next route of the truck and driver.</p>
 		</div>
 	
 		
