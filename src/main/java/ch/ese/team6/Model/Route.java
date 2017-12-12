@@ -250,7 +250,7 @@ public class Route {
 		}
 		if (d.getOpenSize() <= (truck.getMaxCargoSpace() - this.getSize())) {
 			if (d.getOpenWeight() <= (truck.getMaxLoadCapacity() - this.getWeight())) {
-				if(this.statisfiesSchedule(d)) {
+				if(this.satisfiesSchedule(d)) {
 					return true;
 				}
 			}
@@ -267,16 +267,16 @@ public class Route {
 	 * @param d
 	 * @return
 	 */
-	public boolean statisfiesSchedule(IDelivarable d) {
+	public boolean satisfiesSchedule(IDelivarable d) {
 		
 		long additionalTimeNeededMillis = this.getAdditionalTime(d)*60l*1000l;
 		Date currentEndOfThisRoute = this.getRouteEndDate();
 		Date newEndOfThisRoute = CalendarService.computeTaskEnd(currentEndOfThisRoute, additionalTimeNeededMillis);
 		
 		
-		Route nextRouteTruck = truck.nextRoute(currentEndOfThisRoute);
-		if(nextRouteTruck!=null) {
-			if(nextRouteTruck.getRouteStartDate().before(newEndOfThisRoute)) {
+		Date nextDateTruck = truck.nextAppointment(currentEndOfThisRoute);
+		if(nextDateTruck!=null) {
+			if(nextDateTruck.before(newEndOfThisRoute)) {
 				return false;
 			}
 		}
@@ -284,9 +284,9 @@ public class Route {
 		/** Checks if it is ok for the Driver
 		 * 
 		 */
-		Route nextRouteDriver =driver.nextRoute(currentEndOfThisRoute);
-		if(nextRouteDriver!=null) {
-			if(nextRouteDriver.getRouteStartDate().before(newEndOfThisRoute)) {
+		Date nextDateDriver =driver.nextAppointment(currentEndOfThisRoute);
+		if(nextDateDriver!=null) {
+			if(nextDateDriver.before(newEndOfThisRoute)) {
 				return false;
 			}
 		}
@@ -294,23 +294,15 @@ public class Route {
 		return true;
 	}
 	
-	/**
-	 * returns true if truck has still open size and weight
-	 * @return
-	 */
-	public boolean isCapacitySatified() {
-		if(truck == null) {
-			return false;
-		}
-		return (getSize()<=truck.getMaxCargoSpace()) &&(getWeight()<= truck.getMaxLoadCapacity());
-	}
+	
 	
 	/**
 	 * returns true if truck is full
+	 * i. e. if there is no space and no weight left
 	 * @return
 	 */
 	public boolean isFull() {
-		return (getSize()>=truck.getMaxCargoSpace()) &&(getWeight()>= truck.getMaxLoadCapacity());
+		return (getSize()>=truck.getMaxCargoSpace()) && (getWeight()>= truck.getMaxLoadCapacity());
 	
 	}
 	

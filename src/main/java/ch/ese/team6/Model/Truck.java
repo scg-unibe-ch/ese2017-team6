@@ -122,13 +122,13 @@ public class Truck {
 	}
 	
 	/**
-	 * Returns the next Route of the Truck which strictly starts
+	 * Returns the date where the next Route of the Truck which strictly starts
 	 * after Date date, i. e. where route.getStartDate()>date
 	 * Will be null if there is no Route using this truck after Date date
 	 * @param date
 	 * @return
 	 */
-	public Route nextRoute(Date date) {
+	public Date nextAppointment(Date date) {
 		Route nextRoute= null;
 		for(Route route: this.routes) {
 			if(route.getRouteStartDate().after(date)) {
@@ -137,7 +137,10 @@ public class Truck {
 				}
 			}
 		}
-		return nextRoute;
+		if(nextRoute==null) {
+			return null;
+		}
+		return nextRoute.getRouteStartDate();
 	}
 
 	public boolean hasId() {
