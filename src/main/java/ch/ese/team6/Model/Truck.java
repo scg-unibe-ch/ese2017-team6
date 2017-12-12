@@ -1,5 +1,6 @@
 package ch.ese.team6.Model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class Truck {
 	
 	public Truck() {
  		this.status = DataStatus.ACTIVE;
+ 		routes = new ArrayList<Route>();
 	}
 
 	public long getId() {

@@ -10,7 +10,6 @@ import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.IDelivarable;
-import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.TruckRepository;

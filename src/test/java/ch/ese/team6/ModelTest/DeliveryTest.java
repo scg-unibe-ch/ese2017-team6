@@ -1,6 +1,8 @@
 package ch.ese.team6.ModelTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -10,7 +12,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Delivery;
 import ch.ese.team6.Model.OrderItem;
 import ch.ese.team6.Model.Route;
@@ -18,13 +19,11 @@ import ch.ese.team6.Model.Route;
 public class DeliveryTest {
 private Delivery delivery;
 private Route route;
-private Address europe;
-
-	@Before
+@Before
 	public void setUp() {
 		route = new Route();
 		delivery = new Delivery(route);
-		europe = new Address();
+	
 		assertEquals(null,delivery.getAddress());
 		assertEquals(route,delivery.getRoute());
 		assertTrue(delivery.getItems().isEmpty());

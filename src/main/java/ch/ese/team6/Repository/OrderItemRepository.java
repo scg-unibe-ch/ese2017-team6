@@ -12,7 +12,6 @@ public interface OrderItemRepository  extends JpaRepository<OrderItem, Long>{
 	@Override
 	List<OrderItem>findAll();
 	
-	OrderItem findByOrderItemStatus(String status);
 	
 	List<OrderItem> findByRouteId(long routeid);
 	

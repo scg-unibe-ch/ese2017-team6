@@ -34,16 +34,6 @@ public class Item {
 		private DataStatus status;
 		
 	 	/**
-	 	 * Constructor with parameter
-	 	 * @param nameOfObject
-	 	 */
-	 	public Item(String nameOfObject)
-	 	{
-	 		this.name = nameOfObject;
-	 		this.status = DataStatus.ACTIVE;
-	 	}
-	    
-	 	/**
 	 	 * Empty Constructor
 	 	 */
 	 	public Item() {

@@ -1,11 +1,10 @@
 package ch.ese.team6.Controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,24 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.ese.team6.Exception.InconsistentOrderStateException;
-import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.AddressDistanceManager;
 import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.Order;
-import ch.ese.team6.Model.OrderStatus;
 import ch.ese.team6.Model.Route;
-import ch.ese.team6.Model.RouteCollection;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.OrderRepository;
-import ch.ese.team6.Repository.RoleRepository;
 import ch.ese.team6.Repository.RouteRepository;
-import ch.ese.team6.Repository.TruckRepository;
-import ch.ese.team6.Repository.UserRepository;
 import ch.ese.team6.Service.CalendarService;
 import ch.ese.team6.Service.OrderService;
 import ch.ese.team6.Service.OurCompany;
+import ch.ese.team6.Service.RouteCollection;
 import ch.ese.team6.Service.RouteGenerationProblem;
 import ch.ese.team6.Service.RouteGenerator;
 import ch.ese.team6.Service.TruckService;

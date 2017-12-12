@@ -1,6 +1,10 @@
 package ch.ese.team6.Service;
 
 
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,15 +14,10 @@ import ch.ese.team6.Exception.DupplicateEntryException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.Role;
-import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.RoleRepository;
 import ch.ese.team6.Repository.UserRepository;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 /**
  * UserServiceImpl provides different services for the controllers. It's mostly used to 
  * check for free Drivers or to save a new user. 

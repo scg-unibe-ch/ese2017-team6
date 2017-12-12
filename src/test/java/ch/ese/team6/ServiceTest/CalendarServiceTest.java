@@ -1,22 +1,14 @@
 package ch.ese.team6.ServiceTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import ch.ese.team6.Application;
-import ch.ese.team6.Exception.BadSizeException;
-import ch.ese.team6.Exception.InvalidAddressException;
-import ch.ese.team6.Model.Address;
-import ch.ese.team6.Model.Distance;
-import ch.ese.team6.Service.AddressService;
 import ch.ese.team6.Service.CalendarService;
 import ch.ese.team6.Service.OurCompany;
 

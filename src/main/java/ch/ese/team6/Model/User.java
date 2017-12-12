@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Email;
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Service.CalendarService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -48,7 +49,7 @@ public class User {
     
     public User() {
 		this.status = DataStatus.ACTIVE;
-		// TODO Auto-generated constructor stub
+		this.routes = new ArrayList<Route>();
 	}
 
 	

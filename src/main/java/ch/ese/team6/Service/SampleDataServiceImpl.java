@@ -7,12 +7,10 @@ import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Exception.DupplicateEntryException;
-import ch.ese.team6.Exception.InvalidAddressException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Customer;
 import ch.ese.team6.Model.Distance;
@@ -46,7 +44,7 @@ public class SampleDataServiceImpl implements SampleDataService{
 	@Autowired	private RouteRepository routeRepository;
 	@Autowired	private RoleRepository roleRepository;
 	@Autowired private DistanceRepository distanceRepository;
-	@Autowired private AddressService addressService;
+	
 	
 	@Override
 	public void loadData() throws BadSizeException, DupplicateEntryException {

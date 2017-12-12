@@ -1,9 +1,11 @@
 package ch.ese.team6.ModelTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.*;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -11,13 +13,9 @@ import java.util.Calendar;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mysql.jdbc.Driver;
-
 import ch.ese.team6.Exception.RouteTimeException;
 import ch.ese.team6.Model.Address;
-import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.OrderItem;
-import ch.ese.team6.Model.OrderStatus;
 import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.RouteStatus;
 import ch.ese.team6.Model.Truck;

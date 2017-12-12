@@ -13,6 +13,8 @@ import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Model.User;
 
 /**
+ * 
+ * A RouteGeneratorionProblem is solved by the {@link}IAtomaticRouteGenerator.java
  * Stores:
  * The deposit where the route starts
  * The trucks we can use for optimization
@@ -80,7 +82,7 @@ public int getOrdersWeight() {
 
 	int orderWeight=0;
 	for(IDelivarable o:orders) {
-		orderWeight+=o.getWeight();
+		orderWeight+=o.getOpenWeight();
 	}
 	
 	return orderWeight; 
@@ -89,7 +91,7 @@ public int getOrdersWeight() {
 public int getOrdersSize() {
 	int orderSize = 0;
 	for(IDelivarable o:orders) {
-		orderSize+=o.getSize();
+		orderSize+=o.getOpenSize();
 	}
 	
 	return orderSize; 

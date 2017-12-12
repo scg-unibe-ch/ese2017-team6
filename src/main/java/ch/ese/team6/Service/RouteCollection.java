@@ -1,7 +1,9 @@
-package ch.ese.team6.Model;
+package ch.ese.team6.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ch.ese.team6.Model.Route;
 
 public class RouteCollection {
 

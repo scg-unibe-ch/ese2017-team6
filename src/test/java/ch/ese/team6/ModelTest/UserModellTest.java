@@ -1,13 +1,19 @@
 package ch.ese.team6.ModelTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-
+import java.util.Calendar;
 
 import org.junit.Test;
 
 import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Role;
+import ch.ese.team6.Model.Route;
 import ch.ese.team6.Model.User;
 
 public class UserModellTest {
@@ -276,4 +282,34 @@ public class UserModellTest {
 			
 		}
 	}
+	
+
+	@Test
+	public void timetableTest() {
+		Route r1 = mock(Route.class);
+		Route r2 = mock(Route.class);
+		Calendar c = Calendar.getInstance();
+		c.clear();
+		c.set(2017,9, 1, 10, 1, 0);
+		when(r1.getRouteStartDate()).thenReturn(c.getTime());
+		c.set(2017,9, 1, 9, 1, 0);
+		when(r2.getRouteStartDate()).thenReturn(c.getTime());
+		User driver = new User();
+		driver.getRoutes().add(r1);
+		driver.getRoutes().add(r2);
+
+		Calendar c1 = Calendar.getInstance();
+		c1.clear();
+		c1.set(2017,9, 1, 10, 2, 0);
+		
+		
+		assertEquals(null,driver.nextAppointment(c1.getTime()));
+		c1.set(2017,9, 1, 10, 0, 0);
+		assertEquals(r1.getRouteStartDate(),driver.nextAppointment(c1.getTime()));
+		
+		c1.set(2017,9, 1, 9, 0, 0);
+		assertEquals(r2.getRouteStartDate(),driver.nextAppointment(c1.getTime()));
+		
+	}
+
 }

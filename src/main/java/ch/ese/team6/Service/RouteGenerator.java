@@ -1,23 +1,23 @@
 package ch.ese.team6.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.AddressDistanceManager;
 import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.OrderItem;
 import ch.ese.team6.Model.Route;
-import ch.ese.team6.Model.RouteCollection;
 import ch.ese.team6.Model.Truck;
 import ch.ese.team6.Model.User;
 
+/**
+ * 
+ *
+ */
 public class RouteGenerator implements IAutomaticRouteGenerator {
 	private List<Truck> trucks;
 	private ArrayList<IDelivarable> delivarables;
@@ -93,6 +93,7 @@ public class RouteGenerator implements IAutomaticRouteGenerator {
 		this.assignTrucksAndDrivers(candidate);
 
 		Collections.shuffle(delivarables, this.random);
+		
 		for (IDelivarable order : delivarables) {
 			Route route = this.getNeighrestRoute(order.getAddress(), candidate, true, order);
 			if (route == null) {

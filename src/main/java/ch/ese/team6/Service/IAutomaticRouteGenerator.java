@@ -1,7 +1,5 @@
 package ch.ese.team6.Service;
 
-import ch.ese.team6.Model.RouteCollection;
-
 /**
  * 
  * Automatic Route generator is initialized with a List of available trucks and
