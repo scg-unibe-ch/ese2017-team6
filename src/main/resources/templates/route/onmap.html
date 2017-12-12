@@ -151,13 +151,13 @@
     			<td>
 	    			<form action="#" th:action="@{/route/acceptDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
 			    	<input type="hidden" name="routeid" th:value="${route.getId()}"/>
-			    	<button type="submit" class="btn btn-success">accept delivery</button>
+			    	<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> accept delivery</button>
 					</form>
                 </td>
                 <td>
                 	<form action="#" th:action="@{/route/rejectDelivery/{id}(id = ${route.getCurrentAddress().getId()})}" th:object="${route}" method="post"> 
 		    		<input type="hidden" name="routeid" th:value="${route.getId()}"/>
-		    		<button type="submit" class="btn btn-danger">reject delivery</button>
+		    		<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> reject delivery</button>
 					</form>
                 </td>
     		</tr>

@@ -65,7 +65,8 @@
  		    		<td th:text="${route.getEndDateStr()}"></td>
  		    		<td th:text="${route.getRouteStatus()}"></td>
  		    		<td th:text="${route.getDeposit().toString()}"></td>
- 		    		<td th:text="${route.getTruck().toString()}"></td>
+<!--  		    		<td th:text="${route.getTruck().toString()}"></td> -->
+ 		    		<td><a th:href="@{/truck/{id}(id = ${route.getTruck().getId()})}" th:text="${route.getTruck()}"></a></td>
  		    		<td th:text="${route.countDeliveries()}"></td>
  		    		<td th:text="${route.getEstimatedTimeStr()}"></td>
  		    		<td><a th:href="@{/route/{id}(id = ${route.id})}">details</a></td>
