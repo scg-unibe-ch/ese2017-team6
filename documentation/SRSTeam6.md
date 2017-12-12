@@ -301,10 +301,6 @@ The driver accesses the application mostly via a mobile device. He executes a ro
 * A driver can select to view the route on the map(Task: Show route on map) with the status „OPEN“ and can there start the route. The starting time of the route is registered and the route gets the status „ON ROUTE“.
 * The driver sees on the ongoing route the next delivery that he has to execute. He can press „accept delivery“ or „reject delivery“ for each delivery. Depending on his choice the status of the items change from „scheduled“ to "finished" or back to „open“. In the „open“ case the item shows up again when a logistician is going to create a new route.
 * The Route changes it's status to finished, when the driver finished the route (even if he rejected deliveries).
-   
-![AddDriver](https://github.com/scg-unibe-ch/ese2017-team6/blob/master/UIAddDriver.jpg)
-![UIManageDrivers](https://github.com/scg-unibe-ch/ese2017-team6/blob/master/UImanageTruckers.jpg)
-![UIDriver](https://github.com/scg-unibe-ch/ese2017-team6/blob/master/UIdriver.jpg)
   
 ## 3.2 Nonfunctional requirements
 ### 3.2.1 Stability and Robustness
