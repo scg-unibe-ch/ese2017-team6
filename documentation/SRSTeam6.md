@@ -306,14 +306,13 @@ The driver accesses the application mostly via a mobile device. He executes a ro
 
 ### 3.1.5 Timetable
 * The drivers and the trucks are not allowed to be at two routes at the same time.
-* The software makes sure that it is never possible to create a route that intersects with another route of the same truck or driver.
+* The software makes sure that it is never possible to create a route that intersects with another route of the same truck or driver. It is also not possible to extend a route by adding more orders if this would lead to an intersection with another route by the same driver or route.
 * Routes may last several days. We compute using the distances from Google Maps (see 3.1.6) the time it will take to drive the route. We compute the end date of a route taking into account the working days (like 8am to 5 pm). The working days can be specified in the software (see file OurCompany.java).
 * It is not possible for a truck or driver to have more than one route per day. (confirmed by client on November 21)
 
-
 ### 3.1.6 Administration of addresses:
 * Newly added addresses are checked in Google Maps to see whether they are valid. For valid addresses we search in Google Maps the distance to all other valid addresses already stored in the database. We store the distances in the database to avoid retrieving too much data from Google Maps (we are not allowed to submit more than 2500 requests/day).
-* There are customers which are not reachable by truck (for instance because they live in Canada). For each customer we specify a domicil and a delivery address. The delivery address must be reachable by truck from the deposit of the company (i.e. it could be a port for a customer in Canada). The domicil address may not be reachable by truck.
+* There are customers which are not reachable by truck (for instance because they live in Canada). For each customer we specify a domicil and a delivery address. The delivery address must be reachable by truck from the deposit of the company (i.e. it could be a port in Portugal for a customer in Canada). The domicil address may not be reachable by truck.
    
  -![](https://github.com/scg-unibe-ch/ese2017-team6/blob/docu/UIdriver.jpg?raw=true)
  
