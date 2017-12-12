@@ -87,9 +87,8 @@ public class UserServiceImpl implements UserService {
 			User user = freeUsers.get(i);
 			
 			// Check if the truck has enough time to drive to the deliveryAddres
-		    Route nextRouteOfthisUser = user.nextRoute(date);
-				if(nextRouteOfthisUser!=null) {
-				    Date nextTimeThisUserIsOccupied = nextRouteOfthisUser.getRouteStartDate();
+		    Date nextTimeThisUserIsOccupied = user.nextAppointment(date);
+				if(nextTimeThisUserIsOccupied!=null) {
 				    Address deposit = addressRepository.findOne(OurCompany.depositId);
 				    //drive to the address and back
 				    long requiredTime = 2*deposit.getDistance(o.getAddress())*60l*1000l;

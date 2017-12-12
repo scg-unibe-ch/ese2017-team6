@@ -62,9 +62,8 @@ public class TruckServiceImpl implements TruckService{
 				continue;
 			}
 			// Check if the truck has enough time to drive to the deliveryAddres
-		    Route nextRouteOfthisTruck = truck.nextRoute(date);
-				if(nextRouteOfthisTruck!=null) {
-				    Date nextTimeThisTruckIsOccupied = nextRouteOfthisTruck.getRouteStartDate();
+		    Date nextTimeThisTruckIsOccupied = truck.nextAppointment(date);
+				if(nextTimeThisTruckIsOccupied!=null) {
 				    Address deposit = addressRepository.findOne(OurCompany.depositId);
 				    //drive to the address and back
 				    long requiredTime = 2*deposit.getDistance(o.getAddress())*60l*1000l;
