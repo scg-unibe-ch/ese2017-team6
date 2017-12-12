@@ -8,7 +8,6 @@
 			<h1 class="welcomeOdm"><a id="welcomeodm" class="navbar-brand" href="#">odm</a></h1>
 			<div class="textbox">
 				<h1 class="text texth1" th:text="'hi ' + ${user.Firstname}">Hi</h1>
-				<p sec:authorize="hasAuthority('LOGISTICS')" class="text button"><a href="/route/" class="btn btn-primary" role="button">plan a route</a></p>
                 <p sec:authorize="hasAuthority('LOGISTICS')" class="text button"><a href="/orders/add" class="btn btn-primary" role="button">write an order</a></p>
                 <p sec:authorize="hasAuthority('LOGISTICS')" class="text button"><a href="/logistics/" class="btn btn-primary" role="button">see the cockpit</a> </p>
                 <p sec:authorize="hasAuthority('DRIVER')" class="text button"><a href="/driverview/" class="btn btn-primary" role="button">see the drivers</a> </p>
