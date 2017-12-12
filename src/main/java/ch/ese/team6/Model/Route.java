@@ -178,12 +178,19 @@ public class Route {
 	}
 	
 	
-	
+	/**
+	 * returns true if the route has deliveries
+	 * @return
+	 */
 	public boolean hasDeliveries() {
 		return !this.orderItems.isEmpty();
 		
 	}
 
+	/**
+	 * return list of all open deliveries
+	 * @return
+	 */
 	public List<Delivery> getOpenDeliveries(){
 		return this.getDeliveries(true);
 	}
@@ -287,12 +294,21 @@ public class Route {
 		return true;
 	}
 	
+	/**
+	 * returns true if truck has still open size and weight
+	 * @return
+	 */
 	public boolean isCapacitySatified() {
 		if(truck == null) {
 			return false;
 		}
 		return (getSize()<=truck.getMaxCargoSpace()) &&(getWeight()<= truck.getMaxLoadCapacity());
 	}
+	
+	/**
+	 * returns true if truck is full
+	 * @return
+	 */
 	public boolean isFull() {
 		return (getSize()>=truck.getMaxCargoSpace()) &&(getWeight()>= truck.getMaxLoadCapacity());
 	
@@ -310,6 +326,10 @@ public class Route {
 		return s;
 	}
 
+	/**
+	 * returns the weight of all the order Items
+	 * @return
+	 */
 	public int getWeight() {
 		int w = 0;
 		for (IDelivarable d : orderItems) {
@@ -339,9 +359,6 @@ public class Route {
 	}
 	
 	
-
-	
-
 	public ArrayList<OrderItem> getOrderItems() {
 		return (ArrayList<OrderItem>) this.orderItems;
 	}
@@ -353,12 +370,19 @@ public class Route {
 		return s;
 	}
 	
-	
+	/**
+	 * returns the max cargo space of the truck
+	 * @return
+	 */
 	public String calculateCapacitySize() {
 		int cargoSpace = this.getTruck().getMaxCargoSpace();
 		 return this.getSize()+ "/ " +cargoSpace; 
 	}
 	
+	/**
+	 * returns the max cargo weight of the truck
+	 * @return
+	 */
 	public String calculateCapacityWeight() {
 		int cargoSpace = this.getTruck().getMaxLoadCapacity();
 		 return this.getWeight()+ "/ " +cargoSpace; 
@@ -416,7 +440,10 @@ public class Route {
 	}
 
 
-
+	/**
+	 * returns the measured time of the route (after it was stopped)
+	 * @return
+	 */
 	public long getMeasuredTime() {
 		long milliseconds = this.routeStop - this.routeStart;
 		
@@ -519,6 +546,10 @@ public class Route {
 		return ret;
 	}
 	
+	/**
+	 * starts the route (status and routeStart get updated)
+	 * @throws RouteTimeException
+	 */
 	public void startRoute() throws RouteTimeException {
 		if(this.isRouteStarted()) throw new RouteTimeException ("Route has already started.");
 		if(this.isRouteFinished()) throw new RouteTimeException ("Route has already finished."); 
@@ -534,6 +565,10 @@ public class Route {
 		return (this.routeStatus.equals(RouteStatus.FINISHED));
 	}
 
+	/**
+	 * stops the route (routeStop and Status get updated)
+	 * @throws RouteTimeException
+	 */
 	public void stopRoute() throws RouteTimeException {
 		if(this.isRouteStarted()) 
 			{this.routeStop = System.currentTimeMillis();
@@ -568,6 +603,11 @@ public class Route {
 		}
 	}
 	
+	/**
+	 * rejects the delivery at a certain address. All the orderitems at this address 
+	 * will change their status from 'scheduled' to 'on route'
+	 * @param address
+	 */
 	public void rejectDelivery(Address address){
 		
 		for(OrderItem oi: this.getAllAtAddress(address)) {
@@ -583,6 +623,7 @@ public class Route {
 	
 	
 	/**
+	 * accepts the current delivery
 	 * @return
 	 */
 	public void acceptCurrentDelivery(){
@@ -593,8 +634,10 @@ public class Route {
 		}
 	}
 	
-	
-	
+	/**
+	 * returns the address of the next delivery
+	 * @return
+	 */
 	public Address getCurrentAddress() {
 		if(!this.getDeliveries(true).isEmpty())
 			{return this.getDeliveries(true).get(0).getAddress();}
@@ -602,12 +645,20 @@ public class Route {
 			return deposit;
 	}
 	
+	/**
+	 * returns the next delivery in the route
+	 * @return
+	 */
 	public Delivery getCurrentDelivery() {
 		if(!this.getDeliveries(true).isEmpty())
 			{return this.getDeliveries(true).get(0);}
 		return null;
 	}
 	
+	/**
+	 * returns an array of all the orderitems
+	 * @return
+	 */
 	public ArrayList<OrderItem> getArrayOfOI() {
 		ArrayList<OrderItem> oi = new ArrayList<OrderItem>();
 		oi.addAll(orderItems);
@@ -616,6 +667,10 @@ public class Route {
 
 	}
 	
+	/**
+	 * returns the ID of the Address, that the previous Delivery was
+	 * @return
+	 */
 	public long getLastAddressId() {
 		if(this.lastAddressid != 0)
 			{return lastAddressid;}
@@ -623,6 +678,10 @@ public class Route {
 			return deposit.getId();
 	}
 	
+	/**
+	 * changes the value of the ID of the address, that the previous Delivery was
+	 * @param value
+	 */
 	public void setLastAddressId(long value) {
 		this.lastAddressid = value;
 	}
