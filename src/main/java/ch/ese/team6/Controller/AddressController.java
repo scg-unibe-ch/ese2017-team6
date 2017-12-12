@@ -103,6 +103,6 @@ public class AddressController {
 	@GetMapping(path = "/{addressId}/distancematrix")
 	public String distanceMatrixAddress(Model model, @PathVariable long addressId) {
 		model.addAttribute("address", addressRepository.findOne(addressId));
-		return "address/distancematrix";
+		return "address/distanceMatrix";
 	}
 }

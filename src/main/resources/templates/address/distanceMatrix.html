@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en" th:replace="fragments/head :: head"> </head>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#datatable").DataTable();
+});
+</script>
 <body>
 	<div lang="en" th:replace="fragments/header :: header"> </div>
 	<div class="container">
@@ -8,13 +13,13 @@
 		<div th:if="${not #lists.isEmpty(address.getOutgoingDistances())}">
 		    
 			<h1 th:text= "'distances from ' +${address}"></h1>
-		    <table id="datatable" class="table table-hover order-column">
+		    <table id="datatable" class="table table-hover">
 		    	<thead>
 			    	<tr>
-			    		<th><b>to</b> </th>
-			    		<th><b>time</b> </th>
-			    		<th><b>km</b></th>
-			    		<th></th>
+			    		<th><b>to</b><i class="fa fa-fw fa-sort"></i> </th>
+			    		<th><b>time</b><i class="fa fa-fw fa-sort"></i> </th>
+			    		<th><b>km</b><i class="fa fa-fw fa-sort"></i></th>
+			    		
 			    	</tr>
 		    	</thead>
 		    	<tbody>
