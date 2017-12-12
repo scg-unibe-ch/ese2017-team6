@@ -315,7 +315,8 @@ The driver accesses the application mostly via a mobile device. He executes a ro
 * Newly added addresses are checked in Google Maps to see whether they are valid. For valid addresses we search in Google Maps the distance to all other valid addresses already stored in the database. We store the distances in the database to avoid retrieving too much data from Google Maps (we are not allowed to submit more than 2500 requests/day).
 * There are customers which are not reachable by truck (for instance because they live in Canada). For each customer we specify a domicil and a delivery address. The delivery address must be reachable by truck from the deposit of the company (i.e. it could be a port for a customer in Canada). The domicil address may not be reachable by truck.
    
-
+ -![](https://github.com/scg-unibe-ch/ese2017-team6/blob/docu/UIdriver.jpg?raw=true)
+ 
 ## 3.2 Nonfunctional requirements
 ### 3.2.1 Stability and Robustness
 We used TRAVIS CI and Heroku to ensure stability and robustness, it's very useful to test new commits automatically with heroku, failed commits were shown in github and could be fixed easily. Testing the app on heroku shows us additional bugs which couldn't be found on a local instance due changes of the infrastructure, for example, the deployment on heroku was supported by PostGreSQL while the initial development was in MySQL.
