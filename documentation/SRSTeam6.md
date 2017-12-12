@@ -286,11 +286,11 @@ The driver accesses the application mostly via a mobile device. He executes a ro
 
 ## 3.1 Functional requirements
 ### 3.1.1 Items:
-* The logistician creates Orders(Task: Create new Order) which consist of a Client and a delivery address and several OrderItems. After an item is created it belongs to the items that should be delivered (has status “open”. OrderItems can only be deleted if they were not delivered yet (if they have status “not delivered”).
+* The logistician creates orders (Task: Create new order) which consist of a Client and a delivery address and several OrderItems. After an item is created it belongs to the items that should be delivered (has status “open”. OrderItems can only be deleted if they were not delivered yet (if they have status “not delivered”).
 * OrderItems have the status „delivered“, „scheduled“, „open“. After creation the have the status „open“. Once they are assigned to a route they get the status „scheduled“. Depending on whether the trucker is able to deliver the change to „delivered“ or again to „open“.
    
 ### 3.1.2 Driver:
-* A Driver is a user with role 'Driver'. He has only the authentication to access the overview of all Drivers. On his Profile, he can start a route, and after finishing the route, he can stop it.
+* A Driver is a user with role 'Driver'. He has only the authentication to access the overview of all Drivers. On his profile, he can start a route, and after finishing the route, he can stop it.
    
 ### 3.1.3 Creation and administration of Routes:
 * A route is created by the logistician (Task: Create new route). The logistician first selects a Driver from the available drivers and a truck from the available Trucks. Afterwards he selects one or more Orders with the status „OPEN“. The articles from the orders which are assigned to a route get the status „SCHEDULED“.
