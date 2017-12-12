@@ -13,7 +13,7 @@ public class CustomerTest {
 	private Address addressDelivery;
 	private Address addressDomicil;
 	@Before
-	public void CustomerTest() {
+	public void CustomerTestSetUp() {
 		customer = new Customer();
 		customer.setName("Swisscom");
 		customer.setPhone("0800800800");

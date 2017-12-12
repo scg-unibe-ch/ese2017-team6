@@ -67,8 +67,8 @@ public class OrderItem implements IDelivarable {
 			return this.item;
 		}
 
-		public void setItem(Item itemId) {
-			this.item = itemId;
+		public void setItem(Item item) {
+			this.item = item;
 		}
 
 		public Order getOrder() {
@@ -156,6 +156,13 @@ public class OrderItem implements IDelivarable {
 		}
 
 		@Override
+		/**
+		 * Changes the OrderItem Status to SCHEDULED
+		 * This does only work if the orderItem had the status OPEN before
+		 * If you call this method on a OrderItem with a status different from OPEN
+		 * you get a InconsistentOrderStateException
+		 * 
+		 */
 		public void schedule() throws InconsistentOrderStateException {
 			if(!this.orderItemStatus.equals(OrderStatus.OPEN)) {
 				throw new InconsistentOrderStateException("You can only schedule a open Order Item");
@@ -164,6 +171,13 @@ public class OrderItem implements IDelivarable {
 			
 		}
 		@Override
+		/**
+		 * Changes the OrderItem Status from SCHEDULED to FINISHED
+		 * This does only work if the orderItem had the status SCHEDULED before
+		 * If you call this method on a OrderItem with a status different from SCHEDULED
+		 * you get a InconsistentOrderStateException
+		 * 
+		 */
 		public void acceptDelivery() throws InconsistentOrderStateException {
 			if(!this.orderItemStatus.equals(OrderStatus.SCHEDULED)) {
 				throw new InconsistentOrderStateException("You can only deliver a sheduled Order Item");
@@ -172,6 +186,13 @@ public class OrderItem implements IDelivarable {
 		}
 		
 		@Override
+		/**
+		 * Changes the OrderItem Status from SCHEDULED to OPEN
+		 * This does only work if the orderItem had the status SCHEDULED before
+		 * If you call this method on a OrderItem with a status different from SCHEDULED
+		 * you get a InconsistentOrderStateException
+		 * 
+		 */
 		public void rejectDelivery() throws InconsistentOrderStateException {
 			if(!this.orderItemStatus.equals(OrderStatus.SCHEDULED)) {
 				throw new InconsistentOrderStateException("You can only deliver a sheduled Order Item");

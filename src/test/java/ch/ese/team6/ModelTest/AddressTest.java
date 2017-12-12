@@ -1,8 +1,9 @@
 package ch.ese.team6.ModelTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ch.ese.team6.Application;
-import ch.ese.team6.Exception.BadSizeException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.Distance;
-import ch.ese.team6.Model.User;
 import ch.ese.team6.Repository.AddressRepository;
 import ch.ese.team6.Repository.DistanceRepository;
-import ch.ese.team6.Service.SampleDataServiceImpl;
-import ch.ese.team6.Service.UserServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
