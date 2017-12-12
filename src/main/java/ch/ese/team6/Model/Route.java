@@ -241,11 +241,13 @@ public class Route {
 	 * size or weight constraints and without 
 	 * extending the route so much time, that it ends after the next 
 	 * route of either the driver or the truck starts.
+	 * 
+	 * Moreover the route needs to have the status open
 	 * @param d
 	 * @return
 	 */
 	public boolean doesIDelivarableFit(IDelivarable d) {
-		if (truck == null || driver==null) {
+		if (truck == null || driver==null || !(this.getRouteStatus().equals(RouteStatus.OPEN))) {
 			return false;
 		}
 		if (d.getOpenSize() <= (truck.getMaxCargoSpace() - this.getSize())) {

@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.mysql.jdbc.Driver;
 
+import ch.ese.team6.Exception.RouteTimeException;
 import ch.ese.team6.Model.Address;
 import ch.ese.team6.Model.IDelivarable;
 import ch.ese.team6.Model.OrderItem;
@@ -209,4 +210,15 @@ OrderItem item3;
 		assertEquals(0,route.getAllAddresses(false, false).size());
 		
 	}
+	@Test
+	public void statusTest() throws RouteTimeException {
+		assertEquals(RouteStatus.OPEN, route.getRouteStatus());
+		route.startRoute();
+		assertEquals(RouteStatus.ONROUTE, route.getRouteStatus());
+		route.stopRoute();
+		assertEquals(RouteStatus.FINISHED, route.getRouteStatus());
+		
+		
+	}
+	
 }
