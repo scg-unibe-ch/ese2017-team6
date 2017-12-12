@@ -10,8 +10,15 @@
 		<div class="col-sm-6">
 			<div class="panel panel-danger">
 			 <div class="panel-heading">
-				<h2 th:if="${!#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: ' + ${urgentOrders.size()}"><span class="glyphicon glyphicon-plus-sign"></span> urgent orders</h2>
-				<h2 th:if="${#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: none'"><span class="glyphicon glyphicon-plus-sign"></span> urgent orders</h2></div>
+			 <div th:if="${!#lists.isEmpty(urgentOrders)}">
+			 	<h2> <span class="glyphicon glyphicon-exclamation-sign"></span> urgent orders: <a th:text="${urgentOrders.size()}"></a></h2>
+			 </div>
+<!-- 				<h2 th:if="${!#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: ' + ${urgentOrders.size()}"><span class="glyphicon glyphicon-plus-sign"></span> urgent orders</h2> -->
+			 <div th:if="${#lists.isEmpty(urgentOrders)}">
+			 	<h2><span class="glyphicon glyphicon-exclamation-sign"></span> urgent orders: none</h2>
+			 </div>
+			 </div>
+<!-- 				<h2 th:if="${#lists.isEmpty(urgentOrders)}" th:text="'urgent orders: none'"><span class="glyphicon glyphicon-plus-sign"></span> urgent orders</h2></div> -->
 				 
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(urgentOrders)}">
@@ -54,9 +61,22 @@
 				</div>
 			<div class="panel panel-success">
 			 <div class="panel-heading">
-				<h2 th:if="${!#lists.isEmpty(nonUrgentOrders)}" th:text="' orders: ' + ${nonUrgentOrders.size()}"></h2>
-				<h2 th:if="${#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: none'"><span class="glyphicon glyphicon-folder-open"></span></h2></div>
+			 <div th:if="${!#lists.isEmpty(nonUrgentOrders)}">
+			 	<h2><span class="glyphicon glyphicon-book"></span>  orders: <a th:text="${nonUrgentOrders.size()}"></a></h2>
+			 </div>
+<!-- 				<h2 th:if="${!#lists.isEmpty(nonUrgentOrders)}" th:text="' orders: ' + ${nonUrgentOrders.size()}"></h2> -->
+			 <div th:if="${#lists.isEmpty(nonUrgentOrders)}">
+			 	<h2><span class="glyphicon glyphicon-book"></span> orders: none</h2>
+			 </div>
+			 </div>
+<!-- 				<h2 th:if="${#lists.isEmpty(nonUrgentOrders)}" th:text="'orders: none'"><span class="glyphicon glyphicon-folder-open"></span></h2></div> -->
 				   <div class="panel-body">
+				   <div th:if="${#lists.isEmpty(nonUrgentOrders)}">
+					     <div class="alert alert-success">
+						 	 <strong>info!</strong> you have no orders
+						 </div>
+						</div>
+						<div th:if="${!#lists.isEmpty(nonUrgentOrders)}">
 					    <table class="table table-hover">
 					    	<thead>
 						    	<tr>
@@ -87,11 +107,13 @@
 								</tr>
 							</tbody>
 			    		</table>
+			    		</div>
 					</div>
+				
 				</div>
 			<h2><a href="/orders/add" class="btn btn-success" role="button"><span class="glyphicon glyphicon-pencil"></span> create a new order</a></h2> 	
-			</div>
-		
+			
+		</div>
 		<div class="col-sm-6">
 		<form action="#" th:action="@{/route/add}" method="get">
 			 <div class="panel panel-info">
@@ -164,8 +186,16 @@
 				</div>
 			 <div class="panel panel-info">
 			  <div class="panel-heading">
-				<h2 th:if="${!#lists.isEmpty(startedRoutes)}" th:text="'routes on tour: ' + ${startedRoutes.size()}"></h2>
-				<h2 th:if="${#lists.isEmpty(startedRoutes)}" th:text="'routes:  none'"></h2></div>
+			  <div th:if="${!#lists.isEmpty(startedRoutes)}"> 
+			  	<h2><span class="glyphicon glyphicon-road"></span> routes on tour: <a th:text="${startedRoutes.size()}"></a></h2>
+			  </div>
+			  
+<!-- 				<h2 th:if="${!#lists.isEmpty(startedRoutes)}" th:text="'routes on tour: ' + ${startedRoutes.size()}"></h2> -->
+			  <div th:if="${#lists.isEmpty(startedRoutes)}"> 
+			  	<h2><span class="glyphicon glyphicon-road"></span> routes: none</h2>
+			  </div>
+<!-- 				<h2 th:if="${#lists.isEmpty(startedRoutes)}" th:text="'routes:  none'"></h2></div> -->
+			  </div>
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(startedRoutes)}">
 							<div class="alert alert-info">
@@ -197,11 +227,19 @@
 			    		</table>
 			    		</div>
 					</div>
+					
 				</div>
 			 <div class="panel panel-info">
 			  <div class="panel-heading">
-				<h2 th:if="${!#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled routes: ' + ${scheduledRoutes.size()}"></h2>
-				<h2 th:if="${#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled:  none'"></h2></div>
+			  <div th:if="${!#lists.isEmpty(scheduledRoutes)}"> 
+			  	<h2><span class="glyphicon glyphicon-road"></span> scheduled routes: <a th:text="${scheduledRoutes.size()}"></a></h2>
+			  </div>
+<!-- 				<h2 th:if="${!#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled routes: ' + ${scheduledRoutes.size()}"></h2> -->
+			  <div th:if="${#lists.isEmpty(scheduledRoutes)}">
+			  	<h2><span class="glyphicon glyphicon-road"></span> scheduled: none</h2>
+			  </div>
+<!-- 				<h2 th:if="${#lists.isEmpty(scheduledRoutes)}" th:text="'scheduled:  none'"></h2></div> -->
+			  </div>
 				    <div class="panel-body">
 					     <div th:if="${#lists.isEmpty(scheduledRoutes)}">
 							<div class="alert alert-info">
@@ -233,10 +271,14 @@
 			    		</table>
 			    		</div>
 					</div>
-				</div>
-			</div>
-			</div>
+				
+			
+			
 		</div>
+	
+	</div>
+	</div>
+	</div>
 	<div lang="en" th:replace="fragments/footer ::footer"> </div>
 	</body>
 </html>
