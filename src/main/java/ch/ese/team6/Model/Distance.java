@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import ch.ese.team6.Service.CalendarService;
+
 @Entity
 public class Distance {
 
@@ -69,6 +71,13 @@ public class Distance {
 
 	public void setDurationSeconds(long durationSeconds) {
 		this.durationSeconds = durationSeconds;
+	}
+	
+	public String getDurationStr() {
+		return CalendarService.formatMinutes(durationSeconds/60);
+	}
+	public String getDistanceStr() {
+		return (this.distanceMetres/1000)+" km";
 	}
 	
 	

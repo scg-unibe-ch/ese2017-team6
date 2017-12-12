@@ -89,6 +89,8 @@ public class AddressController {
 		return "address/editForm";
 	}
 	
+	
+	
 	@PostMapping(path = "/{addressId}/edit")
 	public String editAddress(Model model, @ModelAttribute Address addressvalue, @PathVariable long addressId) {
 		Address address = addressRepository.findOne(addressId);
@@ -98,5 +100,9 @@ public class AddressController {
 		return ("address/profile");
 	}	
 	
-	
+	@GetMapping(path = "/{addressId}/distancematrix")
+	public String distanceMatrixAddress(Model model, @PathVariable long addressId) {
+		model.addAttribute("address", addressRepository.findOne(addressId));
+		return "address/distancematrix";
+	}
 }

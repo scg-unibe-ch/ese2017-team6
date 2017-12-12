@@ -175,6 +175,15 @@ public class Address {
 		return 0;
 	}
 
+	
+	public Set<Distance> getOutgoingDistances(){
+		assert this.reachableByTruck;
+		return this.outGoing;
+	}
+	public Set<Distance> getIncomingDistances(){
+		assert this.reachableByTruck;
+		return this.inComing;
+	}
     
 	public String getDistanceStr(Address nextAddress) {
 		return CalendarService.formatMinutes(this.getDistance(nextAddress));

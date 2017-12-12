@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="fragments/head :: head"> </head>
+<body>
+	<div lang="en" th:replace="fragments/header :: header"> </div>
+	<div class="container">
+	
+		<div th:if="${not #lists.isEmpty(address.getOutgoingDistances())}">
+		    
+			<h1 th:text= "'distances from ' +${address}"></h1>
+		    <table id="datatable" class="table table-hover order-column">
+		    	<thead>
+			    	<tr>
+			    		<th><b>to</b> </th>
+			    		<th><b>time</b> </th>
+			    		<th><b>km</b></th>
+			    		<th></th>
+			    	</tr>
+		    	</thead>
+		    	<tbody>
+			    	<tr th:each="dis : ${address.getOutgoingDistances()}" >
+			    		<td th:text="${dis.getDestination()}"></td>
+			    		<td th:text="${dis.getDurationStr()}"></td>
+			    		<td th:text="${dis.getDistanceMetres()/1000}"></td>
+	
+					</tr>
+				</tbody>
+		    </table>
+		</div>
+	
+		<a th:href="@{/address/{id}/edit(id = ${address.id})}" class="btn btn-primary">edit this address</a>
+		<a href ="/address/" class="btn btn-primary" role="button">go back to overview</a>
+		
+	
+    </div>
+</body>
+</html>
+

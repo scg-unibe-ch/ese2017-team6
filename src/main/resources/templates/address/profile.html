@@ -48,6 +48,8 @@
 		</div>
 		<a th:href="@{/address/{id}/edit(id = ${address.id})}" class="btn btn-primary">edit this address</a>
 		<a href ="/address/" class="btn btn-primary" role="button">go back to overview</a>
+		<a th:href="@{/address/{id}/distancematrix(id = ${address.id})}" class="btn btn-primary">show distance matrix</a>
+		
 	</form>
     </div>
 </body>
