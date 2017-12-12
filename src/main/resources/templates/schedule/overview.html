@@ -20,7 +20,7 @@ $("#datatable").DataTable();
 		    	<thead>
 			    	<tr>
 			    		<th>client name</th>
-			    		<th>delivery adress</th>
+			    		<th>delivery address</th>
 			    		<th>order status</th>
 			    		<th>ordered articles</th>
 			    		<th>delivery date</th>
@@ -39,7 +39,7 @@ $("#datatable").DataTable();
 <!-- 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}">details</a></td> -->
 			    		<td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="details"></a></td>
 			    		<td><a th:if="${order.isOpen()}" th:href="@{/schedule/{id}(id = ${order.getId()})}"
-			    		class="btn btn-success">add to route</a></td>
+			    		class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> add to route</a></td>
 					</tr>
 				</tbody>
 		    </table>

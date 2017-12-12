@@ -14,7 +14,10 @@ $("#datatable").DataTable();
 		
 		
 		<div th:if="${#lists.isEmpty(routes)}">
-		<p> no routes found </p></div>
+		  <div class="alert alert-danger">
+			 <h2><strong>info!</strong> no planned routes found</h2>
+		  </div>
+		</div>
 		
 		<div th:if="${not #lists.isEmpty(openroutes)}">
 		<div class="panel panel-success">
@@ -39,8 +42,8 @@ $("#datatable").DataTable();
 			    		<td th:text="${route.getStartDateStr()}"></td>
 			    		<td th:text="${route.getEndDateStr()}"></td>
 			    		<td th:text="${route.getRouteStatus()}"></td>
-			    		<td th:text="${route.getTruck()}"></td>
-			    		<td th:text="${route.getDriver()}"></td>
+						<td><a th:href="@{/truck/{id}(id = ${route.getTruck().getId()})}" th:text="${route.getTruck()}"></a></td>
+			    		<td><a th:href="@{/driverview/{id}(id = ${route.getDriver().getId()})}" th:text="${route.getDriver()}"></a></td>
 			    		<td th:text="${route.countDeliveries()}"></td>
 			    		<td th:text="${route.calculateCapacitySize()}"></td>
 				    	<td th:text="${route.calculateCapacityWeight()}"></td>
